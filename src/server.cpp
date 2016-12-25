@@ -20,8 +20,7 @@ void VisuServer::stop()
 
 bool VisuServer::datagramValid(const quint8* buffer, quint64 size)
 {
-    return DATAGRAM_SIZE == size &&
-      VisuDatagram::getChecksum(buffer, DATAGRAM_SIZE - 1) == (quint8)buffer[DATAGRAM_SIZE - 1];
+    return ((DATAGRAM_SIZE == size) && (VisuDatagram::getChecksum(buffer, size) == 0));
 }
 
 VisuDatagram VisuServer::createDatagramFromBuffer(const quint8* buffer)
