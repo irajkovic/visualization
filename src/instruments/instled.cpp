@@ -21,16 +21,16 @@ void InstLED::renderStatic(QPainter *painter)
 void InstLED::renderDynamic(QPainter *painter)
 {
     setPen(painter, color_static);
-    bool conditionOn = false;
     double value = mSignal->getRealValue();
+    bool conditionOn = false;
 
     switch(condition)
     {
         case BETWEEN:       conditionOn = (value > val1) && (value < val2); break;
         case LESS_THAN:     conditionOn = value < val1; break;
         case LESS_EQUAL:    conditionOn = value <= val1; break;
-        case MORE_EQUAL:    conditionOn = value > val1; break;
-        case MORE_THAN:     conditionOn = value >= val1; break;
+        case MORE_EQUAL:    conditionOn = value >= val1; break;
+        case MORE_THAN:     conditionOn = value > val1; break;
     }
 
     setBrush(painter, conditionOn ? color_on : color_off);
