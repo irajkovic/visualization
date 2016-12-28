@@ -82,9 +82,9 @@
            <name_y>100</name_y>
            <offset_x>-40</offset_x>
            <offset_y>0</offset_y>
-           <ticks_in_second>1000</ticks_in_second>
-           <timespan>30000</timespan>
-           <marker_dt>5000</marker_dt>
+           <ticks_in_second>100</ticks_in_second>
+           <timespan>3000</timespan>
+           <marker_dt>500</marker_dt>
            <decimals>1</decimals>
            <division_format>mm:ss</division_format>
            <master_time_format>hh:mm:ss</master_time_format>
