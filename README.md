@@ -1,6 +1,9 @@
-# visualization
+# Visualization
 
-## introduction
+## Introduction
+
+<img src="https://raw.githubusercontent.com/wiki/irajkovic/visualization/images/cpu_monitor.png" width="500" alt="Example of CPU monitor configuration">
+
 Application implements UDP server which reads incomming data and displays it
 via set of virtual instruments. Any signal source that can deliver UDP package 
 f given structure to Visualization server can easily be integrated and it's 
