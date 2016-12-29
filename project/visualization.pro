@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     ../src/exceptions/configloadexception.cpp \
     ../src/instruments/instxyplot.cpp \
     ../src/instruments/instled.cpp \
-    ../src/visu_helper.cpp
+    ../src/visu_helper.cpp \
+    ../src/controls/button.cpp
 
 HEADERS  += mainwindow.h \
     ../src/instrument.h \
@@ -44,6 +45,7 @@ HEADERS  += mainwindow.h \
     ../src/instruments/insttimeplot.h \
     ../src/exceptions/configloadexception.h \
     ../src/instruments/instxyplot.h \
-    ../src/instruments/instled.h
+    ../src/instruments/instled.h \
+    ../src/controls/button.h
 
 FORMS    += ../src/mainwindow.ui
