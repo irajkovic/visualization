@@ -1,6 +1,7 @@
 #include "configuration.h"
 
 #include <QVector>
+#include <QPushButton>
 #include "signal.h"
 #include "instruments/instanalog.h"
 #include "instruments/instdigital.h"
@@ -9,13 +10,14 @@
 #include "instruments/instxyplot.h"
 #include "instruments/instled.h"
 #include "visu_helper.h"
+#include "controls/button.h"
 #include <algorithm>
 #include "exceptions/configloadexception.h"
 
-#define DBG_XML qDebug("XML-%d>> %s", xml_reader.tokenType(), xml_reader.name().toString().toStdString().c_str())
-
+#define DBG_XML qDebug("XML-%d>> %s", xmlReader.tokenType(), xmlReader.name().toString().toStdString().c_str())
 
 const QString VisuConfiguration::TAG_INSTRUMENT = "instrument";
+const QString VisuConfiguration::TAG_CONTROL = "control";
 const QString VisuConfiguration::TAG_SIGNAL = "signal";
 const QString VisuConfiguration::TAG_CONFIGURATION = "configuration";
 const QString VisuConfiguration::ATTR_TYPE = "type";
@@ -25,6 +27,7 @@ const QString VisuConfiguration::ATTR_TYPE = "type";
 const QString VisuConfiguration::TAG_VISU_CONFIG = "visu_config";
 const QString VisuConfiguration::TAG_SIGNALS_PLACEHOLDER = "signals";
 const QString VisuConfiguration::TAG_INSTRUMENTS_PLACEHOLDER = "instruments";
+const QString VisuConfiguration::TAG_CONTROLS_PLACEHOLDER = "controls";
 
 VisuConfiguration::VisuConfiguration()
 {
@@ -50,34 +53,34 @@ void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument)
     attachInstrumentToSignal(instrument, signal_id);
 }
 
-QMap<QString, QString> VisuConfiguration::parseToMap(QXmlStreamReader& xml_reader, QString element)
+QMap<QString, QString> VisuConfiguration::parseToMap(QXmlStreamReader& xmlReader, QString element)
 {
     QMap<QString, QString> map;
     QString name;
     QString value;
 
-    while ( xml_reader.tokenType() != QXmlStreamReader::EndElement
-             || xml_reader.name() != element) {
+    while ( xmlReader.tokenType() != QXmlStreamReader::EndElement
+             || xmlReader.name() != element) {
 
-        if (xml_reader.tokenType() == QXmlStreamReader::Invalid) {
-            QString errorMsg = xml_reader.errorString() + " Near node: \"%1\"";
-            throw ConfigLoadException(errorMsg, xml_reader.name().toString());
+        if (xmlReader.tokenType() == QXmlStreamReader::Invalid) {
+            QString errorMsg = xmlReader.errorString() + " Near node: \"%1\"";
+            throw ConfigLoadException(errorMsg, xmlReader.name().toString());
         }
 
-        if (xml_reader.tokenType() == QXmlStreamReader::StartElement) {
-            name = xml_reader.name().toString();
+        if (xmlReader.tokenType() == QXmlStreamReader::StartElement) {
+            name = xmlReader.name().toString();
         }
 
-        if (xml_reader.tokenType() == QXmlStreamReader::Characters
-                && !xml_reader.isWhitespace()) {
-            value = xml_reader.text().toString();
+        if (xmlReader.tokenType() == QXmlStreamReader::Characters
+                && !xmlReader.isWhitespace()) {
+            value = xmlReader.text().toString();
 
             map[name] = value;
 
             //DBG_XML;
         }
 
-        xml_reader.readNext();
+        xmlReader.readNext();
 
     }
 
@@ -85,16 +88,16 @@ QMap<QString, QString> VisuConfiguration::parseToMap(QXmlStreamReader& xml_reade
 
 }
 
-void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xml_reader)
+void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
 {
-    QMap<QString, QString> properties = parseToMap(xml_reader, TAG_SIGNAL);
+    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_SIGNAL);
     VisuSignal* signal = new VisuSignal(properties);
     signalsList.push_back(signal);
 }
 
-void VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent)
+void VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
-    QMap<QString, QString> properties = parseToMap(xml_reader, TAG_INSTRUMENT);
+    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_INSTRUMENT);
     VisuInstrument* instrument;
 
     if (properties[ATTR_TYPE] == InstAnalog::TAG_NAME) {
@@ -126,6 +129,17 @@ void VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xml_reader, 
     instrumentsList.append(instrument);
 }
 
+void VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
+{
+    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_CONTROL);
+
+    if (properties[ATTR_TYPE] == Button::TAG_NAME) {
+        new Button(parent, properties);
+    }
+}
+
+
+
 void VisuConfiguration::initializeInstruments()
 {
     for (unsigned int i=0; i<signalsList.size(); i++) {
@@ -133,9 +147,9 @@ void VisuConfiguration::initializeInstruments()
     }
 }
 
-void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xml_reader)
+void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader)
 {
-    QMap<QString, QString> properties = parseToMap(xml_reader, TAG_CONFIGURATION);
+    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_CONFIGURATION);
     GET_PROPERTY(port, quint16);
     GET_PROPERTY(width, quint16);
     GET_PROPERTY(height, quint16);
@@ -146,42 +160,48 @@ void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xml_reade
 }
 
 
-void VisuConfiguration::loadFromXML(QWidget *parent, QString xml_string)
+void VisuConfiguration::loadFromXML(QWidget *parent, QString xmlString)
 {
-    QXmlStreamReader xml_reader(xml_string);
+    QXmlStreamReader xmlReader(xmlString);
 
-    while (xml_reader.tokenType() != QXmlStreamReader::EndDocument
-           && xml_reader.tokenType() != QXmlStreamReader::Invalid) {
+    while (xmlReader.tokenType() != QXmlStreamReader::EndDocument
+           && xmlReader.tokenType() != QXmlStreamReader::Invalid) {
 
-        if (xml_reader.tokenType() == QXmlStreamReader::StartElement) {
+        if (xmlReader.tokenType() == QXmlStreamReader::StartElement) {
 
             ConfigLoadException::setContext("loading configuration");
 
-            if (xml_reader.name() == TAG_SIGNAL) {
-                createSignalFromToken(xml_reader);
+            if (xmlReader.name() == TAG_SIGNAL) {
+                createSignalFromToken(xmlReader);
             }
-            else if (xml_reader.name() == TAG_INSTRUMENT) {
-                createInstrumentFromToken(xml_reader, parent);
+            else if (xmlReader.name() == TAG_INSTRUMENT) {
+                createInstrumentFromToken(xmlReader, parent);
             }
-            else if (xml_reader.name() == TAG_CONFIGURATION) {
-                createConfigurationFromToken(xml_reader);
+            else if (xmlReader.name() == TAG_CONTROL) {
+                createControlFromToken(xmlReader, parent);
             }
-            else if (xml_reader.name() == TAG_VISU_CONFIG) {
+            else if (xmlReader.name() == TAG_CONFIGURATION) {
+                createConfigurationFromToken(xmlReader);
+            }
+            else if (xmlReader.name() == TAG_VISU_CONFIG) {
                 // No actions needed.
             }
-            else if (xml_reader.name() == TAG_INSTRUMENTS_PLACEHOLDER) {
+            else if (xmlReader.name() == TAG_INSTRUMENTS_PLACEHOLDER) {
                 // No actions needed.
             }
-            else if (xml_reader.name() == TAG_SIGNALS_PLACEHOLDER) {
+            else if (xmlReader.name() == TAG_CONTROLS_PLACEHOLDER) {
+                // No actions needed.
+            }
+            else if (xmlReader.name() == TAG_SIGNALS_PLACEHOLDER) {
                 // No actions needed.
             }
             else
             {
-                throw ConfigLoadException("Unknown XML node \"%1\"", xml_reader.name().toString());
+                throw ConfigLoadException("Unknown XML node \"%1\"", xmlReader.name().toString());
             }
         }
 
-        xml_reader.readNext();
+        xmlReader.readNext();
 
     }
 
