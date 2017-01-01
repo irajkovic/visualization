@@ -23,31 +23,31 @@ SOURCES += main.cpp\
     visuconfiguration.cpp \
     instruments/instanalog.cpp \
     instruments/instdigital.cpp \
-    ../src/instruments/instlinear.cpp \
-    ../src/instruments/insttimeplot.cpp \
-    ../src/exceptions/configloadexception.cpp \
-    ../src/instruments/instxyplot.cpp \
-    ../src/instruments/instled.cpp \
-    ../src/visuhelper.cpp \
-    ../src/controls/button.cpp \
-    ../src/visuwidget.cpp
+    instruments/instlinear.cpp \
+    instruments/insttimeplot.cpp \
+    exceptions/configloadexception.cpp \
+    instruments/instxyplot.cpp \
+    instruments/instled.cpp \
+    visuhelper.cpp \
+    controls/button.cpp \
+    visuwidget.cpp
 
 HEADERS  += mainwindow.h \
-    ../src/visuinstrument.h \
-    ../src/visusignal.h \
-    ../src/visuserver.h \
-    ../src/visudatagram.h \
-    ../src/visuapplication.h \
-    ../src/visuconfiguration.h \
-    ../src/instruments/instanalog.h \
-    ../src/visuhelper.h \
-    ../src/instruments/instdigital.h \
-    ../src/instruments/instlinear.h \
-    ../src/instruments/insttimeplot.h \
-    ../src/exceptions/configloadexception.h \
-    ../src/instruments/instxyplot.h \
-    ../src/instruments/instled.h \
-    ../src/controls/button.h \
-    ../src/visuwidget.h
+    visuinstrument.h \
+    visusignal.h \
+    visuserver.h \
+    visudatagram.h \
+    visuapplication.h \
+    visuconfiguration.h \
+    instruments/instanalog.h \
+    visuhelper.h \
+    instruments/instdigital.h \
+    instruments/instlinear.h \
+    instruments/insttimeplot.h \
+    exceptions/configloadexception.h \
+    instruments/instxyplot.h \
+    instruments/instled.h \
+    controls/button.h \
+    visuwidget.h
 
 FORMS    += ../src/mainwindow.ui
