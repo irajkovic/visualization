@@ -1,4 +1,4 @@
-#include "signal.h"
+#include "visusignal.h"
 
 /**
  * @brief Signal::connectInstrument

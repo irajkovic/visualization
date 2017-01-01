@@ -1,4 +1,4 @@
-#include "server.h"
+#include "visuserver.h"
 #include <QUdpSocket>
 #include <qendian.h>
 
