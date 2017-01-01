@@ -7,28 +7,21 @@
 #include <QPushButton>
 #include <QUdpSocket>
 #include "visu_helper.h"
+#include "visuwidget.h"
 
-class Button : QObject
+class Button : public VisuWidget
 {
-    Q_OBJECT
-
     public:
         explicit Button(
                 QWidget *parent,
-                QMap<QString, QString> properties)
+                QMap<QString, QString> properties) : VisuWidget(parent, properties)
         {
 
             // custom properties initializer
-            GET_PROPERTY(id, quint16);
-            GET_PROPERTY(label, QString);
             GET_PROPERTY(action_ip, QString);
             GET_PROPERTY(action_port, quint16);
             GET_PROPERTY(action_message, QString);
             GET_PROPERTY(css, QString);
-            GET_PROPERTY(x, quint16);
-            GET_PROPERTY(y, quint16);
-            GET_PROPERTY(width, quint16);
-            GET_PROPERTY(height, quint16);
 
             mAddress = QHostAddress(action_ip);
             setupButton(parent);
@@ -37,11 +30,8 @@ class Button : QObject
 
 
 private:
-    quint16 id;
-    quint16 x;
-    quint16 y;
-    quint16 width;
-    quint16 height;
+
+    Q_OBJECT
 
     QString label;
     QString action_ip;

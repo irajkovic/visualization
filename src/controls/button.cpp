@@ -15,7 +15,7 @@ void Button::setupButton(QWidget* parent)
 {
     mButton = new QPushButton(parent);
     mButton->setGeometry(QRect(x, y, width, height));
-    mButton->setText(label);
+    mButton->setText(name);
     mButton->setStyleSheet(css);
     QObject::connect(mButton,
                      SIGNAL(pressed()),
