@@ -5,7 +5,7 @@
 #include <QByteArray>
 #include <QString>
 
-#include "configuration.h"
+#include "visuconfiguration.h"
 #include "visuserver.h"
 
 

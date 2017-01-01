@@ -6,7 +6,7 @@
 
 #include "visusignal.h"
 #include "visudatagram.h"
-#include "configuration.h"
+#include "visuconfiguration.h"
 
 class VisuServer : public QObject
 {

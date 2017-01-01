@@ -1,4 +1,4 @@
-#include "configuration.h"
+#include "visuconfiguration.h"
 
 #include <QVector>
 #include <QPushButton>

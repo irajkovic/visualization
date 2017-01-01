@@ -20,7 +20,7 @@ SOURCES += main.cpp\
     visusignal.cpp \
     visuserver.cpp \
     visuapplication.cpp \
-    configuration.cpp \
+    visuconfiguration.cpp \
     instruments/instanalog.cpp \
     instruments/instdigital.cpp \
     ../src/instruments/instlinear.cpp \
@@ -38,7 +38,7 @@ HEADERS  += mainwindow.h \
     ../src/visuserver.h \
     ../src/visudatagram.h \
     ../src/visuapplication.h \
-    ../src/configuration.h \
+    ../src/visuconfiguration.h \
     ../src/instruments/instanalog.h \
     ../src/visuhelper.h \
     ../src/instruments/instdigital.h \
