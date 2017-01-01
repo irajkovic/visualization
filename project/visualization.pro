@@ -16,7 +16,7 @@ INCLUDEPATH = ../src/
 
 SOURCES += main.cpp\
     mainwindow.cpp \
-    instrument.cpp \
+    visuinstrument.cpp \
     visusignal.cpp \
     visuserver.cpp \
     visuapplication.cpp \
@@ -33,7 +33,7 @@ SOURCES += main.cpp\
     ../src/visuwidget.cpp
 
 HEADERS  += mainwindow.h \
-    ../src/instrument.h \
+    ../src/visuinstrument.h \
     ../src/visusignal.h \
     ../src/visuserver.h \
     ../src/datagram.h \

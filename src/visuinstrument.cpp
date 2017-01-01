@@ -1,4 +1,4 @@
-#include "instrument.h"
+#include "visuinstrument.h"
 
 #include <QPainter>
 
