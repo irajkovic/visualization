@@ -12,7 +12,10 @@ TARGET = visualization
 TEMPLATE = app
 
 VPATH = ../src
-INCLUDEPATH = ../src/
+INCLUDEPATH = ../includes
+INCLUDEPATH += ../includes/controls
+INCLUDEPATH += ../includes/exceptions
+INCLUDEPATH += ../includes/instruments
 
 SOURCES += main.cpp\
     mainwindow.cpp \
@@ -32,22 +35,22 @@ SOURCES += main.cpp\
     controls/button.cpp \
     visuwidget.cpp
 
-HEADERS  += mainwindow.h \
-    visuinstrument.h \
-    visusignal.h \
-    visuserver.h \
-    visudatagram.h \
-    visuapplication.h \
-    visuconfiguration.h \
-    instruments/instanalog.h \
-    visuhelper.h \
-    instruments/instdigital.h \
-    instruments/instlinear.h \
-    instruments/insttimeplot.h \
-    exceptions/configloadexception.h \
-    instruments/instxyplot.h \
-    instruments/instled.h \
-    controls/button.h \
-    visuwidget.h
+HEADERS  += ../includes/mainwindow.h \
+    ../includes/visuinstrument.h \
+    ../includes/visusignal.h \
+    ../includes/visuserver.h \
+    ../includes/visudatagram.h \
+    ../includes/visuapplication.h \
+    ../includes/visuconfiguration.h \
+    ../includes/instruments/instanalog.h \
+    ../includes/visuhelper.h \
+    ../includes/instruments/instdigital.h \
+    ../includes/instruments/instlinear.h \
+    ../includes/instruments/insttimeplot.h \
+    ../includes/exceptions/configloadexception.h \
+    ../includes/instruments/instxyplot.h \
+    ../includes/instruments/instled.h \
+    ../includes/controls/button.h \
+    ../includes/visuwidget.h
 
 FORMS    += ../src/mainwindow.ui
