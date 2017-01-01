@@ -2,10 +2,6 @@
 
 const QString InstLED::TAG_NAME = "LED";
 
-InstLED::InstLED()
-{
-}
-
 void InstLED::renderStatic(QPainter *painter)
 {
     clear(painter);
@@ -14,7 +10,7 @@ void InstLED::renderStatic(QPainter *painter)
     {
         setPen(painter, color_static);
         setFont(painter, font_size);
-        painter->drawText(radius+5, height, mSignal->getName());
+        painter->drawText(radius+5, height-5, mSignal->getName());
     }
 }
 

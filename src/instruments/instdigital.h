@@ -5,8 +5,8 @@
 
 class InstDigital : public VisuInstrument
 {
+    Q_OBJECT
     public:
-        InstDigital();
         explicit InstDigital(
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)

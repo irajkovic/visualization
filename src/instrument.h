@@ -10,30 +10,22 @@
 
 #include "visu_helper.h"
 #include "signal.h"
+#include "visuwidget.h"
 
 
 class VisuSignal;   // forward declare Signal class
 
-class VisuInstrument : public QWidget
+class VisuInstrument : public VisuWidget
 {
     Q_OBJECT
 
 protected:
 
     // properties
-    quint16 id;                 // instrument id
     quint16 signal_id;          // associated signal id
-    QString name;               // instrument name
-    quint16 x;                  // x position
-    quint16 y;                  // y position
-    quint16 width;              // width in pixels
-    quint16 height;             // height in pixels
     QColor color_background;    // instrument background color
     QColor color_static;        // color for nonchanging parts (scales, marks, etc)
     QColor color_foreground;    // color for changing parts (pointers, indicators, etc)
-
-    // properties
-    QMap<QString, QString> mProperties;
 
     // pixmaps
     QPixmap mPixmap;        // holds instrument rendered with last received signal value
@@ -41,7 +33,6 @@ protected:
 
     bool    mFirstRun;
     const VisuSignal *mSignal; // Pointer to last signal that was updated
-
 
     void paintEvent(QPaintEvent* event);
     virtual void renderStatic(QPainter*) = 0;   // Renders static parts of instrument
@@ -56,21 +47,13 @@ public slots:
     void signalUpdated(const VisuSignal* const mSignal);
 
 public:
-    VisuInstrument();
-    explicit VisuInstrument(QWidget *parent, QMap<QString, QString> properties)
-        : QWidget(parent)
-    {
-        this->mProperties = properties;
 
+    explicit VisuInstrument(QWidget *parent, QMap<QString, QString> properties)
+        : VisuWidget(parent, properties)
+    {
         ConfigLoadException::setInstrumentLoadContext(properties);
 
-        GET_PROPERTY(id, quint16);
         GET_PROPERTY(signal_id, quint16);
-        GET_PROPERTY(name, QString);
-        GET_PROPERTY(x, quint16);
-        GET_PROPERTY(y, quint16);
-        GET_PROPERTY(width, quint16);
-        GET_PROPERTY(height, quint16);
         GET_PROPERTY(color_background, QColor);
         GET_PROPERTY(color_static, QColor);
         GET_PROPERTY(color_foreground, QColor);

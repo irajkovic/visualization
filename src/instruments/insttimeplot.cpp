@@ -2,10 +2,6 @@
 
 const QString InstTimePlot::TAG_NAME = "TIME_PLOT";
 
-InstTimePlot::InstTimePlot()
-{
-}
-
 int InstTimePlot::getFontHeight()
 {
     QFont font;

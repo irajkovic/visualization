@@ -2,12 +2,6 @@
 
 const QString InstXYPlot::TAG_NAME = "XY_PLOT";
 
-InstXYPlot::InstXYPlot()
-{
-
-
-}
-
 void InstXYPlot::renderAxis(QPainter* painter)
 {
     int dx = width / major_cnt;

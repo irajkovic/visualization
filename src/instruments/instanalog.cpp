@@ -7,11 +7,6 @@
 
 const QString InstAnalog::TAG_NAME = "ANALOG";
 
-InstAnalog::InstAnalog()
-{
-    setupProperties();
-}
-
 void InstAnalog::renderStatic(QPainter* painter)
 {
     clear(painter);

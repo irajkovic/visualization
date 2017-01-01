@@ -5,9 +5,9 @@
 
 class InstXYPlot : public VisuInstrument
 {
-public:
-    InstXYPlot();
+    Q_OBJECT
 
+public:
     explicit InstXYPlot(
             QWidget *parent,
             QMap<QString, QString> properties) : VisuInstrument(parent, properties)

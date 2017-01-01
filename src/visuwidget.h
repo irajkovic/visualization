@@ -13,8 +13,9 @@ class VisuWidget : public QWidget
 public:
     explicit VisuWidget(
             QWidget *parent,
-            QMap<QString, QString> properties)
+            QMap<QString, QString> properties) : QWidget(parent)
     {
+        this->mProperties = properties;
 
         // custom properties initializer
         GET_PROPERTY(id, quint16);
@@ -26,6 +27,9 @@ public:
     }
 
 protected:
+
+    // properties map
+    QMap<QString, QString> mProperties;
 
     quint16 id;
     QString name;

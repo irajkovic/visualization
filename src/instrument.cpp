@@ -2,11 +2,6 @@
 
 #include <QPainter>
 
-VisuInstrument::VisuInstrument()
-{
-    qDebug("Constructing instrument: %s", name.toStdString().c_str());
-}
-
 /**
  * @brief Instrument::signalUpdated
  * Method used by signal to notify instrument of change.

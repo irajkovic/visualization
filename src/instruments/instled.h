@@ -5,8 +5,8 @@
 
 class InstLED : public VisuInstrument
 {
+    Q_OBJECT
 public:
-    InstLED();
 
     enum CONDITION
     {

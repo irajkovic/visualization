@@ -5,8 +5,8 @@
 
 class InstAnalog : public VisuInstrument
 {
+    Q_OBJECT
     public:
-        InstAnalog();
         explicit InstAnalog(
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)

@@ -6,8 +6,8 @@
 
 class InstTimePlot : public VisuInstrument
 {
+    Q_OBJECT
     public:
-        InstTimePlot();
         explicit InstTimePlot(
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)

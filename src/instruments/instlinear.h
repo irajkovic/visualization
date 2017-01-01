@@ -6,8 +6,8 @@
 
 class InstLinear : public VisuInstrument
 {
+    Q_OBJECT
     public:
-        InstLinear();
         InstLinear(
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)

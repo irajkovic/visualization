@@ -33,7 +33,6 @@ private:
 
     Q_OBJECT
 
-    QString label;
     QString action_ip;
     quint16 action_port;
     QString action_message;

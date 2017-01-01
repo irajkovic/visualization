@@ -1,8 +1,5 @@
 #include "instlinear.h"
 
-InstLinear::InstLinear()
-{
-}
 const QString InstLinear::TAG_NAME = "LINEAR";
 
 void InstLinear::renderLabel(QPainter* painter, int sigCur, quint16 xOfs)
