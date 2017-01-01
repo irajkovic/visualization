@@ -1,7 +1,7 @@
 #ifndef INSTANALOG_H
 #define INSTANALOG_H
 
-#include "instrument.h"
+#include "visuinstrument.h"
 
 class InstAnalog : public VisuInstrument
 {

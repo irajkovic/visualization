@@ -36,7 +36,7 @@ HEADERS  += mainwindow.h \
     ../src/visuinstrument.h \
     ../src/visusignal.h \
     ../src/visuserver.h \
-    ../src/datagram.h \
+    ../src/visudatagram.h \
     ../src/visuapplication.h \
     ../src/configuration.h \
     ../src/instruments/instanalog.h \

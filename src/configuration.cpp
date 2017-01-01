@@ -2,7 +2,7 @@
 
 #include <QVector>
 #include <QPushButton>
-#include "signal.h"
+#include "visusignal.h"
 #include "instruments/instanalog.h"
 #include "instruments/instdigital.h"
 #include "instruments/instlinear.h"

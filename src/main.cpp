@@ -2,7 +2,7 @@
 #include <QApplication>
 #include <QMessageBox>
 
-#include "server.h"
+#include "visuserver.h"
 #include "visuapplication.h"
 #include "exceptions/configloadexception.h"
 

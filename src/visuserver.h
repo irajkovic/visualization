@@ -4,8 +4,8 @@
 #include <QObject>
 #include <QUdpSocket>
 
-#include "signal.h"
-#include "datagram.h"
+#include "visusignal.h"
+#include "visudatagram.h"
 #include "configuration.h"
 
 class VisuServer : public QObject

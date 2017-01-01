@@ -1,7 +1,7 @@
 #ifndef INSTLINEAR_H
 #define INSTLINEAR_H
 
-#include "instrument.h"
+#include "visuinstrument.h"
 #include <QPainter>
 
 class InstLinear : public VisuInstrument

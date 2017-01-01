@@ -1,7 +1,7 @@
 #ifndef INSTXYPLOT_H
 #define INSTXYPLOT_H
 
-#include "instrument.h"
+#include "visuinstrument.h"
 
 class InstXYPlot : public VisuInstrument
 {

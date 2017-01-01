@@ -1,7 +1,7 @@
 #ifndef INSTDIGITAL_H
 #define INSTDIGITAL_H
 
-#include "instrument.h"
+#include "visuinstrument.h"
 
 class InstDigital : public VisuInstrument
 {

@@ -1,7 +1,7 @@
 #ifndef INSTLED_H
 #define INSTLED_H
 
-#include "instrument.h"
+#include "visuinstrument.h"
 
 class InstLED : public VisuInstrument
 {

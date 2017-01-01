@@ -2,7 +2,7 @@
 #define CONFIGURATION_H
 
 #include "signal.h"
-#include "instrument.h"
+#include "visuinstrument.h"
 #include <QWidget>
 #include <QXmlStreamReader>
 #include <vector>

@@ -6,7 +6,7 @@
 #include <QString>
 
 #include "configuration.h"
-#include "server.h"
+#include "visuserver.h"
 
 
 class VisuApplication : public QWidget

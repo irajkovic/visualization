@@ -5,8 +5,8 @@
 #include <QVector>
 #include <QString>
 
-#include "instrument.h"
-#include "datagram.h"
+#include "visuinstrument.h"
+#include "visudatagram.h"
 #include "visuhelper.h"
 
 class VisuInstrument;   // forward declare Instrument class

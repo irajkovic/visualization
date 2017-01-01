@@ -1,7 +1,7 @@
 #ifndef INSTTIMEPLOT_H
 #define INSTTIMEPLOT_H
 
-#include "instrument.h"
+#include "visuinstrument.h"
 #include <QTime>
 
 class InstTimePlot : public VisuInstrument
