@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QMap>
-#include "visu_helper.h"
+#include "visuhelper.h"
 
 class VisuWidget : public QWidget
 {

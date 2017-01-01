@@ -9,7 +9,7 @@
 #include "instruments/insttimeplot.h"
 #include "instruments/instxyplot.h"
 #include "instruments/instled.h"
-#include "visu_helper.h"
+#include "visuhelper.h"
 #include "controls/button.h"
 #include <algorithm>
 #include "exceptions/configloadexception.h"

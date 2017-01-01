@@ -28,7 +28,7 @@ SOURCES += main.cpp\
     ../src/exceptions/configloadexception.cpp \
     ../src/instruments/instxyplot.cpp \
     ../src/instruments/instled.cpp \
-    ../src/visu_helper.cpp \
+    ../src/visuhelper.cpp \
     ../src/controls/button.cpp \
     ../src/visuwidget.cpp
 
@@ -40,7 +40,7 @@ HEADERS  += mainwindow.h \
     ../src/visuapplication.h \
     ../src/configuration.h \
     ../src/instruments/instanalog.h \
-    ../src/visu_helper.h \
+    ../src/visuhelper.h \
     ../src/instruments/instdigital.h \
     ../src/instruments/instlinear.h \
     ../src/instruments/insttimeplot.h \

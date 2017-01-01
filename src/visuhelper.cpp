@@ -1,4 +1,4 @@
-#include "visu_helper.h"
+#include "visuhelper.h"
 
 #include "exceptions/configloadexception.h"
 

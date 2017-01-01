@@ -8,7 +8,7 @@
 #include <QMap>
 #include <QPainter>
 
-#include "visu_helper.h"
+#include "visuhelper.h"
 #include "signal.h"
 #include "visuwidget.h"
 

@@ -6,7 +6,7 @@
 #include <QMap>
 #include <QPushButton>
 #include <QUdpSocket>
-#include "visu_helper.h"
+#include "visuhelper.h"
 #include "visuwidget.h"
 
 class Button : public VisuWidget
