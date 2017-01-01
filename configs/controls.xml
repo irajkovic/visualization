@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<visu_config>
+   <configuration>
+       <port>3334</port>
+       <width>300</width>
+       <height>100</height>
+       <color_background>30,30,30,255</color_background>
+       <name>CPU monitor</name>
+   </configuration>
+   <signals>
+       <signal>
+           <id>1</id>
+           <name>Light 1</name>
+           <unit>status</unit>
+           <factor>1.0</factor>
+           <offset>0.0</offset>
+           <min>0</min>
+           <max>1</max>
+       </signal>
+   </signals>
+     <instruments>
+        <instrument>
+            <id>1</id>  
+            <type>LED</type>
+            <signal_id>1</signal_id>
+            <name>Led 1</name>
+            <width>30</width>
+            <height>30</height>
+            <x>10</x>
+            <y>15</y>
+            <color_background>30,30,30,255</color_background>
+            <color_foreground>255,100,100,250</color_foreground>
+            <color_static>200,0,0,255</color_static>
+            <color_on>200,255,30,255</color_on>
+            <color_off>100,100,100,250</color_off>
+            <radius>20</radius>
+            <val1>-10.0</val1>
+            <val2>6.0</val2>
+            <condition>0</condition>
+            <show_signal_lbl>0</show_signal_lbl>
+            <font_size>20</font_size>
+        </instrument>
+        <instrument>
+            <id>2</id>  
+            <type>LED</type>
+            <signal_id>1</signal_id>
+            <name>Led 2</name>
+            <width>30</width>
+            <height>30</height>
+            <x>10</x>
+            <y>55</y>
+            <color_background>30,30,30,255</color_background>
+            <color_foreground>255,100,100,250</color_foreground>
+            <color_static>200,0,0,255</color_static>
+            <color_on>200,255,30,255</color_on>
+            <color_off>100,100,100,250</color_off>
+            <radius>20</radius>
+            <val1>-10.0</val1>
+            <val2>6.0</val2>
+            <condition>0</condition>
+            <show_signal_lbl>0</show_signal_lbl>
+            <font_size>20</font_size>
+        </instrument>
+   </instruments>
+   <controls>
+        <control>
+            <id>1</id>
+            <type>BUTTON</type>
+            <width>100</width>
+            <height>30</height>
+            <x>40</x>
+            <y>10</y>
+            <label>Light 1</label>
+            <action_ip>127.0.0.1</action_ip>
+            <action_port>5000</action_port>
+            <action_message>switch</action_message>
+            <css>color: white;  border: 1px solid red; border-radius: 5px; border-style: outset;</css>
+        </control>
+        <control>
+            <id>2</id>
+            <type>BUTTON</type>
+            <width>100</width>
+            <height>30</height>
+            <x>40</x>
+            <y>50</y>
+            <label>Light 2</label>
+            <action_ip>127.0.0.1</action_ip>
+            <action_port>5000</action_port>
+            <action_message>switch</action_message>
+            <css>color: white;  border: 1px solid red; border-radius: 5px; border-style: outset;</css>
+        </control>
+   </controls>
+</visu_config>
+

@@ -23,7 +23,7 @@ class Button : QObject
             GET_PROPERTY(label, QString);
             GET_PROPERTY(action_ip, QString);
             GET_PROPERTY(action_port, quint16);
-            GET_PROPERTY(message, QString);
+            GET_PROPERTY(action_message, QString);
             GET_PROPERTY(css, QString);
             GET_PROPERTY(x, quint16);
             GET_PROPERTY(y, quint16);
@@ -31,33 +31,29 @@ class Button : QObject
             GET_PROPERTY(height, quint16);
 
             mAddress = QHostAddress(action_ip);
-            mButton = new QPushButton(parent);
-            mButton->setGeometry(QRect(x, y, width, height));
-            mButton->setText(label);
-            mButton->setStyleSheet(css);
-            QObject::connect(mButton,
-                             SIGNAL(pressed()),
-                             this,
-                             SLOT(sendCommand()));
+            setupButton(parent);
         }
         static const QString TAG_NAME;
 
 
 private:
     quint16 id;
-    QString label;
-    QString action_ip;
-    quint16 action_port;
-    QString message;
-    QString css;
     quint16 x;
     quint16 y;
     quint16 width;
     quint16 height;
 
+    QString label;
+    QString action_ip;
+    quint16 action_port;
+    QString action_message;
+    QString css;
+
     QPushButton* mButton;
     QHostAddress mAddress;
     QUdpSocket mSocket;
+
+    void setupButton(QWidget* parent);
 
 private slots:
     void sendCommand();
