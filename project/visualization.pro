@@ -18,7 +18,7 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     instrument.cpp \
     signal.cpp \
-    server.cpp \
+    visuserver.cpp \
     visuapplication.cpp \
     configuration.cpp \
     instruments/instanalog.cpp \
@@ -35,7 +35,7 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     ../src/instrument.h \
     ../src/signal.h \
-    ../src/server.h \
+    ../src/visuserver.h \
     ../src/datagram.h \
     ../src/visuapplication.h \
     ../src/configuration.h \
