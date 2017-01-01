@@ -6,7 +6,7 @@
 #include <QMap>
 #include "visu_helper.h"
 
-class VisuWidget : public QObject
+class VisuWidget : public QWidget
 {
     Q_OBJECT
 
