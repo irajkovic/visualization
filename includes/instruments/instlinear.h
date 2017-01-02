@@ -29,6 +29,7 @@ class InstLinear : public VisuInstrument
         virtual void renderDynamic(QPainter *painter);  // Renders to pixmap
 
     private:
+        // configuration properties
         quint8 cLineThickness;  // Thickness of geometric primitives drawn
         quint8 cMajorLen;       // Length, in pixels, of major division marks
         quint8 cMinorLen;       // Length, in pixels, of minor division marks

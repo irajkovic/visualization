@@ -33,7 +33,7 @@ public:
     static const QString TAG_NAME;
 
 private:
-
+    // configuration properties
     quint8 cRadius;
     double cVal1;
     double cVal2;
@@ -43,9 +43,9 @@ private:
     quint8 cShowSignalName;
     quint8 cFontSize;
 
-    // last values for X and Y signals
-    double lastValX;
-    double lastValY;
+    // aux properties
+    double mLastValX;
+    double mLastValY;
     double mCenterX;
     double mCenterY;
 

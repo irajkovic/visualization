@@ -19,15 +19,15 @@ class InstDigital : public VisuInstrument
         static const QString TAG_NAME;
 
     private:
-        // custom properties
+        // configuration properties
         quint8 cFontSize;
         quint8 cShowSignalName;
         quint8 cShowSignalUnit;
         quint8 cPadding;
 
-        // internal members
-        QFont font;
-        QString format;
+        // aux members
+        QFont mFont;
+        QString mFormat;
 
     protected:
         virtual void renderStatic(QPainter *painter);   // Renders to pixmap_static

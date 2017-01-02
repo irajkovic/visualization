@@ -47,7 +47,7 @@ quint16 VisuSignal::getId() const
  */
 quint64 VisuSignal::getRawValue() const
 {
-    return raw_value;
+    return mRawValue;
 }
 
 /**
@@ -77,12 +77,12 @@ double VisuSignal::getOffset() const
  */
 double VisuSignal::getRealValue() const
 {
-    return raw_value * cFactor + cOffset;
+    return mRawValue * cFactor + cOffset;
 }
 
 double VisuSignal::getNormalizedValue() const
 {
-    double value = (double)raw_value / (cMax - cMin);
+    double value = (double)mRawValue / (cMax - cMin);
     return value >= 0.0 && value <= 1.0 ? value : 0.0;
 }
 
@@ -93,8 +93,8 @@ double VisuSignal::getNormalizedValue() const
 void VisuSignal::datagramUpdate(const VisuDatagram& datagram)
 {
 
-    raw_value = datagram.rawValue;
-    timestamp = datagram.timestamp;
+    mRawValue = datagram.rawValue;
+    mTimestamp = datagram.timestamp;
 
     notifyInstruments();
 }
@@ -106,8 +106,8 @@ void VisuSignal::datagramUpdate(const VisuDatagram& datagram)
  */
 void VisuSignal::initialUpdate()
 {
-    raw_value = 0;
-    timestamp = 0;
+    mRawValue = 0;
+    mTimestamp = 0;
 
     notifyInstruments();
 }
@@ -134,5 +134,5 @@ QString VisuSignal::getUnit() const
 
 quint64 VisuSignal::getTimestamp() const
 {
-    return timestamp;
+    return mTimestamp;
 }

@@ -21,7 +21,7 @@ class VisuInstrument : public VisuWidget
 
 protected:
 
-    // properties
+    // configuration properties
     quint16 cSignalId;          // associated signal id
     QColor cColorBackground;    // instrument background color
     QColor cColorStatic;        // color for nonchanging parts (scales, marks, etc)

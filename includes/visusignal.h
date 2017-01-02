@@ -16,7 +16,7 @@ class VisuSignal : QObject
 
 private:
 
-    // properties
+    // configuration properties
     quint16 cId;                             // Signal ID
     QString cName;                           // Signal name
     QString cUnit;                           // Signal unit
@@ -25,8 +25,8 @@ private:
     double  cMax;                            // Maximum signal value
     double  cMin;                            // Minimum signal value
 
-    quint64 timestamp;                      // Last update timestamp
-    quint64 raw_value;                      // Last value
+    quint64 mTimestamp;                      // Last update timestamp
+    quint64 mRawValue;                      // Last value
 
     // methods
     void notifyInstruments();
@@ -51,7 +51,7 @@ public:
     void datagramUpdate(const VisuDatagram& datagram);
     void set_raw_ralue(quint64 value);
     quint64 getRawValue() const;
-    void set_timestamp(quint64 timestamp);
+    void set_timestamp(quint64 mTimestamp);
     quint64 getTimestamp() const;
     quint16 getId() const;
     double getFactor() const;

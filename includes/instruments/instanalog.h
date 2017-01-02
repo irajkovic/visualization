@@ -35,7 +35,7 @@ class InstAnalog : public VisuInstrument
 
         static const double PI = 3.141592653589793238463;
 
-        // custom properties
+        // configuration properties
         quint8 cLineThickness;  // Thickness of geometric primitives drawn
         quint8 cMajorLen;       // Length, in pixels, of major division marks
         quint8 cMinorLen;       // Length, in pixels, of minor division marks

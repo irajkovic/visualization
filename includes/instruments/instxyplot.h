@@ -23,6 +23,7 @@ public:
     quint16 getSignalYId();
 
 private:
+    // configuration properties
     quint16 cSignalYId;
     quint16 cBallSize;
     quint16 cMajorCnt;
@@ -30,9 +31,9 @@ private:
     QString cLabelX;
     QString cLabelY;
 
-    // last values for X and Y signals
-    double lastValX;
-    double lastValY;
+    // aux properties
+    double mLastValX;
+    double mLastValY;
     double mCenterX;
     double mCenterY;
 

@@ -32,7 +32,7 @@ class InstTimePlot : public VisuInstrument
 
     private:
 
-        // custom properties
+        // configuration properties
         quint8 cLineThickness;
         quint8 cMajorLen;
         quint8 cMinorLen;

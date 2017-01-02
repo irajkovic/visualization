@@ -21,7 +21,7 @@ void InstXYPlot::renderBall(QPainter* painter)
 {
     setPen(painter, cColorStatic);
     setBrush(painter, cColorForeground);
-    QRect rect(lastValX * (cWidth-cBallSize), lastValY * (cHeight-cBallSize), cBallSize, cBallSize);
+    QRect rect(mLastValX * (cWidth-cBallSize), mLastValY * (cHeight-cBallSize), cBallSize, cBallSize);
     painter->drawEllipse(rect);
 }
 
@@ -45,11 +45,11 @@ void InstXYPlot::renderDynamic(QPainter *painter)
 {
     if (mSignal->getId() == cSignalId)
     {
-        lastValX = mSignal->getNormalizedValue();   // primary signal shown on X axis
+        mLastValX = mSignal->getNormalizedValue();   // primary signal shown on X axis
     }
     else
     {
-        lastValY = mSignal->getNormalizedValue();   // additional signal shown on Y axis
+        mLastValY = mSignal->getNormalizedValue();   // additional signal shown on Y axis
     }
 
     renderBall(painter);

@@ -34,16 +34,16 @@ void InstTimePlot::setPen(QPainter* painter, QColor color)
 
 void InstTimePlot::setLabelMaxWidth(QPainter* painter)
 {
-    QFontMetrics font_metrics = painter->fontMetrics();
-    int sig_cur = mSignal->getMin();
-    int label_width;
+    QFontMetrics fontMetrics = painter->fontMetrics();
+    int sigTmpVal = mSignal->getMin();
+    int labelWidth;
     QString label;
     mMaxLabelWidth = 0;
     for (int i=0; i<=cMajorCnt; ++i) {
-        label = getLabel(sig_cur);
-        sig_cur += mSigStep;
-        label_width = font_metrics.width(label);
-        mMaxLabelWidth = mMaxLabelWidth < label_width ? label_width : mMaxLabelWidth;
+        label = getLabel(sigTmpVal);
+        sigTmpVal += mSigStep;
+        labelWidth = fontMetrics.width(label);
+        mMaxLabelWidth = mMaxLabelWidth < labelWidth ? labelWidth : mMaxLabelWidth;
     }
 }
 
