@@ -13,6 +13,8 @@ class InstTimePlot : public VisuInstrument
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)
         {
             GET_PROPERTY(cLineThickness, quint8, properties);
+            GET_PROPERTY(cStaticThickness, quint8, properties);
+            GET_PROPERTY(cMarkerThickness, quint8, properties);
             GET_PROPERTY(cMajorLen, quint8, properties);
             GET_PROPERTY(cMinorLen, quint8, properties);
             GET_PROPERTY(cMajorCnt, quint8, properties);
@@ -34,6 +36,8 @@ class InstTimePlot : public VisuInstrument
 
         // configuration properties
         quint8 cLineThickness;
+        quint8 cStaticThickness;
+        quint8 cMarkerThickness;
         quint8 cMajorLen;
         quint8 cMinorLen;
         quint8 cMajorCnt;
@@ -44,7 +48,7 @@ class InstTimePlot : public VisuInstrument
         QString cMasterTimeFormat;
         quint64 cTicksInSecond;
         quint64 cTimespan;           // total time
-        quint64 cMarkerDt;          // time between markers
+        quint64 cMarkerDt;           // time between markers
 
         // other properties
         quint16 mPlotStartX;
@@ -81,6 +85,7 @@ class InstTimePlot : public VisuInstrument
         void renderGraphSegment(QPainter* painter);
         void resetPlotToStart();
         bool noSpaceLeftOnRight();
+        QPen getDashedPen();
 
     protected:
         virtual void init();

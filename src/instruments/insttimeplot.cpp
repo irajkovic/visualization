@@ -31,7 +31,8 @@ void InstTimePlot::setLabelMaxWidth(QPainter* painter)
     int labelWidth;
     QString label;
     mMaxLabelWidth = 0;
-    for (int i=0; i<=cMajorCnt; ++i) {
+    int cnt = cMajorCnt * cMinorCnt;
+    for (int i=0; i<=cnt; ++i) {
         label = getLabel(sigTmpVal);
         sigTmpVal += mSigStep;
         labelWidth = fontMetrics.width(label);
@@ -53,17 +54,35 @@ void InstTimePlot::renderLabel(QPainter* painter, double sigCur, qint32 yPos)
     painter->drawText(mMaxLabelWidth - labelWidth, yPos + labelHeight / 2, label);
 }
 
+QPen InstTimePlot::getDashedPen()
+{
+    QPen dashed;
+    QVector<qreal> pattern;
+    pattern << 10 << 4;
+    dashed.setDashPattern(pattern);
+    dashed.setColor(cColorStatic);
+    return dashed;
+}
+
 quint16 InstTimePlot::renderLabelsAndMajors(QPainter* painter)
 {
     double sigCur = mSignal->getMin();
+    int cnt = cMajorCnt * cMinorCnt;
     qint32 yPos = mPlotStartY;
-    quint16 yStep = (cHeight - 2 * mMargin) / cMajorCnt;
+    quint16 yStep = (cHeight - 2 * mMargin) / cnt;
 
-    setPen(painter, cColorStatic, 1);
+    QPen dashed = getDashedPen();
 
-    for (int i=0; i<=cMajorCnt; ++i)
+    for (int i=0; i<=cnt; ++i)
     {
-        renderLabel(painter, sigCur, yPos);
+        painter->setPen(dashed);
+
+        if (i % cMinorCnt == 0)
+        {
+            renderLabel(painter, sigCur, yPos);
+            setPen(painter, cColorStatic, cStaticThickness);
+        }
+
         painter->drawLine(mMaxLabelWidth + mMargin / 2, yPos, cWidth - mMargin, yPos);
         yPos -= yStep;
         sigCur += mSigStep;
@@ -76,12 +95,12 @@ void InstTimePlot::renderStatic(QPainter* painter)
 {
     painter->fillRect(0, 0, cWidth, cHeight, cColorBackground);
 
-    setPen(painter, cColorStatic);
+    setPen(painter, cColorStatic, cStaticThickness);
     setFont(painter, cFontSize);
 
     // make sure we make enough space so bottom line does not hit the timestamp display
     mMargin = mTimestampRect.height() + 2;
-    mSigStep = (mSignal->getMax() - mSignal->getMin()) / (cMajorCnt);
+    mSigStep = (mSignal->getMax() - mSignal->getMin()) / (cMajorCnt * cMinorCnt);
 
     setLabelMaxWidth(painter);
 
@@ -122,7 +141,7 @@ void InstTimePlot::renderMarker(QPainter* painter, quint64 timestamp)
 
     if (markerX > mPlotStartX && markerX < mPlotEndX)
     {
-        setPen(mGraphPainter, cColorStatic);
+        setPen(mGraphPainter, cColorStatic, cMarkerThickness);
         painter->drawLine(markerX, mPlotStartY, markerX, mPlotEndY);
 
         setFont(mGraphPainter, cFontSize);
@@ -150,7 +169,7 @@ void InstTimePlot::renderTimeLabel(QPainter* painter)
 
 void InstTimePlot::renderGraphSegment(QPainter* painter)
 {
-    setPen(mGraphPainter, cColorForeground);
+    setPen(mGraphPainter, cColorForeground, cLineThickness);
     mGraphPainter->drawLine(mLastUpdateX, mLastUpdateY, mNewUpdateX, mNewUpdateY);
     painter->drawPixmap(0, 0, mGraphPixmap);
 }

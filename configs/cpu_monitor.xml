@@ -69,9 +69,11 @@
            <colorForeground>255,100,100,250</colorForeground>
            <colorStatic>200,0,0,255</colorStatic>
            <lineThickness>2</lineThickness>
+           <staticThickness>1</staticThickness>
+           <markerThickness>1</markerThickness>
            <majorLen>10</majorLen>
            <minorLen>4</minorLen>
-           <majorCnt>10</majorCnt>
+           <majorCnt>5</majorCnt>
            <minorCnt>2</minorCnt>
            <fontSize>10</fontSize>
            <arrowWidth>3</arrowWidth>
