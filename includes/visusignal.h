@@ -38,13 +38,13 @@ public:
     VisuSignal();
     VisuSignal(QMap<QString, QString> properties)
     {
-        GET_PROPERTY(id, quint16);
-        GET_PROPERTY(name, QString);
-        GET_PROPERTY(unit, QString);
-        GET_PROPERTY(factor, double);
-        GET_PROPERTY(offset, double);
-        GET_PROPERTY(max, double);
-        GET_PROPERTY(min, double);
+        GET_PROPERTY(id, quint16, properties);
+        GET_PROPERTY(name, QString, properties);
+        GET_PROPERTY(unit, QString, properties);
+        GET_PROPERTY(factor, double, properties);
+        GET_PROPERTY(offset, double, properties);
+        GET_PROPERTY(max, double, properties);
+        GET_PROPERTY(min, double, properties);
     }
 
     void initialUpdate();

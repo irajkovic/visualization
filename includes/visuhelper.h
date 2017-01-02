@@ -3,7 +3,7 @@
 #include "exceptions/configloadexception.h"
 #include <QColor>
 
-#define GET_PROPERTY(KEY, TYPE)  KEY = VisuHelper::get<TYPE>(#KEY, properties)
+#define GET_PROPERTY(KEY, TYPE, MAP)  KEY = VisuHelper::get<TYPE>(#KEY, MAP)
 
 namespace VisuHelper
 {

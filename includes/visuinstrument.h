@@ -53,10 +53,10 @@ public:
     {
         ConfigLoadException::setInstrumentLoadContext(properties);
 
-        GET_PROPERTY(signal_id, quint16);
-        GET_PROPERTY(color_background, QColor);
-        GET_PROPERTY(color_static, QColor);
-        GET_PROPERTY(color_foreground, QColor);
+        GET_PROPERTY(signal_id, quint16, properties);
+        GET_PROPERTY(color_background, QColor, properties);
+        GET_PROPERTY(color_static, QColor, properties);
+        GET_PROPERTY(color_foreground, QColor, properties);
 
         this->mFirstRun = true;
         this->mPixmap = QPixmap(width, height);

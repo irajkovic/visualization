@@ -12,15 +12,15 @@ class InstLinear : public VisuInstrument
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)
         {
-            GET_PROPERTY(line_thickness, quint8);
-            GET_PROPERTY(major_len, quint8);
-            GET_PROPERTY(minor_len, quint8);
-            GET_PROPERTY(major_cnt, quint8);
-            GET_PROPERTY(minor_cnt, quint8);
-            GET_PROPERTY(font_size, quint8);
-            GET_PROPERTY(hor_margin, quint16);
-            GET_PROPERTY(ver_margin, quint16);
-            GET_PROPERTY(ver_minor_margin, quint16);
+            GET_PROPERTY(line_thickness, quint8, properties);
+            GET_PROPERTY(major_len, quint8, properties);
+            GET_PROPERTY(minor_len, quint8, properties);
+            GET_PROPERTY(major_cnt, quint8, properties);
+            GET_PROPERTY(minor_cnt, quint8, properties);
+            GET_PROPERTY(font_size, quint8, properties);
+            GET_PROPERTY(hor_margin, quint16, properties);
+            GET_PROPERTY(ver_margin, quint16, properties);
+            GET_PROPERTY(ver_minor_margin, quint16, properties);
         }
         static const QString TAG_NAME;
 

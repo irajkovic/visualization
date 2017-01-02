@@ -21,14 +21,14 @@ public:
             QWidget *parent,
             QMap<QString, QString> properties) : VisuInstrument(parent, properties)
     {
-        GET_PROPERTY(radius, quint8);
-        GET_PROPERTY(val1, double);
-        GET_PROPERTY(val2, double);
-        GET_PROPERTY(condition, quint8);
-        GET_PROPERTY(color_on, QColor);
-        GET_PROPERTY(color_off, QColor);
-        GET_PROPERTY(show_signal_lbl, quint8);
-        GET_PROPERTY(font_size, quint8);
+        GET_PROPERTY(radius, quint8, properties);
+        GET_PROPERTY(val1, double, properties);
+        GET_PROPERTY(val2, double, properties);
+        GET_PROPERTY(condition, quint8, properties);
+        GET_PROPERTY(color_on, QColor, properties);
+        GET_PROPERTY(color_off, QColor, properties);
+        GET_PROPERTY(show_signal_lbl, quint8, properties);
+        GET_PROPERTY(font_size, quint8, properties);
     }
     static const QString TAG_NAME;
 

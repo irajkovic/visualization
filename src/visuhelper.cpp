@@ -1,8 +1,5 @@
 #include "visuhelper.h"
-
 #include "exceptions/configloadexception.h"
-
-#define GET_PROPERTY(KEY, TYPE)  KEY = VisuHelper::get<TYPE>(#KEY, properties)
 
 namespace VisuHelper
 {

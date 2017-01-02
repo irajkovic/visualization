@@ -12,12 +12,12 @@ public:
             QWidget *parent,
             QMap<QString, QString> properties) : VisuInstrument(parent, properties)
     {
-        GET_PROPERTY(signal_y_id, quint16);
-        GET_PROPERTY(ball_size, quint16);
-        GET_PROPERTY(major_cnt, quint16);
-        GET_PROPERTY(major_len, quint16);
-        GET_PROPERTY(label_x, QString);
-        GET_PROPERTY(label_y, QString);
+        GET_PROPERTY(signal_y_id, quint16, properties);
+        GET_PROPERTY(ball_size, quint16, properties);
+        GET_PROPERTY(major_cnt, quint16, properties);
+        GET_PROPERTY(major_len, quint16, properties);
+        GET_PROPERTY(label_x, QString, properties);
+        GET_PROPERTY(label_y, QString, properties);
     }
     static const QString TAG_NAME;
     quint16 getSignalYId();

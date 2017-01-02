@@ -12,18 +12,18 @@ class InstTimePlot : public VisuInstrument
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)
         {
-            GET_PROPERTY(line_thickness, quint8);
-            GET_PROPERTY(major_len, quint8);
-            GET_PROPERTY(minor_len, quint8);
-            GET_PROPERTY(major_cnt, quint8);
-            GET_PROPERTY(minor_cnt, quint8);
-            GET_PROPERTY(font_size, quint8);
-            GET_PROPERTY(ticks_in_second, quint64);
-            GET_PROPERTY(timespan, quint64);
-            GET_PROPERTY(marker_dt, quint64);
-            GET_PROPERTY(decimals, quint64);
-            GET_PROPERTY(division_format, QString);
-            GET_PROPERTY(master_time_format, QString);
+            GET_PROPERTY(line_thickness, quint8, properties);
+            GET_PROPERTY(major_len, quint8, properties);
+            GET_PROPERTY(minor_len, quint8, properties);
+            GET_PROPERTY(major_cnt, quint8, properties);
+            GET_PROPERTY(minor_cnt, quint8, properties);
+            GET_PROPERTY(font_size, quint8, properties);
+            GET_PROPERTY(ticks_in_second, quint64, properties);
+            GET_PROPERTY(timespan, quint64, properties);
+            GET_PROPERTY(marker_dt, quint64, properties);
+            GET_PROPERTY(decimals, quint64, properties);
+            GET_PROPERTY(division_format, QString, properties);
+            GET_PROPERTY(master_time_format, QString, properties);
 
             // call default constructor after properties are set in case they are needed
             init();

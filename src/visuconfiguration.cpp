@@ -150,11 +150,11 @@ void VisuConfiguration::initializeInstruments()
 void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader)
 {
     QMap<QString, QString> properties = parseToMap(xmlReader, TAG_CONFIGURATION);
-    GET_PROPERTY(port, quint16);
-    GET_PROPERTY(width, quint16);
-    GET_PROPERTY(height, quint16);
-    GET_PROPERTY(color_background, QColor);
-    GET_PROPERTY(name, QString);
+    GET_PROPERTY(port, quint16, properties);
+    GET_PROPERTY(width, quint16, properties);
+    GET_PROPERTY(height, quint16, properties);
+    GET_PROPERTY(color_background, QColor, properties);
+    GET_PROPERTY(name, QString, properties);
 
     qDebug("Loading configuration, size: %dx%d", width, height);
 }

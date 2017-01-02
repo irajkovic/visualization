@@ -18,10 +18,10 @@ class Button : public VisuWidget
         {
 
             // custom properties initializer
-            GET_PROPERTY(action_ip, QString);
-            GET_PROPERTY(action_port, quint16);
-            GET_PROPERTY(action_message, QString);
-            GET_PROPERTY(css, QString);
+            GET_PROPERTY(action_ip, QString, properties);
+            GET_PROPERTY(action_port, quint16, properties);
+            GET_PROPERTY(action_message, QString, properties);
+            GET_PROPERTY(css, QString, properties);
 
             mAddress = QHostAddress(action_ip);
             setupButton(parent);

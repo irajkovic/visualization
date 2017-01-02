@@ -18,12 +18,12 @@ public:
         this->mProperties = properties;
 
         // custom properties initializer
-        GET_PROPERTY(id, quint16);
-        GET_PROPERTY(name, QString);
-        GET_PROPERTY(x, quint16);
-        GET_PROPERTY(y, quint16);
-        GET_PROPERTY(width, quint16);
-        GET_PROPERTY(height, quint16);
+        GET_PROPERTY(id, quint16, properties);
+        GET_PROPERTY(name, QString, properties);
+        GET_PROPERTY(x, quint16, properties);
+        GET_PROPERTY(y, quint16, properties);
+        GET_PROPERTY(width, quint16, properties);
+        GET_PROPERTY(height, quint16, properties);
     }
 
 protected:
