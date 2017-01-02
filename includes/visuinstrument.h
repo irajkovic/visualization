@@ -22,10 +22,10 @@ class VisuInstrument : public VisuWidget
 protected:
 
     // properties
-    quint16 signalId;          // associated signal id
-    QColor colorBackground;    // instrument background color
-    QColor colorStatic;        // color for nonchanging parts (scales, marks, etc)
-    QColor colorForeground;    // color for changing parts (pointers, indicators, etc)
+    quint16 cSignalId;          // associated signal id
+    QColor cColorBackground;    // instrument background color
+    QColor cColorStatic;        // color for nonchanging parts (scales, marks, etc)
+    QColor cColorForeground;    // color for changing parts (pointers, indicators, etc)
 
     // pixmaps
     QPixmap mPixmap;        // holds instrument rendered with last received signal value
@@ -53,16 +53,16 @@ public:
     {
         ConfigLoadException::setInstrumentLoadContext(properties);
 
-        GET_PROPERTY(signalId, quint16, properties);
-        GET_PROPERTY(colorBackground, QColor, properties);
-        GET_PROPERTY(colorStatic, QColor, properties);
-        GET_PROPERTY(colorForeground, QColor, properties);
+        GET_PROPERTY(cSignalId, quint16, properties);
+        GET_PROPERTY(cColorBackground, QColor, properties);
+        GET_PROPERTY(cColorStatic, QColor, properties);
+        GET_PROPERTY(cColorForeground, QColor, properties);
 
         this->mFirstRun = true;
-        this->mPixmap = QPixmap(width, height);
-        this->mPixmapStatic = QPixmap(width, height);
+        this->mPixmap = QPixmap(cWidth, cHeight);
+        this->mPixmapStatic = QPixmap(cWidth, cHeight);
 
-        setGeometry(x, y, width, height);
+        setGeometry(cX, cY, cWidth, cHeight);
     }
 
     // Getters

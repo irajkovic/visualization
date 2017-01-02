@@ -12,15 +12,15 @@ class InstLinear : public VisuInstrument
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)
         {
-            GET_PROPERTY(lineThickness, quint8, properties);
-            GET_PROPERTY(majorLen, quint8, properties);
-            GET_PROPERTY(minorLen, quint8, properties);
-            GET_PROPERTY(majorCnt, quint8, properties);
-            GET_PROPERTY(minorCnt, quint8, properties);
-            GET_PROPERTY(fontSize, quint8, properties);
-            GET_PROPERTY(horMargin, quint16, properties);
-            GET_PROPERTY(verMargin, quint16, properties);
-            GET_PROPERTY(verMinorMargin, quint16, properties);
+            GET_PROPERTY(cLineThickness, quint8, properties);
+            GET_PROPERTY(cMajorLen, quint8, properties);
+            GET_PROPERTY(cMinorLen, quint8, properties);
+            GET_PROPERTY(cMajorCnt, quint8, properties);
+            GET_PROPERTY(cMinorCnt, quint8, properties);
+            GET_PROPERTY(cFontSize, quint8, properties);
+            GET_PROPERTY(cHorMargin, quint16, properties);
+            GET_PROPERTY(cVerMargin, quint16, properties);
+            GET_PROPERTY(cVerMinorMargin, quint16, properties);
         }
         static const QString TAG_NAME;
 
@@ -29,15 +29,15 @@ class InstLinear : public VisuInstrument
         virtual void renderDynamic(QPainter *painter);  // Renders to pixmap
 
     private:
-        quint8 lineThickness;  // Thickness of geometric primitives drawn
-        quint8 majorLen;       // Length, in pixels, of major division marks
-        quint8 minorLen;       // Length, in pixels, of minor division marks
-        quint8 majorCnt;       // Number of major count divisions
-        quint8 minorCnt;       // Number of minor count divisions
-        quint8 fontSize;       // Size of font used on labels
-        quint16 horMargin;
-        quint16 verMargin;
-        quint16 verMinorMargin;
+        quint8 cLineThickness;  // Thickness of geometric primitives drawn
+        quint8 cMajorLen;       // Length, in pixels, of major division marks
+        quint8 cMinorLen;       // Length, in pixels, of minor division marks
+        quint8 cMajorCnt;       // Number of major count divisions
+        quint8 cMinorCnt;       // Number of minor count divisions
+        quint8 cFontSize;       // Size of font used on labels
+        quint16 cHorMargin;
+        quint16 cVerMargin;
+        quint16 cVerMinorMargin;
 
         // additional properties not related to configuration
         quint16 mBarLength;

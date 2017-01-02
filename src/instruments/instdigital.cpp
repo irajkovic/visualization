@@ -11,18 +11,18 @@ void InstDigital::renderStatic(QPainter* painter)
 
 void InstDigital::renderDynamic(QPainter* painter)
 {
-    setFont(painter, fontSize);
-    setPen(painter, colorForeground);
+    setFont(painter, cFontSize);
+    setPen(painter, cColorForeground);
 
     QString text = QString("%1").arg(mSignal->getRealValue());
 
-    if (showSignalName) {
+    if (cShowSignalName) {
         text = mSignal->getName() + " = " + text;
     }
 
-    if (showSignalUnit) {
+    if (cShowSignalUnit) {
         text += mSignal->getUnit();
     }
 
-    painter->drawText(padding, height - padding, text);
+    painter->drawText(cPadding, cHeight - cPadding, text);
 }

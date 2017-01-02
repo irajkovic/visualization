@@ -150,13 +150,13 @@ void VisuConfiguration::initializeInstruments()
 void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader)
 {
     QMap<QString, QString> properties = parseToMap(xmlReader, TAG_CONFIGURATION);
-    GET_PROPERTY(port, quint16, properties);
-    GET_PROPERTY(width, quint16, properties);
-    GET_PROPERTY(height, quint16, properties);
-    GET_PROPERTY(colorBackground, QColor, properties);
-    GET_PROPERTY(name, QString, properties);
+    GET_PROPERTY(cPort, quint16, properties);
+    GET_PROPERTY(cWidth, quint16, properties);
+    GET_PROPERTY(cHeight, quint16, properties);
+    GET_PROPERTY(cColorBackground, QColor, properties);
+    GET_PROPERTY(cName, QString, properties);
 
-    qDebug("Loading configuration, size: %dx%d", width, height);
+    qDebug("Loading configuration, size: %dx%d", cWidth, cHeight);
 }
 
 
@@ -229,25 +229,25 @@ QVector<VisuInstrument*>& VisuConfiguration::getInstruments()
 
 quint16 VisuConfiguration::getPort()
 {
-    return port;
+    return cPort;
 }
 
 quint16 VisuConfiguration::getWidth()
 {
-    return width;
+    return cWidth;
 }
 
 quint16 VisuConfiguration::getHeight()
 {
-    return height;
+    return cHeight;
 }
 
 QColor VisuConfiguration::getBackgroundColor()
 {
-    return colorBackground;
+    return cColorBackground;
 }
 
 QString VisuConfiguration::getName()
 {
-    return name;
+    return cName;
 }

@@ -37,7 +37,7 @@ void VisuSignal::notifyInstruments()
 
 quint16 VisuSignal::getId() const
 {
-    return id;
+    return cId;
 }
 
 /**
@@ -57,7 +57,7 @@ quint64 VisuSignal::getRawValue() const
  */
 double VisuSignal::getFactor() const
 {
-    return factor;
+    return cFactor;
 }
 
 /**
@@ -67,7 +67,7 @@ double VisuSignal::getFactor() const
  */
 double VisuSignal::getOffset() const
 {
-    return offset;
+    return cOffset;
 }
 
 /**
@@ -77,12 +77,12 @@ double VisuSignal::getOffset() const
  */
 double VisuSignal::getRealValue() const
 {
-    return raw_value * factor + offset;
+    return raw_value * cFactor + cOffset;
 }
 
 double VisuSignal::getNormalizedValue() const
 {
-    double value = (double)raw_value / (max - min);
+    double value = (double)raw_value / (cMax - cMin);
     return value >= 0.0 && value <= 1.0 ? value : 0.0;
 }
 
@@ -114,22 +114,22 @@ void VisuSignal::initialUpdate()
 
 double VisuSignal::getMin() const
 {
-    return min;
+    return cMin;
 }
 
 double VisuSignal::getMax() const
 {
-    return max;
+    return cMax;
 }
 
 QString VisuSignal::getName() const
 {
-    return name;
+    return cName;
 }
 
 QString VisuSignal::getUnit() const
 {
-    return unit;
+    return cUnit;
 }
 
 quint64 VisuSignal::getTimestamp() const

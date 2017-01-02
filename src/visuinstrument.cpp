@@ -15,12 +15,12 @@ void VisuInstrument::signalUpdated(const VisuSignal* const signal)
 
 quint16 VisuInstrument::getId()
 {
-    return id;
+    return cId;
 }
 
 quint16 VisuInstrument::getSignalId()
 {
-    return signalId;
+    return cSignalId;
 }
 
 void VisuInstrument::render()
@@ -71,5 +71,5 @@ void VisuInstrument::setBrush(QPainter* painter, QColor color)
 
 void VisuInstrument::clear(QPainter* painter)
 {
-    painter->fillRect(0, 0, width, height, colorBackground);
+    painter->fillRect(0, 0, cWidth, cHeight, cColorBackground);
 }

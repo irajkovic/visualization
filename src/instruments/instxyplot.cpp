@@ -4,14 +4,14 @@ const QString InstXYPlot::TAG_NAME = "XY_PLOT";
 
 void InstXYPlot::renderAxis(QPainter* painter)
 {
-    int dx = width / majorCnt;
-    int dy = height / majorCnt;
+    int dx = cWidth / cMajorCnt;
+    int dy = cHeight / cMajorCnt;
     int x = 0;
     int y = 0;
-    for (int i=0; i<majorCnt + 1; ++i)
+    for (int i=0; i<cMajorCnt + 1; ++i)
     {
-        painter->drawLine(x, mCenterY-majorLen, x, mCenterY+majorLen);
-        painter->drawLine(mCenterX-majorLen, y, mCenterX+majorLen, y);
+        painter->drawLine(x, mCenterY-cMajorLen, x, mCenterY+cMajorLen);
+        painter->drawLine(mCenterX-cMajorLen, y, mCenterX+cMajorLen, y);
         x += dx;
         y += dy;
     }
@@ -19,31 +19,31 @@ void InstXYPlot::renderAxis(QPainter* painter)
 
 void InstXYPlot::renderBall(QPainter* painter)
 {
-    setPen(painter, colorStatic);
-    setBrush(painter, colorForeground);
-    QRect rect(lastValX * (width-ballSize), lastValY * (height-ballSize), ballSize, ballSize);
+    setPen(painter, cColorStatic);
+    setBrush(painter, cColorForeground);
+    QRect rect(lastValX * (cWidth-cBallSize), lastValY * (cHeight-cBallSize), cBallSize, cBallSize);
     painter->drawEllipse(rect);
 }
 
 void InstXYPlot::renderStatic(QPainter *painter)
 {
-    painter->fillRect(0, 0, width, height, colorBackground);
+    painter->fillRect(0, 0, cWidth, cHeight, cColorBackground);
 
-    mCenterX = width / 2;
-    mCenterY = height / 2;
+    mCenterX = cWidth / 2;
+    mCenterY = cHeight / 2;
 
-    painter->drawLine(0, mCenterY, width, mCenterY);
-    painter->drawLine(mCenterX, 0, mCenterX, height);
+    painter->drawLine(0, mCenterY, cWidth, mCenterY);
+    painter->drawLine(mCenterX, 0, mCenterX, cHeight);
 
     renderAxis(painter);
 
-    painter->drawText(0, mCenterY-majorLen, labelX);
-    painter->drawText(mCenterX+majorLen, height, labelY);
+    painter->drawText(0, mCenterY-cMajorLen, cLabelX);
+    painter->drawText(mCenterX+cMajorLen, cHeight, cLabelY);
 }
 
 void InstXYPlot::renderDynamic(QPainter *painter)
 {
-    if (mSignal->getId() == signalId)
+    if (mSignal->getId() == cSignalId)
     {
         lastValX = mSignal->getNormalizedValue();   // primary signal shown on X axis
     }
@@ -57,5 +57,5 @@ void InstXYPlot::renderDynamic(QPainter *painter)
 
 quint16 InstXYPlot::getSignalYId()
 {
-    return signalYId;
+    return cSignalYId;
 }

@@ -23,11 +23,11 @@ class VisuConfiguration
         void initializeInstruments();
 
         // Properties
-        quint16 port;
-        quint16 width;
-        quint16 height;
-        QColor colorBackground;
-        QString name;
+        quint16 cPort;
+        quint16 cWidth;
+        quint16 cHeight;
+        QColor cColorBackground;
+        QString cName;
 
     public:
         VisuConfiguration();

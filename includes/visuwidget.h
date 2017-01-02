@@ -18,12 +18,12 @@ public:
         this->mProperties = properties;
 
         // custom properties initializer
-        GET_PROPERTY(id, quint16, properties);
-        GET_PROPERTY(name, QString, properties);
-        GET_PROPERTY(x, quint16, properties);
-        GET_PROPERTY(y, quint16, properties);
-        GET_PROPERTY(width, quint16, properties);
-        GET_PROPERTY(height, quint16, properties);
+        GET_PROPERTY(cId, quint16, properties);
+        GET_PROPERTY(cName, QString, properties);
+        GET_PROPERTY(cX, quint16, properties);
+        GET_PROPERTY(cY, quint16, properties);
+        GET_PROPERTY(cWidth, quint16, properties);
+        GET_PROPERTY(cHeight, quint16, properties);
     }
 
 protected:
@@ -31,12 +31,12 @@ protected:
     // properties map
     QMap<QString, QString> mProperties;
 
-    quint16 id;
-    QString name;
-    quint16 x;                  // x position in pixels
-    quint16 y;                  // y position in pixels
-    quint16 width;              // width in pixels
-    quint16 height;             // height in pixels
+    quint16 cId;
+    QString cName;
+    quint16 cX;                  // x position in pixels
+    quint16 cY;                  // y position in pixels
+    quint16 cWidth;              // width in pixels
+    quint16 cHeight;             // height in pixels
 };
 
 #endif // VISUWIDGET_H

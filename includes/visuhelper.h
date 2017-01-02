@@ -3,10 +3,11 @@
 #include "exceptions/configloadexception.h"
 #include <QColor>
 
-#define GET_PROPERTY(KEY, TYPE, MAP)  KEY = VisuHelper::get<TYPE>(#KEY, MAP)
+#define GET_PROPERTY(KEY, TYPE, MAP)  KEY = VisuHelper::get<TYPE>(VisuHelper::transformKey(#KEY), MAP)
 
 namespace VisuHelper
 {
+    QString transformKey(QString key);
     void checkIfKeyExists(QString key, QMap<QString, QString> properties);
 
     // handles all integer numeric types

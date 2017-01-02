@@ -5,16 +5,16 @@ const QString InstTimePlot::TAG_NAME = "TIME_PLOT";
 int InstTimePlot::getFontHeight()
 {
     QFont font;
-    font.setPointSize(fontSize);
+    font.setPointSize(cFontSize);
     QFontMetrics fm(font);
     return fm.height();
 }
 
 void InstTimePlot::setTimestampRect(int fontHeight)
 {
-    mTimestampRect.setX(width - 100);
+    mTimestampRect.setX(cWidth - 100);
     mTimestampRect.setWidth(90);
-    mTimestampRect.setY(height - fontHeight);
+    mTimestampRect.setY(cHeight - fontHeight);
     mTimestampRect.setHeight(fontHeight);
 }
 
@@ -27,7 +27,7 @@ void InstTimePlot::init()
 void InstTimePlot::setPen(QPainter* painter, QColor color)
 {
     QPen pen;
-    pen.setWidth(lineThickness);
+    pen.setWidth(cLineThickness);
     pen.setColor(color);
     painter->setPen(pen);
 }
@@ -39,7 +39,7 @@ void InstTimePlot::setLabelMaxWidth(QPainter* painter)
     int label_width;
     QString label;
     mMaxLabelWidth = 0;
-    for (int i=0; i<=majorCnt; ++i) {
+    for (int i=0; i<=cMajorCnt; ++i) {
         label = getLabel(sig_cur);
         sig_cur += mSigStep;
         label_width = font_metrics.width(label);
@@ -49,7 +49,7 @@ void InstTimePlot::setLabelMaxWidth(QPainter* painter)
 
 QString InstTimePlot::getLabel(double value)
 {
-    return QString::number(value, 'f', decimals);
+    return QString::number(value, 'f', cDecimals);
 }
 
 void InstTimePlot::renderLabel(QPainter* painter, double sigCur, qint32 yPos)
@@ -65,12 +65,12 @@ quint16 InstTimePlot::renderLabelsAndMajors(QPainter* painter)
 {
     double sigCur = mSignal->getMin();
     qint32 yPos = mPlotStartY;
-    quint16 yStep = (height - 2 * mMargin) / majorCnt;
+    quint16 yStep = (cHeight - 2 * mMargin) / cMajorCnt;
 
-    for (int i=0; i<=majorCnt; ++i)
+    for (int i=0; i<=cMajorCnt; ++i)
     {
         renderLabel(painter, sigCur, yPos);
-        painter->drawLine(mMaxLabelWidth + mMargin / 2, yPos, width - mMargin, yPos);
+        painter->drawLine(mMaxLabelWidth + mMargin / 2, yPos, cWidth - mMargin, yPos);
         yPos -= yStep;
         sigCur += mSigStep;
     }
@@ -80,26 +80,26 @@ quint16 InstTimePlot::renderLabelsAndMajors(QPainter* painter)
 
 void InstTimePlot::renderStatic(QPainter* painter)
 {
-    painter->fillRect(0, 0, width, height, colorBackground);
+    painter->fillRect(0, 0, cWidth, cHeight, cColorBackground);
 
-    setPen(painter, colorStatic);
-    setFont(painter, fontSize);
+    setPen(painter, cColorStatic);
+    setFont(painter, cFontSize);
 
     // make sure we make enough space so bottom line does not hit the timestamp display
     mMargin = mTimestampRect.height() + 2;
-    mSigStep = (mSignal->getMax() - mSignal->getMin()) / (majorCnt);
+    mSigStep = (mSignal->getMax() - mSignal->getMin()) / (cMajorCnt);
 
     setLabelMaxWidth(painter);
 
     mPlotStartX = mMargin + mMaxLabelWidth;
-    mPlotStartY = height - mMargin;
-    mPlotEndX = width - mMargin;
+    mPlotStartY = cHeight - mMargin;
+    mPlotEndX = cWidth - mMargin;
     mPlotEndY = renderLabelsAndMajors(painter);
     mPlotRangeX = mPlotEndX - mPlotStartX;
     mPlotRangeY = mPlotStartY - mPlotEndY;
 
     // render signal name
-    painter->drawText(width/2,
+    painter->drawText(cWidth/2,
                       mPlotEndY-PADDING,
                       QString("%1 (%2)").arg(mSignal->getName()).arg(mSignal->getUnit()));
 
@@ -108,7 +108,7 @@ void InstTimePlot::renderStatic(QPainter* painter)
     mLastUpdateY = mPlotStartY;
     mLastMarkerTime = 0;
 
-    mGraphPixmap = QPixmap(width, height);
+    mGraphPixmap = QPixmap(cWidth, cHeight);
     mGraphPixmap.fill(Qt::transparent);
     this->setAttribute(Qt::WA_TranslucentBackground);
     mGraphPainter = new QPainter(&mGraphPixmap);
@@ -117,46 +117,46 @@ void InstTimePlot::renderStatic(QPainter* painter)
 
 QString InstTimePlot::getDisplayTime(int ticks, QString format)
 {
-    return QTime(0, 0, 0).addSecs(ticks / ticksInSecond).toString(format);
+    return QTime(0, 0, 0).addSecs(ticks / cTicksInSecond).toString(format);
 }
 
 void InstTimePlot::renderMarker(QPainter* painter, quint64 timestamp)
 {
-    int markerTime = timestamp - (timestamp % markerDt) + markerDt;   // round up
-    double cor = ((double)markerTime - timestamp - markerDt) * mPlotRangeX / timespan;
+    int markerTime = timestamp - (timestamp % cMarkerDt) + cMarkerDt;   // round up
+    double cor = ((double)markerTime - timestamp - cMarkerDt) * mPlotRangeX / cTimespan;
     double markerX = mNewUpdateX + cor;
 
     if (markerX > mPlotStartX && markerX < mPlotEndX)
     {
-        setPen(mGraphPainter, colorStatic);
+        setPen(mGraphPainter, cColorStatic);
         painter->drawLine(markerX, mPlotStartY, markerX, mPlotEndY);
 
-        setFont(mGraphPainter, fontSize);
+        setFont(mGraphPainter, cFontSize);
         painter->drawText(markerX,
-                                height,
-                                getDisplayTime(mLastMarkerTime, divisionFormat));
+                                cHeight,
+                                getDisplayTime(mLastMarkerTime, cDivisionFormat));
     }
     mLastMarkerTime = timestamp;
 }
 
 bool InstTimePlot::shouldRenderMarker(quint64 timestamp)
 {
-    return (timestamp >= mLastMarkerTime + markerDt);
+    return (timestamp >= mLastMarkerTime + cMarkerDt);
 }
 
 void InstTimePlot::renderTimeLabel(QPainter* painter)
 {
-    setPen(painter, colorStatic);
-    setFont(painter, fontSize);
+    setPen(painter, cColorStatic);
+    setFont(painter, cFontSize);
     quint64 timestamp = mSignal->getTimestamp();
     painter->drawText(mPlotStartX,
                       mPlotEndY - 5,
-                      "Time " + getDisplayTime(timestamp, masterTimeFormat));
+                      "Time " + getDisplayTime(timestamp, cMasterTimeFormat));
 }
 
 void InstTimePlot::renderGraphSegment(QPainter* painter)
 {
-    setPen(mGraphPainter, colorForeground);
+    setPen(mGraphPainter, cColorForeground);
     mGraphPainter->drawLine(mLastUpdateX, mLastUpdateY, mNewUpdateX, mNewUpdateY);
     painter->drawPixmap(0, 0, mGraphPixmap);
 }
@@ -178,7 +178,7 @@ void InstTimePlot::renderDynamic(QPainter* painter)
     double value = mSignal->getNormalizedValue();
     quint64 timestamp = mSignal->getTimestamp();
     quint64 dt = timestamp > mLastUpdateTime ? (timestamp - mLastUpdateTime) : 0;
-    double dx = mPlotRangeX * dt / (timespan);
+    double dx = mPlotRangeX * dt / (cTimespan);
 
     mLastUpdateTime = timestamp;
     mNewUpdateX = mLastUpdateX + dx;
