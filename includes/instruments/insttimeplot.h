@@ -70,7 +70,6 @@ class InstTimePlot : public VisuInstrument
 
         int getFontHeight();
         void setTimestampRect(int fontHeight);
-        void setPen(QPainter* painter, QColor color);
         void setLabelMaxWidth(QPainter* painter);
         quint16 renderLabelsAndMajors(QPainter* painter);
         QString getLabel(double value);

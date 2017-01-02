@@ -24,14 +24,6 @@ void InstTimePlot::init()
     setTimestampRect(fontHeight);
 }
 
-void InstTimePlot::setPen(QPainter* painter, QColor color)
-{
-    QPen pen;
-    pen.setWidth(cLineThickness);
-    pen.setColor(color);
-    painter->setPen(pen);
-}
-
 void InstTimePlot::setLabelMaxWidth(QPainter* painter)
 {
     QFontMetrics fontMetrics = painter->fontMetrics();
@@ -66,6 +58,8 @@ quint16 InstTimePlot::renderLabelsAndMajors(QPainter* painter)
     double sigCur = mSignal->getMin();
     qint32 yPos = mPlotStartY;
     quint16 yStep = (cHeight - 2 * mMargin) / cMajorCnt;
+
+    setPen(painter, cColorStatic, 1);
 
     for (int i=0; i<=cMajorCnt; ++i)
     {
@@ -122,7 +116,7 @@ QString InstTimePlot::getDisplayTime(int ticks, QString format)
 
 void InstTimePlot::renderMarker(QPainter* painter, quint64 timestamp)
 {
-    int markerTime = timestamp - (timestamp % cMarkerDt) + cMarkerDt;   // round up
+    quint64 markerTime = timestamp - (timestamp % cMarkerDt) + cMarkerDt;   // round up
     double cor = ((double)markerTime - timestamp - cMarkerDt) * mPlotRangeX / cTimespan;
     double markerX = mNewUpdateX + cor;
 

@@ -68,7 +68,6 @@
            <colorBackground>30,30,30,255</colorBackground>
            <colorForeground>255,100,100,250</colorForeground>
            <colorStatic>200,0,0,255</colorStatic>
-           <color_grid>50,50,50,255</color_grid>
            <lineThickness>2</lineThickness>
            <majorLen>10</majorLen>
            <minorLen>4</minorLen>
