@@ -5,10 +5,10 @@ const QString Button::TAG_NAME = "BUTTON";
 void Button::sendCommand()
 {
     mSocket.writeDatagram(
-                action_message.toStdString().c_str(),
-                action_message.size(),
+                actionMessage.toStdString().c_str(),
+                actionMessage.size(),
                 mAddress,
-                action_port);
+                actionPort);
 }
 
 void Button::setupButton(QWidget* parent)

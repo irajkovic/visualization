@@ -5,7 +5,7 @@ const QString InstTimePlot::TAG_NAME = "TIME_PLOT";
 int InstTimePlot::getFontHeight()
 {
     QFont font;
-    font.setPointSize(font_size);
+    font.setPointSize(fontSize);
     QFontMetrics fm(font);
     return fm.height();
 }
@@ -27,7 +27,7 @@ void InstTimePlot::init()
 void InstTimePlot::setPen(QPainter* painter, QColor color)
 {
     QPen pen;
-    pen.setWidth(line_thickness);
+    pen.setWidth(lineThickness);
     pen.setColor(color);
     painter->setPen(pen);
 }
@@ -39,7 +39,7 @@ void InstTimePlot::setLabelMaxWidth(QPainter* painter)
     int label_width;
     QString label;
     mMaxLabelWidth = 0;
-    for (int i=0; i<=major_cnt; ++i) {
+    for (int i=0; i<=majorCnt; ++i) {
         label = getLabel(sig_cur);
         sig_cur += mSigStep;
         label_width = font_metrics.width(label);
@@ -65,9 +65,9 @@ quint16 InstTimePlot::renderLabelsAndMajors(QPainter* painter)
 {
     double sigCur = mSignal->getMin();
     qint32 yPos = mPlotStartY;
-    quint16 yStep = (height - 2 * mMargin) / major_cnt;
+    quint16 yStep = (height - 2 * mMargin) / majorCnt;
 
-    for (int i=0; i<=major_cnt; ++i)
+    for (int i=0; i<=majorCnt; ++i)
     {
         renderLabel(painter, sigCur, yPos);
         painter->drawLine(mMaxLabelWidth + mMargin / 2, yPos, width - mMargin, yPos);
@@ -80,14 +80,14 @@ quint16 InstTimePlot::renderLabelsAndMajors(QPainter* painter)
 
 void InstTimePlot::renderStatic(QPainter* painter)
 {
-    painter->fillRect(0, 0, width, height, color_background);
+    painter->fillRect(0, 0, width, height, colorBackground);
 
-    setPen(painter, color_static);
-    setFont(painter, font_size);
+    setPen(painter, colorStatic);
+    setFont(painter, fontSize);
 
     // make sure we make enough space so bottom line does not hit the timestamp display
     mMargin = mTimestampRect.height() + 2;
-    mSigStep = (mSignal->getMax() - mSignal->getMin()) / (major_cnt);
+    mSigStep = (mSignal->getMax() - mSignal->getMin()) / (majorCnt);
 
     setLabelMaxWidth(painter);
 
@@ -117,46 +117,46 @@ void InstTimePlot::renderStatic(QPainter* painter)
 
 QString InstTimePlot::getDisplayTime(int ticks, QString format)
 {
-    return QTime(0, 0, 0).addSecs(ticks / ticks_in_second).toString(format);
+    return QTime(0, 0, 0).addSecs(ticks / ticksInSecond).toString(format);
 }
 
 void InstTimePlot::renderMarker(QPainter* painter, quint64 timestamp)
 {
-    int markerTime = timestamp - (timestamp % marker_dt) + marker_dt;   // round up
-    double cor = ((double)markerTime - timestamp - marker_dt) * mPlotRangeX / timespan;
+    int markerTime = timestamp - (timestamp % markerDt) + markerDt;   // round up
+    double cor = ((double)markerTime - timestamp - markerDt) * mPlotRangeX / timespan;
     double markerX = mNewUpdateX + cor;
 
     if (markerX > mPlotStartX && markerX < mPlotEndX)
     {
-        setPen(mGraphPainter, color_static);
+        setPen(mGraphPainter, colorStatic);
         painter->drawLine(markerX, mPlotStartY, markerX, mPlotEndY);
 
-        setFont(mGraphPainter, font_size);
+        setFont(mGraphPainter, fontSize);
         painter->drawText(markerX,
                                 height,
-                                getDisplayTime(mLastMarkerTime, division_format));
+                                getDisplayTime(mLastMarkerTime, divisionFormat));
     }
     mLastMarkerTime = timestamp;
 }
 
 bool InstTimePlot::shouldRenderMarker(quint64 timestamp)
 {
-    return (timestamp >= mLastMarkerTime + marker_dt);
+    return (timestamp >= mLastMarkerTime + markerDt);
 }
 
 void InstTimePlot::renderTimeLabel(QPainter* painter)
 {
-    setPen(painter, color_static);
-    setFont(painter, font_size);
+    setPen(painter, colorStatic);
+    setFont(painter, fontSize);
     quint64 timestamp = mSignal->getTimestamp();
     painter->drawText(mPlotStartX,
                       mPlotEndY - 5,
-                      "Time " + getDisplayTime(timestamp, master_time_format));
+                      "Time " + getDisplayTime(timestamp, masterTimeFormat));
 }
 
 void InstTimePlot::renderGraphSegment(QPainter* painter)
 {
-    setPen(mGraphPainter, color_foreground);
+    setPen(mGraphPainter, colorForeground);
     mGraphPainter->drawLine(mLastUpdateX, mLastUpdateY, mNewUpdateX, mNewUpdateY);
     painter->drawPixmap(0, 0, mGraphPixmap);
 }

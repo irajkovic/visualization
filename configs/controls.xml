@@ -4,7 +4,7 @@
        <port>3334</port>
        <width>300</width>
        <height>100</height>
-       <color_background>30,30,30,255</color_background>
+       <colorBackground>30,30,30,255</colorBackground>
        <name>CPU monitor</name>
    </configuration>
    <signals>
@@ -22,44 +22,44 @@
         <instrument>
             <id>1</id>  
             <type>LED</type>
-            <signal_id>1</signal_id>
+            <signalId>1</signalId>
             <name>Led 1</name>
             <width>30</width>
             <height>30</height>
             <x>10</x>
             <y>15</y>
-            <color_background>30,30,30,255</color_background>
-            <color_foreground>255,100,100,250</color_foreground>
-            <color_static>200,0,0,255</color_static>
-            <color_on>200,255,30,255</color_on>
-            <color_off>100,100,100,250</color_off>
+            <colorBackground>30,30,30,255</colorBackground>
+            <colorForeground>255,100,100,250</colorForeground>
+            <colorStatic>200,0,0,255</colorStatic>
+            <colorOn>200,255,30,255</colorOn>
+            <colorOff>100,100,100,250</colorOff>
             <radius>20</radius>
             <val1>-10.0</val1>
             <val2>6.0</val2>
             <condition>0</condition>
-            <show_signal_lbl>0</show_signal_lbl>
-            <font_size>20</font_size>
+            <showSignalName>0</showSignalName>
+            <fontSize>20</fontSize>
         </instrument>
         <instrument>
             <id>2</id>  
             <type>LED</type>
-            <signal_id>1</signal_id>
+            <signalId>1</signalId>
             <name>Led 2</name>
             <width>30</width>
             <height>30</height>
             <x>10</x>
             <y>55</y>
-            <color_background>30,30,30,255</color_background>
-            <color_foreground>255,100,100,250</color_foreground>
-            <color_static>200,0,0,255</color_static>
-            <color_on>200,255,30,255</color_on>
-            <color_off>100,100,100,250</color_off>
+            <colorBackground>30,30,30,255</colorBackground>
+            <colorForeground>255,100,100,250</colorForeground>
+            <colorStatic>200,0,0,255</colorStatic>
+            <colorOn>200,255,30,255</colorOn>
+            <colorOff>100,100,100,250</colorOff>
             <radius>20</radius>
             <val1>-10.0</val1>
             <val2>6.0</val2>
             <condition>0</condition>
-            <show_signal_lbl>0</show_signal_lbl>
-            <font_size>20</font_size>
+            <showSignalName>0</showSignalName>
+            <fontSize>20</fontSize>
         </instrument>
    </instruments>
    <controls>
@@ -71,9 +71,9 @@
             <x>40</x>
             <y>10</y>
             <name>Light 1</name>
-            <action_ip>127.0.0.1</action_ip>
-            <action_port>5000</action_port>
-            <action_message>switch</action_message>
+            <actionIp>127.0.0.1</actionIp>
+            <actionPort>5000</actionPort>
+            <actionMessage>switch</actionMessage>
             <css>color: white;  border: 1px solid red; border-radius: 5px; border-style: outset;</css>
         </control>
         <control>
@@ -84,9 +84,9 @@
             <x>40</x>
             <y>50</y>
             <name>Light 2</name>
-            <action_ip>127.0.0.1</action_ip>
-            <action_port>5000</action_port>
-            <action_message>switch</action_message>
+            <actionIp>127.0.0.1</actionIp>
+            <actionPort>5000</actionPort>
+            <actionMessage>switch</actionMessage>
             <css>color: white;  border: 1px solid red; border-radius: 5px; border-style: outset;</css>
         </control>
    </controls>

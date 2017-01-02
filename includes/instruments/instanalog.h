@@ -13,21 +13,21 @@ class InstAnalog : public VisuInstrument
         {
 
             // custom properties initializer
-            GET_PROPERTY(line_thickness, quint8, properties);
-            GET_PROPERTY(major_len, quint8, properties);
-            GET_PROPERTY(minor_len, quint8, properties);
-            GET_PROPERTY(major_cnt, quint8, properties);
-            GET_PROPERTY(minor_cnt, quint8, properties);
-            GET_PROPERTY(font_size, quint8, properties);
-            GET_PROPERTY(arrow_width, quint8, properties);
-            GET_PROPERTY(draw_circle, quint8, properties);
-            GET_PROPERTY(label_radius, quint16, properties);
-            GET_PROPERTY(angle_start, double, properties);
-            GET_PROPERTY(angle_end, double, properties);
-            GET_PROPERTY(name_x, quint16, properties);
-            GET_PROPERTY(name_y, quint16, properties);
-            GET_PROPERTY(offset_x, qint16, properties);
-            GET_PROPERTY(offset_y, qint16, properties);
+            GET_PROPERTY(lineThickness, quint8, properties);
+            GET_PROPERTY(majorLen, quint8, properties);
+            GET_PROPERTY(minorLen, quint8, properties);
+            GET_PROPERTY(majorCnt, quint8, properties);
+            GET_PROPERTY(minorCnt, quint8, properties);
+            GET_PROPERTY(fontSize, quint8, properties);
+            GET_PROPERTY(arrowWidth, quint8, properties);
+            GET_PROPERTY(drawCircle, quint8, properties);
+            GET_PROPERTY(labelRadius, quint16, properties);
+            GET_PROPERTY(angleStart, double, properties);
+            GET_PROPERTY(angleEnd, double, properties);
+            GET_PROPERTY(nameX, quint16, properties);
+            GET_PROPERTY(nameY, quint16, properties);
+            GET_PROPERTY(offsetX, qint16, properties);
+            GET_PROPERTY(offsetY, qint16, properties);
         }
         static const QString TAG_NAME;
 
@@ -36,21 +36,21 @@ class InstAnalog : public VisuInstrument
         static const double PI = 3.141592653589793238463;
 
         // custom properties
-        quint8 line_thickness;  // Thickness of geometric primitives drawn
-        quint8 major_len;       // Length, in pixels, of major division marks
-        quint8 minor_len;       // Length, in pixels, of minor division marks
-        quint8 major_cnt;       // Number of major count divisions
-        quint8 minor_cnt;       // Number of minor count divisions
-        quint8 font_size;       // Size of font used on labels
-        quint8 arrow_width;     // Width of arrow at it's base
-        quint8 draw_circle;     // 1 / 0 to draw circle allong pointer tip
-        quint16 label_radius;   // Radius of circle on which major labels are drawn
-        double angle_start;     // Angle of minimum value
-        double angle_end;       // Angle of maximum value
-        quint16 name_x;         // Signal label X coordinate
-        quint16 name_y;         // Signal label Y coordinate
-        qint16 offset_x;        // X offset of instrument center
-        qint16 offset_y;        // Y offset of instrument center
+        quint8 lineThickness;  // Thickness of geometric primitives drawn
+        quint8 majorLen;       // Length, in pixels, of major division marks
+        quint8 minorLen;       // Length, in pixels, of minor division marks
+        quint8 majorCnt;       // Number of major count divisions
+        quint8 minorCnt;       // Number of minor count divisions
+        quint8 fontSize;       // Size of font used on labels
+        quint8 arrowWidth;     // Width of arrow at it's base
+        quint8 drawCircle;     // 1 / 0 to draw circle allong pointer tip
+        quint16 labelRadius;   // Radius of circle on which major labels are drawn
+        double angleStart;     // Angle of minimum value
+        double angleEnd;       // Angle of maximum value
+        quint16 nameX;         // Signal label X coordinate
+        quint16 nameY;         // Signal label Y coordinate
+        qint16 offsetX;        // X offset of instrument center
+        qint16 offsetY;        // Y offset of instrument center
 
         // aux propertis
         double mAngleSin;

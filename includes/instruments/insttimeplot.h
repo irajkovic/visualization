@@ -12,18 +12,18 @@ class InstTimePlot : public VisuInstrument
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)
         {
-            GET_PROPERTY(line_thickness, quint8, properties);
-            GET_PROPERTY(major_len, quint8, properties);
-            GET_PROPERTY(minor_len, quint8, properties);
-            GET_PROPERTY(major_cnt, quint8, properties);
-            GET_PROPERTY(minor_cnt, quint8, properties);
-            GET_PROPERTY(font_size, quint8, properties);
-            GET_PROPERTY(ticks_in_second, quint64, properties);
+            GET_PROPERTY(lineThickness, quint8, properties);
+            GET_PROPERTY(majorLen, quint8, properties);
+            GET_PROPERTY(minorLen, quint8, properties);
+            GET_PROPERTY(majorCnt, quint8, properties);
+            GET_PROPERTY(minorCnt, quint8, properties);
+            GET_PROPERTY(fontSize, quint8, properties);
+            GET_PROPERTY(ticksInSecond, quint64, properties);
             GET_PROPERTY(timespan, quint64, properties);
-            GET_PROPERTY(marker_dt, quint64, properties);
+            GET_PROPERTY(markerDt, quint64, properties);
             GET_PROPERTY(decimals, quint64, properties);
-            GET_PROPERTY(division_format, QString, properties);
-            GET_PROPERTY(master_time_format, QString, properties);
+            GET_PROPERTY(divisionFormat, QString, properties);
+            GET_PROPERTY(masterTimeFormat, QString, properties);
 
             // call default constructor after properties are set in case they are needed
             init();
@@ -33,18 +33,18 @@ class InstTimePlot : public VisuInstrument
     private:
 
         // custom properties
-        quint8 line_thickness;
-        quint8 major_len;
-        quint8 minor_len;
-        quint8 major_cnt;
-        quint8 minor_cnt;
-        quint8 font_size;
+        quint8 lineThickness;
+        quint8 majorLen;
+        quint8 minorLen;
+        quint8 majorCnt;
+        quint8 minorCnt;
+        quint8 fontSize;
         quint8 decimals;
-        QString division_format;
-        QString master_time_format;
-        quint64 ticks_in_second;
+        QString divisionFormat;
+        QString masterTimeFormat;
+        quint64 ticksInSecond;
         quint64 timespan;           // total time
-        quint64 marker_dt;          // time between markers
+        quint64 markerDt;          // time between markers
 
         // other properties
         quint16 mPlotStartX;

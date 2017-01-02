@@ -11,18 +11,18 @@ class InstDigital : public VisuInstrument
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)
         {
-            GET_PROPERTY(font_size, quint8, properties);
-            GET_PROPERTY(show_signal_name, quint8, properties);
-            GET_PROPERTY(show_signal_unit, quint8, properties);
+            GET_PROPERTY(fontSize, quint8, properties);
+            GET_PROPERTY(showSignalName, quint8, properties);
+            GET_PROPERTY(showSignalUnit, quint8, properties);
             GET_PROPERTY(padding, quint8, properties);
         }
         static const QString TAG_NAME;
 
     private:
         // custom properties
-        quint8 font_size;
-        quint8 show_signal_name;
-        quint8 show_signal_unit;
+        quint8 fontSize;
+        quint8 showSignalName;
+        quint8 showSignalUnit;
         quint8 padding;
 
         // internal members

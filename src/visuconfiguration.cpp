@@ -35,12 +35,12 @@ VisuConfiguration::VisuConfiguration()
 
 }
 
-void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument, int signal_id)
+void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument, int signalId)
 {
     // TODO :: optimize
     int size = signalsList.size();
     for (int i=0; i<size; i++) {
-        if (signalsList[i]->getId() == signal_id) {
+        if (signalsList[i]->getId() == signalId) {
             signalsList[i]->connectInstrument(instrument);
         }
     }
@@ -49,8 +49,8 @@ void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument, int
 
 void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument)
 {
-    quint16 signal_id = instrument->getSignalId();
-    attachInstrumentToSignal(instrument, signal_id);
+    quint16 signalId = instrument->getSignalId();
+    attachInstrumentToSignal(instrument, signalId);
 }
 
 QMap<QString, QString> VisuConfiguration::parseToMap(QXmlStreamReader& xmlReader, QString element)
@@ -153,7 +153,7 @@ void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader
     GET_PROPERTY(port, quint16, properties);
     GET_PROPERTY(width, quint16, properties);
     GET_PROPERTY(height, quint16, properties);
-    GET_PROPERTY(color_background, QColor, properties);
+    GET_PROPERTY(colorBackground, QColor, properties);
     GET_PROPERTY(name, QString, properties);
 
     qDebug("Loading configuration, size: %dx%d", width, height);
@@ -208,10 +208,10 @@ void VisuConfiguration::loadFromXML(QWidget *parent, QString xmlString)
     initializeInstruments();
 }
 
-VisuSignal* VisuConfiguration::getSignal(quint16 signal_id)
+VisuSignal* VisuConfiguration::getSignal(quint16 signalId)
 {
-    if (signal_id < signalsList.size()) {
-        return signalsList[signal_id];
+    if (signalId < signalsList.size()) {
+        return signalsList[signalId];
     }
 
     return NULL;
@@ -244,7 +244,7 @@ quint16 VisuConfiguration::getHeight()
 
 QColor VisuConfiguration::getBackgroundColor()
 {
-    return color_background;
+    return colorBackground;
 }
 
 QString VisuConfiguration::getName()

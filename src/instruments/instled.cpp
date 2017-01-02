@@ -6,17 +6,17 @@ void InstLED::renderStatic(QPainter *painter)
 {
     clear(painter);
 
-    if (show_signal_lbl)
+    if (showSignalName)
     {
-        setPen(painter, color_static);
-        setFont(painter, font_size);
+        setPen(painter, colorStatic);
+        setFont(painter, fontSize);
         painter->drawText(radius+5, height-5, mSignal->getName());
     }
 }
 
 void InstLED::renderDynamic(QPainter *painter)
 {
-    setPen(painter, color_static);
+    setPen(painter, colorStatic);
     double value = mSignal->getRealValue();
     bool conditionOn = false;
 
@@ -29,7 +29,7 @@ void InstLED::renderDynamic(QPainter *painter)
         case MORE_THAN:     conditionOn = value > val1; break;
     }
 
-    setBrush(painter, conditionOn ? color_on : color_off);
+    setBrush(painter, conditionOn ? colorOn : colorOff);
     QRect rect(0, 0, radius, radius);
     painter->drawEllipse(rect);
 }

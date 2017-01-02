@@ -18,12 +18,12 @@ class Button : public VisuWidget
         {
 
             // custom properties initializer
-            GET_PROPERTY(action_ip, QString, properties);
-            GET_PROPERTY(action_port, quint16, properties);
-            GET_PROPERTY(action_message, QString, properties);
+            GET_PROPERTY(actionIp, QString, properties);
+            GET_PROPERTY(actionPort, quint16, properties);
+            GET_PROPERTY(actionMessage, QString, properties);
             GET_PROPERTY(css, QString, properties);
 
-            mAddress = QHostAddress(action_ip);
+            mAddress = QHostAddress(actionIp);
             setupButton(parent);
         }
         static const QString TAG_NAME;
@@ -33,9 +33,9 @@ private:
 
     Q_OBJECT
 
-    QString action_ip;
-    quint16 action_port;
-    QString action_message;
+    QString actionIp;
+    quint16 actionPort;
+    QString actionMessage;
     QString css;
 
     QPushButton* mButton;

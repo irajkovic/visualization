@@ -25,10 +25,10 @@ public:
         GET_PROPERTY(val1, double, properties);
         GET_PROPERTY(val2, double, properties);
         GET_PROPERTY(condition, quint8, properties);
-        GET_PROPERTY(color_on, QColor, properties);
-        GET_PROPERTY(color_off, QColor, properties);
-        GET_PROPERTY(show_signal_lbl, quint8, properties);
-        GET_PROPERTY(font_size, quint8, properties);
+        GET_PROPERTY(colorOn, QColor, properties);
+        GET_PROPERTY(colorOff, QColor, properties);
+        GET_PROPERTY(showSignalName, quint8, properties);
+        GET_PROPERTY(fontSize, quint8, properties);
     }
     static const QString TAG_NAME;
 
@@ -38,10 +38,10 @@ private:
     double val1;
     double val2;
     quint8 condition;
-    QColor color_on;
-    QColor color_off;
-    quint8 show_signal_lbl;
-    quint8 font_size;
+    QColor colorOn;
+    QColor colorOff;
+    quint8 showSignalName;
+    quint8 fontSize;
 
     // last values for X and Y signals
     double lastValX;

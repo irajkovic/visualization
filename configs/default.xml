@@ -4,7 +4,7 @@
        <port>3334</port>
        <width>710</width>
        <height>600</height>
-       <color_background>30,30,30,255</color_background>
+       <colorBackground>30,30,30,255</colorBackground>
        <name>Automotive</name>
    </configuration>
    <signals>
@@ -49,171 +49,171 @@
        <instrument>
            <id>1</id>
            <type>ANALOG</type>
-           <signal_id>1</signal_id>
+           <signalId>1</signalId>
            <name>Analog 1</name>
            <width>300</width>
            <height>300</height>
            <x>30</x>
            <y>10</y>
-           <color_background>30,30,30,255</color_background>
-           <color_foreground>250,50,50,100</color_foreground>
-           <color_static>255,50,50,255</color_static>
-           <line_thickness>5</line_thickness>
-           <major_len>10</major_len>
-           <minor_len>5</minor_len>
-           <major_cnt>12</major_cnt>
-           <minor_cnt>4</minor_cnt>
-           <font_size>14</font_size>
-           <angle_start>0.0</angle_start>
-           <angle_end>1.570795</angle_end>
-           <arrow_width>5</arrow_width>
-           <draw_circle>0</draw_circle>
-           <label_radius>95</label_radius>
-           <name_x>120</name_x>
-           <name_y>200</name_y>
-           <offset_x>0</offset_x>
-           <offset_y>0</offset_y>
+           <colorBackground>30,30,30,255</colorBackground>
+           <colorForeground>250,50,50,100</colorForeground>
+           <colorStatic>255,50,50,255</colorStatic>
+           <lineThickness>5</lineThickness>
+           <majorLen>10</majorLen>
+           <minorLen>5</minorLen>
+           <majorCnt>12</majorCnt>
+           <minorCnt>4</minorCnt>
+           <fontSize>14</fontSize>
+           <angleStart>0.0</angleStart>
+           <angleEnd>1.570795</angleEnd>
+           <arrowWidth>5</arrowWidth>
+           <drawCircle>0</drawCircle>
+           <labelRadius>95</labelRadius>
+           <nameX>120</nameX>
+           <nameY>200</nameY>
+           <offsetX>0</offsetX>
+           <offsetY>0</offsetY>
        </instrument>
        <instrument>
            <id>2</id>
            <type>ANALOG</type>
-           <signal_id>2</signal_id>
+           <signalId>2</signalId>
            <name>Analog 1</name>
            <width>300</width>
            <height>300</height>
            <x>350</x>
            <y>10</y>
-           <color_background>30,30,30,255</color_background>
-           <color_foreground>250,50,50,100</color_foreground>
-           <color_static>255,50,50,255</color_static>
-           <line_thickness>5</line_thickness>
-           <major_len>10</major_len>
-           <minor_len>4</minor_len>
-           <major_cnt>8</major_cnt>
-           <minor_cnt>5</minor_cnt>
-           <font_size>14</font_size>
-           <angle_start>1.570795</angle_start>
-           <angle_end>0</angle_end>
-           <arrow_width>5</arrow_width>
-           <draw_circle>0</draw_circle>
-           <label_radius>85</label_radius>
-           <name_x>130</name_x>
-           <name_y>200</name_y>
-           <offset_x>0</offset_x>
-           <offset_y>0</offset_y>
+           <colorBackground>30,30,30,255</colorBackground>
+           <colorForeground>250,50,50,100</colorForeground>
+           <colorStatic>255,50,50,255</colorStatic>
+           <lineThickness>5</lineThickness>
+           <majorLen>10</majorLen>
+           <minorLen>4</minorLen>
+           <majorCnt>8</majorCnt>
+           <minorCnt>5</minorCnt>
+           <fontSize>14</fontSize>
+           <angleStart>1.570795</angleStart>
+           <angleEnd>0</angleEnd>
+           <arrowWidth>5</arrowWidth>
+           <drawCircle>0</drawCircle>
+           <labelRadius>85</labelRadius>
+           <nameX>130</nameX>
+           <nameY>200</nameY>
+           <offsetX>0</offsetX>
+           <offsetY>0</offsetY>
        </instrument>
        <instrument>
            <id>3</id>
            <type>ANALOG</type>
-           <signal_id>3</signal_id>
+           <signalId>3</signalId>
            <name>Analog 1</name>
            <width>100</width>
            <height>100</height>
            <x>230</x>
            <y>210</y>
-           <color_background>30,30,30,255</color_background>
-           <color_foreground>250,50,50,100</color_foreground>
-           <color_static>255,50,50,255</color_static>
-           <line_thickness>2</line_thickness>
-           <major_len>10</major_len>
-           <minor_len>4</minor_len>
-           <major_cnt>2</major_cnt>
-           <minor_cnt>2</minor_cnt>
-           <font_size>10</font_size>
-           <angle_start>0</angle_start>
-           <angle_end>3.14</angle_end>
-           <arrow_width>3</arrow_width>
-           <draw_circle>0</draw_circle>
-           <label_radius>20</label_radius>
-           <name_x>30</name_x>
-           <name_y>100</name_y>
-           <offset_x>40</offset_x>
-           <offset_y>0</offset_y>
+           <colorBackground>30,30,30,255</colorBackground>
+           <colorForeground>250,50,50,100</colorForeground>
+           <colorStatic>255,50,50,255</colorStatic>
+           <lineThickness>2</lineThickness>
+           <majorLen>10</majorLen>
+           <minorLen>4</minorLen>
+           <majorCnt>2</majorCnt>
+           <minorCnt>2</minorCnt>
+           <fontSize>10</fontSize>
+           <angleStart>0</angleStart>
+           <angleEnd>3.14</angleEnd>
+           <arrowWidth>3</arrowWidth>
+           <drawCircle>0</drawCircle>
+           <labelRadius>20</labelRadius>
+           <nameX>30</nameX>
+           <nameY>100</nameY>
+           <offsetX>40</offsetX>
+           <offsetY>0</offsetY>
        </instrument>
        <instrument>
            <id>4</id>
            <type>ANALOG</type>
-           <signal_id>4</signal_id>
+           <signalId>4</signalId>
            <name>Analog 1</name>
            <width>100</width>
            <height>100</height>
            <x>340</x>
            <y>210</y>
-           <color_background>30,30,30,255</color_background>
-           <color_foreground>250,50,50,100</color_foreground>
-           <color_static>255,50,50,255</color_static>
-           <line_thickness>2</line_thickness>
-           <major_len>10</major_len>
-           <minor_len>4</minor_len>
-           <major_cnt>2</major_cnt>
-           <minor_cnt>2</minor_cnt>
-           <font_size>10</font_size>
-           <angle_start>3.14</angle_start>
-           <angle_end>0</angle_end>
-           <arrow_width>3</arrow_width>
-           <draw_circle>30</draw_circle>
-           <label_radius>20</label_radius>
-           <name_x>40</name_x>
-           <name_y>100</name_y>
-           <offset_x>-40</offset_x>
-           <offset_y>0</offset_y>
+           <colorBackground>30,30,30,255</colorBackground>
+           <colorForeground>250,50,50,100</colorForeground>
+           <colorStatic>255,50,50,255</colorStatic>
+           <lineThickness>2</lineThickness>
+           <majorLen>10</majorLen>
+           <minorLen>4</minorLen>
+           <majorCnt>2</majorCnt>
+           <minorCnt>2</minorCnt>
+           <fontSize>10</fontSize>
+           <angleStart>3.14</angleStart>
+           <angleEnd>0</angleEnd>
+           <arrowWidth>3</arrowWidth>
+           <drawCircle>30</drawCircle>
+           <labelRadius>20</labelRadius>
+           <nameX>40</nameX>
+           <nameY>100</nameY>
+           <offsetX>-40</offsetX>
+           <offsetY>0</offsetY>
        </instrument>
        <instrument>
            <id>5</id>
            <type>LINEAR</type>
-           <signal_id>1</signal_id>
+           <signalId>1</signalId>
            <name>Analog 1</name>
            <width>400</width>
            <height>50</height>
            <x>135</x>
            <y>320</y>
-           <color_background>30,30,30,255</color_background>
-           <color_foreground>250,50,50,200</color_foreground>
-           <color_static>255,50,50,255</color_static>
-           <line_thickness>3</line_thickness>
-           <major_len>10</major_len>
-           <minor_len>4</minor_len>
-           <major_cnt>12</major_cnt>
-           <minor_cnt>4</minor_cnt>
-           <font_size>10</font_size>
-           <hor_margin>5</hor_margin>
-           <ver_margin>20</ver_margin>
-           <ver_minor_margin>25</ver_minor_margin>
+           <colorBackground>30,30,30,255</colorBackground>
+           <colorForeground>250,50,50,200</colorForeground>
+           <colorStatic>255,50,50,255</colorStatic>
+           <lineThickness>3</lineThickness>
+           <majorLen>10</majorLen>
+           <minorLen>4</minorLen>
+           <majorCnt>12</majorCnt>
+           <minorCnt>4</minorCnt>
+           <fontSize>10</fontSize>
+           <horMargin>5</horMargin>
+           <verMargin>20</verMargin>
+           <verMinorMargin>25</verMinorMargin>
        </instrument>
        <instrument>
            <id>6</id>
            <type>TIME_PLOT</type>
-           <signal_id>1</signal_id>
+           <signalId>1</signalId>
            <name>Time plot</name>
            <width>700</width>
            <height>180</height>
            <x>10</x>
            <y>400</y>
-           <color_background>30,30,30,255</color_background>
-           <color_foreground>250,250,250,100</color_foreground>
-		   <color_static>255,50,50,255</color_static>
+           <colorBackground>30,30,30,255</colorBackground>
+           <colorForeground>250,250,250,100</colorForeground>
+		   <colorStatic>255,50,50,255</colorStatic>
            <color_grid>50,50,50,255</color_grid>
-           <line_thickness>2</line_thickness>
-           <major_len>10</major_len>
-           <minor_len>4</minor_len>
-           <major_cnt>6</major_cnt>
-           <minor_cnt>2</minor_cnt>
-           <font_size>15</font_size>
-           <angle_start>3.14</angle_start>
-           <angle_end>0</angle_end>
-           <arrow_width>3</arrow_width>
-           <draw_circle>30</draw_circle>
-           <label_radius>20</label_radius>
-           <name_x>40</name_x>
-           <name_y>100</name_y>
-           <offset_x>-40</offset_x>
-           <offset_y>0</offset_y>
-           <ticks_in_second>1000</ticks_in_second>
+           <lineThickness>2</lineThickness>
+           <majorLen>10</majorLen>
+           <minorLen>4</minorLen>
+           <majorCnt>6</majorCnt>
+           <minorCnt>2</minorCnt>
+           <fontSize>15</fontSize>
+           <angleStart>3.14</angleStart>
+           <angleEnd>0</angleEnd>
+           <arrowWidth>3</arrowWidth>
+           <drawCircle>30</drawCircle>
+           <labelRadius>20</labelRadius>
+           <nameX>40</nameX>
+           <nameY>100</nameY>
+           <offsetX>-40</offsetX>
+           <offsetY>0</offsetY>
+           <ticksInSecond>1000</ticksInSecond>
            <timespan>10000</timespan>
-           <marker_dt>2000</marker_dt>
+           <markerDt>2000</markerDt>
            <decimals>0</decimals>
-           <division_format>mm:ss</division_format>
-           <master_time_format>hh:mm:ss</master_time_format>
+           <divisionFormat>mm:ss</divisionFormat>
+           <masterTimeFormat>hh:mm:ss</masterTimeFormat>
        </instrument>
    </instruments>
 

@@ -22,10 +22,10 @@ class VisuInstrument : public VisuWidget
 protected:
 
     // properties
-    quint16 signal_id;          // associated signal id
-    QColor color_background;    // instrument background color
-    QColor color_static;        // color for nonchanging parts (scales, marks, etc)
-    QColor color_foreground;    // color for changing parts (pointers, indicators, etc)
+    quint16 signalId;          // associated signal id
+    QColor colorBackground;    // instrument background color
+    QColor colorStatic;        // color for nonchanging parts (scales, marks, etc)
+    QColor colorForeground;    // color for changing parts (pointers, indicators, etc)
 
     // pixmaps
     QPixmap mPixmap;        // holds instrument rendered with last received signal value
@@ -38,7 +38,7 @@ protected:
     virtual void renderStatic(QPainter*) = 0;   // Renders static parts of instrument
     virtual void renderDynamic(QPainter*) = 0;  // Renders signal value dependent parts
 
-    void setFont(QPainter* painter, int font_size);
+    void setFont(QPainter* painter, int fontSize);
     void setPen(QPainter* painter, QColor color, int thickness = 1);
     void setBrush(QPainter* painter, QColor color);
     void clear(QPainter* painter);
@@ -53,10 +53,10 @@ public:
     {
         ConfigLoadException::setInstrumentLoadContext(properties);
 
-        GET_PROPERTY(signal_id, quint16, properties);
-        GET_PROPERTY(color_background, QColor, properties);
-        GET_PROPERTY(color_static, QColor, properties);
-        GET_PROPERTY(color_foreground, QColor, properties);
+        GET_PROPERTY(signalId, quint16, properties);
+        GET_PROPERTY(colorBackground, QColor, properties);
+        GET_PROPERTY(colorStatic, QColor, properties);
+        GET_PROPERTY(colorForeground, QColor, properties);
 
         this->mFirstRun = true;
         this->mPixmap = QPixmap(width, height);
