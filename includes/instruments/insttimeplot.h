@@ -12,18 +12,18 @@ class InstTimePlot : public VisuInstrument
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)
         {
-            GET_PROPERTY(line_thickness, quint8, properties);
-            GET_PROPERTY(major_len, quint8, properties);
-            GET_PROPERTY(minor_len, quint8, properties);
-            GET_PROPERTY(major_cnt, quint8, properties);
-            GET_PROPERTY(minor_cnt, quint8, properties);
-            GET_PROPERTY(font_size, quint8, properties);
-            GET_PROPERTY(ticks_in_second, quint64, properties);
-            GET_PROPERTY(timespan, quint64, properties);
-            GET_PROPERTY(marker_dt, quint64, properties);
-            GET_PROPERTY(decimals, quint64, properties);
-            GET_PROPERTY(division_format, QString, properties);
-            GET_PROPERTY(master_time_format, QString, properties);
+            GET_PROPERTY(cLineThickness, quint8, properties);
+            GET_PROPERTY(cMajorLen, quint8, properties);
+            GET_PROPERTY(cMinorLen, quint8, properties);
+            GET_PROPERTY(cMajorCnt, quint8, properties);
+            GET_PROPERTY(cMinorCnt, quint8, properties);
+            GET_PROPERTY(cFontSize, quint8, properties);
+            GET_PROPERTY(cTicksInSecond, quint64, properties);
+            GET_PROPERTY(cTimespan, quint64, properties);
+            GET_PROPERTY(cMarkerDt, quint64, properties);
+            GET_PROPERTY(cDecimals, quint64, properties);
+            GET_PROPERTY(cDivisionFormat, QString, properties);
+            GET_PROPERTY(cMasterTimeFormat, QString, properties);
 
             // call default constructor after properties are set in case they are needed
             init();
@@ -33,18 +33,18 @@ class InstTimePlot : public VisuInstrument
     private:
 
         // custom properties
-        quint8 line_thickness;
-        quint8 major_len;
-        quint8 minor_len;
-        quint8 major_cnt;
-        quint8 minor_cnt;
-        quint8 font_size;
-        quint8 decimals;
-        QString division_format;
-        QString master_time_format;
-        quint64 ticks_in_second;
-        quint64 timespan;           // total time
-        quint64 marker_dt;          // time between markers
+        quint8 cLineThickness;
+        quint8 cMajorLen;
+        quint8 cMinorLen;
+        quint8 cMajorCnt;
+        quint8 cMinorCnt;
+        quint8 cFontSize;
+        quint8 cDecimals;
+        QString cDivisionFormat;
+        QString cMasterTimeFormat;
+        quint64 cTicksInSecond;
+        quint64 cTimespan;           // total time
+        quint64 cMarkerDt;          // time between markers
 
         // other properties
         quint16 mPlotStartX;

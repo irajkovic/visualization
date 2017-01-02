@@ -12,23 +12,23 @@ public:
             QWidget *parent,
             QMap<QString, QString> properties) : VisuInstrument(parent, properties)
     {
-        GET_PROPERTY(signal_y_id, quint16, properties);
-        GET_PROPERTY(ball_size, quint16, properties);
-        GET_PROPERTY(major_cnt, quint16, properties);
-        GET_PROPERTY(major_len, quint16, properties);
-        GET_PROPERTY(label_x, QString, properties);
-        GET_PROPERTY(label_y, QString, properties);
+        GET_PROPERTY(cSignalYId, quint16, properties);
+        GET_PROPERTY(cBallSize, quint16, properties);
+        GET_PROPERTY(cMajorCnt, quint16, properties);
+        GET_PROPERTY(cMajorLen, quint16, properties);
+        GET_PROPERTY(cLabelX, QString, properties);
+        GET_PROPERTY(cLabelY, QString, properties);
     }
     static const QString TAG_NAME;
     quint16 getSignalYId();
 
 private:
-    quint16 signal_y_id;
-    quint16 ball_size;
-    quint16 major_cnt;
-    quint16 major_len;
-    QString label_x;
-    QString label_y;
+    quint16 cSignalYId;
+    quint16 cBallSize;
+    quint16 cMajorCnt;
+    quint16 cMajorLen;
+    QString cLabelX;
+    QString cLabelY;
 
     // last values for X and Y signals
     double lastValX;

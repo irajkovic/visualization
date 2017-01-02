@@ -3,6 +3,11 @@
 
 namespace VisuHelper
 {
+    QString transformKey(QString key)
+    {
+        return key.mid(1, 1).toLower() + key.mid(2);
+    }
+
     void checkIfKeyExists(QString key, QMap<QString, QString> properties)
     {
         if (!properties.contains(key))

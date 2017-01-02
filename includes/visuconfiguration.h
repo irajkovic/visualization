@@ -15,7 +15,7 @@ class VisuConfiguration
         QVector<VisuInstrument*> instrumentsList;
         QMap<QString, QString> parseToMap(QXmlStreamReader& xml_reader, QString element);
         void attachInstrumentToSignal(VisuInstrument* instrument);
-        void attachInstrumentToSignal(VisuInstrument* instrument, int signal_id);
+        void attachInstrumentToSignal(VisuInstrument* instrument, int signalId);
         void createSignalFromToken(QXmlStreamReader& xml_reader);
         void createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
         void createConfigurationFromToken(QXmlStreamReader& xmlReader);
@@ -23,16 +23,16 @@ class VisuConfiguration
         void initializeInstruments();
 
         // Properties
-        quint16 port;
-        quint16 width;
-        quint16 height;
-        QColor color_background;
-        QString name;
+        quint16 cPort;
+        quint16 cWidth;
+        quint16 cHeight;
+        QColor cColorBackground;
+        QString cName;
 
     public:
         VisuConfiguration();
         void loadFromXML(QWidget *parent, QString xml);
-        VisuSignal* getSignal(quint16 signal_id);
+        VisuSignal* getSignal(quint16 signalId);
         VisuInstrument* getInstrument(quint16 instrument_id);
         QVector<VisuInstrument*>& getInstruments();
 

@@ -5,18 +5,18 @@ const QString Button::TAG_NAME = "BUTTON";
 void Button::sendCommand()
 {
     mSocket.writeDatagram(
-                action_message.toStdString().c_str(),
-                action_message.size(),
+                cActionMessage.toStdString().c_str(),
+                cActionMessage.size(),
                 mAddress,
-                action_port);
+                cActionPort);
 }
 
 void Button::setupButton(QWidget* parent)
 {
     mButton = new QPushButton(parent);
-    mButton->setGeometry(QRect(x, y, width, height));
-    mButton->setText(name);
-    mButton->setStyleSheet(css);
+    mButton->setGeometry(QRect(cX, cY, cWidth, cHeight));
+    mButton->setText(cName);
+    mButton->setStyleSheet(cCss);
     QObject::connect(mButton,
                      SIGNAL(pressed()),
                      this,

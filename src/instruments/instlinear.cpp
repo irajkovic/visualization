@@ -8,55 +8,55 @@ void InstLinear::renderLabel(QPainter* painter, int sigCur, quint16 xOfs)
     QFontMetrics fontMetrics = painter->fontMetrics();
     double labelWidth = fontMetrics.width(label);
     double labelHeight = fontMetrics.height();
-    painter->drawText(xOfs - labelWidth / 2, height - ver_margin + labelHeight, label);
+    painter->drawText(xOfs - labelWidth / 2, cHeight - cVerMargin + labelHeight, label);
 }
 
 void InstLinear::renderDivisions(QPainter* painter)
 {
-    quint16 total = major_cnt * minor_cnt;
-    quint16 delta = (width - 2 * hor_margin) / total;
-    quint16 xOfs = hor_margin;
+    quint16 total = cMajorCnt * cMinorCnt;
+    quint16 delta = (cWidth - 2 * cHorMargin) / total;
+    quint16 xOfs = cHorMargin;
     quint16 tmpMargin;
     double sigMax = mSignal->getMax();
     double sigMin = mSignal->getMin();
-    double sigStep = (sigMax - sigMin) / (major_cnt);
+    double sigStep = (sigMax - sigMin) / (cMajorCnt);
     double sigCur = sigMin;
 
     for (int i=0; i<=total; ++i)
     {
-        if (i % minor_cnt == 0)
+        if (i % cMinorCnt == 0)
         {
             renderLabel(painter, sigCur, xOfs);
             sigCur += sigStep;
-            tmpMargin = ver_margin;
+            tmpMargin = cVerMargin;
         }
         else
         {
-            tmpMargin = ver_minor_margin;
+            tmpMargin = cVerMinorMargin;
         }
 
-        painter->drawLine(xOfs, ver_margin, xOfs, height - tmpMargin);
+        painter->drawLine(xOfs, cVerMargin, xOfs, cHeight - tmpMargin);
         xOfs += delta;
     }
 
-    mBarLength = xOfs - delta - hor_margin;
+    mBarLength = xOfs - delta - cHorMargin;
 }
 
 void InstLinear::renderStatic(QPainter *painter)
 {
     clear(painter);
 
-    setPen(painter, color_static, line_thickness);
+    setPen(painter, cColorStatic, cLineThickness);
     renderDivisions(painter);
 
-    painter->drawLine(hor_margin, ver_margin, mBarLength + hor_margin, ver_margin);
+    painter->drawLine(cHorMargin, cVerMargin, mBarLength + cHorMargin, cVerMargin);
 }
 
 void InstLinear::renderDynamic(QPainter *painter)
 {
-    setPen(painter, color_static);
-    setBrush(painter, color_foreground);
+    setPen(painter, cColorStatic);
+    setBrush(painter, cColorForeground);
 
     double xOfs = mSignal->getNormalizedValue() * mBarLength;
-    painter->drawRect(hor_margin, 5, xOfs, ver_margin - 10);
+    painter->drawRect(cHorMargin, 5, xOfs, cVerMargin - 10);
 }

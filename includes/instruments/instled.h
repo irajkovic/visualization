@@ -21,27 +21,27 @@ public:
             QWidget *parent,
             QMap<QString, QString> properties) : VisuInstrument(parent, properties)
     {
-        GET_PROPERTY(radius, quint8, properties);
-        GET_PROPERTY(val1, double, properties);
-        GET_PROPERTY(val2, double, properties);
-        GET_PROPERTY(condition, quint8, properties);
-        GET_PROPERTY(color_on, QColor, properties);
-        GET_PROPERTY(color_off, QColor, properties);
-        GET_PROPERTY(show_signal_lbl, quint8, properties);
-        GET_PROPERTY(font_size, quint8, properties);
+        GET_PROPERTY(cRadius, quint8, properties);
+        GET_PROPERTY(cVal1, double, properties);
+        GET_PROPERTY(cVal2, double, properties);
+        GET_PROPERTY(cCondition, quint8, properties);
+        GET_PROPERTY(cColorOn, QColor, properties);
+        GET_PROPERTY(cColorOff, QColor, properties);
+        GET_PROPERTY(cShowSignalName, quint8, properties);
+        GET_PROPERTY(cFontSize, quint8, properties);
     }
     static const QString TAG_NAME;
 
 private:
 
-    quint8 radius;
-    double val1;
-    double val2;
-    quint8 condition;
-    QColor color_on;
-    QColor color_off;
-    quint8 show_signal_lbl;
-    quint8 font_size;
+    quint8 cRadius;
+    double cVal1;
+    double cVal2;
+    quint8 cCondition;
+    QColor cColorOn;
+    QColor cColorOff;
+    quint8 cShowSignalName;
+    quint8 cFontSize;
 
     // last values for X and Y signals
     double lastValX;

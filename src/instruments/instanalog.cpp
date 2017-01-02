@@ -11,7 +11,7 @@ void InstAnalog::renderStatic(QPainter* painter)
 {
     clear(painter);
     renderLabel(painter);
-    if (1 == draw_circle) {
+    if (1 == cDrawCircle) {
         renderOutterCircle(painter);
     }
     renderCircularFeatures(painter);
@@ -20,24 +20,24 @@ void InstAnalog::renderStatic(QPainter* painter)
 void InstAnalog::setPen(QPainter* painter, QColor color)
 {
     QPen pen;
-    pen.setWidth(line_thickness);
+    pen.setWidth(cLineThickness);
     pen.setColor(color);
     painter->setPen(pen);
 }
 
 void InstAnalog::renderLabel(QPainter* painter)
 {
-    setPen(painter, color_static);
-    setFont(painter, font_size);
-    painter->drawText(name_x, name_y, mSignal->getName());
+    setPen(painter, cColorStatic);
+    setFont(painter, cFontSize);
+    painter->drawText(cNameX, cNameY, mSignal->getName());
 }
 
 void InstAnalog::renderOutterCircle(QPainter* painter)
 {
-    painter->drawArc( line_thickness + offset_x
-                    , line_thickness + offset_y
-                    , width - 2 * line_thickness + offset_x
-                    , height - 2 * line_thickness + offset_y
+    painter->drawArc( cLineThickness + cOffsetX
+                    , cLineThickness + cOffsetY
+                    , cWidth - 2 * cLineThickness + cOffsetX
+                    , cHeight - 2 * cLineThickness + cOffsetY
                     , 0
                     , 360 * 16);
 }
@@ -45,14 +45,14 @@ void InstAnalog::renderOutterCircle(QPainter* painter)
 void InstAnalog::setupStaticRenderProperties(quint16 totalDivisions)
 {
     mSignalMajorDivisionValue = mSignal->getMin();
-    mDivisionAngle = angle_start;
-    mDivisionAngleStep = (2 * PI - angle_start - angle_end) / totalDivisions;
+    mDivisionAngle = cAngleStart;
+    mDivisionAngleStep = (2 * PI - cAngleStart - cAngleEnd) / totalDivisions;
     mSignalMajorDivisionStep = getMajorDivisionStep();
 }
 
 bool InstAnalog::isMajorDevision(int divisionCnt)
 {
-    return (divisionCnt % minor_cnt) == 0;
+    return (divisionCnt % cMinorCnt) == 0;
 }
 
 void InstAnalog::renderMajor(QPainter* painter)
@@ -68,7 +68,7 @@ void InstAnalog::updateMajorValue()
 
 void InstAnalog::renderCircularFeatures(QPainter* painter)
 {
-    quint16 totalDivisions = major_cnt * minor_cnt;
+    quint16 totalDivisions = cMajorCnt * cMinorCnt;
     setupStaticRenderProperties(totalDivisions);
 
     for (int i = 0; i <= totalDivisions; ++i)
@@ -95,7 +95,7 @@ double InstAnalog::getMajorDivisionStep()
 {
     double sigMax = mSignal->getMax();
     double sigMin = mSignal->getMin();
-    return (sigMax - sigMin) / (major_cnt);
+    return (sigMax - sigMin) / (cMajorCnt);
 }
 
 void InstAnalog::updateDivisionAngles()
@@ -113,10 +113,10 @@ void InstAnalog::renderMajorLabel(QPainter* painter)
     QFontMetrics font_metrics = painter->fontMetrics();
     quint16 labelWidth = font_metrics.width(label);
     quint16 labelHeight = font_metrics.height();
-    quint16 labelX = -label_radius * mAngleSin + (width - labelWidth) / 2;
-    quint16 labelY = label_radius * mAngleCos + (height + labelHeight) / 2;
+    quint16 labelX = -cLabelRadius * mAngleSin + (cWidth - labelWidth) / 2;
+    quint16 labelY = cLabelRadius * mAngleCos + (cHeight + labelHeight) / 2;
 
-    painter->drawText(labelX + offset_x, labelY + offset_y, label);
+    painter->drawText(labelX + cOffsetX, labelY + cOffsetY, label);
 }
 
 void InstAnalog::renderMajorDivision(QPainter* painter)
@@ -132,45 +132,45 @@ void InstAnalog::renderMinorDivision(QPainter* painter)
 void InstAnalog::renderDivisionLine(QPainter* painter, double contractFactor)
 {
     initDivisionProperties(contractFactor);
-    painter->drawLine( mStartPointX + offset_x
-                     , mStartPointY + offset_y
-                     , mEndPointX + offset_x
-                     , mEndPointY + offset_y);
+    painter->drawLine( mStartPointX + cOffsetX
+                     , mStartPointY + cOffsetY
+                     , mEndPointX + cOffsetX
+                     , mEndPointY + cOffsetY);
 }
 
 void InstAnalog::initDivisionProperties(double factor)
 {
-    mStartLen = width / 2 * factor - line_thickness * 2;
-    mEndLen = width / 2 - line_thickness * 2;
-    mStartPointX = -mStartLen * 0.9 * mAngleSin + width / 2;
-    mStartPointY = mStartLen * 0.9 * mAngleCos + height / 2;
-    mEndPointX = -mEndLen * mAngleSin + width / 2;
-    mEndPointY = mEndLen * mAngleCos + height / 2;
+    mStartLen = cWidth / 2 * factor - cLineThickness * 2;
+    mEndLen = cWidth / 2 - cLineThickness * 2;
+    mStartPointX = -mStartLen * 0.9 * mAngleSin + cWidth / 2;
+    mStartPointY = mStartLen * 0.9 * mAngleCos + cHeight / 2;
+    mEndPointX = -mEndLen * mAngleSin + cWidth / 2;
+    mEndPointY = mEndLen * mAngleCos + cHeight / 2;
 }
 
 void InstAnalog::calculateAngleOffset()
 {
     double value = mSignal->getNormalizedValue();
-    double angleValue = (2 * PI - angle_start - angle_end) * value + angle_start;
+    double angleValue = (2 * PI - cAngleStart - cAngleEnd) * value + cAngleStart;
     mAngleSin = qSin(angleValue);
     mAngleCos = qCos(angleValue);
 }
 
 void InstAnalog::setupProperties()
 {
-    mCenterX = width / 2;
-    mCenterY = height / 2;
-    mArrowLen = mCenterX - line_thickness;
+    mCenterX = cWidth / 2;
+    mCenterY = cHeight / 2;
+    mArrowLen = mCenterX - cLineThickness;
 }
 
 void InstAnalog::setBrush(QPainter* painter)
 {
-    painter->setBrush(color_foreground);
+    painter->setBrush(cColorForeground);
 }
 
 void InstAnalog::renderDynamic(QPainter* painter)
 {    
-    setPen(painter, color_foreground);
+    setPen(painter, cColorForeground);
     setBrush(painter);
     calculateAngleOffset();
     setupProperties();
@@ -181,15 +181,15 @@ void InstAnalog::drawTrianglePointer(QPainter* painter)
 {
     quint16 endPointX = -mAngleSin * mArrowLen + mCenterX;
     quint16 endPointY = mAngleCos * mArrowLen + mCenterY;
-    quint16 leftPointX = -mAngleCos * arrow_width + mCenterX;
-    quint16 leftPointY = -mAngleSin * arrow_width + mCenterY;
-    quint16 rightPointX = mAngleCos * arrow_width + mCenterX;
-    quint16 rightPointY = mAngleSin * arrow_width + mCenterY;
+    quint16 leftPointX = -mAngleCos * cArrowWidth + mCenterX;
+    quint16 leftPointY = -mAngleSin * cArrowWidth + mCenterY;
+    quint16 rightPointX = mAngleCos * cArrowWidth + mCenterX;
+    quint16 rightPointY = mAngleSin * cArrowWidth + mCenterY;
 
     const QPointF points[3] = {
-        QPointF(endPointX + offset_x, endPointY + offset_y),
-        QPointF(leftPointX + offset_x, leftPointY + offset_y),
-        QPointF(rightPointX + offset_x, rightPointY + offset_y)
+        QPointF(endPointX + cOffsetX, endPointY + cOffsetY),
+        QPointF(leftPointX + cOffsetX, leftPointY + cOffsetY),
+        QPointF(rightPointX + cOffsetX, rightPointY + cOffsetY)
     };
 
     painter->drawPolygon(points, 3);

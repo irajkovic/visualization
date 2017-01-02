@@ -22,10 +22,10 @@ class VisuInstrument : public VisuWidget
 protected:
 
     // properties
-    quint16 signal_id;          // associated signal id
-    QColor color_background;    // instrument background color
-    QColor color_static;        // color for nonchanging parts (scales, marks, etc)
-    QColor color_foreground;    // color for changing parts (pointers, indicators, etc)
+    quint16 cSignalId;          // associated signal id
+    QColor cColorBackground;    // instrument background color
+    QColor cColorStatic;        // color for nonchanging parts (scales, marks, etc)
+    QColor cColorForeground;    // color for changing parts (pointers, indicators, etc)
 
     // pixmaps
     QPixmap mPixmap;        // holds instrument rendered with last received signal value
@@ -38,7 +38,7 @@ protected:
     virtual void renderStatic(QPainter*) = 0;   // Renders static parts of instrument
     virtual void renderDynamic(QPainter*) = 0;  // Renders signal value dependent parts
 
-    void setFont(QPainter* painter, int font_size);
+    void setFont(QPainter* painter, int fontSize);
     void setPen(QPainter* painter, QColor color, int thickness = 1);
     void setBrush(QPainter* painter, QColor color);
     void clear(QPainter* painter);
@@ -53,16 +53,16 @@ public:
     {
         ConfigLoadException::setInstrumentLoadContext(properties);
 
-        GET_PROPERTY(signal_id, quint16, properties);
-        GET_PROPERTY(color_background, QColor, properties);
-        GET_PROPERTY(color_static, QColor, properties);
-        GET_PROPERTY(color_foreground, QColor, properties);
+        GET_PROPERTY(cSignalId, quint16, properties);
+        GET_PROPERTY(cColorBackground, QColor, properties);
+        GET_PROPERTY(cColorStatic, QColor, properties);
+        GET_PROPERTY(cColorForeground, QColor, properties);
 
         this->mFirstRun = true;
-        this->mPixmap = QPixmap(width, height);
-        this->mPixmapStatic = QPixmap(width, height);
+        this->mPixmap = QPixmap(cWidth, cHeight);
+        this->mPixmapStatic = QPixmap(cWidth, cHeight);
 
-        setGeometry(x, y, width, height);
+        setGeometry(cX, cY, cWidth, cHeight);
     }
 
     // Getters

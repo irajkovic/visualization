@@ -17,13 +17,13 @@ class VisuSignal : QObject
 private:
 
     // properties
-    quint16 id;                             // Signal ID
-    QString name;                           // Signal name
-    QString unit;                           // Signal unit
-    double  factor;                         // Signal factor used in real value calculation
-    double  offset;                         // Signal offset used in real value calculation
-    double  max;                            // Maximum signal value
-    double  min;                            // Minimum signal value
+    quint16 cId;                             // Signal ID
+    QString cName;                           // Signal name
+    QString cUnit;                           // Signal unit
+    double  cFactor;                         // Signal factor used in real value calculation
+    double  cOffset;                         // Signal offset used in real value calculation
+    double  cMax;                            // Maximum signal value
+    double  cMin;                            // Minimum signal value
 
     quint64 timestamp;                      // Last update timestamp
     quint64 raw_value;                      // Last value
@@ -38,13 +38,13 @@ public:
     VisuSignal();
     VisuSignal(QMap<QString, QString> properties)
     {
-        GET_PROPERTY(id, quint16, properties);
-        GET_PROPERTY(name, QString, properties);
-        GET_PROPERTY(unit, QString, properties);
-        GET_PROPERTY(factor, double, properties);
-        GET_PROPERTY(offset, double, properties);
-        GET_PROPERTY(max, double, properties);
-        GET_PROPERTY(min, double, properties);
+        GET_PROPERTY(cId, quint16, properties);
+        GET_PROPERTY(cName, QString, properties);
+        GET_PROPERTY(cUnit, QString, properties);
+        GET_PROPERTY(cFactor, double, properties);
+        GET_PROPERTY(cOffset, double, properties);
+        GET_PROPERTY(cMax, double, properties);
+        GET_PROPERTY(cMin, double, properties);
     }
 
     void initialUpdate();
