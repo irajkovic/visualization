@@ -10,39 +10,45 @@ int InstTimePlot::getFontHeight()
     return fm.height();
 }
 
-void InstTimePlot::setTimestampRect(int fontHeight)
+void InstTimePlot::init(QPainter* painter)
 {
-    mTimestampRect.setX(cWidth - 100);
-    mTimestampRect.setWidth(90);
-    mTimestampRect.setY(cHeight - fontHeight);
-    mTimestampRect.setHeight(fontHeight);
+    mMargin = getFontHeight();
+    mSigStep = (mSignal->getMax() - mSignal->getMin()) / (cMajorCnt * cMinorCnt);
+
+    mMaxLabelWidth = getLabelMaxWidth(painter);
+
+    mPlotStartX = mMaxLabelWidth;
+    mPlotEndX = cWidth - mMargin;
+    mPlotStartY = cHeight - mMargin;
+    mPlotEndY = mMargin;
+    mPlotRangeX = mPlotEndX - mPlotStartX;
+    mPlotRangeY = mPlotStartY - mPlotEndY;
+
+    mLastUpdateX = mPlotStartX;
+    mLastUpdateY = mPlotStartY;
+    mLastMarkerTime = 0;
 }
 
-void InstTimePlot::init()
-{
-    int fontHeight = getFontHeight();
-    setTimestampRect(fontHeight);
-}
-
-void InstTimePlot::setLabelMaxWidth(QPainter* painter)
+quint16 InstTimePlot::getLabelMaxWidth(QPainter* painter)
 {
     QFontMetrics fontMetrics = painter->fontMetrics();
-    int sigTmpVal = mSignal->getMin();
+    double sigTmpVal = mSignal->getMin();
     int labelWidth;
     QString label;
-    mMaxLabelWidth = 0;
+    int maxWidth = 0;
     int cnt = cMajorCnt * cMinorCnt;
     for (int i=0; i<=cnt; ++i) {
         label = getLabel(sigTmpVal);
         sigTmpVal += mSigStep;
         labelWidth = fontMetrics.width(label);
-        mMaxLabelWidth = mMaxLabelWidth < labelWidth ? labelWidth : mMaxLabelWidth;
+        maxWidth = maxWidth < labelWidth ? labelWidth : maxWidth;
     }
+    return maxWidth;
 }
 
 QString InstTimePlot::getLabel(double value)
 {
-    return QString::number(value, 'f', cDecimals);
+    return QString::number(value, 'f', cDecimals) + mSignal->getUnit();
 }
 
 void InstTimePlot::renderLabel(QPainter* painter, double sigCur, qint32 yPos)
@@ -64,12 +70,12 @@ QPen InstTimePlot::getDashedPen()
     return dashed;
 }
 
-quint16 InstTimePlot::renderLabelsAndMajors(QPainter* painter)
+void InstTimePlot::renderLabelsAndMajors(QPainter* painter)
 {
     double sigCur = mSignal->getMin();
     int cnt = cMajorCnt * cMinorCnt;
-    qint32 yPos = mPlotStartY;
-    quint16 yStep = (cHeight - 2 * mMargin) / cnt;
+    double yPos = mPlotStartY;
+    double yStep = (double)(cHeight - 2 * mMargin) / cnt;
 
     QPen dashed = getDashedPen();
 
@@ -83,49 +89,51 @@ quint16 InstTimePlot::renderLabelsAndMajors(QPainter* painter)
             setPen(painter, cColorStatic, cStaticThickness);
         }
 
-        painter->drawLine(mMaxLabelWidth + mMargin / 2, yPos, cWidth - mMargin, yPos);
+        painter->drawLine(mPlotStartX, yPos, mPlotEndX, yPos);
         yPos -= yStep;
         sigCur += mSigStep;
     }
+}
 
-    return yPos + yStep;
+void InstTimePlot::setupGraphObjects()
+{
+    mGraphPixmap = QPixmap(cWidth, cHeight);
+    mGraphPixmap.fill(Qt::transparent);
+    setAttribute(Qt::WA_TranslucentBackground);
+    mGraphPainter = new QPainter(&mGraphPixmap);
+    mGraphPainter->setRenderHint(QPainter::Antialiasing);
+}
+
+void InstTimePlot::renderGraphAreaBackground(QPainter* painter)
+{
+    setBrush(painter, cColorGraphBackground);
+    painter->drawRect(QRect(mPlotStartX, mPlotEndY, mPlotRangeX, mPlotRangeY));
+}
+
+void InstTimePlot::renderSignalName(QPainter* painter)
+{
+    painter->drawText(cWidth/2,
+                      mPlotEndY-PADDING,
+                      QString("%1").arg(mSignal->getName()));
+}
+
+void InstTimePlot::setupPainter(QPainter* painter)
+{
+    setPen(painter, cColorStatic, cStaticThickness);
+    setFont(painter, cFontSize);
 }
 
 void InstTimePlot::renderStatic(QPainter* painter)
 {
-    painter->fillRect(0, 0, cWidth, cHeight, cColorBackground);
+    clear(painter);
+    setupPainter(painter);
+    init(painter);
 
-    setPen(painter, cColorStatic, cStaticThickness);
-    setFont(painter, cFontSize);
+    renderGraphAreaBackground(painter);
+    renderLabelsAndMajors(painter);
+    renderSignalName(painter);
 
-    // make sure we make enough space so bottom line does not hit the timestamp display
-    mMargin = mTimestampRect.height() + 2;
-    mSigStep = (mSignal->getMax() - mSignal->getMin()) / (cMajorCnt * cMinorCnt);
-
-    setLabelMaxWidth(painter);
-
-    mPlotStartX = mMargin + mMaxLabelWidth;
-    mPlotStartY = cHeight - mMargin;
-    mPlotEndX = cWidth - mMargin;
-    mPlotEndY = renderLabelsAndMajors(painter);
-    mPlotRangeX = mPlotEndX - mPlotStartX;
-    mPlotRangeY = mPlotStartY - mPlotEndY;
-
-    // render signal name
-    painter->drawText(cWidth/2,
-                      mPlotEndY-PADDING,
-                      QString("%1 (%2)").arg(mSignal->getName()).arg(mSignal->getUnit()));
-
-    // init values
-    mLastUpdateX = mPlotStartX;
-    mLastUpdateY = mPlotStartY;
-    mLastMarkerTime = 0;
-
-    mGraphPixmap = QPixmap(cWidth, cHeight);
-    mGraphPixmap.fill(Qt::transparent);
-    this->setAttribute(Qt::WA_TranslucentBackground);
-    mGraphPainter = new QPainter(&mGraphPixmap);
-    mGraphPainter->setRenderHint(QPainter::Antialiasing);
+    setupGraphObjects();
 }
 
 QString InstTimePlot::getDisplayTime(int ticks, QString format)
@@ -133,11 +141,16 @@ QString InstTimePlot::getDisplayTime(int ticks, QString format)
     return QTime(0, 0, 0).addSecs(ticks / cTicksInSecond).toString(format);
 }
 
-void InstTimePlot::renderMarker(QPainter* painter, quint64 timestamp)
+double InstTimePlot::getMarkerX(quint64 timestamp)
 {
     quint64 markerTime = timestamp - (timestamp % cMarkerDt) + cMarkerDt;   // round up
     double cor = ((double)markerTime - timestamp - cMarkerDt) * mPlotRangeX / cTimespan;
-    double markerX = mNewUpdateX + cor;
+    return mNewUpdateX + cor;
+}
+
+void InstTimePlot::renderMarker(QPainter* painter, quint64 timestamp)
+{
+    double markerX = getMarkerX(timestamp);
 
     if (markerX > mPlotStartX && markerX < mPlotEndX)
     {
@@ -146,10 +159,10 @@ void InstTimePlot::renderMarker(QPainter* painter, quint64 timestamp)
 
         setFont(mGraphPainter, cFontSize);
         painter->drawText(markerX,
-                                cHeight,
-                                getDisplayTime(mLastMarkerTime, cDivisionFormat));
+                            cHeight,
+                            getDisplayTime(timestamp, cDivisionFormat));
+        mLastMarkerTime = timestamp;
     }
-    mLastMarkerTime = timestamp;
 }
 
 bool InstTimePlot::shouldRenderMarker(quint64 timestamp)
@@ -186,16 +199,27 @@ bool InstTimePlot::noSpaceLeftOnRight()
     return (mNewUpdateX > mPlotEndX);
 }
 
-void InstTimePlot::renderDynamic(QPainter* painter)
+void InstTimePlot::calculateNewGraphPoint(quint64 timestamp)
 {
     double value = mSignal->getNormalizedValue();
-    quint64 timestamp = mSignal->getTimestamp();
     quint64 dt = timestamp > mLastUpdateTime ? (timestamp - mLastUpdateTime) : 0;
     double dx = mPlotRangeX * dt / (cTimespan);
 
-    mLastUpdateTime = timestamp;
     mNewUpdateX = mLastUpdateX + dx;
     mNewUpdateY = mPlotStartY - mPlotRangeY * value;
+}
+
+void InstTimePlot::updateLastValues(quint64 timestamp)
+{
+    mLastUpdateX = mNewUpdateX;
+    mLastUpdateY = mNewUpdateY;
+    mLastUpdateTime = timestamp;
+}
+
+void InstTimePlot::renderDynamic(QPainter* painter)
+{
+    quint64 timestamp = mSignal->getTimestamp();
+    calculateNewGraphPoint(timestamp);
 
     if (noSpaceLeftOnRight())
     {
@@ -206,11 +230,9 @@ void InstTimePlot::renderDynamic(QPainter* painter)
     {
         renderMarker(mGraphPainter, timestamp);
     }
-
     renderTimeLabel(painter);
     renderGraphSegment(painter);
 
-    mLastUpdateX = mNewUpdateX;
-    mLastUpdateY = mNewUpdateY;
+    updateLastValues(timestamp);
 }
 

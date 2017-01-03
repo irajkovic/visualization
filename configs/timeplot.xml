@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<visu_config>
+    <configuration>
+        <port>3334</port>
+        <width>820</width>
+        <height>620</height>
+        <colorBackground>30,30,30,255</colorBackground>
+        <name>CPU monitor</name>
+    </configuration>
+    <signals>
+        <signal>
+            <id>1</id>
+            <name>CPU</name>
+            <unit>%</unit>
+            <factor>1.0</factor>
+            <offset>0.0</offset>
+            <min>0</min>
+            <max>100</max>
+        </signal>
+    </signals>
+    <instruments> 
+        <instrument>
+            <id>1</id>
+            <type>TIME_PLOT</type>
+            <signalId>1</signalId>
+            <name>Time plot</name>
+            <width>800</width>
+            <height>600</height>
+            <x>10</x>
+            <y>10</y>
+            <colorBackground>130,130,130,255</colorBackground>
+            <colorGraphBackground>30,30,30,255</colorGraphBackground>
+            <colorForeground>255,100,100,250</colorForeground>
+            <colorStatic>200,0,0,255</colorStatic>
+            <lineThickness>2</lineThickness>
+            <staticThickness>1</staticThickness>
+            <markerThickness>1</markerThickness>
+            <majorLen>10</majorLen>
+            <minorLen>4</minorLen>
+            <majorCnt>4</majorCnt>
+            <minorCnt>3</minorCnt>
+            <fontSize>18</fontSize>
+            <arrowWidth>3</arrowWidth>
+            <drawCircle>30</drawCircle>
+            <labelRadius>20</labelRadius>
+            <nameX>40</nameX>
+            <nameY>100</nameY>
+            <offsetX>-40</offsetX>
+            <offsetY>0</offsetY>
+            <ticksInSecond>100</ticksInSecond>
+            <timespan>3000</timespan>
+            <markerDt>500</markerDt>
+            <decimals>0</decimals>
+            <divisionFormat>mm:ss</divisionFormat>
+            <masterTimeFormat>hh:mm:ss</masterTimeFormat>
+        </instrument>
+    </instruments>
+</visu_config>
+

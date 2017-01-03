@@ -26,9 +26,8 @@ class InstTimePlot : public VisuInstrument
             GET_PROPERTY(cDecimals, quint64, properties);
             GET_PROPERTY(cDivisionFormat, QString, properties);
             GET_PROPERTY(cMasterTimeFormat, QString, properties);
+            GET_PROPERTY(cColorGraphBackground, QColor, properties);
 
-            // call default constructor after properties are set in case they are needed
-            init();
         }
         static const QString TAG_NAME;
 
@@ -49,6 +48,7 @@ class InstTimePlot : public VisuInstrument
         quint64 cTicksInSecond;
         quint64 cTimespan;           // total time
         quint64 cMarkerDt;           // time between markers
+        QColor cColorGraphBackground;
 
         // other properties
         quint16 mPlotStartX;
@@ -73,9 +73,8 @@ class InstTimePlot : public VisuInstrument
         static const int PADDING = 5;   //px
 
         int getFontHeight();
-        void setTimestampRect(int fontHeight);
-        void setLabelMaxWidth(QPainter* painter);
-        quint16 renderLabelsAndMajors(QPainter* painter);
+        quint16 getLabelMaxWidth(QPainter* painter);
+        void renderLabelsAndMajors(QPainter* painter);
         QString getLabel(double value);
         QString getDisplayTime(int ticks, QString format);
         void renderLabel(QPainter* painter, double sigCur, qint32 yPos);
@@ -86,9 +85,17 @@ class InstTimePlot : public VisuInstrument
         void resetPlotToStart();
         bool noSpaceLeftOnRight();
         QPen getDashedPen();
+        void init(QPainter* painter);
+        void setupGraphObjects();
+        void renderGraphAreaBackground(QPainter* painter);
+        void renderSignalName(QPainter* painter);
+        void setupPainter(QPainter* painter);
+        double getMarkerX(quint64 timestamp);
+        void calculateNewGraphPoint(quint64 timestamp);
+        void updateLastValues(quint64 timestamp);
 
     protected:
-        virtual void init();
+
         virtual void renderStatic(QPainter *painter);   // Renders to pixmap_static
         virtual void renderDynamic(QPainter *painter);  // Renders to pixmap
 
