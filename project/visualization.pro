@@ -11,6 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = visualization
 TEMPLATE = app
 
+QMAKE_CXXFLAGS += -std=c++0x
+
 VPATH = ../src
 INCLUDEPATH = ../includes
 INCLUDEPATH += ../includes/controls
