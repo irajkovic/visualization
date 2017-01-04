@@ -1,6 +1,8 @@
 #include "visuhelper.h"
 #include "exceptions/configloadexception.h"
 
+#include <QByteArray>
+
 namespace VisuHelper
 {
     QString transformKey(QString key)
@@ -45,5 +47,22 @@ namespace VisuHelper
         {
             throw ConfigLoadException("Wrong color format (%1)", properties[key]);
         }
+    }
+
+    template<>
+    QImage get<QImage>(QString key, QMap<QString, QString> properties)
+    {
+        checkIfKeyExists(key, properties);
+        checkIfKeyExists("format", properties);
+
+        QByteArray base64Bytes;
+        base64Bytes.append(properties[key]);
+
+        QByteArray rawImageData;
+        rawImageData = QByteArray::fromBase64(base64Bytes);
+
+        QImage image;
+        image.loadFromData(rawImageData, properties["format"].toStdString().c_str());
+        return image;
     }
 }

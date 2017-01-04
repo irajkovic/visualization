@@ -20,6 +20,7 @@ class VisuConfiguration
         void createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
         void createConfigurationFromToken(QXmlStreamReader& xmlReader);
         void createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
+        void createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
         void initializeInstruments();
 
         // Properties
@@ -42,12 +43,14 @@ class VisuConfiguration
         QColor getBackgroundColor();
         QString getName();
 
+        static const QString TAG_STATIC;
         static const QString TAG_CONTROL;
         static const QString TAG_INSTRUMENT;
         static const QString TAG_SIGNAL;
         static const QString TAG_CONFIGURATION;
         static const QString ATTR_TYPE;
         static const QString TAG_VISU_CONFIG;
+        static const QString TAG_STATICS_PLACEHOLDER;
         static const QString TAG_SIGNALS_PLACEHOLDER;
         static const QString TAG_INSTRUMENTS_PLACEHOLDER;
         static const QString TAG_CONTROLS_PLACEHOLDER;

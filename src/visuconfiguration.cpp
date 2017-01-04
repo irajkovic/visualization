@@ -11,6 +11,7 @@
 #include "instruments/instled.h"
 #include "visuhelper.h"
 #include "controls/button.h"
+#include "statics/staticimage.h"
 #include <algorithm>
 #include "exceptions/configloadexception.h"
 
@@ -19,12 +20,14 @@
 const QString VisuConfiguration::TAG_INSTRUMENT = "instrument";
 const QString VisuConfiguration::TAG_CONTROL = "control";
 const QString VisuConfiguration::TAG_SIGNAL = "signal";
+const QString VisuConfiguration::TAG_STATIC = "static";
 const QString VisuConfiguration::TAG_CONFIGURATION = "configuration";
 const QString VisuConfiguration::ATTR_TYPE = "type";
 
 // These tags are not used, except for purpose of verification of XML structure.
 // Perhaps some kind of load hooks can be later triggered when reading these tags.
 const QString VisuConfiguration::TAG_VISU_CONFIG = "visu_config";
+const QString VisuConfiguration::TAG_STATICS_PLACEHOLDER = "statics";
 const QString VisuConfiguration::TAG_SIGNALS_PLACEHOLDER = "signals";
 const QString VisuConfiguration::TAG_INSTRUMENTS_PLACEHOLDER = "instruments";
 const QString VisuConfiguration::TAG_CONTROLS_PLACEHOLDER = "controls";
@@ -138,7 +141,14 @@ void VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWid
     }
 }
 
+void VisuConfiguration::createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
+{
+    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_STATIC);
 
+    if (properties[ATTR_TYPE] == StaticImage::TAG_NAME) {
+        new StaticImage(parent, properties);
+    }
+}
 
 void VisuConfiguration::initializeInstruments()
 {
@@ -180,6 +190,9 @@ void VisuConfiguration::loadFromXML(QWidget *parent, QString xmlString)
             else if (xmlReader.name() == TAG_CONTROL) {
                 createControlFromToken(xmlReader, parent);
             }
+            else if (xmlReader.name() == TAG_STATIC) {
+                createStaticFromToken(xmlReader, parent);
+            }
             else if (xmlReader.name() == TAG_CONFIGURATION) {
                 createConfigurationFromToken(xmlReader);
             }
@@ -190,6 +203,9 @@ void VisuConfiguration::loadFromXML(QWidget *parent, QString xmlString)
                 // No actions needed.
             }
             else if (xmlReader.name() == TAG_CONTROLS_PLACEHOLDER) {
+                // No actions needed.
+            }
+            else if (xmlReader.name() == TAG_STATICS_PLACEHOLDER) {
                 // No actions needed.
             }
             else if (xmlReader.name() == TAG_SIGNALS_PLACEHOLDER) {

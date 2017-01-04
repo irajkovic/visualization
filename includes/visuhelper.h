@@ -2,6 +2,7 @@
 #define VISU_HELPER_H
 #include "exceptions/configloadexception.h"
 #include <QColor>
+#include <QImage>
 
 #define GET_PROPERTY(KEY, TYPE, MAP)  KEY = VisuHelper::get<TYPE>(VisuHelper::transformKey(#KEY), MAP)
 
@@ -27,6 +28,9 @@ namespace VisuHelper
 
     template<>
     QColor get<QColor>(QString key, QMap<QString, QString> properties);
+
+    template<>
+    QImage get<QImage>(QString key, QMap<QString, QString> properties);
 }
 
 

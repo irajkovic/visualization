@@ -17,6 +17,7 @@ INCLUDEPATH += ../includes/controls
 INCLUDEPATH += ../includes/exceptions
 INCLUDEPATH += ../includes/instruments
 
+
 SOURCES += main.cpp\
     mainwindow.cpp \
     visuinstrument.cpp \
@@ -33,7 +34,8 @@ SOURCES += main.cpp\
     instruments/instled.cpp \
     visuhelper.cpp \
     controls/button.cpp \
-    visuwidget.cpp
+    visuwidget.cpp \
+    ../src/statics/staticimage.cpp
 
 HEADERS  += ../includes/mainwindow.h \
     ../includes/visuinstrument.h \
@@ -51,6 +53,7 @@ HEADERS  += ../includes/mainwindow.h \
     ../includes/instruments/instxyplot.h \
     ../includes/instruments/instled.h \
     ../includes/controls/button.h \
-    ../includes/visuwidget.h
+    ../includes/visuwidget.h \
+    ../includes/statics/staticimage.h
 
 FORMS    += ../src/mainwindow.ui

@@ -3,9 +3,9 @@
    <configuration>
        <port>3334</port>
        <width>300</width>
-       <height>100</height>
+       <height>140</height>
        <colorBackground>30,30,30,255</colorBackground>
-       <name>CPU monitor</name>
+       <name>Smart house</name>
    </configuration>
    <signals>
        <signal>
@@ -90,5 +90,18 @@
             <css>color: white;  border: 1px solid red; border-radius: 5px; border-style: outset;</css>
         </control>
    </controls>
+   <statics>
+      <static>
+	     <id>1</id>
+         <type>IMAGE</type>
+         <width>121</width> 	
+         <height>121</height>
+		 <name>House icon</name>
+		 <format>PNG</format>
+         <x>170</x>
+		 <y>10</y>
+	     <data>iVBORw0KGgoAAAANSUhEUgAAAHkAAAB5CAMAAAAqJH57AAAAwFBMVEX///+9w8fnTDyVpabmfiLAOSs0mNu6xs3Wm3TnexTTVACQqaroSjkpgLnKZFu/NCWirrDrRTPUTgColJPngzDGmYraZBH98O/DRDm8JQ/t0c6gnJv+9vbmRTPlTj/Ni3TpX1LoVUcelNzqZlqkmJcxkdHxxQ+kusyXttCMstF5q9TErKLVRwDQkXTbXwDspRn74+LrcGZNjbwHebhflL6susWFpsIjhsVvnL/wvhLtrhblOCLuiIC6hIDifxXrxsNiL0b5AAADuElEQVRoge3Ya1PiMBQGYFq1CIZF6q5dsa2ABQRviAi4F/f//6ttKG1zcmlSjHSdzftFnXF85iR5aWqtZmLyr8b75VUD+72fPb8SuB/YQb8CGsN2FbTfw3BM73vBvesEjunrvR4z77pjp+nskybhvdJ+j4Rjel97nZxqMns64SzM0t32dzJftMBej4VxucBedy/aR0nw17YWmQ/TdPfiiIgWGZxqFCDBCdcvQzj8HQpo7bIPljqITiLwc14u3TI81Z3Lk4OTS7LZ+QnXLPshASMMH2CaWPAg9D9CBhMjFGE4piOE2Km1yqBOKDxL4Jg+I4/Ztlw65fyxCGGG3pxwjTKsk03AmLbpcumTmTodkGHLpU1m67TJqXW6pely6ZJ9m63TBrYIGpzwP3pkfp02cE6DciH7SIcM65QdrgTOaXDMbFuDLKhTChN0KKJ3kyHMTKw09U4yXGpqj2ka7DVB7yJTdeLDBA3vpO+QC+rEp0G5Mrq8XFgnwdS8BS8tS+rEp3nHrKwseCzy4cJylZSldXpZrhfr5YvC1OVkqk4MPJ4/t3Ce52OGpve6lCyr0yJxN/ZCVq4ysqxO8xzGY0vKVUL2wuI6LUiYOzVYcKQsU3Vi4HECrobD4Sr5ltnriDxmKFR8tZfWaY5ZJw3Gs/Xml4t601ScmFOneK2HTp5hvN6ScinRsjpZ1rLVcmBarSXnIwWVoxWeTmswcTL12mLpiP/OJYKR4JZJyiuHzoqUBTdSVEjDHgf8x+KSHjkeemlxafLVPrALaK9fXKckNwNGHtxYXBqUK+gL91rx6VRnYMepW3xarVzKj8UpPfRgyvxOGVpeJ/HQ9MhWmXIpXvZ4O03vMrXXknKp1CnPhKQHE/4vqZULwKI6kVM7qT1wuBMDGpQL0mp1IlOfOgMcZ8rZY5oWl6vkZW9rjyeTybjAteQnfCdYLRJ6RlxBZPfqnWliwYNwlg2d0ai4Tu+go+xuFpBXlPTfe0XvTu+l02th9o9CkkYdTzuc096GpuDklAX2rKYfzujaLBY4n59er4M3/gPglMZHucP74PaeurVE1g1v6fivd5/E1zEVuM5GhRaaqSyFb7+xuVWgZbJ84qs7l87dlcLUElm+x/Urt0nHlcvWqUSW/oGdZeszy/cP53Qe7vciHzcO6TSOjWxkIxvZyJ9Efnx9rEZ+HI1GPyqRY3j0+laF/IrlSmZuxPJbJbLrNppuJfJ5022eV9Oq+Bb2332SGNnIRv7U8uFXOocaZBMTExMTE5M0fwHroaHXJEmhUQAAAABJRU5ErkJggg==</data>
+	  </static>
+   </statics>
 </visu_config>
 
