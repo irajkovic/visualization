@@ -62,6 +62,11 @@ public:
         this->mPixmap = QPixmap(cWidth, cHeight);
         this->mPixmapStatic = QPixmap(cWidth, cHeight);
 
+        mPixmap.fill(Qt::transparent);
+        mPixmapStatic.fill(Qt::transparent);
+        setAttribute(Qt::WA_TranslucentBackground);
+
+
         setGeometry(cX, cY, cWidth, cHeight);
     }
 

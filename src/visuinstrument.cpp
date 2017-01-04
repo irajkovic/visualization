@@ -25,7 +25,6 @@ quint16 VisuInstrument::getSignalId()
 
 void VisuInstrument::render()
 {
-
     if (mFirstRun)
     {
         QPainter painter_static(&mPixmapStatic);
