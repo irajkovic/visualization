@@ -13,6 +13,7 @@ void Button::sendCommand()
 
 void Button::setupButton(QWidget* parent)
 {
+    setGeometry(QRect(cX, cY, cWidth, cHeight));
     mButton = new QPushButton(parent);
     mButton->setGeometry(QRect(cX, cY, cWidth, cHeight));
     mButton->setText(cName);
