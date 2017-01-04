@@ -67,6 +67,7 @@
            <y>10</y>
            <colorBackground>30,30,30,255</colorBackground>
            <colorForeground>255,100,100,250</colorForeground>
+		   <colorGraphBackground>30,30,30,255</colorGraphBackground>
            <colorStatic>200,0,0,255</colorStatic>
            <lineThickness>2</lineThickness>
            <staticThickness>1</staticThickness>

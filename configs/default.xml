@@ -190,10 +190,13 @@
            <x>10</x>
            <y>400</y>
            <colorBackground>30,30,30,255</colorBackground>
+		   <colorGraphBackground>30,30,30,255</colorGraphBackground>
            <colorForeground>250,250,250,100</colorForeground>
 		   <colorStatic>255,50,50,255</colorStatic>
            <color_grid>50,50,50,255</color_grid>
            <lineThickness>2</lineThickness>
+		   <staticThickness>2</staticThickness>
+		   <markerThickness>2</markerThickness>
            <majorLen>10</majorLen>
            <minorLen>4</minorLen>
            <majorCnt>6</majorCnt>
