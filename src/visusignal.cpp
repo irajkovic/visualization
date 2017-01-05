@@ -82,8 +82,13 @@ double VisuSignal::getRealValue() const
 
 double VisuSignal::getNormalizedValue() const
 {
-    double value = (double)mRawValue / (cMax - cMin);
-    return value >= 0.0 && value <= 1.0 ? value : 0.0;
+    double value = getRealValue() / (cMax - cMin);
+    if (value < 0.0 || value > 1.0)
+    {
+        value = 0.0;
+        qDebug("Signal id=%d outside of range (min=%f, max=%f, received=%f.", cId, cMin, cMax, getRealValue());
+    }
+    return value;
 }
 
 /**
