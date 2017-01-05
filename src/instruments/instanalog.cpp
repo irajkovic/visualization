@@ -163,15 +163,10 @@ void InstAnalog::setupProperties()
     mArrowLen = mCenterX - cLineThickness;
 }
 
-void InstAnalog::setBrush(QPainter* painter)
-{
-    painter->setBrush(cColorForeground);
-}
-
 void InstAnalog::renderDynamic(QPainter* painter)
 {    
     setPen(painter, cColorForeground);
-    setBrush(painter);
+    setBrush(painter, cColorForeground);
     calculateAngleOffset();
     setupProperties();
     drawTrianglePointer(painter);

@@ -88,8 +88,6 @@ class InstAnalog : public VisuInstrument
         void setupProperties();
         void calculateAngleOffset();
         void drawTrianglePointer(QPainter* painter);
-        void setBrush(QPainter* painter);
-
 
     protected:
         virtual void renderStatic(QPainter *painter);   // Renders to pixmap_static
