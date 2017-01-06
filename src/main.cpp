@@ -24,9 +24,14 @@ int main(int argc, char *argv[])
 
     try
     {
-        VisuApplication *application = new VisuApplication(xmlPath);
-        application->show();
-        application->run();
+
+        //VisuApplication *application = new VisuApplication(xmlPath);
+        //application->show();
+        //application->run();
+
+        MainWindow* window = new MainWindow(xmlPath);
+        //window->show();
+
     }
     catch(ConfigLoadException e)
     {

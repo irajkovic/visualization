@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instrument>
+   <id>5</id>
+   <type>LINEAR</type>
+   <signalId>1</signalId>
+   <name>Analog 1</name>
+   <width>250</width>
+   <height>150</height>
+   <x>0</x>
+   <y>0</y>
+   <colorBackground>30,30,30,255</colorBackground>
+   <colorForeground>250,50,50,200</colorForeground>
+   <colorStatic>255,50,50,255</colorStatic>
+   <lineThickness>3</lineThickness>
+   <majorLen>10</majorLen>
+   <minorLen>4</minorLen>
+   <majorCnt>12</majorCnt>
+   <minorCnt>4</minorCnt>
+   <fontSize>10</fontSize>
+   <horMargin>5</horMargin>
+   <verMargin>20</verMargin>
+   <verMinorMargin>25</verMinorMargin>
+</instrument>

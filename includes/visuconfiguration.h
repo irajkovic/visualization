@@ -13,7 +13,6 @@ class VisuConfiguration
     private:
         std::vector<VisuSignal*> signalsList;
         QVector<VisuInstrument*> instrumentsList;
-        QMap<QString, QString> parseToMap(QXmlStreamReader& xml_reader, QString element);
         void attachInstrumentToSignal(VisuInstrument* instrument);
         void attachInstrumentToSignal(VisuInstrument* instrument, int signalId);
         void createSignalFromToken(QXmlStreamReader& xml_reader);

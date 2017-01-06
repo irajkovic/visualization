@@ -66,7 +66,6 @@ public:
         mPixmapStatic.fill(Qt::transparent);
         setAttribute(Qt::WA_TranslucentBackground);
 
-
         setGeometry(cX, cY, cWidth, cHeight);
     }
 

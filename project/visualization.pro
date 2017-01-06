@@ -37,7 +37,10 @@ SOURCES += main.cpp\
     visuhelper.cpp \
     controls/button.cpp \
     visuwidget.cpp \
-    ../src/statics/staticimage.cpp
+    ../src/statics/staticimage.cpp \
+    ../src/visuconfigloader.cpp \
+    ../src/wysiwyg/draggablewidget.cpp \
+    ../src/wysiwyg/stage.cpp
 
 HEADERS  += ../includes/mainwindow.h \
     ../includes/visuinstrument.h \
@@ -56,6 +59,9 @@ HEADERS  += ../includes/mainwindow.h \
     ../includes/instruments/instled.h \
     ../includes/controls/button.h \
     ../includes/visuwidget.h \
-    ../includes/statics/staticimage.h
+    ../includes/statics/staticimage.h \
+    ../includes/visuconfigloader.h \
+    ../includes/wysiwyg/draggablewidget.h \
+    ../includes/wysiwyg/stage.h
 
 FORMS    += ../src/mainwindow.ui

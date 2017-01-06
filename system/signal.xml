@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<signal>
+   <id>1</id>
+   <name>Speed</name>
+   <unit>km/h</unit>
+   <factor>1.0</factor>
+   <offset>0.0</offset>
+   <min>0</min>
+   <max>240</max>
+</signal>
+

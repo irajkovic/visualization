@@ -14,6 +14,7 @@
 #include "statics/staticimage.h"
 #include <algorithm>
 #include "exceptions/configloadexception.h"
+#include "visuconfigloader.h"
 
 #define DBG_XML qDebug("XML-%d>> %s", xmlReader.tokenType(), xmlReader.name().toString().toStdString().c_str())
 
@@ -56,51 +57,16 @@ void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument)
     attachInstrumentToSignal(instrument, signalId);
 }
 
-QMap<QString, QString> VisuConfiguration::parseToMap(QXmlStreamReader& xmlReader, QString element)
-{
-    QMap<QString, QString> map;
-    QString name;
-    QString value;
-
-    while ( xmlReader.tokenType() != QXmlStreamReader::EndElement
-             || xmlReader.name() != element) {
-
-        if (xmlReader.tokenType() == QXmlStreamReader::Invalid) {
-            QString errorMsg = xmlReader.errorString() + " Near node: \"%1\"";
-            throw ConfigLoadException(errorMsg, xmlReader.name().toString());
-        }
-
-        if (xmlReader.tokenType() == QXmlStreamReader::StartElement) {
-            name = xmlReader.name().toString();
-        }
-
-        if (xmlReader.tokenType() == QXmlStreamReader::Characters
-                && !xmlReader.isWhitespace()) {
-            value = xmlReader.text().toString();
-
-            map[name] = value;
-
-            //DBG_XML;
-        }
-
-        xmlReader.readNext();
-
-    }
-
-    return map;
-
-}
-
 void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
 {
-    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_SIGNAL);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_SIGNAL);
     VisuSignal* signal = new VisuSignal(properties);
     signalsList.push_back(signal);
 }
 
 void VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
-    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_INSTRUMENT);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_INSTRUMENT);
     VisuInstrument* instrument;
 
     if (properties[ATTR_TYPE] == InstAnalog::TAG_NAME) {
@@ -134,7 +100,7 @@ void VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, Q
 
 void VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
-    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_CONTROL);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_CONTROL);
 
     if (properties[ATTR_TYPE] == Button::TAG_NAME) {
         new Button(parent, properties);
@@ -143,7 +109,7 @@ void VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWid
 
 void VisuConfiguration::createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
-    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_STATIC);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_STATIC);
 
     if (properties[ATTR_TYPE] == StaticImage::TAG_NAME) {
         new StaticImage(parent, properties);
@@ -159,7 +125,7 @@ void VisuConfiguration::initializeInstruments()
 
 void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader)
 {
-    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_CONFIGURATION);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_CONFIGURATION);
     GET_PROPERTY(cPort, quint16, properties);
     GET_PROPERTY(cWidth, quint16, properties);
     GET_PROPERTY(cHeight, quint16, properties);

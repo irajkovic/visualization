@@ -14,7 +14,6 @@ class VisuApplication : public QWidget
     private:
         VisuConfiguration configuration;
         VisuServer *server;
-        QByteArray loadXMLFromFile(QString path);
         void setBackgroundColor();
         void setupWindow();
         void loadConfiguration(QString path);

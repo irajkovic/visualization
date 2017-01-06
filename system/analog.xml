@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instrument>
+   <id>1</id>
+   <type>ANALOG</type>
+   <signalId>1</signalId>
+   <name>Analog 1</name>
+   <width>150</width>
+   <height>150</height>
+   <x>0</x>
+   <y>0</y>
+   <colorBackground>30,30,30,255</colorBackground>
+   <colorForeground>250,50,50,100</colorForeground>
+   <colorStatic>255,50,50,255</colorStatic>
+   <lineThickness>5</lineThickness>
+   <majorLen>10</majorLen>
+   <minorLen>5</minorLen>
+   <majorCnt>6</majorCnt>
+   <minorCnt>4</minorCnt>
+   <fontSize>10</fontSize>
+   <angleStart>0.0</angleStart>
+   <angleEnd>0.0</angleEnd>
+   <arrowWidth>5</arrowWidth>
+   <drawCircle>0</drawCircle>
+   <labelRadius>35</labelRadius>
+   <nameX>120</nameX>
+   <nameY>200</nameY>
+   <offsetX>0</offsetX>
+   <offsetY>0</offsetY>
+</instrument>
+
