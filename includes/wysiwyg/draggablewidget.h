@@ -5,6 +5,8 @@
 #include <QMouseEvent>
 #include <QWidget>
 
+#include "visuwidget.h"
+
 class DraggableWidget : public QWidget
 {
 public:
@@ -13,12 +15,12 @@ public:
         widget = nullptr;
     }
 
-    void setWidget(QWidget* w);
+    void setWidget(VisuWidget* w);
     void mousePressEvent(QMouseEvent * event);
     void mouseMoveEvent(QMouseEvent *event);
 
 private:
-    QWidget* widget;
+    VisuWidget* widget;
     QPoint dragStartPosition;
 };
 

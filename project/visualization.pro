@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     ../src/statics/staticimage.cpp \
     ../src/visuconfigloader.cpp \
     ../src/wysiwyg/draggablewidget.cpp \
-    ../src/wysiwyg/stage.cpp
+    ../src/wysiwyg/stage.cpp \
+    ../src/wysiwyg/visuwidgetfactory.cpp
 
 HEADERS  += ../includes/mainwindow.h \
     ../includes/visuinstrument.h \
@@ -62,6 +63,7 @@ HEADERS  += ../includes/mainwindow.h \
     ../includes/statics/staticimage.h \
     ../includes/visuconfigloader.h \
     ../includes/wysiwyg/draggablewidget.h \
-    ../includes/wysiwyg/stage.h
+    ../includes/wysiwyg/stage.h \
+    ../includes/wysiwyg/visuwidgetfactory.h
 
 FORMS    += ../src/mainwindow.ui

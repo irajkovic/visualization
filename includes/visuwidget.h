@@ -26,6 +26,19 @@ public:
         GET_PROPERTY(cHeight, quint16, properties);
     }
 
+    QString getName()
+    {
+        return cName;
+    }
+    void setName(QString name)
+    {
+        cName = name;
+    }
+    void setPosition(QPoint position)
+    {
+        setGeometry(position.x(), position.y(), cWidth, cHeight);
+    }
+
 protected:
 
     // properties map

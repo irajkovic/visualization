@@ -7,8 +7,11 @@
 #include "insttimeplot.h"
 #include "instled.h"
 #include "visuconfigloader.h"
+#include "wysiwyg/visuwidgetfactory.h"
 #include "wysiwyg/draggablewidget.h"
 #include <QXmlStreamReader>
+
+#include "wysiwyg/stage.h"
 
 MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     QMainWindow(parent),
@@ -18,35 +21,34 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
 
     setupToolbarWidgets();
 
-    VisuApplication *application = new VisuApplication(xmlPath);
+    //VisuApplication *application = new VisuApplication(xmlPath);
+    Stage* stage = new Stage(this);
+    stage->setStyleSheet("background-color: gray;");
 
-    ui->horizontalLayout->addWidget(application);
+    ui->horizontalLayout->addWidget(stage);
     setWindowState(Qt::WindowMaximized);
     show();
 }
-
-#define ADD_INSTRUMENT_TO_LAYOUT(CLASS, FILE, LAYOUT)\
-    DraggableWidget* draggable##CLASS = new DraggableWidget(this); \
-    CLASS* FILE = new CLASS(draggable##CLASS, VisuConfigLoader::getTagFromFile("system/"#FILE".xml", "instrument")); \
-    draggable##CLASS->setWidget(FILE); \
-    signal->connectInstrument(FILE); \
-    LAYOUT->addWidget(draggable##CLASS);
-
 
 void MainWindow::setupToolbarWidgets()
 {
     QHBoxLayout *layout = new QHBoxLayout;
     ui->toolbox->setLayout(layout);
 
-    VisuSignal* signal = new VisuSignal(VisuConfigLoader::getTagFromFile("system/signal.xml", "signal"));
+    mSignal = new VisuSignal(VisuConfigLoader::getTagFromFile("system/signal.xml", "signal"));
 
-    ADD_INSTRUMENT_TO_LAYOUT(InstAnalog, analog, layout);
-    ADD_INSTRUMENT_TO_LAYOUT(InstLinear, linear, layout);
-    ADD_INSTRUMENT_TO_LAYOUT(InstTimePlot, timeplot, layout);
-    ADD_INSTRUMENT_TO_LAYOUT(InstDigital, digital, layout);
-    ADD_INSTRUMENT_TO_LAYOUT(InstLED, led, layout);
+    ADD_INSTRUMENT_TO_LAYOUT(this, InstAnalog, analog, mSignal, layout);
+    ADD_INSTRUMENT_TO_LAYOUT(this, InstLinear, linear, mSignal, layout);
+    ADD_INSTRUMENT_TO_LAYOUT(this, InstTimePlot, timeplot, mSignal, layout);
+    ADD_INSTRUMENT_TO_LAYOUT(this, InstDigital, digital, mSignal, layout);
+    ADD_INSTRUMENT_TO_LAYOUT(this, InstLED, led, mSignal, layout);
 
-    signal->initialUpdate();
+    mSignal->initialUpdate();
+}
+
+VisuSignal* MainWindow::getSignal()
+{
+    return mSignal;
 }
 
 MainWindow::~MainWindow()

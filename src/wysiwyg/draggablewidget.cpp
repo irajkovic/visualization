@@ -4,7 +4,7 @@
 #include <QApplication>
 #include <QMimeData>
 
-void DraggableWidget::setWidget(QWidget* w)
+void DraggableWidget::setWidget(VisuWidget* w)
 {
     widget = w;
 }
@@ -30,7 +30,7 @@ void DraggableWidget::mouseMoveEvent(QMouseEvent *event)
     QDrag *drag = new QDrag(this);
 
     QMimeData *mimeData = new QMimeData;
-    mimeData->setText("data");
+    mimeData->setText(widget->getName());
     drag->setMimeData(mimeData);
 
     Qt::DropAction dropAction = drag->exec(Qt::CopyAction | Qt::MoveAction);
