@@ -18,22 +18,8 @@ void Stage::dropEvent(QDropEvent *event)
 
     VisuWidget* widget = VisuWidgetFactory::createWidget(this, signal, type);
     widget->setPosition(event->pos());
-/*
-    if (instrument == "analog")
-    {
-        VisuSignal* signal = mMainWindow->getSignal();
-        CREATE_INSTRUMENT_OBJECT(this, InstAnalog, analog, signal);
-        //InstAnalog* analog = new InstAnalog(this, VisuConfigLoader::getTagFromFile("system/analog.xml", "instrument"));
-        analog->setPosition(event->pos());
-        //signal->connectInstrument(analog);
 
-        analog->show();
+    mMainWindow->setPropertiesTable(widget->getProperties());
 
-        signal->initialUpdate();
-    }
-*/
-
-
-    //qDebug("%s", .toStdString().c_str());
     event->acceptProposedAction();
 }

@@ -10,8 +10,11 @@
 #include "wysiwyg/visuwidgetfactory.h"
 #include "wysiwyg/draggablewidget.h"
 #include <QXmlStreamReader>
-
+#include <QTableWidget>
 #include "wysiwyg/stage.h"
+#include <QLabel>
+
+#include <QLineEdit>
 
 MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     QMainWindow(parent),
@@ -19,21 +22,45 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setupToolbarWidgets();
+    QWidget* window = new QWidget();
+    QVBoxLayout* windowLayout = new QVBoxLayout();
+    window->setLayout(windowLayout);
+    setCentralWidget(window);
 
-    //VisuApplication *application = new VisuApplication(xmlPath);
-    Stage* stage = new Stage(this);
+    QWidget* toolbar = new QWidget(window);
+    toolbar->setMinimumHeight(170);
+    windowLayout->addWidget(toolbar);
+    setupToolbarWidgets(toolbar);
+
+    QWidget* workArea = new QWidget(window);
+    windowLayout->addWidget(workArea);
+
+    QHBoxLayout* workAreaLayout = new QHBoxLayout();
+    workArea->setLayout(workAreaLayout);
+
+    Stage* stage = new Stage(this, workArea);
+    workAreaLayout->addWidget(stage);
+
+    mPropertiesTable = new QTableWidget(workArea);
+    mPropertiesTable->setMaximumWidth(300);
+    mPropertiesTable->verticalHeader()->hide();
+    mPropertiesTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    workAreaLayout->addWidget(mPropertiesTable);
+
+
     stage->setStyleSheet("background-color: gray;");
-
-    ui->horizontalLayout->addWidget(stage);
+#if 0
+    toolbar->setStyleSheet("background-color: green;");
+    workArea->setStyleSheet("background-color: gray;");
+#endif
     setWindowState(Qt::WindowMaximized);
     show();
 }
 
-void MainWindow::setupToolbarWidgets()
+void MainWindow::setupToolbarWidgets(QWidget* toolbar)
 {
     QHBoxLayout *layout = new QHBoxLayout;
-    ui->toolbox->setLayout(layout);
+    toolbar->setLayout(layout);
 
     mSignal = new VisuSignal(VisuConfigLoader::getTagFromFile("system/signal.xml", "signal"));
 
@@ -44,6 +71,22 @@ void MainWindow::setupToolbarWidgets()
     ADD_INSTRUMENT_TO_LAYOUT(this, InstLED, led, mSignal, layout);
 
     mSignal->initialUpdate();
+}
+
+void MainWindow::setPropertiesTable(QMap<QString, QString> properties)
+{
+    mPropertiesTable->clearContents();
+    mPropertiesTable->setRowCount(properties.size());
+    mPropertiesTable->setColumnCount(2);
+    mPropertiesTable->setHorizontalHeaderLabels(QStringList{"Property", "Value"});
+
+    int row = 0;
+    for (auto i = properties.begin(); i != properties.end(); ++i)
+    {
+        mPropertiesTable->setCellWidget(row, 0, new QLabel(i.key()) );
+        mPropertiesTable->setCellWidget(row, 1, new QLineEdit(i.value()) );
+        ++row;
+    }
 }
 
 VisuSignal* MainWindow::getSignal()

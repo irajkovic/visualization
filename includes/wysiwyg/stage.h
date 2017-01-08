@@ -9,10 +9,10 @@
 class Stage : public QWidget
 {
 public:
-    Stage(QWidget* parent) : QWidget(parent)
+    Stage(MainWindow* window, QWidget* parent = 0) : QWidget(parent)
     {
         setAcceptDrops(true);
-        mMainWindow = static_cast<MainWindow*>(parent);
+        mMainWindow = window;
     }
 
     void dragEnterEvent(QDragEnterEvent *event);

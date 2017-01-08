@@ -15,7 +15,7 @@ public:
             QWidget *parent,
             QMap<QString, QString> properties) : QWidget(parent)
     {
-        this->mProperties = properties;
+        mProperties = properties;
 
         // custom properties initializer
         GET_PROPERTY(cId, quint16, properties);
@@ -24,6 +24,15 @@ public:
         GET_PROPERTY(cY, quint16, properties);
         GET_PROPERTY(cWidth, quint16, properties);
         GET_PROPERTY(cHeight, quint16, properties);
+
+        mSize = QSize(cWidth, cHeight);
+        setMinimumSize(mSize);
+        setMaximumSize(mSize);
+    }
+
+    QMap<QString, QString> getProperties()
+    {
+        return mProperties;
     }
 
     QString getName()
@@ -38,6 +47,10 @@ public:
     {
         setGeometry(position.x(), position.y(), cWidth, cHeight);
     }
+    const QSize sizeHint()
+    {
+        return mSize;
+    }
 
 protected:
 
@@ -50,6 +63,8 @@ protected:
     quint16 cY;                  // y position in pixels
     quint16 cWidth;              // width in pixels
     quint16 cHeight;             // height in pixels
+
+    QSize mSize;
 };
 
 #endif // VISUWIDGET_H
