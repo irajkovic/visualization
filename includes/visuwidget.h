@@ -50,9 +50,11 @@ public:
     }
     void setPosition(QPoint position)
     {
-        setGeometry(position.x(), position.y(), cWidth, cHeight);
-        mProperties["x"] = QString("%1").arg(position.x());
-        mProperties["y"] = QString("%1").arg(position.y());
+        cX = position.x();
+        cY = position.y();
+        setGeometry(cX, cY, cWidth, cHeight);
+        mProperties["x"] = QString("%1").arg(cX);
+        mProperties["y"] = QString("%1").arg(cY);
     }
     const QSize sizeHint()
     {

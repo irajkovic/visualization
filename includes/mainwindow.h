@@ -6,6 +6,8 @@
 #include "visusignal.h"
 #include "wysiwyg/draggablewidget.h"
 
+class Stage;
+
 namespace Ui {
 class MainWindow;
 }
@@ -23,12 +25,20 @@ public:
 
 public slots:
     void cellUpdated(int row, int col);
+
 private:
     Ui::MainWindow *ui;
     VisuSignal* mSignal;
 
+    Stage* mStage;
     QTableWidget* mPropertiesTable;
     VisuWidget* mActiveWidget;
+
+    void setupMenu();
+    void mapToString(QMap<QString, QString> properties);
+
+private slots:
+    void saveConfiguration(bool checked = false);
 };
 
 #endif // MAINWINDOW_H

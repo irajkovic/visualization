@@ -23,6 +23,9 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setupMenu();
+
+
     QWidget* window = new QWidget();
     QVBoxLayout* windowLayout = new QVBoxLayout();
     window->setLayout(windowLayout);
@@ -39,8 +42,8 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     QHBoxLayout* workAreaLayout = new QHBoxLayout();
     workArea->setLayout(workAreaLayout);
 
-    Stage* stage = new Stage(this, workArea);
-    workAreaLayout->addWidget(stage);
+    mStage = new Stage(this, workArea);
+    workAreaLayout->addWidget(mStage);
 
     mPropertiesTable = new QTableWidget(workArea);
     mPropertiesTable->setMaximumWidth(300);
@@ -49,7 +52,7 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     workAreaLayout->addWidget(mPropertiesTable);
 
 
-    stage->setStyleSheet("background-color: gray;");
+    mStage->setStyleSheet("background-color: gray;");
 #if 0
     toolbar->setStyleSheet("background-color: green;");
     workArea->setStyleSheet("background-color: gray;");
@@ -57,6 +60,55 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     setWindowState(Qt::WindowMaximized);
     show();
 }
+
+void MainWindow::saveConfiguration(bool checked)
+{
+    qDebug("Saving");
+    // recreate widgets tree
+    QList<VisuWidget*> widgets = mStage->findChildren<VisuWidget*>();
+
+    for (VisuWidget* widget : widgets)
+    {
+        //qDebug("%d", widget->getProperties()["id"].toInt());
+        mapToString(widget->getProperties());
+    }
+}
+
+void MainWindow::mapToString(QMap<QString, QString> properties)
+{
+    QString xml;
+    for (auto i = properties.begin(); i != properties.end(); ++i)
+    {
+        xml += "<" + i.key() + ">";
+        xml += i.value();
+        xml += "</" + i.key() + ">\n";
+    }
+
+    qDebug(xml.toStdString().c_str());
+}
+
+void MainWindow::setupMenu()
+{
+    QMenu* fileMenu = ui->menuBar->addMenu(tr("&File"));
+
+    QAction* open = new QAction(tr("&Open"), this);
+    open->setShortcut(QKeySequence::Open);
+    open->setStatusTip(tr("Open existing configuration"));
+    fileMenu->addAction(open);
+
+    QAction* save = new QAction(tr("&Save"), this);
+    save->setShortcut(QKeySequence::Save);
+    save->setStatusTip(tr("Save configuration"));
+    fileMenu->addAction(save);
+    connect(save, SIGNAL(triggered()), this, SLOT(saveConfiguration()));
+
+    QAction* saveAs = new QAction(tr("Save &as"), this);
+    saveAs->setShortcut(QKeySequence::SaveAs);
+    saveAs->setStatusTip(tr("Save as new configuration"));
+    fileMenu->addAction(saveAs);
+}
+
+
 
 void MainWindow::setupToolbarWidgets(QWidget* toolbar)
 {
