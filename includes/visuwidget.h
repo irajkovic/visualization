@@ -15,6 +15,11 @@ public:
             QWidget *parent,
             QMap<QString, QString> properties) : QWidget(parent)
     {
+        load(properties);
+    }
+
+    virtual void load(QMap<QString, QString> properties)
+    {
         mProperties = properties;
 
         // custom properties initializer
@@ -46,6 +51,8 @@ public:
     void setPosition(QPoint position)
     {
         setGeometry(position.x(), position.y(), cWidth, cHeight);
+        mProperties["x"] = QString("%1").arg(position.x());
+        mProperties["y"] = QString("%1").arg(position.y());
     }
     const QSize sizeHint()
     {

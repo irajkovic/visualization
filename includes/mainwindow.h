@@ -18,14 +18,17 @@ public:
     explicit MainWindow(QString xmlPath, QWidget *parent = 0);
     void setupToolbarWidgets(QWidget* toolbar);
     VisuSignal* getSignal();
-    void setPropertiesTable(QMap<QString, QString> properties);
+    void setPropertiesTable(VisuWidget* widget);
     ~MainWindow();
 
+public slots:
+    void cellUpdated(int row, int col);
 private:
     Ui::MainWindow *ui;
     VisuSignal* mSignal;
 
     QTableWidget* mPropertiesTable;
+    VisuWidget* mActiveWidget;
 };
 
 #endif // MAINWINDOW_H

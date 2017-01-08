@@ -15,6 +15,7 @@
 #include <QLabel>
 
 #include <QLineEdit>
+#include <QTableWidgetItem>
 
 MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     QMainWindow(parent),
@@ -73,8 +74,38 @@ void MainWindow::setupToolbarWidgets(QWidget* toolbar)
     mSignal->initialUpdate();
 }
 
-void MainWindow::setPropertiesTable(QMap<QString, QString> properties)
+void MainWindow::cellUpdated(int row, int col)
 {
+    QString key = mPropertiesTable->item(row,0)->text();
+    QString value = mPropertiesTable->item(row,1)->text();
+
+    QMap<QString, QString> properties = mActiveWidget->getProperties();
+    QPoint position = mActiveWidget->pos();
+
+    if (key == "x")
+    {
+        position.setX(value.toInt());
+    }
+    else if (key == "y")
+    {
+        position.setY(value.toInt());
+    }
+
+    properties[key] = value;
+    mActiveWidget->load(properties);
+    mActiveWidget->setPosition(position);
+
+    mSignal->initialUpdate();
+
+    qDebug("Cell updated: %s = %s", key.toStdString().c_str(), value.toStdString().c_str());
+}
+
+void MainWindow::setPropertiesTable(VisuWidget* widget)
+{
+    QMap<QString, QString> properties = widget->getProperties();
+    mActiveWidget = widget;
+
+    disconnect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
     mPropertiesTable->clearContents();
     mPropertiesTable->setRowCount(properties.size());
     mPropertiesTable->setColumnCount(2);
@@ -83,10 +114,18 @@ void MainWindow::setPropertiesTable(QMap<QString, QString> properties)
     int row = 0;
     for (auto i = properties.begin(); i != properties.end(); ++i)
     {
-        mPropertiesTable->setCellWidget(row, 0, new QLabel(i.key()) );
-        mPropertiesTable->setCellWidget(row, 1, new QLineEdit(i.value()) );
+        //mPropertiesTable->setCellWidget(row, 0, new QLabel(i.key()) );
+        //mPropertiesTable->setCellWidget(row, 1, new QLineEdit(i.value()) );
+
+        QString key = i.key();
+        QString value = i.value();
+        mPropertiesTable->setItem(row, 0, new QTableWidgetItem(key));
+        mPropertiesTable->setItem(row, 1, new QTableWidgetItem(value));
+
         ++row;
     }
+
+    connect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
 }
 
 VisuSignal* MainWindow::getSignal()

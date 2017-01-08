@@ -51,6 +51,13 @@ public:
     explicit VisuInstrument(QWidget *parent, QMap<QString, QString> properties)
         : VisuWidget(parent, properties)
     {
+        load(properties);
+    }
+
+    virtual void load(QMap<QString, QString> properties)
+    {
+        VisuWidget::load(properties);
+
         ConfigLoadException::setInstrumentLoadContext(properties);
 
         GET_PROPERTY(cSignalId, quint16, properties);

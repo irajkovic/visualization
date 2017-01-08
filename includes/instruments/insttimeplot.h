@@ -12,6 +12,14 @@ class InstTimePlot : public VisuInstrument
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)
         {
+            load(properties);
+        }
+        static const QString TAG_NAME;
+
+        virtual void load(QMap<QString, QString> properties)
+        {
+            VisuInstrument::load(properties);
+
             GET_PROPERTY(cLineThickness, quint8, properties);
             GET_PROPERTY(cStaticThickness, quint8, properties);
             GET_PROPERTY(cMarkerThickness, quint8, properties);
@@ -27,9 +35,7 @@ class InstTimePlot : public VisuInstrument
             GET_PROPERTY(cDivisionFormat, QString, properties);
             GET_PROPERTY(cMasterTimeFormat, QString, properties);
             GET_PROPERTY(cColorGraphBackground, QColor, properties);
-
         }
-        static const QString TAG_NAME;
 
     private:
 

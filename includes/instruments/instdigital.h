@@ -11,12 +11,19 @@ class InstDigital : public VisuInstrument
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)
         {
+            load(properties);
+        }
+        static const QString TAG_NAME;
+
+        virtual void load(QMap<QString, QString> properties)
+        {
+            VisuInstrument::load(properties);
+
             GET_PROPERTY(cFontSize, quint8, properties);
             GET_PROPERTY(cShowSignalName, quint8, properties);
             GET_PROPERTY(cShowSignalUnit, quint8, properties);
             GET_PROPERTY(cPadding, quint8, properties);
         }
-        static const QString TAG_NAME;
 
     private:
         // configuration properties

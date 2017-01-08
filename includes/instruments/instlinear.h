@@ -12,6 +12,14 @@ class InstLinear : public VisuInstrument
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)
         {
+            load(properties);
+        }
+        static const QString TAG_NAME;
+
+        virtual void load(QMap<QString, QString> properties)
+        {
+            VisuInstrument::load(properties);
+
             GET_PROPERTY(cLineThickness, quint8, properties);
             GET_PROPERTY(cMajorLen, quint8, properties);
             GET_PROPERTY(cMinorLen, quint8, properties);
@@ -22,7 +30,6 @@ class InstLinear : public VisuInstrument
             GET_PROPERTY(cVerMargin, quint16, properties);
             GET_PROPERTY(cVerMinorMargin, quint16, properties);
         }
-        static const QString TAG_NAME;
 
     protected:
         virtual void renderStatic(QPainter *painter);   // Renders to pixmap_static

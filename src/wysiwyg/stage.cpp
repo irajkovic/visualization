@@ -19,7 +19,7 @@ void Stage::dropEvent(QDropEvent *event)
     VisuWidget* widget = VisuWidgetFactory::createWidget(this, signal, type);
     widget->setPosition(event->pos());
 
-    mMainWindow->setPropertiesTable(widget->getProperties());
+    mMainWindow->setPropertiesTable(widget);
 
     event->acceptProposedAction();
 }
