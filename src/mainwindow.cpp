@@ -122,11 +122,11 @@ void MainWindow::setupToolbarWidgets(QWidget* toolbar)
 
     mSignal = new VisuSignal(VisuConfigLoader::getTagFromFile("system/signal.xml", "signal"));
 
-    ADD_INSTRUMENT_TO_LAYOUT(this, InstAnalog, analog, mSignal, layout);
-    ADD_INSTRUMENT_TO_LAYOUT(this, InstLinear, linear, mSignal, layout);
-    ADD_INSTRUMENT_TO_LAYOUT(this, InstTimePlot, timeplot, mSignal, layout);
-    ADD_INSTRUMENT_TO_LAYOUT(this, InstDigital, digital, mSignal, layout);
-    ADD_INSTRUMENT_TO_LAYOUT(this, InstLED, led, mSignal, layout);
+    layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstAnalog::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstLinear::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstTimePlot::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstDigital::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstLED::TAG_NAME));
 
     mSignal->initialUpdate();
 }

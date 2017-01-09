@@ -37,6 +37,8 @@ public:
         GET_PROPERTY(cColorOff, QColor, properties);
         GET_PROPERTY(cShowSignalName, quint8, properties);
         GET_PROPERTY(cFontSize, quint8, properties);
+
+        mTagName = InstLED::TAG_NAME;
     }
 
 private:

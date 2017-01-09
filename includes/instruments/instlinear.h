@@ -29,6 +29,8 @@ class InstLinear : public VisuInstrument
             GET_PROPERTY(cHorMargin, quint16, properties);
             GET_PROPERTY(cVerMargin, quint16, properties);
             GET_PROPERTY(cVerMinorMargin, quint16, properties);
+
+            mTagName = InstLinear::TAG_NAME;
         }
 
     protected:

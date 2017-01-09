@@ -18,35 +18,34 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent, VisuSignal* signal,
 {
     VisuWidget* widget = nullptr;
 
-    if (type == "analog")
+    if (type == InstAnalog::TAG_NAME)
     {
-        CREATE_INSTRUMENT_OBJECT(parent, InstAnalog, analog, signal);
-        widget = analog;
+        CREATE_INSTRUMENT_OBJECT(parent, InstAnalog, widget, signal);
     }
-    else if (type == "digital")
+    else if (type == InstDigital::TAG_NAME)
     {
-        CREATE_INSTRUMENT_OBJECT(parent, InstDigital, digital, signal);
-        widget = digital;
+        CREATE_INSTRUMENT_OBJECT(parent, InstDigital, widget, signal);
     }
-    else if (type == "linear")
+    else if (type == InstLinear::TAG_NAME)
     {
-        CREATE_INSTRUMENT_OBJECT(parent, InstLinear, linear, signal);
-        widget = linear;
+        CREATE_INSTRUMENT_OBJECT(parent, InstLinear, widget, signal);
     }
-    else if (type == "timeplot")
+    else if (type == InstTimePlot::TAG_NAME)
     {
-        CREATE_INSTRUMENT_OBJECT(parent, InstTimePlot, timeplot, signal);
-        widget = timeplot;
+        CREATE_INSTRUMENT_OBJECT(parent, InstTimePlot, widget, signal);
     }
-    else if (type == "led")
+    else if (type == InstLED::TAG_NAME)
     {
-        CREATE_INSTRUMENT_OBJECT(parent, InstLED, led, signal);
-        widget = led;
+        CREATE_INSTRUMENT_OBJECT(parent, InstLED, widget, signal);
+    }
+    else
+    {
+        qDebug("Instrument of type %s not recognized.", type.toStdString().c_str())    ;
     }
 
     Q_ASSERT(widget != nullptr);
 
-    widget->show();
+    //widget->show();
     signal->initialUpdate();
 
     return widget;

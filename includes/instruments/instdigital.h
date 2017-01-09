@@ -23,6 +23,8 @@ class InstDigital : public VisuInstrument
             GET_PROPERTY(cShowSignalName, quint8, properties);
             GET_PROPERTY(cShowSignalUnit, quint8, properties);
             GET_PROPERTY(cPadding, quint8, properties);
+
+            mTagName = InstDigital::TAG_NAME;
         }
 
     private:

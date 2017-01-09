@@ -35,6 +35,8 @@ class InstAnalog : public VisuInstrument
             GET_PROPERTY(cNameY, quint16, properties);
             GET_PROPERTY(cOffsetX, qint16, properties);
             GET_PROPERTY(cOffsetY, qint16, properties);
+
+            mTagName = InstAnalog::TAG_NAME;
         }
 
     private:

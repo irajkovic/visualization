@@ -84,6 +84,7 @@ protected:
     quint16 cHeight;             // height in pixels
 
     QSize mSize;
+    QString mTagName;
 };
 
 #endif // VISUWIDGET_H

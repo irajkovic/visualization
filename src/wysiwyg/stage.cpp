@@ -30,6 +30,7 @@ void Stage::dropEvent(QDropEvent *event)
     {
         VisuSignal* signal = mMainWindow->getSignal();
         widget = VisuWidgetFactory::createWidget(this, signal, type);
+        widget->show();
     }
     else
     {

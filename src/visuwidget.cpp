@@ -43,7 +43,7 @@ void VisuWidget::mouseMoveEvent(QMouseEvent *event)
 
     // encode widget type and origin (toolbar / stage)
     QMimeData *mimeData = new QMimeData;
-    QString text = cName + "|" + parent()->objectName();
+    QString text = mTagName + "|" + parent()->objectName();
     mimeData->setText(text);
     drag->setMimeData(mimeData);
 

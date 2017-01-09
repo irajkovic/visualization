@@ -35,6 +35,8 @@ class InstTimePlot : public VisuInstrument
             GET_PROPERTY(cDivisionFormat, QString, properties);
             GET_PROPERTY(cMasterTimeFormat, QString, properties);
             GET_PROPERTY(cColorGraphBackground, QColor, properties);
+
+            mTagName = InstTimePlot::TAG_NAME;
         }
 
     private:
