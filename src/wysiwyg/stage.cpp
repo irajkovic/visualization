@@ -29,7 +29,7 @@ void Stage::dropEvent(QDropEvent *event)
     if (mMainWindow->dragOriginIsToolbar(origin))
     {
         VisuSignal* signal = mMainWindow->getSignal();
-        widget = VisuWidgetFactory::createWidget(this, signal, type);
+        widget = VisuWidgetFactory::createWidget(this, type, signal);
         widget->show();
     }
     else

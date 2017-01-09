@@ -4,6 +4,7 @@
 #include <QTableWidget>
 #include <QMainWindow>
 #include "visusignal.h"
+#include "visuconfiguration.h"
 
 class Stage;
 
@@ -49,12 +50,14 @@ private:
     Stage* mStage;
     QTableWidget* mPropertiesTable;
     VisuWidget* mActiveWidget;
+    VisuConfiguration* configuration;
 
     void setupMenu();
     void mapToString(QMap<QString, QString> properties);
 
 private slots:
-    void saveConfiguration(bool checked = false);
+    void openConfiguration();
+    void saveConfiguration();
 };
 
 #endif // MAINWINDOW_H

@@ -33,6 +33,8 @@ const QString VisuConfiguration::TAG_SIGNALS_PLACEHOLDER = "signals";
 const QString VisuConfiguration::TAG_INSTRUMENTS_PLACEHOLDER = "instruments";
 const QString VisuConfiguration::TAG_CONTROLS_PLACEHOLDER = "controls";
 
+#include "wysiwyg/visuwidgetfactory.h"
+
 VisuConfiguration::VisuConfiguration()
 {
 
@@ -67,31 +69,9 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
 void VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_INSTRUMENT);
-    VisuInstrument* instrument;
 
-    if (properties[ATTR_TYPE] == InstAnalog::TAG_NAME) {
-        instrument = new InstAnalog(parent, properties);
-    }
-    else if (properties[ATTR_TYPE] == InstDigital::TAG_NAME) {
-        instrument = new InstDigital(parent, properties);
-    }
-    else if (properties[ATTR_TYPE] == InstLinear::TAG_NAME) {
-        instrument = new InstLinear(parent, properties);
-    }
-    else if (properties[ATTR_TYPE] == InstTimePlot::TAG_NAME) {
-        instrument = new InstTimePlot(parent, properties);
-    }
-    else if (properties[ATTR_TYPE] == InstXYPlot::TAG_NAME) {
-        instrument = new InstXYPlot(parent, properties);
-        quint16 signalYId = ((InstXYPlot*)instrument)->getSignalYId();
-        attachInstrumentToSignal(instrument, signalYId);
-    }
-    else if (properties[ATTR_TYPE] == InstLED::TAG_NAME) {
-        instrument = new InstLED(parent, properties);
-    }
-    else {
-        throw ConfigLoadException("Instrument %1 not recognized", properties[ATTR_TYPE]);
-    }
+    VisuWidget* widget = VisuWidgetFactory::createWidget(parent, properties[ATTR_TYPE], properties);
+    VisuInstrument* instrument = static_cast<VisuInstrument*>(widget);
 
     attachInstrumentToSignal(instrument);
     instrument->show();

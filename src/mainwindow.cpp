@@ -17,6 +17,7 @@
 #include <QLineEdit>
 #include <QTableWidgetItem>
 #include <QtGui>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     QMainWindow(parent),
@@ -64,7 +65,18 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     show();
 }
 
-void MainWindow::saveConfiguration(bool checked)
+void MainWindow::openConfiguration()
+{
+    QString configPath = QFileDialog::getOpenFileName(this,
+                                                      tr("Open configuration"),
+                                                      ".",
+                                                      "Configuration files (*.xml)");
+    configuration = new VisuConfiguration();
+    QString xml = VisuConfigLoader::loadXMLFromFile(configPath);
+    configuration->loadFromXML(mStage, QString(xml));
+}
+
+void MainWindow::saveConfiguration()
 {
     qDebug("Saving");
     // recreate widgets tree
@@ -98,6 +110,7 @@ void MainWindow::setupMenu()
     open->setShortcut(QKeySequence::Open);
     open->setStatusTip(tr("Open existing configuration"));
     fileMenu->addAction(open);
+    connect(open, SIGNAL(triggered()), this, SLOT(openConfiguration()));
 
     QAction* save = new QAction(tr("&Save"), this);
     save->setShortcut(QKeySequence::Save);
@@ -123,12 +136,12 @@ void MainWindow::setupToolbarWidgets(QWidget* toolbar)
 
     mSignal = new VisuSignal(VisuConfigLoader::getTagFromFile("system/signal.xml", "signal"));
 
-    layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstAnalog::TAG_NAME));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstLinear::TAG_NAME));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstTimePlot::TAG_NAME));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstDigital::TAG_NAME));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstLED::TAG_NAME));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstXYPlot::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstAnalog::TAG_NAME, mSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLinear::TAG_NAME, mSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstTimePlot::TAG_NAME, mSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstDigital::TAG_NAME, mSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, mSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, mSignal));
 
     mSignal->initialUpdate();
 }

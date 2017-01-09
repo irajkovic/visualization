@@ -15,33 +15,46 @@ VisuWidgetFactory::VisuWidgetFactory()
 
 }
 
-VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent, VisuSignal* signal, QString type)
+
+VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
+                                            QString type,
+                                            VisuSignal* signal)
+{
+    QString path = QString("system/%1.xml").arg(type);
+    QMap<QString, QString> properties = VisuConfigLoader::getTagFromFile(path, "instrument");
+    return VisuWidgetFactory::createWidget(parent, type, properties, signal);
+}
+
+VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
+                                            QString type,
+                                            QMap<QString, QString> properties,
+                                            VisuSignal* signal)
 {
     VisuWidget* widget = nullptr;
 
     if (type == InstAnalog::TAG_NAME)
     {
-        widget = CREATE_INSTRUMENT_OBJECT(parent, InstAnalog, signal);
+        widget = new InstAnalog(parent, properties);
     }
     else if (type == InstDigital::TAG_NAME)
     {
-        widget = CREATE_INSTRUMENT_OBJECT(parent, InstDigital, signal);
+        widget = new InstDigital(parent, properties);
     }
     else if (type == InstLinear::TAG_NAME)
     {
-        widget = CREATE_INSTRUMENT_OBJECT(parent, InstLinear, signal);
+        widget = new InstLinear(parent, properties);
     }
     else if (type == InstTimePlot::TAG_NAME)
     {
-        widget = CREATE_INSTRUMENT_OBJECT(parent, InstTimePlot, signal);
+        widget = new InstTimePlot(parent, properties);
     }
     else if (type == InstLED::TAG_NAME)
     {
-        widget = CREATE_INSTRUMENT_OBJECT(parent, InstLED, signal);
+        widget = new InstLED(parent, properties);
     }
     else if (type == InstXYPlot::TAG_NAME)
     {
-        widget = CREATE_INSTRUMENT_OBJECT(parent, InstXYPlot, signal);
+        widget = new InstXYPlot(parent, properties);
     }
     else
     {
@@ -50,8 +63,11 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent, VisuSignal* signal,
 
     Q_ASSERT(widget != nullptr);
 
-    signal->connectInstrument(static_cast<VisuInstrument*>(widget));
-    signal->initialUpdate();
+    if (signal != nullptr)
+    {
+        signal->connectInstrument(static_cast<VisuInstrument*>(widget));
+        signal->initialUpdate();
+    }
 
     return widget;
 }
