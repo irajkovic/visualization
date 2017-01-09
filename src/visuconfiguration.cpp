@@ -43,14 +43,7 @@ VisuConfiguration::VisuConfiguration()
 
 void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument, int signalId)
 {
-    // TODO :: optimize
-    int size = signalsList.size();
-    for (int i=0; i<size; i++) {
-        if (signalsList[i]->getId() == signalId) {
-            signalsList[i]->connectInstrument(instrument);
-        }
-    }
-    // std::find_if(signals_list.begin(), signals_list.end(), [instrument_id](VisuSignal* s){ return s->get_id() == instrument_id; } );
+    getSignal(signalId)->connectInstrument(instrument);
 }
 
 void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument)
@@ -172,11 +165,8 @@ void VisuConfiguration::loadFromXML(QWidget *parent, QString xmlString)
 
 VisuSignal* VisuConfiguration::getSignal(quint16 signalId)
 {
-    if (signalId < signalsList.size()) {
-        return signalsList[signalId];
-    }
-
-    return NULL;
+    Q_ASSERT(signalId < signalsList.size());
+    return signalsList[signalId];
 }
 
 VisuInstrument* VisuConfiguration::getInstrument(quint16 instrument_id)
