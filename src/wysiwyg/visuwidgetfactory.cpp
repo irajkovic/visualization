@@ -20,23 +20,23 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent, VisuSignal* signal,
 
     if (type == InstAnalog::TAG_NAME)
     {
-        CREATE_INSTRUMENT_OBJECT(parent, InstAnalog, widget, signal);
+        widget = CREATE_INSTRUMENT_OBJECT(parent, InstAnalog, signal);
     }
     else if (type == InstDigital::TAG_NAME)
     {
-        CREATE_INSTRUMENT_OBJECT(parent, InstDigital, widget, signal);
+        widget = CREATE_INSTRUMENT_OBJECT(parent, InstDigital, signal);
     }
     else if (type == InstLinear::TAG_NAME)
     {
-        CREATE_INSTRUMENT_OBJECT(parent, InstLinear, widget, signal);
+        widget = CREATE_INSTRUMENT_OBJECT(parent, InstLinear, signal);
     }
     else if (type == InstTimePlot::TAG_NAME)
     {
-        CREATE_INSTRUMENT_OBJECT(parent, InstTimePlot, widget, signal);
+        widget = CREATE_INSTRUMENT_OBJECT(parent, InstTimePlot, signal);
     }
     else if (type == InstLED::TAG_NAME)
     {
-        CREATE_INSTRUMENT_OBJECT(parent, InstLED, widget, signal);
+        widget = CREATE_INSTRUMENT_OBJECT(parent, InstLED, signal);
     }
     else
     {
@@ -45,7 +45,8 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent, VisuSignal* signal,
 
     Q_ASSERT(widget != nullptr);
 
-    //widget->show();
+
+    signal->connectInstrument(static_cast<VisuInstrument*>(widget));
     signal->initialUpdate();
 
     return widget;

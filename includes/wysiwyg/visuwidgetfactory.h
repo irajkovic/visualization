@@ -4,10 +4,8 @@
 #include "visuwidget.h"
 #include "visusignal.h"
 
-#define CREATE_INSTRUMENT_OBJECT(PARENT, CLASS, OBJECT, SIG)\
-    OBJECT = new CLASS(PARENT, VisuConfigLoader::getTagFromFile("system/"#CLASS".xml", "instrument")); \
-    OBJECT->setName(#OBJECT); \
-    SIG->connectInstrument(static_cast<CLASS*>(OBJECT));
+#define CREATE_INSTRUMENT_OBJECT(PARENT, CLASS, SIG)\
+    new CLASS(PARENT, VisuConfigLoader::getTagFromFile("system/"#CLASS".xml", "instrument"));
 
 class VisuWidgetFactory
 {
