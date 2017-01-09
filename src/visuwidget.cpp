@@ -40,6 +40,7 @@ void VisuWidget::mouseMoveEvent(QMouseEvent *event)
         return;
 
     QDrag *drag = new QDrag(this);
+    drag->setPixmap(QPixmap::grabWidget(this));
 
     // encode widget type and origin (toolbar / stage)
     QMimeData *mimeData = new QMimeData;
