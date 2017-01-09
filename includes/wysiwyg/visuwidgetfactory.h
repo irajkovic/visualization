@@ -5,9 +5,6 @@
 #include "visuwidget.h"
 #include "visusignal.h"
 
-#define CREATE_INSTRUMENT_OBJECT(PARENT, CLASS, PROPERTIES)\
-    new CLASS(PARENT, PROPERTIES);
-
 class VisuWidgetFactory
 {
 public:
