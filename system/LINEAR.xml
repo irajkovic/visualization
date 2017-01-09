@@ -2,7 +2,7 @@
 <instrument>
    <id>5</id>
    <type>LINEAR</type>
-   <signalId>1</signalId>
+   <signalId>-1</signalId>
    <name>Analog 1</name>
    <width>300</width>
    <height>150</height>

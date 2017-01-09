@@ -44,7 +44,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    VisuSignal* mSignal;
+    VisuSignal* mDefaultSignal;
 
     QWidget* mToolbar;
     Stage* mStage;

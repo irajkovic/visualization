@@ -35,6 +35,7 @@ class VisuConfiguration
         VisuSignal* getSignal(quint16 signalId);
         VisuInstrument* getInstrument(quint16 instrument_id);
         QVector<VisuInstrument*>& getInstruments();
+        QVector<VisuSignal*>& getSignals();
 
         quint16 getPort();
         quint16 getWidth();

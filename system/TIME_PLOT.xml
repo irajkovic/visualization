@@ -2,7 +2,7 @@
 <instrument>
    <id>6</id>
    <type>TIME_PLOT</type>
-   <signalId>1</signalId>
+   <signalId>-1</signalId>
    <name>Time plot</name>
    <width>300</width>
    <height>150</height>

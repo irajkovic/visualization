@@ -1,8 +1,8 @@
 <instrument>
    <id>6</id>
    <type>XY_PLOT</type>
-   <signalId>0</signalId>
-   <signalYId>1</signalYId>
+   <signalId>-1</signalId>
+   <signalYId>-1</signalYId>
    <name>Time plot</name>
    <width>150</width>
    <height>150</height>

@@ -2,7 +2,7 @@
 <instrument>
    <id>1</id>
    <type>ANALOG</type>
-   <signalId>1</signalId>
+   <signalId>-1</signalId>
    <name>Analog 1</name>
    <width>150</width>
    <height>150</height>

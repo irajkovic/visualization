@@ -165,7 +165,10 @@ void VisuConfiguration::loadFromXML(QWidget *parent, QString xmlString)
 
 VisuSignal* VisuConfiguration::getSignal(quint16 signalId)
 {
-    Q_ASSERT(signalId < signalsList.size());
+    if(signalId >= signalsList.size())
+    {
+        throw ConfigLoadException(QString("Signal id %1 too large!").arg(signalId));
+    }
     return signalsList[signalId];
 }
 
@@ -177,6 +180,11 @@ VisuInstrument* VisuConfiguration::getInstrument(quint16 instrument_id)
 QVector<VisuInstrument*>& VisuConfiguration::getInstruments()
 {
     return instrumentsList;
+}
+
+QVector<VisuSignal*>& VisuConfiguration::getSignals()
+{
+    return signalsList;
 }
 
 quint16 VisuConfiguration::getPort()

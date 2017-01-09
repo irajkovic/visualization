@@ -137,16 +137,16 @@ void MainWindow::setupToolbarWidgets(QWidget* toolbar)
     QHBoxLayout *layout = new QHBoxLayout;
     toolbar->setLayout(layout);
 
-    mSignal = new VisuSignal(VisuConfigLoader::getTagFromFile("system/signal.xml", "signal"));
+    mDefaultSignal = new VisuSignal(VisuConfigLoader::getTagFromFile("system/signal.xml", "signal"));
 
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstAnalog::TAG_NAME, mSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLinear::TAG_NAME, mSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstTimePlot::TAG_NAME, mSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstDigital::TAG_NAME, mSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, mSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, mSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstAnalog::TAG_NAME, mDefaultSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLinear::TAG_NAME, mDefaultSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstTimePlot::TAG_NAME, mDefaultSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstDigital::TAG_NAME, mDefaultSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, mDefaultSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, mDefaultSignal));
 
-    mSignal->initialUpdate();
+    mDefaultSignal->initialUpdate();
 }
 
 void MainWindow::cellUpdated(int row, int col)
@@ -170,9 +170,17 @@ void MainWindow::cellUpdated(int row, int col)
     mActiveWidget->load(properties);
     mActiveWidget->setPosition(position);
 
-    mSignal->initialUpdate();
-
-    qDebug("Cell updated: %s = %s", key.toStdString().c_str(), value.toStdString().c_str());
+    if (properties["signalId"].toInt() > 0)
+    {
+        // actual signal
+        VisuInstrument* inst = static_cast<VisuInstrument*>(mActiveWidget);
+        VisuSignal* signal = configuration->getSignal(inst->getSignalId());
+        signal->initialUpdate();
+    }
+    else
+    {
+        mDefaultSignal->initialUpdate();
+    }
 }
 
 void MainWindow::setActiveWidget(VisuWidget* widget)
@@ -205,7 +213,7 @@ void MainWindow::setActiveWidget(VisuWidget* widget)
 
 VisuSignal* MainWindow::getSignal()
 {
-    return mSignal;
+    return mDefaultSignal;
 }
 
 MainWindow::~MainWindow()
