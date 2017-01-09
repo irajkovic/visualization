@@ -11,7 +11,7 @@ class VisuConfiguration
 {
 
     private:
-        std::vector<VisuSignal*> signalsList;
+        QVector<VisuSignal*> signalsList;
         QVector<VisuInstrument*> instrumentsList;
         void attachInstrumentToSignal(VisuInstrument* instrument);
         void attachInstrumentToSignal(VisuInstrument* instrument, int signalId);
