@@ -4,13 +4,18 @@
 #include <QTableWidget>
 #include <QMainWindow>
 #include "visusignal.h"
-#include "wysiwyg/draggablewidget.h"
 
 class Stage;
 
 namespace Ui {
 class MainWindow;
 }
+
+enum DRAG_ORIGIN
+{
+    TOOLBAR = 0,
+    STAGE
+};
 
 class MainWindow : public QMainWindow
 {
@@ -21,6 +26,12 @@ public:
     void setupToolbarWidgets(QWidget* toolbar);
     VisuSignal* getSignal();
     void setPropertiesTable(VisuWidget* widget);
+    bool dragOriginIsToolbar(QString originObjectName);
+    VisuWidget* getActiveWidget()
+    {
+        return mActiveWidget;
+    }
+
     ~MainWindow();
 
 public slots:
@@ -30,6 +41,7 @@ private:
     Ui::MainWindow *ui;
     VisuSignal* mSignal;
 
+    QWidget* mToolbar;
     Stage* mStage;
     QTableWidget* mPropertiesTable;
     VisuWidget* mActiveWidget;

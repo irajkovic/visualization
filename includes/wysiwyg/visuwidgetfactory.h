@@ -9,21 +9,14 @@
     OBJECT->setName(#OBJECT); \
     SIG->connectInstrument(OBJECT); \
 
-#define CREATE_DRAGGABLE_OBJECT(PARENT, CLASS, OBJECT, SIG)\
-    CREATE_INSTRUMENT_OBJECT(PARENT, CLASS, OBJECT, SIG)\
-    DraggableWidget* draggable##CLASS = new DraggableWidget(PARENT); \
-    OBJECT->setParent(draggable##CLASS); \
-    draggable##CLASS->setWidget(OBJECT); \
-
 #define ADD_INSTRUMENT_TO_LAYOUT(PARENT, CLASS, OBJECT, SIG, LAYOUT)\
-    CREATE_DRAGGABLE_OBJECT(PARENT, CLASS, OBJECT, SIG) \
-    LAYOUT->addWidget(draggable##CLASS);
+    CREATE_INSTRUMENT_OBJECT(PARENT, CLASS, OBJECT, SIG) \
+    LAYOUT->addWidget(OBJECT);
 
 #define ADD_INSTRUMENT_TO_WIDGET(PARENT, CLASS, OBJECT, SIG, POSITION)\
-    CREATE_DRAGGABLE_OBJECT(PARENT, CLASS, OBJECT, SIG) \
+    CREATE_INSTRUMENT_OBJECT(PARENT, CLASS, OBJECT, SIG) \
     OBJECT->setPosition(POSITION); \
     OBJECT->show(); \
-    draggable##CLASS->show();
 
 class VisuWidgetFactory
 {

@@ -8,7 +8,6 @@
 #include "instled.h"
 #include "visuconfigloader.h"
 #include "wysiwyg/visuwidgetfactory.h"
-#include "wysiwyg/draggablewidget.h"
 #include <QXmlStreamReader>
 #include <QTableWidget>
 #include "wysiwyg/stage.h"
@@ -31,10 +30,11 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     window->setLayout(windowLayout);
     setCentralWidget(window);
 
-    QWidget* toolbar = new QWidget(window);
-    toolbar->setMinimumHeight(170);
-    windowLayout->addWidget(toolbar);
-    setupToolbarWidgets(toolbar);
+    mToolbar = new QWidget(window);
+    mToolbar->setObjectName("toolbar");
+    mToolbar->setMinimumHeight(170);
+    windowLayout->addWidget(mToolbar);
+    setupToolbarWidgets(mToolbar);
 
     QWidget* workArea = new QWidget(window);
     windowLayout->addWidget(workArea);
@@ -43,6 +43,7 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     workArea->setLayout(workAreaLayout);
 
     mStage = new Stage(this, workArea);
+    mStage->setObjectName("stage");
     workAreaLayout->addWidget(mStage);
 
     mPropertiesTable = new QTableWidget(workArea);
@@ -108,7 +109,10 @@ void MainWindow::setupMenu()
     fileMenu->addAction(saveAs);
 }
 
-
+bool MainWindow::dragOriginIsToolbar(QString originObjectName)
+{
+    return originObjectName == mToolbar->objectName();
+}
 
 void MainWindow::setupToolbarWidgets(QWidget* toolbar)
 {

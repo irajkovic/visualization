@@ -61,6 +61,11 @@ public:
         return mSize;
     }
 
+    // Drag&drop related
+    QPoint mDragStartPosition;
+    void mousePressEvent(QMouseEvent * event);
+    void mouseMoveEvent(QMouseEvent *event);
+
 protected:
 
     // properties map

@@ -39,7 +39,6 @@ SOURCES += main.cpp\
     visuwidget.cpp \
     ../src/statics/staticimage.cpp \
     ../src/visuconfigloader.cpp \
-    ../src/wysiwyg/draggablewidget.cpp \
     ../src/wysiwyg/stage.cpp \
     ../src/wysiwyg/visuwidgetfactory.cpp
 
@@ -62,7 +61,6 @@ HEADERS  += ../includes/mainwindow.h \
     ../includes/visuwidget.h \
     ../includes/statics/staticimage.h \
     ../includes/visuconfigloader.h \
-    ../includes/wysiwyg/draggablewidget.h \
     ../includes/wysiwyg/stage.h \
     ../includes/wysiwyg/visuwidgetfactory.h
 

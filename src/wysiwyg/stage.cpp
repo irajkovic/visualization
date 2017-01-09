@@ -11,14 +11,32 @@ void Stage::dragEnterEvent(QDragEnterEvent *event)
         event->acceptProposedAction();
 }
 
+QString getType(QString mimeDataText)
+{
+    int delPos = mimeDataText.indexOf("\|");
+    return mimeDataText.mid(0, delPos);
+}
+
 void Stage::dropEvent(QDropEvent *event)
 {
-    QString type = event->mimeData()->text();
-    VisuSignal* signal = mMainWindow->getSignal();
+    QStringList parts = event->mimeData()->text().split("|");
+    QString type = parts[0];
+    QString origin = parts[1];
 
-    VisuWidget* widget = VisuWidgetFactory::createWidget(this, signal, type);
+    qDebug("%s", event->mimeData()->text().toStdString().c_str());
+
+    VisuWidget* widget;
+    if (mMainWindow->dragOriginIsToolbar(origin))
+    {
+        VisuSignal* signal = mMainWindow->getSignal();
+        widget = VisuWidgetFactory::createWidget(this, signal, type);
+    }
+    else
+    {
+        widget = mMainWindow->getActiveWidget();
+    }
+
     widget->setPosition(event->pos());
-
     mMainWindow->setPropertiesTable(widget);
 
     event->acceptProposedAction();
