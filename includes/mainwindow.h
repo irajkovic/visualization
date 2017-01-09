@@ -25,12 +25,16 @@ public:
     explicit MainWindow(QString xmlPath, QWidget *parent = 0);
     void setupToolbarWidgets(QWidget* toolbar);
     VisuSignal* getSignal();
-    void setPropertiesTable(VisuWidget* widget);
+    void setActiveWidget(VisuWidget* widget);
     bool dragOriginIsToolbar(QString originObjectName);
     VisuWidget* getActiveWidget()
     {
         return mActiveWidget;
     }
+    void mousePressEvent(QMouseEvent * event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent* event);
+    void mouseDoubleClickEvent(QMouseEvent* event);
 
     ~MainWindow();
 

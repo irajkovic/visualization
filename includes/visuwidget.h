@@ -16,6 +16,7 @@ public:
             QMap<QString, QString> properties) : QWidget(parent)
     {
         load(properties);
+        setObjectName(VisuWidget::OBJECT_NAME);
     }
 
     virtual void load(QMap<QString, QString> properties)
@@ -65,6 +66,10 @@ public:
     QPoint mDragStartPosition;
     void mousePressEvent(QMouseEvent * event);
     void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent* event);
+    void mouseDoubleClickEvent(QMouseEvent* event);
+
+    static const QString OBJECT_NAME;
 
 protected:
 
