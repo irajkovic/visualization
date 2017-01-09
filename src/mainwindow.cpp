@@ -6,6 +6,7 @@
 #include "instlinear.h"
 #include "insttimeplot.h"
 #include "instled.h"
+#include "instxyplot.h"
 #include "visuconfigloader.h"
 #include "wysiwyg/visuwidgetfactory.h"
 #include <QXmlStreamReader>
@@ -127,6 +128,7 @@ void MainWindow::setupToolbarWidgets(QWidget* toolbar)
     layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstTimePlot::TAG_NAME));
     layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstDigital::TAG_NAME));
     layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstLED::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, mSignal, InstXYPlot::TAG_NAME));
 
     mSignal->initialUpdate();
 }

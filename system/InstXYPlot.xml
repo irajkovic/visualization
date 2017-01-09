@@ -1,0 +1,20 @@
+<instrument>
+   <id>6</id>
+   <type>XY_PLOT</type>
+   <signalId>0</signalId>
+   <signalYId>1</signalYId>
+   <name>Time plot</name>
+   <width>150</width>
+   <height>150</height>
+   <x>10</x>
+   <y>10</y>
+   <colorBackground>30,30,30,255</colorBackground>
+   <colorForeground>250,50,50,100</colorForeground>
+   <colorStatic>255,50,50,255</colorStatic>
+   <majorCnt>20</majorCnt>
+   <majorLen>5</majorLen>
+   <ballSize>15</ballSize>
+   <labelX>X osa</labelX>
+   <labelY>Y osa</labelY>
+</instrument>
+
