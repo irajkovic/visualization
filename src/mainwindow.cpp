@@ -18,6 +18,7 @@
 #include <QTableWidgetItem>
 #include <QtGui>
 #include <QFileDialog>
+#include "visumisc.h"
 
 MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     QMainWindow(parent),
@@ -74,6 +75,8 @@ void MainWindow::openConfiguration()
     configuration = new VisuConfiguration();
     QString xml = VisuConfigLoader::loadXMLFromFile(configPath);
     configuration->loadFromXML(mStage, QString(xml));
+    VisuMisc::setBackgroundColor(mStage, configuration->getBackgroundColor());
+    mStage->setGeometry(0, 0, configuration->getWidth(), configuration->getHeight());
 }
 
 void MainWindow::saveConfiguration()
