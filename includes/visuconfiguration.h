@@ -13,8 +13,6 @@ class VisuConfiguration
     private:
         QVector<VisuSignal*> signalsList;
         QVector<VisuInstrument*> instrumentsList;
-        void attachInstrumentToSignal(VisuInstrument* instrument);
-        void attachInstrumentToSignal(VisuInstrument* instrument, int signalId);
         void createSignalFromToken(QXmlStreamReader& xml_reader);
         void createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
         void createConfigurationFromToken(QXmlStreamReader& xmlReader);
@@ -36,6 +34,10 @@ class VisuConfiguration
         VisuInstrument* getInstrument(quint16 instrument_id);
         QVector<VisuInstrument*>& getInstruments();
         QVector<VisuSignal*>& getSignals();
+        void detachInstrumentFromSignal(VisuInstrument* instrument);
+        void attachInstrumentToSignal(VisuInstrument* instrument);
+        void detachInstrumentFromSignal(VisuInstrument* instrument, int signalId);
+        void attachInstrumentToSignal(VisuInstrument* instrument, int signalId);
 
         quint16 getPort();
         quint16 getWidth();

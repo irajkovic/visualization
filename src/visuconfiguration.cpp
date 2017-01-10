@@ -46,10 +46,21 @@ void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument, int
     getSignal(signalId)->connectInstrument(instrument);
 }
 
+void VisuConfiguration::detachInstrumentFromSignal(VisuInstrument* instrument, int signalId)
+{
+    getSignal(signalId)->disconnectInstrument(instrument);
+}
+
 void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument)
 {
     quint16 signalId = instrument->getSignalId();
     attachInstrumentToSignal(instrument, signalId);
+}
+
+void VisuConfiguration::detachInstrumentFromSignal(VisuInstrument* instrument)
+{
+    quint16 signalId = instrument->getSignalId();
+    detachInstrumentFromSignal(instrument, signalId);
 }
 
 void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)

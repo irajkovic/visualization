@@ -165,16 +165,26 @@ void MainWindow::cellUpdated(int row, int col)
     {
         position.setY(value.toInt());
     }
+    if (key == "signalId")
+    {
+        // find old signal and detach instrument
+        VisuInstrument* inst = static_cast<VisuInstrument*>(mActiveWidget);
+        configuration->detachInstrumentFromSignal(inst);
+    }
 
     properties[key] = value;
     mActiveWidget->load(properties);
     mActiveWidget->setPosition(position);
 
-    if (properties["signalId"].toInt() > 0)
+    if (properties["signalId"].toInt() >= 0)
     {
         // actual signal
         VisuInstrument* inst = static_cast<VisuInstrument*>(mActiveWidget);
         VisuSignal* signal = configuration->getSignal(inst->getSignalId());
+        if (key == "signalId")
+        {
+            configuration->attachInstrumentToSignal(inst);
+        }
         signal->initialUpdate();
     }
     else
