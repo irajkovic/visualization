@@ -4,17 +4,40 @@
 #include <QWidget>
 #include <QLayout>
 #include <QPushButton>
+#include <QTableWidget>
+#include <QHeaderView>
+#include "visumisc.h"
+#include "visuconfigloader.h"
+#include "visusignal.h"
+#include <QTableWidget>
+#include <QMap>
 
 class EditSignal : public QWidget
 {
-public:
-    EditSignal(QWidget* parent = 0)
-    {
-        QWidget* centerWidget = new QWidget();
-        QLayout* vlayout = new QVBoxLayout();
-        centerWidget->setLayout(vlayout);
+    Q_OBJECT
 
-        QWidget* form = new QWidget();
+public:
+    EditSignal(VisuSignal* visuSignal = nullptr)
+    {
+        QLayout* vlayout = new QVBoxLayout();
+        setLayout(vlayout);
+
+        mTable = new QTableWidget() ;
+        if (visuSignal == nullptr)
+        {
+            mProperties = VisuConfigLoader::getTagFromFile("system/signal.xml", "signal");
+        }
+        else
+        {
+            mProperties = visuSignal->getProperties();
+        }
+        VisuMisc::updateTable(mTable, mProperties);
+
+        mTable->setMaximumWidth(300);
+        mTable->verticalHeader()->hide();
+        mTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+        vlayout->addWidget(mTable);
 
         QWidget* buttons = new QWidget();
         QLayout* buttonsLayout = new QHBoxLayout();
@@ -29,9 +52,22 @@ public:
         buttons->setMaximumHeight(saveButton->height());
         vlayout->addWidget(buttons);
 
-        centerWidget->setGeometry(100, 100, 600, 600);
-        centerWidget->show();
+        show();
+        connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
+        connect(saveButton, SIGNAL(clicked()), this, SLOT(addSignal()));
+        connect(mTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
     }
+
+signals:
+    void signalAdded(VisuSignal*);
+
+public slots:
+    void addSignal();
+    void cellUpdated(int row, int col);
+
+private:
+    QMap<QString, QString> mProperties;
+    QTableWidget* mTable;
 };
 
 #endif // EDITSIGNAL_H

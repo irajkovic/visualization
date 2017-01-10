@@ -1,5 +1,10 @@
 #include "visusignal.h"
 
+QMap<QString, QString>& VisuSignal::getProperties()
+{
+    return mProperties;
+}
+
 /**
  * @brief Signal::connectInstrument
  * Adds instrument to notify list.
@@ -140,4 +145,17 @@ QString VisuSignal::getUnit() const
 quint64 VisuSignal::getTimestamp() const
 {
     return mTimestamp;
+}
+
+void VisuSignal::load(QMap<QString, QString> properties)
+{
+    mProperties = properties;
+
+    GET_PROPERTY(cId, quint16, properties);
+    GET_PROPERTY(cName, QString, properties);
+    GET_PROPERTY(cUnit, QString, properties);
+    GET_PROPERTY(cFactor, double, properties);
+    GET_PROPERTY(cOffset, double, properties);
+    GET_PROPERTY(cMax, double, properties);
+    GET_PROPERTY(cMin, double, properties);
 }

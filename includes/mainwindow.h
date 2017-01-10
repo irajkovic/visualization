@@ -42,6 +42,7 @@ public:
 
 public slots:
     void cellUpdated(int row, int col);
+    void addSignal(VisuSignal* signal);
 
 private:
     Ui::MainWindow *ui;
@@ -51,9 +52,9 @@ private:
     Stage* mStage;
     QTableWidget* mPropertiesTable;
     VisuWidget* mActiveWidget;
-    VisuConfiguration* configuration;
+    VisuConfiguration* mConfiguration;
     EditSignal* editSignalWindow;
-    QMenu* mSignalsMenu;
+    QMenu* mSignalsListMenu;
 
     void setupMenu();
     void updateMenuSignalList();
