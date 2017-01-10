@@ -66,6 +66,11 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     show();
 }
 
+void MainWindow::openSignalsEditor()
+{
+    editSignalWindow = new EditSignal();
+}
+
 void MainWindow::openConfiguration()
 {
     QString configPath = QFileDialog::getOpenFileName(this,
@@ -77,6 +82,8 @@ void MainWindow::openConfiguration()
     configuration->loadFromXML(mStage, QString(xml));
     VisuMisc::setBackgroundColor(mStage, configuration->getBackgroundColor());
     mStage->setGeometry(0, 0, configuration->getWidth(), configuration->getHeight());
+
+    updateMenuSignalList();
 }
 
 void MainWindow::saveConfiguration()
@@ -125,6 +132,28 @@ void MainWindow::setupMenu()
     saveAs->setShortcut(QKeySequence::SaveAs);
     saveAs->setStatusTip(tr("Save as new configuration"));
     fileMenu->addAction(saveAs);
+
+    mSignalsMenu = ui->menuBar->addMenu(tr("&Signals"));
+
+    QAction* newsig = new QAction(tr("&New"), this);
+    //open->setShortcut(QKeySequence::Open);
+    newsig->setStatusTip(tr("Add new signal"));
+    mSignalsMenu->addAction(newsig);
+    connect(newsig, SIGNAL(triggered()), this, SLOT(openSignalsEditor()));
+}
+
+void MainWindow::updateMenuSignalList()
+{
+    QMenu* signalsList = mSignalsMenu->addMenu(tr("&List"));
+    auto configSignals = configuration->getSignals();
+    if (configSignals.size() > 0)
+    {
+        for (VisuSignal* sig : configSignals)
+        {
+            QAction* tmpSig = new QAction(sig->getName(), this);
+            signalsList->addAction(tmpSig);
+        }
+    }
 }
 
 bool MainWindow::dragOriginIsToolbar(QString originObjectName)

@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     ../src/visuconfigloader.cpp \
     ../src/wysiwyg/stage.cpp \
     ../src/wysiwyg/visuwidgetfactory.cpp \
-    ../src/visumisc.cpp
+    ../src/visumisc.cpp \
+    ../src/wysiwyg/editsignal.cpp
 
 HEADERS  += ../includes/mainwindow.h \
     ../includes/visuinstrument.h \
@@ -64,6 +65,7 @@ HEADERS  += ../includes/mainwindow.h \
     ../includes/visuconfigloader.h \
     ../includes/wysiwyg/stage.h \
     ../includes/wysiwyg/visuwidgetfactory.h \
-    ../includes/visumisc.h
+    ../includes/visumisc.h \
+    ../includes/wysiwyg/editsignal.h
 
 FORMS    += ../src/mainwindow.ui

@@ -1,11 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QMenu>
 #include <QTableWidget>
 #include <QMainWindow>
 #include "visusignal.h"
 #include "visuconfiguration.h"
-
+#include "wysiwyg/editsignal.h"
 class Stage;
 
 namespace Ui {
@@ -51,13 +52,17 @@ private:
     QTableWidget* mPropertiesTable;
     VisuWidget* mActiveWidget;
     VisuConfiguration* configuration;
+    EditSignal* editSignalWindow;
+    QMenu* mSignalsMenu;
 
     void setupMenu();
+    void updateMenuSignalList();
     void mapToString(QMap<QString, QString> properties);
 
 private slots:
     void openConfiguration();
     void saveConfiguration();
+    void openSignalsEditor();
 };
 
 #endif // MAINWINDOW_H
