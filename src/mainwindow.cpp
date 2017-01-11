@@ -100,6 +100,12 @@ void MainWindow::openConfiguration()
     VisuMisc::setBackgroundColor(mStage, mConfiguration->getBackgroundColor());
     mStage->setGeometry(0, 0, mConfiguration->getWidth(), mConfiguration->getHeight());
 
+    // connect instruments
+    for (auto instrument : mConfiguration->getInstruments())
+    {
+        connect(instrument, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
+    }
+
     updateMenuSignalList();
 }
 
@@ -159,6 +165,8 @@ void MainWindow::setupMenu()
     connect(newsig, SIGNAL(triggered()), this, SLOT(openSignalsEditor()));
 
     mSignalsListMenu = signalsMenu->addMenu(tr("&List"));
+
+    QMenu* configMenu = ui->menuBar->addMenu(tr("&Configuration"));
 }
 
 void MainWindow::updateMenuSignalList()
@@ -281,6 +289,8 @@ void MainWindow::setActiveWidget(VisuWidget* widget)
     disconnect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
     VisuMisc::updateTable(mPropertiesTable, properties);
     connect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
+
+widget->setStyleSheet("border: 20px solid white;");
 }
 
 VisuSignal* MainWindow::getSignal()
@@ -301,14 +311,19 @@ MainWindow::~MainWindow()
 
 #define DEBUG_STR(EVENT) qDebug(EVENT": %s", objectName().toStdString().c_str());
 
+
+/*
 void MainWindow::mousePressEvent(QMouseEvent * event)
 {
     DEBUG_STR("MAINWINDOW-mousePressEvent");
     QWidget* widget = qApp->widgetAt(event->pos());
-    if (widget->objectName() == VisuWidget::OBJECT_NAME)
+    if (widget != nullptr)
     {
-        VisuWidget* visuWidget = dynamic_cast<VisuWidget*>(widget);
-        setActiveWidget(visuWidget);
+        if (widget->objectName() == VisuWidget::OBJECT_NAME)
+        {
+            VisuWidget* visuWidget = dynamic_cast<VisuWidget*>(widget);
+            setActiveWidget(visuWidget);
+        }
     }
 }
 
@@ -326,3 +341,4 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
     DEBUG_STR("MAINWINDOW-mouseMoveEvent");
 }
+*/

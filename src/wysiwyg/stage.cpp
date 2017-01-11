@@ -32,6 +32,7 @@ void Stage::dropEvent(QDropEvent *event)
         VisuSignal* signal = mMainWindow->getSignal();
         widget = VisuWidgetFactory::createWidget(this, type, signal);
         widget->show();
+        connect(widget, SIGNAL(widgetActivated(VisuWidget*)), this, SLOT(activateWidget(VisuWidget*)));
     }
     else
     {
@@ -46,3 +47,9 @@ void Stage::dropEvent(QDropEvent *event)
 
     event->acceptProposedAction();
 }
+
+void Stage::activateWidget(VisuWidget* widget)
+{
+    mMainWindow->setActiveWidget(widget);
+}
+

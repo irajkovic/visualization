@@ -33,14 +33,11 @@ public:
     {
         return mActiveWidget;
     }
-    void mousePressEvent(QMouseEvent * event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent* event);
-    void mouseDoubleClickEvent(QMouseEvent* event);
 
     ~MainWindow();
 
 public slots:
+
     void cellUpdated(int row, int col);
     void addSignal(VisuSignal* signal, bool isNewSignal);
     void deleteSignal();

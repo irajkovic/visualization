@@ -19,17 +19,18 @@ void VisuWidget::mousePressEvent(QMouseEvent * event)
     {
         mDragStartPosition = event->pos();
     }
-    event->ignore();
+
+    emit(widgetActivated(this));
 }
 
 void VisuWidget::mouseReleaseEvent(QMouseEvent* event)
 {
-    event->ignore();
+
 }
 
 void VisuWidget::mouseDoubleClickEvent(QMouseEvent* event)
 {
-    event->ignore();
+
 }
 
 void VisuWidget::mouseMoveEvent(QMouseEvent *event)
@@ -54,6 +55,6 @@ void VisuWidget::mouseMoveEvent(QMouseEvent *event)
     drag->setMimeData(mimeData);
 
     Qt::DropAction dropAction = drag->exec(Qt::CopyAction | Qt::MoveAction);
-    event->ignore();
+
 }
 

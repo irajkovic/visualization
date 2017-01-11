@@ -8,6 +8,8 @@
 
 class Stage : public QWidget
 {
+    Q_OBJECT
+
 public:
     Stage(MainWindow* window, QWidget* parent = 0) : QWidget(parent)
     {
@@ -17,6 +19,9 @@ public:
 
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
+
+public slots:
+    void activateWidget(VisuWidget*);
 
 private:
     MainWindow* mMainWindow;

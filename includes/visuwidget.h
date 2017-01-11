@@ -73,6 +73,9 @@ public:
 
     static const QString OBJECT_NAME;
 
+signals:
+    void widgetActivated(VisuWidget*);
+
 protected:
 
     // properties map
