@@ -38,6 +38,9 @@ class VisuConfiguration
         void attachInstrumentToSignal(VisuInstrument* instrument);
         void detachInstrumentFromSignal(VisuInstrument* instrument, int signalId);
         void attachInstrumentToSignal(VisuInstrument* instrument, int signalId);
+        void addSignal(VisuSignal* signal);
+        void deleteSignal(VisuSignal* signal);
+        void deleteSignal(int signalId);
 
         quint16 getPort();
         quint16 getWidth();

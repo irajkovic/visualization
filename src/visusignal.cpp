@@ -45,6 +45,11 @@ quint16 VisuSignal::getId() const
     return cId;
 }
 
+void VisuSignal::setId(quint16 id)
+{
+    cId = id;
+}
+
 /**
  * @brief Signal::getRawValue
  * Returns signal raw value

@@ -26,7 +26,6 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    mConfiguration = new VisuConfiguration();
     setupMenu();
 
     QWidget* window = new QWidget();
@@ -62,6 +61,11 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     toolbar->setStyleSheet("background-color: green;");
     workArea->setStyleSheet("background-color: gray;");
 #endif
+
+    mConfiguration = new VisuConfiguration();
+    mDefaultSignal = new VisuSignal(VisuConfigLoader::getTagFromFile("system/signal.xml", "signal"));
+    addSignal(mDefaultSignal, true);
+
     setWindowState(Qt::WindowMaximized);
     show();
 }
@@ -70,14 +74,18 @@ void MainWindow::openSignalsEditor()
 {
     if (editSignalWindow != nullptr)
     {
-        disconnect(editSignalWindow, SIGNAL(signalAdded(VisuSignal*)), this, SLOT(addSignal(VisuSignal*)));
+        disconnect(editSignalWindow, SIGNAL(signalAdded(VisuSignal*)), this, SLOT(addSignal(VisuSignal*, bool)));
     }
 
     QAction* s = static_cast<QAction*>(sender());
     int signalId = s->data().toInt();
-    VisuSignal* signal = mConfiguration->getSignal(signalId);
+    VisuSignal* signal = nullptr;
+    if (signalId >= 0)
+    {
+        signal = mConfiguration->getSignal(signalId);
+    }
     editSignalWindow = new EditSignal(signal);
-    connect(editSignalWindow, SIGNAL(signalAdded(VisuSignal*)), this, SLOT(addSignal(VisuSignal*)));
+    connect(editSignalWindow, SIGNAL(signalAdded(VisuSignal*,bool)), this, SLOT(addSignal(VisuSignal*, bool)));
 }
 
 void MainWindow::openConfiguration()
@@ -145,7 +153,7 @@ void MainWindow::setupMenu()
     QMenu* signalsMenu = ui->menuBar->addMenu(tr("&Signals"));
 
     QAction* newsig = new QAction(tr("&New"), this);
-    //open->setShortcut(QKeySequence::Open);
+    newsig->setData(QVariant(-1));
     newsig->setStatusTip(tr("Add new signal"));
     signalsMenu->addAction(newsig);
     connect(newsig, SIGNAL(triggered()), this, SLOT(openSignalsEditor()));
@@ -161,15 +169,20 @@ void MainWindow::updateMenuSignalList()
     {
         for (VisuSignal* sig : configSignals)
         {
-            QMenu* tmpSig = mSignalsListMenu->addMenu(sig->getName());
+            if (sig != nullptr)
+            {
+                QMenu* tmpSig = mSignalsListMenu->addMenu(sig->getName());
 
-            QAction* edit = new QAction(tr("&Edit"), this);
-            edit->setData(QVariant(sig->getId()));
-            tmpSig->addAction(edit);
-            connect(edit, SIGNAL(triggered()), this, SLOT(openSignalsEditor()));
+                QAction* edit = new QAction(tr("&Edit"), this);
+                edit->setData(QVariant(sig->getId()));
+                tmpSig->addAction(edit);
+                connect(edit, SIGNAL(triggered()), this, SLOT(openSignalsEditor()));
 
-            QAction* del = new QAction(tr("&Delete"), this);
-            tmpSig->addAction(del);
+                QAction* del = new QAction(tr("&Delete"), this);
+                del->setData(QVariant(sig->getId()));
+                tmpSig->addAction(del);
+                connect(del, SIGNAL(triggered()), this, SLOT(deleteSignal()));
+            }
         }
     }
 }
@@ -196,12 +209,25 @@ void MainWindow::setupToolbarWidgets(QWidget* toolbar)
     mDefaultSignal->initialUpdate();
 }
 
-void MainWindow::addSignal(VisuSignal* signal)
+void MainWindow::addSignal(VisuSignal* signal, bool isNewSignal)
 {
-    qDebug("New signal here");
-    QVector<VisuSignal*>& signalsList = mConfiguration->getSignals();
-    signalsList.push_back(signal);
+    if (isNewSignal)
+    {
+        mConfiguration->addSignal(signal);
+    }
+
     updateMenuSignalList();
+}
+
+void MainWindow::deleteSignal()
+{
+    QAction* s = static_cast<QAction*>(sender());
+    int signalId = s->data().toInt();
+    if (signalId >= 0)
+    {
+        mConfiguration->deleteSignal(signalId);
+        updateMenuSignalList();
+    }
 }
 
 void MainWindow::cellUpdated(int row, int col)

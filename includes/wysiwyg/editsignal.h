@@ -22,14 +22,19 @@ public:
         QLayout* vlayout = new QVBoxLayout();
         setLayout(vlayout);
 
+        mSignal = visuSignal;
         mTable = new QTableWidget() ;
+
         if (visuSignal == nullptr)
         {
             mProperties = VisuConfigLoader::getTagFromFile("system/signal.xml", "signal");
+            mSignal = new VisuSignal(mProperties);
+            mNewSignal = true;
         }
         else
         {
             mProperties = visuSignal->getProperties();
+            mNewSignal = false;
         }
         VisuMisc::updateTable(mTable, mProperties);
 
@@ -59,7 +64,7 @@ public:
     }
 
 signals:
-    void signalAdded(VisuSignal*);
+    void signalAdded(VisuSignal*,bool);
 
 public slots:
     void addSignal();
@@ -68,6 +73,8 @@ public slots:
 private:
     QMap<QString, QString> mProperties;
     QTableWidget* mTable;
+    bool mNewSignal;
+    VisuSignal* mSignal;
 };
 
 #endif // EDITSIGNAL_H

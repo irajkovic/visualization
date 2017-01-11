@@ -222,3 +222,25 @@ QString VisuConfiguration::getName()
 {
     return cName;
 }
+
+void VisuConfiguration::addSignal(VisuSignal* signal)
+{
+    // adds signal with signal id autoincremented
+    int signalId = signalsList.size();
+    signal->setId(signalId);
+    signalsList.push_back(signal);
+}
+
+void VisuConfiguration::deleteSignal(VisuSignal* signal)
+{
+    int signalId = signal->getId();
+    deleteSignal(signalId);
+}
+
+void VisuConfiguration::deleteSignal(int signalId)
+{
+    delete (signalsList[signalId]);
+    signalsList[signalId] = nullptr;
+    qDebug("Signal %d deleted", signalId);
+}
+

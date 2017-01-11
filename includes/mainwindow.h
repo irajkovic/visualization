@@ -42,7 +42,8 @@ public:
 
 public slots:
     void cellUpdated(int row, int col);
-    void addSignal(VisuSignal* signal);
+    void addSignal(VisuSignal* signal, bool isNewSignal);
+    void deleteSignal();
 
 private:
     Ui::MainWindow *ui;

@@ -50,6 +50,7 @@ public:
     void set_timestamp(quint64 mTimestamp);
     quint64 getTimestamp() const;
     quint16 getId() const;
+    void setId(quint16 id);
     double getFactor() const;
     double getOffset() const;
     double getRealValue() const;
