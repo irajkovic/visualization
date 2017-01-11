@@ -8,9 +8,13 @@
 
 const QString VisuWidget::OBJECT_NAME = "VisuWidget";
 
+QPoint VisuWidget::getRelativeOffset()
+{
+    return mDragStartRelativePosition;
+}
+
 void VisuWidget::mousePressEvent(QMouseEvent * event)
 {
-    DEBUG_STR("mousePressEvent");
     if (event->button() == Qt::LeftButton && geometry().contains(event->pos()))
     {
         mDragStartPosition = event->pos();
@@ -20,13 +24,11 @@ void VisuWidget::mousePressEvent(QMouseEvent * event)
 
 void VisuWidget::mouseReleaseEvent(QMouseEvent* event)
 {
-    DEBUG_STR("mouseReleaseEvent");
     event->ignore();
 }
 
 void VisuWidget::mouseDoubleClickEvent(QMouseEvent* event)
 {
-    DEBUG_STR("mouseDoubleClickEvent");
     event->ignore();
 }
 
@@ -40,6 +42,9 @@ void VisuWidget::mouseMoveEvent(QMouseEvent *event)
         return;
 
     QDrag *drag = new QDrag(this);
+    drag->setHotSpot(event->pos());
+    mDragStartRelativePosition = event->pos();
+
     drag->setPixmap(QPixmap::grabWidget(this));
 
     // encode widget type and origin (toolbar / stage)

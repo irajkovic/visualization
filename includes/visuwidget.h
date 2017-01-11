@@ -64,10 +64,12 @@ public:
 
     // Drag&drop related
     QPoint mDragStartPosition;
+    QPoint mDragStartRelativePosition;
     void mousePressEvent(QMouseEvent * event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent* event);
     void mouseDoubleClickEvent(QMouseEvent* event);
+    QPoint getRelativeOffset();
 
     static const QString OBJECT_NAME;
 

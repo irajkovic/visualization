@@ -19,6 +19,7 @@ QString getType(QString mimeDataText)
 
 void Stage::dropEvent(QDropEvent *event)
 {
+
     QStringList parts = event->mimeData()->text().split("|");
     QString type = parts[0];
     QString origin = parts[1];
@@ -37,7 +38,10 @@ void Stage::dropEvent(QDropEvent *event)
         widget = mMainWindow->getActiveWidget();
     }
 
-    widget->setPosition(event->pos());
+    VisuWidget* sourceWidget = static_cast<VisuWidget*>(event->source());
+    widget->setPosition(event->pos() - sourceWidget->getRelativeOffset());
+    qDebug("offset: %d %d", sourceWidget->getRelativeOffset().x(), sourceWidget->getRelativeOffset().y());
+
     mMainWindow->setActiveWidget(widget);
 
     event->acceptProposedAction();
