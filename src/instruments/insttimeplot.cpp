@@ -97,6 +97,7 @@ void InstTimePlot::renderLabelsAndMajors(QPainter* painter)
 
 void InstTimePlot::setupGraphObjects()
 {
+    delete mGraphPainter;
     mGraphPixmap = QPixmap(cWidth, cHeight);
     mGraphPixmap.fill(Qt::transparent);
     setAttribute(Qt::WA_TranslucentBackground);

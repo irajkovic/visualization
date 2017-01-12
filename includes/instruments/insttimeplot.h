@@ -13,6 +13,7 @@ class InstTimePlot : public VisuInstrument
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)
         {
             load(properties);
+            mGraphPainter = nullptr;
         }
         static const QString TAG_NAME;
 
