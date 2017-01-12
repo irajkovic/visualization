@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instrument>
-   <id>5</id>
+   <id>3</id>
    <type>LINEAR</type>
    <signalId>-1</signalId>
    <name>Analog 1</name>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instrument>
-    <id>1</id>  
+    <id>2</id>  
     <type>LED</type>
     <signalId>-1</signalId>
     <name>Led 1</name>

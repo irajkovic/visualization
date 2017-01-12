@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instrument>
-   <id>6</id>
+   <id>4</id>
    <type>TIME_PLOT</type>
    <signalId>-1</signalId>
    <name>Time plot</name>
