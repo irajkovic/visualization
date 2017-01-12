@@ -1,37 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instrument>
-	<arrowWidth>3</arrowWidth>
 	<colorBackground>130,130,130,255</colorBackground>
 	<colorForeground>0,0,0,255</colorForeground>
 	<colorGraphBackground>255,255,255,255</colorGraphBackground>
 	<colorStatic>0,0,0,255</colorStatic>
 	<decimals>1</decimals>
 	<divisionFormat>mm:ss</divisionFormat>
-	<drawCircle>30</drawCircle>
 	<fontSize>10</fontSize>
 	<height>150</height>
 	<id>4</id>
-	<labelRadius>20</labelRadius>
 	<lineThickness>2</lineThickness>
 	<majorCnt>4</majorCnt>
-	<majorLen>10</majorLen>
 	<markerDt>500</markerDt>
 	<markerThickness>1</markerThickness>
 	<masterTimeFormat>hh:mm:ss</masterTimeFormat>
 	<minorCnt>2</minorCnt>
-	<minorLen>4</minorLen>
 	<name>Time plot instrument</name>
-	<nameX>40</nameX>
-	<nameY>100</nameY>
-	<offsetX>-40</offsetX>
-	<offsetY>0</offsetY>
 	<signalId>0</signalId>
 	<staticThickness>1</staticThickness>
 	<ticksInSecond>100</ticksInSecond>
 	<timespan>3000</timespan>
 	<type>TIME_PLOT</type>
 	<width>300</width>
-	<x>129</x>
-	<y>91</y>
+	<x>0</x>
+	<y>0</y>
 </instrument>
 

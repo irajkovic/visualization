@@ -24,8 +24,6 @@ class InstTimePlot : public VisuInstrument
             GET_PROPERTY(cLineThickness, quint8, properties);
             GET_PROPERTY(cStaticThickness, quint8, properties);
             GET_PROPERTY(cMarkerThickness, quint8, properties);
-            GET_PROPERTY(cMajorLen, quint8, properties);
-            GET_PROPERTY(cMinorLen, quint8, properties);
             GET_PROPERTY(cMajorCnt, quint8, properties);
             GET_PROPERTY(cMinorCnt, quint8, properties);
             GET_PROPERTY(cFontSize, quint8, properties);
