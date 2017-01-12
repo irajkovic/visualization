@@ -1,20 +1,20 @@
 <instrument>
-   <id>5</id>
-   <type>XY_PLOT</type>
-   <signalId>0</signalId>
-   <signalYId>-1</signalYId>
-   <name>XY plot instrument</name>
-   <width>150</width>
-   <height>150</height>
-   <x>10</x>
-   <y>10</y>
-   <colorBackground>30,30,30,255</colorBackground>
-   <colorForeground>250,50,50,100</colorForeground>
-   <colorStatic>255,50,50,255</colorStatic>
-   <majorCnt>20</majorCnt>
-   <majorLen>5</majorLen>
-   <ballSize>15</ballSize>
-   <labelX>X osa</labelX>
-   <labelY>Y osa</labelY>
+	<ballSize>15</ballSize>
+	<colorBackground>200,200,200,0</colorBackground>
+	<colorForeground>250,50,50,200</colorForeground>
+	<colorStatic>0,0,0,255</colorStatic>
+	<height>150</height>
+	<id>5</id>
+	<labelX>X osa</labelX>
+	<labelY>Y osa</labelY>
+	<majorCnt>10</majorCnt>
+	<majorLen>4</majorLen>
+	<name>XY plot instrument</name>
+	<signalId>0</signalId>
+	<signalYId>-1</signalYId>
+	<type>XY_PLOT</type>
+	<width>150</width>
+	<x>218</x>
+	<y>161</y>
 </instrument>
 

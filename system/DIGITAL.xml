@@ -1,31 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instrument>
-   <id>1</id>
-   <type>DIGITAL</type>
-   <signalId>0</signalId>
-   <name>Digital instrument</name>
-   <width>150</width>
-   <height>150</height>
-   <x>0</x>
-   <y>0</y>
-   <colorBackground>30,30,30,255</colorBackground>
-   <colorForeground>255,100,100,250</colorForeground>
-   <colorStatic>200,0,0,255</colorStatic>
-   <color_grid>50,50,50,255</color_grid>
-   <lineThickness>2</lineThickness>
-   <majorLen>10</majorLen>
-   <minorLen>4</minorLen>
-   <majorCnt>10</majorCnt>
-   <minorCnt>2</minorCnt>
-   <fontSize>25</fontSize>
-   <arrowWidth>3</arrowWidth>
-   <drawCircle>30</drawCircle>
-   <labelRadius>20</labelRadius>
-   <nameX>40</nameX>
-   <nameY>100</nameY>
-   <offsetX>-40</offsetX>
-   <offsetY>0</offsetY>
-   <showSignalUnit>1</showSignalUnit>
-   <showSignalName>0</showSignalName>
-   <padding>0</padding>
+	<colorBackground>130,130,130,255</colorBackground>
+	<colorForeground>0,0,0,250</colorForeground>
+	<colorStatic>200,0,0,255</colorStatic>
+	<fontSize>12</fontSize>
+	<height>30</height>
+	<id>1</id>
+	<name>Digital instrument</name>
+	<padding>10</padding>
+	<showSignalName>1</showSignalName>
+	<showSignalUnit>1</showSignalUnit>
+	<signalId>0</signalId>
+	<type>DIGITAL</type>
+	<width>200</width>
+	<x>0</x>
+	<y>0</y>
 </instrument>
+

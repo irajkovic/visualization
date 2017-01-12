@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instrument>
-   <id>3</id>
-   <type>LINEAR</type>
-   <signalId>0</signalId>
-   <name>Linear instrument</name>
-   <width>300</width>
-   <height>150</height>
-   <x>0</x>
-   <y>0</y>
-   <colorBackground>30,30,30,255</colorBackground>
-   <colorForeground>250,50,50,200</colorForeground>
-   <colorStatic>255,50,50,255</colorStatic>
-   <lineThickness>3</lineThickness>
-   <majorLen>10</majorLen>
-   <minorLen>4</minorLen>
-   <majorCnt>12</majorCnt>
-   <minorCnt>4</minorCnt>
-   <fontSize>10</fontSize>
-   <horMargin>5</horMargin>
-   <verMargin>20</verMargin>
-   <verMinorMargin>25</verMinorMargin>
+	<colorBackground>0,0,0,0</colorBackground>
+	<colorForeground>250,50,50,200</colorForeground>
+	<colorStatic>0,0,0,255</colorStatic>
+	<fontSize>10</fontSize>
+	<height>75</height>
+	<horMargin>15</horMargin>
+	<id>3</id>
+	<lineThickness>2</lineThickness>
+	<majorCnt>5</majorCnt>
+	<majorLen>10</majorLen>
+	<minorCnt>2</minorCnt>
+	<minorLen>4</minorLen>
+	<name>Linear instrument</name>
+	<signalId>0</signalId>
+	<type>LINEAR</type>
+	<verMargin>30</verMargin>
+	<verMinorMargin>25</verMinorMargin>
+	<width>300</width>
+	<x>0</x>
+	<y>0</y>
 </instrument>
