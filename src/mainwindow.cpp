@@ -141,6 +141,18 @@ void MainWindow::saveConfiguration()
 
 }
 
+void MainWindow::keyPressEvent( QKeyEvent *event )
+{
+    if (event->matches(QKeySequence::Delete))
+    {
+        if (mActiveWidget != nullptr)
+        {
+            mConfiguration->deleteInstrument(static_cast<VisuInstrument*>(mActiveWidget));
+            mActiveWidget = nullptr;
+            mPropertiesTable->clearContents();
+        }
+    }
+}
 
 void MainWindow::setupMenu()
 {

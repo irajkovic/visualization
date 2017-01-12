@@ -29,6 +29,7 @@ public:
     VisuSignal* getSignal();
     void setActiveWidget(VisuWidget* widget);
     bool dragOriginIsToolbar(QString originObjectName);
+    void keyPressEvent( QKeyEvent *event );
     VisuConfiguration* getConfiguration()
     {
         return mConfiguration;

@@ -31,6 +31,7 @@ class VisuConfiguration
     public:
         VisuConfiguration();
         VisuInstrument* createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
+        void deleteInstrument(VisuInstrument* instrument);
         void loadFromXML(QWidget *parent, QString xml);
         void setConfigValues(QMap<QString, QString> properties);
         VisuSignal* getSignal(quint16 signalId);

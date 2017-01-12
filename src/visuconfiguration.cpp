@@ -71,6 +71,12 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
     signalsList.push_back(signal);
 }
 
+void VisuConfiguration::deleteInstrument(VisuInstrument* instrument)
+{
+    detachInstrumentFromSignal(instrument);
+    delete instrument;
+}
+
 VisuInstrument* VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_INSTRUMENT);
