@@ -27,7 +27,7 @@ public:
 
         if (visuSignal == nullptr)
         {
-            mProperties = VisuConfigLoader::getTagFromFile("system/signal.xml", "signal");
+            mProperties = VisuConfigLoader::getMapFromFile("system/signal.xml", "signal");
             mSignal = new VisuSignal(mProperties);
             mNewSignal = true;
         }

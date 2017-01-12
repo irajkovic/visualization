@@ -2,8 +2,8 @@
 <instrument>
     <id>2</id>  
     <type>LED</type>
-    <signalId>-1</signalId>
-    <name>Led 1</name>
+    <signalId>0</signalId>
+    <name>Led instrument</name>
     <width>150</width>
     <height>150</height>
     <x>0</x>

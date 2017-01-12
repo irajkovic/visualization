@@ -29,6 +29,11 @@ public:
     VisuSignal* getSignal();
     void setActiveWidget(VisuWidget* widget);
     bool dragOriginIsToolbar(QString originObjectName);
+    VisuConfiguration* getConfiguration()
+    {
+        return mConfiguration;
+    }
+
     VisuWidget* getActiveWidget()
     {
         return mActiveWidget;

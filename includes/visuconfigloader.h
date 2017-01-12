@@ -11,7 +11,7 @@ public:
 
     static QByteArray loadXMLFromFile(QString path);
     static QMap<QString, QString> parseToMap(QXmlStreamReader& xmlReader, QString element);
-    static QMap<QString, QString> getTagFromFile(QString file, QString tag);
+    static QMap<QString, QString> getMapFromFile(QString file, QString tag);
 
 };
 

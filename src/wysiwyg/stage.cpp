@@ -29,9 +29,15 @@ void Stage::dropEvent(QDropEvent *event)
     VisuWidget* widget;
     if (mMainWindow->dragOriginIsToolbar(origin))
     {
+        // TODO :: Refactor
+        QString path = QString("system/%1.xml").arg(type);
+        QString xmlString = VisuConfigLoader::loadXMLFromFile(path);
+        QXmlStreamReader xmlReader(xmlString);
+        widget = mMainWindow->getConfiguration()->createInstrumentFromToken(xmlReader, this);
+
         VisuSignal* signal = mMainWindow->getSignal();
-        widget = VisuWidgetFactory::createWidget(this, type, signal);
-        widget->show();
+        signal->initialUpdate();
+
         connect(widget, SIGNAL(widgetActivated(VisuWidget*)), this, SLOT(activateWidget(VisuWidget*)));
     }
     else

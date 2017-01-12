@@ -55,7 +55,7 @@ QMap<QString, QString> VisuConfigLoader::parseToMap(QXmlStreamReader& xmlReader,
 
 }
 
-QMap<QString, QString> VisuConfigLoader::getTagFromFile(QString file, QString tag)
+QMap<QString, QString> VisuConfigLoader::getMapFromFile(QString file, QString tag)
 {
     QString xmlString = VisuConfigLoader::loadXMLFromFile(file);
     QXmlStreamReader xmlReader(xmlString);

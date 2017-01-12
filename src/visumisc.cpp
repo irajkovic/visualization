@@ -32,3 +32,17 @@ void VisuMisc::updateTable(QTableWidget* table, QMap<QString, QString> propertie
         ++row;
     }
 }
+
+QString VisuMisc::mapToString(QMap<QString, QString> properties, int tabs)
+{
+    QString xml;
+    QString whitespace = QString("\t").repeated(tabs);
+    for (auto i = properties.begin(); i != properties.end(); ++i)
+    {
+        xml += whitespace + "<" + i.key() + ">";
+        xml += i.value();
+        xml += "</" + i.key() + ">\n";
+    }
+
+    return xml;
+}

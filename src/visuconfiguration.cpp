@@ -15,6 +15,7 @@
 #include <algorithm>
 #include "exceptions/configloadexception.h"
 #include "visuconfigloader.h"
+#include "visumisc.h"
 
 #define DBG_XML qDebug("XML-%d>> %s", xmlReader.tokenType(), xmlReader.name().toString().toStdString().c_str())
 
@@ -70,7 +71,7 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
     signalsList.push_back(signal);
 }
 
-void VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
+VisuInstrument* VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_INSTRUMENT);
 
@@ -78,8 +79,10 @@ void VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, Q
     VisuInstrument* instrument = static_cast<VisuInstrument*>(widget);
 
     attachInstrumentToSignal(instrument);
-    instrument->show();
     instrumentsList.append(instrument);
+    widget->show();
+
+    return instrument;
 }
 
 void VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
@@ -250,4 +253,36 @@ void VisuConfiguration::deleteSignal(int signalId)
 QMap<QString, QString>& VisuConfiguration::getProperties()
 {
     return mProperties;
+}
+
+QString VisuConfiguration::toXML()
+{
+    QString xml;
+
+    xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+    xml += "<visu_config>\n";
+    xml += "\t<configuration>\n";
+    xml += VisuMisc::mapToString(mProperties, 2);
+    xml += "\t</configuration>\n";
+    xml += "\t<signals>\n";
+    for (VisuSignal* signal : getSignals())
+    {
+        xml += "\t\t<signal>\n";
+        xml += VisuMisc::mapToString(signal->getProperties(), 3);
+        xml += "\t\t</signal>\n";
+    }
+    xml += "\t</signals>\n";
+    xml += "\t<instruments>\n";
+
+    for (VisuInstrument* instrument : getInstruments())
+    {
+        xml += "\t\t<instrument>\n";
+        xml += VisuMisc::mapToString(instrument->getProperties(), 3);
+        xml += "\t\t</instrument>\n";
+    }
+
+    xml += "\t</instruments>\n";
+    xml += "<visu_config>\n";
+
+    return xml;
 }

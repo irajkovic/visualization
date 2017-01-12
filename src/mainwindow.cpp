@@ -125,7 +125,7 @@ void MainWindow::saveAsConfiguration()
                                                       tr("Save configuration"),
                                                       ".",
                                                       "Configuration files (*.xml)");
-    QString xml = configurationToXML();
+    QString xml = mConfiguration->toXML();
     QFile file( configPath );
     if ( file.open(QIODevice::WriteOnly) )
     {
@@ -140,50 +140,6 @@ void MainWindow::saveConfiguration()
 
 }
 
-QString MainWindow::configurationToXML()
-{
-    QString xml;
-
-    xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-    xml += "<visu_config>\n";
-    xml += "\t<configuration>\n";
-    xml += mapToString(mConfiguration->getProperties(), 2);
-    xml += "\t</configuration>\n";
-    xml += "\t<signals>\n";
-    for (VisuSignal* signal : mConfiguration->getSignals())
-    {
-        xml += "\t\t<signal>\n";
-        xml += mapToString(signal->getProperties(), 3);
-        xml += "\t\t</signal>\n";
-    }
-    xml += "\t</signals>\n";
-    xml += "\t<instruments>\n";
-    QList<VisuWidget*> widgets = mStage->findChildren<VisuWidget*>();
-    for (VisuWidget* widget : widgets)
-    {
-        xml += "\t\t<instrument>\n";
-        xml += mapToString(widget->getProperties(), 3);
-        xml += "\t\t</instrument>\n";
-    }
-    xml += "\t</instruments>\n";
-    xml += "<visu_config>\n";
-
-    return xml;
-}
-
-QString MainWindow::mapToString(QMap<QString, QString> properties, int tabs)
-{
-    QString xml;
-    QString whitespace = QString("\t").repeated(tabs);
-    for (auto i = properties.begin(); i != properties.end(); ++i)
-    {
-        xml += whitespace + "<" + i.key() + ">";
-        xml += i.value();
-        xml += "</" + i.key() + ">\n";
-    }
-
-    return xml;
-}
 
 void MainWindow::setupMenu()
 {

@@ -2,8 +2,8 @@
 <instrument>
    <id>3</id>
    <type>LINEAR</type>
-   <signalId>-1</signalId>
-   <name>Analog 1</name>
+   <signalId>0</signalId>
+   <name>Linear instrument</name>
    <width>300</width>
    <height>150</height>
    <x>0</x>

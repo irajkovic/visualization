@@ -2,8 +2,8 @@
 <instrument>
    <id>4</id>
    <type>TIME_PLOT</type>
-   <signalId>-1</signalId>
-   <name>Time plot</name>
+   <signalId>0</signalId>
+   <name>Time plot instrument</name>
    <width>300</width>
    <height>150</height>
    <x>0</x>

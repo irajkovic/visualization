@@ -14,7 +14,6 @@ class VisuConfiguration
         QVector<VisuSignal*> signalsList;
         QVector<VisuInstrument*> instrumentsList;
         void createSignalFromToken(QXmlStreamReader& xml_reader);
-        void createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
         void createConfigurationFromToken(QXmlStreamReader& xmlReader);
         void createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
         void createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
@@ -31,6 +30,7 @@ class VisuConfiguration
 
     public:
         VisuConfiguration();
+        VisuInstrument* createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
         void loadFromXML(QWidget *parent, QString xml);
         void setConfigValues(QMap<QString, QString> properties);
         VisuSignal* getSignal(quint16 signalId);
@@ -45,6 +45,7 @@ class VisuConfiguration
         void deleteSignal(VisuSignal* signal);
         void deleteSignal(int signalId);
         QMap<QString, QString>& getProperties();
+        QString toXML();
 
         quint16 getPort();
         quint16 getWidth();
