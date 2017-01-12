@@ -41,7 +41,6 @@ void Stage::dropEvent(QDropEvent *event)
 
     VisuWidget* sourceWidget = static_cast<VisuWidget*>(event->source());
     widget->setPosition(event->pos() - sourceWidget->getRelativeOffset());
-    qDebug("offset: %d %d", sourceWidget->getRelativeOffset().x(), sourceWidget->getRelativeOffset().y());
 
     mMainWindow->setActiveWidget(widget);
 

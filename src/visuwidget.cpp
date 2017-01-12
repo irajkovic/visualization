@@ -4,8 +4,6 @@
 #include <QDrag>
 #include <QMimeData>
 
-#define DEBUG_STR(EVENT) qDebug(EVENT": %s", objectName().toStdString().c_str());
-
 const QString VisuWidget::OBJECT_NAME = "VisuWidget";
 
 QPoint VisuWidget::getRelativeOffset()
@@ -35,7 +33,6 @@ void VisuWidget::mouseDoubleClickEvent(QMouseEvent* event)
 
 void VisuWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    DEBUG_STR("mouseMoveEvent");
     if (!(event->buttons() & Qt::LeftButton))
         return;
     if ((event->pos() - mDragStartPosition).manhattanLength()
@@ -46,7 +43,7 @@ void VisuWidget::mouseMoveEvent(QMouseEvent *event)
     drag->setHotSpot(event->pos());
     mDragStartRelativePosition = event->pos();
 
-    drag->setPixmap(QPixmap::grabWidget(this));
+    drag->setPixmap(grab());
 
     // encode widget type and origin (toolbar / stage)
     QMimeData *mimeData = new QMimeData;

@@ -117,7 +117,6 @@ void MainWindow::saveConfiguration()
 
     for (VisuWidget* widget : widgets)
     {
-        //qDebug("%d", widget->getProperties()["id"].toInt());
         mapToString(widget->getProperties());
     }
 }
@@ -302,43 +301,3 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-#include "visuwidget.h"
-#include <QMouseEvent>
-#include <QApplication>
-#include <QDrag>
-#include <QMimeData>
-
-#define DEBUG_STR(EVENT) qDebug(EVENT": %s", objectName().toStdString().c_str());
-
-
-/*
-void MainWindow::mousePressEvent(QMouseEvent * event)
-{
-    DEBUG_STR("MAINWINDOW-mousePressEvent");
-    QWidget* widget = qApp->widgetAt(event->pos());
-    if (widget != nullptr)
-    {
-        if (widget->objectName() == VisuWidget::OBJECT_NAME)
-        {
-            VisuWidget* visuWidget = dynamic_cast<VisuWidget*>(widget);
-            setActiveWidget(visuWidget);
-        }
-    }
-}
-
-void MainWindow::mouseReleaseEvent(QMouseEvent* event)
-{
-    DEBUG_STR("MAINWINDOW-mouseReleaseEvent");
-}
-
-void MainWindow::mouseDoubleClickEvent(QMouseEvent* event)
-{
-    DEBUG_STR("MAINWINDOW-mouseDoubleClickEvent");
-}
-
-void MainWindow::mouseMoveEvent(QMouseEvent *event)
-{
-    DEBUG_STR("MAINWINDOW-mouseMoveEvent");
-}
-*/
