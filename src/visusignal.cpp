@@ -13,6 +13,10 @@ QMap<QString, QString>& VisuSignal::getProperties()
 void VisuSignal::connectInstrument(VisuInstrument* instrument)
 {
     QObject::connect(this,
+                     SIGNAL(initialUpdate(const VisuSignal* const)),
+                     instrument,
+                     SLOT(initialUpdate(const VisuSignal* const)));
+    QObject::connect(this,
                      SIGNAL(signalUpdated(const VisuSignal* const)),
                      instrument,
                      SLOT(signalUpdated(const VisuSignal* const)));
@@ -25,6 +29,10 @@ void VisuSignal::connectInstrument(VisuInstrument* instrument)
  */
 void VisuSignal::disconnectInstrument(VisuInstrument* instrument)
 {
+    QObject::disconnect(this,
+                     SIGNAL(initialUpdate(const VisuSignal* const)),
+                     instrument,
+                     SLOT(initialUpdate(const VisuSignal* const)));
     QObject::disconnect(this,
                      SIGNAL(signalUpdated(const VisuSignal* const)),
                      instrument,
@@ -119,12 +127,12 @@ void VisuSignal::datagramUpdate(const VisuDatagram& datagram)
  * Called during instrument initialization, so instrument can pickup
  * pointer to signal and adjust its properties accordingly.
  */
-void VisuSignal::initialUpdate()
+void VisuSignal::initializeInstruments()
 {
     mRawValue = 0;
     mTimestamp = 0;
 
-    notifyInstruments();
+    emit(initialUpdate(this));
 }
 
 double VisuSignal::getMin() const

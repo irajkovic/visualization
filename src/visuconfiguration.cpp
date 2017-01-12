@@ -106,7 +106,7 @@ void VisuConfiguration::createStaticFromToken(QXmlStreamReader& xmlReader, QWidg
 void VisuConfiguration::initializeInstruments()
 {
     for (unsigned int i=0; i<signalsList.size(); i++) {
-        signalsList[i]->initialUpdate();
+        signalsList[i]->initializeInstruments();
     }
 }
 

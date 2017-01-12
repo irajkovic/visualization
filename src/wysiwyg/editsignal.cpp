@@ -4,6 +4,7 @@
 
 void EditSignal::addSignal()
 {
+    mSignal->initializeInstruments();
     emit(signalAdded(mSignal,mNewSignal));
     close();
 }

@@ -226,7 +226,7 @@ void MainWindow::setupToolbarWidgets(QWidget* toolbar)
     layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, toolbarSignal));
     layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, toolbarSignal));
 
-    toolbarSignal->initialUpdate();
+    toolbarSignal->initializeInstruments();
 }
 
 void MainWindow::addSignal(VisuSignal* signal, bool isNewSignal)
@@ -286,12 +286,12 @@ void MainWindow::cellUpdated(int row, int col)
         {
             mConfiguration->attachInstrumentToSignal(inst);
         }
-        signal->initialUpdate();
+        signal->initializeInstruments();
     }
     else
     {
         // default signal);
-        mConfiguration->getSignal(0)->initialUpdate();
+        mConfiguration->getSignal(0)->initializeInstruments();
     }
 }
 

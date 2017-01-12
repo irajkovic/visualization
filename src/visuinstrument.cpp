@@ -13,6 +13,13 @@ void VisuInstrument::signalUpdated(const VisuSignal* const signal)
     render();
 }
 
+void VisuInstrument::initialUpdate(const VisuSignal* const signal)
+{
+    this->mSignal = signal;
+    mFirstRun = true;
+    render();
+}
+
 quint16 VisuInstrument::getId()
 {
     return cId;
@@ -25,6 +32,8 @@ quint16 VisuInstrument::getSignalId()
 
 void VisuInstrument::render()
 {
+    clearPixmaps();
+
     if (mFirstRun)
     {
         QPainter painter_static(&mPixmapStatic);

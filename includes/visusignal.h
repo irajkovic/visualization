@@ -33,6 +33,7 @@ private:
     void notifyInstruments();
 
 signals:
+    void initialUpdate(const VisuSignal* const);
     void signalUpdated(const VisuSignal* const);
 
 public:
@@ -43,7 +44,7 @@ public:
 
     QMap<QString, QString>& getProperties();
     void load(QMap<QString, QString> properties);
-    void initialUpdate();
+    void initializeInstruments();
     void datagramUpdate(const VisuDatagram& datagram);
     void set_raw_ralue(quint64 value);
     quint64 getRawValue() const;

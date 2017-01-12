@@ -36,7 +36,7 @@ void Stage::dropEvent(QDropEvent *event)
         widget = mMainWindow->getConfiguration()->createInstrumentFromToken(xmlReader, this);
 
         VisuSignal* signal = mMainWindow->getSignal();
-        signal->initialUpdate();
+        signal->initializeInstruments();
 
         connect(widget, SIGNAL(widgetActivated(VisuWidget*)), this, SLOT(activateWidget(VisuWidget*)));
     }

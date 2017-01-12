@@ -66,7 +66,7 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
     if (signal != nullptr)
     {
         signal->connectInstrument(static_cast<VisuInstrument*>(widget));
-        signal->initialUpdate();
+        signal->initializeInstruments();
     }
 
     return widget;
