@@ -21,7 +21,7 @@
 #include "visumisc.h"
 #include "wysiwyg/editconfiguration.h"
 
-MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {

@@ -19,19 +19,19 @@ void showMessageBox(QString message)
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-    QString xmlPath = (argc > 1) ? QString(argv[1]) : DEFAULT_CONFIG;
-
     try
     {
-
-        //VisuApplication *application = new VisuApplication(xmlPath);
-        //application->show();
-        //application->run();
-
-        MainWindow* window = new MainWindow(xmlPath);
-        //window->show();
-
+        if (argc > 1 && QString(argv[1]) == "editor" )
+        {
+            new MainWindow();
+        }
+        else
+        {
+            QString xmlPath = (argc > 1) ? QString(argv[1]) : DEFAULT_CONFIG;
+            VisuApplication *application = new VisuApplication(xmlPath);
+            application->show();
+            application->run();
+        }
     }
     catch(ConfigLoadException e)
     {
