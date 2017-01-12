@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instrument>
+	<colorBackground>130,130,130,255</colorBackground>
+	<colorForeground>0,0,0,250</colorForeground>
+	<colorStatic>200,0,0,255</colorStatic>
+	<fontSize>12</fontSize>
+	<height>30</height>
+	<id>1</id>
+	<name>Digital instrument</name>
+	<padding>10</padding>
+	<showSignalName>1</showSignalName>
+	<showSignalUnit>1</showSignalUnit>
+	<signalId>0</signalId>
+	<type>DIGITAL</type>
+	<width>200</width>
+	<x>0</x>
+	<y>0</y>
+</instrument>
+

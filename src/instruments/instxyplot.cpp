@@ -27,7 +27,8 @@ void InstXYPlot::renderBall(QPainter* painter)
 
 void InstXYPlot::renderStatic(QPainter *painter)
 {
-    painter->fillRect(0, 0, cWidth, cHeight, cColorBackground);
+    setPen(painter, cColorStatic);
+    clear(painter);
 
     mCenterX = cWidth / 2;
     mCenterY = cHeight / 2;

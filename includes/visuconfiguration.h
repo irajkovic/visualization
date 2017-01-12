@@ -11,13 +11,9 @@ class VisuConfiguration
 {
 
     private:
-        std::vector<VisuSignal*> signalsList;
+        QVector<VisuSignal*> signalsList;
         QVector<VisuInstrument*> instrumentsList;
-        QMap<QString, QString> parseToMap(QXmlStreamReader& xml_reader, QString element);
-        void attachInstrumentToSignal(VisuInstrument* instrument);
-        void attachInstrumentToSignal(VisuInstrument* instrument, int signalId);
         void createSignalFromToken(QXmlStreamReader& xml_reader);
-        void createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
         void createConfigurationFromToken(QXmlStreamReader& xmlReader);
         void createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
         void createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
@@ -30,12 +26,26 @@ class VisuConfiguration
         QColor cColorBackground;
         QString cName;
 
+        QMap<QString, QString> mProperties;
+
     public:
         VisuConfiguration();
+        VisuInstrument* createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
         void loadFromXML(QWidget *parent, QString xml);
+        void setConfigValues(QMap<QString, QString> properties);
         VisuSignal* getSignal(quint16 signalId);
         VisuInstrument* getInstrument(quint16 instrument_id);
         QVector<VisuInstrument*>& getInstruments();
+        QVector<VisuSignal*>& getSignals();
+        void detachInstrumentFromSignal(VisuInstrument* instrument);
+        void attachInstrumentToSignal(VisuInstrument* instrument);
+        void detachInstrumentFromSignal(VisuInstrument* instrument, int signalId);
+        void attachInstrumentToSignal(VisuInstrument* instrument, int signalId);
+        void addSignal(VisuSignal* signal);
+        void deleteSignal(VisuSignal* signal);
+        void deleteSignal(int signalId);
+        QMap<QString, QString>& getProperties();
+        QString toXML();
 
         quint16 getPort();
         quint16 getWidth();

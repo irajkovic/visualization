@@ -12,15 +12,24 @@ public:
             QWidget *parent,
             QMap<QString, QString> properties) : VisuInstrument(parent, properties)
     {
+        load(properties);
+    }
+    static const QString TAG_NAME;
+    quint16 getSignalYId();
+
+    virtual void load(QMap<QString, QString> properties)
+    {
+        VisuInstrument::load(properties);
+
         GET_PROPERTY(cSignalYId, quint16, properties);
         GET_PROPERTY(cBallSize, quint16, properties);
         GET_PROPERTY(cMajorCnt, quint16, properties);
         GET_PROPERTY(cMajorLen, quint16, properties);
         GET_PROPERTY(cLabelX, QString, properties);
         GET_PROPERTY(cLabelY, QString, properties);
+
+        mTagName = InstXYPlot::TAG_NAME;
     }
-    static const QString TAG_NAME;
-    quint16 getSignalYId();
 
 private:
     // configuration properties

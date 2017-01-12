@@ -1,5 +1,10 @@
 #include "visusignal.h"
 
+QMap<QString, QString>& VisuSignal::getProperties()
+{
+    return mProperties;
+}
+
 /**
  * @brief Signal::connectInstrument
  * Adds instrument to notify list.
@@ -7,6 +12,10 @@
  */
 void VisuSignal::connectInstrument(VisuInstrument* instrument)
 {
+    QObject::connect(this,
+                     SIGNAL(initialUpdate(const VisuSignal* const)),
+                     instrument,
+                     SLOT(initialUpdate(const VisuSignal* const)));
     QObject::connect(this,
                      SIGNAL(signalUpdated(const VisuSignal* const)),
                      instrument,
@@ -20,6 +29,10 @@ void VisuSignal::connectInstrument(VisuInstrument* instrument)
  */
 void VisuSignal::disconnectInstrument(VisuInstrument* instrument)
 {
+    QObject::disconnect(this,
+                     SIGNAL(initialUpdate(const VisuSignal* const)),
+                     instrument,
+                     SLOT(initialUpdate(const VisuSignal* const)));
     QObject::disconnect(this,
                      SIGNAL(signalUpdated(const VisuSignal* const)),
                      instrument,
@@ -38,6 +51,11 @@ void VisuSignal::notifyInstruments()
 quint16 VisuSignal::getId() const
 {
     return cId;
+}
+
+void VisuSignal::setId(quint16 id)
+{
+    cId = id;
 }
 
 /**
@@ -109,12 +127,12 @@ void VisuSignal::datagramUpdate(const VisuDatagram& datagram)
  * Called during instrument initialization, so instrument can pickup
  * pointer to signal and adjust its properties accordingly.
  */
-void VisuSignal::initialUpdate()
+void VisuSignal::initializeInstruments()
 {
     mRawValue = 0;
     mTimestamp = 0;
 
-    notifyInstruments();
+    emit(initialUpdate(this));
 }
 
 double VisuSignal::getMin() const
@@ -140,4 +158,17 @@ QString VisuSignal::getUnit() const
 quint64 VisuSignal::getTimestamp() const
 {
     return mTimestamp;
+}
+
+void VisuSignal::load(QMap<QString, QString> properties)
+{
+    mProperties = properties;
+
+    GET_PROPERTY(cId, quint16, properties);
+    GET_PROPERTY(cName, QString, properties);
+    GET_PROPERTY(cUnit, QString, properties);
+    GET_PROPERTY(cFactor, double, properties);
+    GET_PROPERTY(cOffset, double, properties);
+    GET_PROPERTY(cMax, double, properties);
+    GET_PROPERTY(cMin, double, properties);
 }

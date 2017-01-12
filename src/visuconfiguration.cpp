@@ -14,6 +14,8 @@
 #include "statics/staticimage.h"
 #include <algorithm>
 #include "exceptions/configloadexception.h"
+#include "visuconfigloader.h"
+#include "visumisc.h"
 
 #define DBG_XML qDebug("XML-%d>> %s", xmlReader.tokenType(), xmlReader.name().toString().toStdString().c_str())
 
@@ -32,6 +34,8 @@ const QString VisuConfiguration::TAG_SIGNALS_PLACEHOLDER = "signals";
 const QString VisuConfiguration::TAG_INSTRUMENTS_PLACEHOLDER = "instruments";
 const QString VisuConfiguration::TAG_CONTROLS_PLACEHOLDER = "controls";
 
+#include "wysiwyg/visuwidgetfactory.h"
+
 VisuConfiguration::VisuConfiguration()
 {
 
@@ -40,14 +44,12 @@ VisuConfiguration::VisuConfiguration()
 
 void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument, int signalId)
 {
-    // TODO :: optimize
-    int size = signalsList.size();
-    for (int i=0; i<size; i++) {
-        if (signalsList[i]->getId() == signalId) {
-            signalsList[i]->connectInstrument(instrument);
-        }
-    }
-    // std::find_if(signals_list.begin(), signals_list.end(), [instrument_id](VisuSignal* s){ return s->get_id() == instrument_id; } );
+    getSignal(signalId)->connectInstrument(instrument);
+}
+
+void VisuConfiguration::detachInstrumentFromSignal(VisuInstrument* instrument, int signalId)
+{
+    getSignal(signalId)->disconnectInstrument(instrument);
 }
 
 void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument)
@@ -56,85 +58,36 @@ void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument)
     attachInstrumentToSignal(instrument, signalId);
 }
 
-QMap<QString, QString> VisuConfiguration::parseToMap(QXmlStreamReader& xmlReader, QString element)
+void VisuConfiguration::detachInstrumentFromSignal(VisuInstrument* instrument)
 {
-    QMap<QString, QString> map;
-    QString name;
-    QString value;
-
-    while ( xmlReader.tokenType() != QXmlStreamReader::EndElement
-             || xmlReader.name() != element) {
-
-        if (xmlReader.tokenType() == QXmlStreamReader::Invalid) {
-            QString errorMsg = xmlReader.errorString() + " Near node: \"%1\"";
-            throw ConfigLoadException(errorMsg, xmlReader.name().toString());
-        }
-
-        if (xmlReader.tokenType() == QXmlStreamReader::StartElement) {
-            name = xmlReader.name().toString();
-        }
-
-        if (xmlReader.tokenType() == QXmlStreamReader::Characters
-                && !xmlReader.isWhitespace()) {
-            value = xmlReader.text().toString();
-
-            map[name] = value;
-
-            //DBG_XML;
-        }
-
-        xmlReader.readNext();
-
-    }
-
-    return map;
-
+    quint16 signalId = instrument->getSignalId();
+    detachInstrumentFromSignal(instrument, signalId);
 }
 
 void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
 {
-    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_SIGNAL);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_SIGNAL);
     VisuSignal* signal = new VisuSignal(properties);
     signalsList.push_back(signal);
 }
 
-void VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
+VisuInstrument* VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
-    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_INSTRUMENT);
-    VisuInstrument* instrument;
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_INSTRUMENT);
 
-    if (properties[ATTR_TYPE] == InstAnalog::TAG_NAME) {
-        instrument = new InstAnalog(parent, properties);
-    }
-    else if (properties[ATTR_TYPE] == InstDigital::TAG_NAME) {
-        instrument = new InstDigital(parent, properties);
-    }
-    else if (properties[ATTR_TYPE] == InstLinear::TAG_NAME) {
-        instrument = new InstLinear(parent, properties);
-    }
-    else if (properties[ATTR_TYPE] == InstTimePlot::TAG_NAME) {
-        instrument = new InstTimePlot(parent, properties);
-    }
-    else if (properties[ATTR_TYPE] == InstXYPlot::TAG_NAME) {
-        instrument = new InstXYPlot(parent, properties);
-        quint16 signalYId = ((InstXYPlot*)instrument)->getSignalYId();
-        attachInstrumentToSignal(instrument, signalYId);
-    }
-    else if (properties[ATTR_TYPE] == InstLED::TAG_NAME) {
-        instrument = new InstLED(parent, properties);
-    }
-    else {
-        throw ConfigLoadException("Instrument %1 not recognized", properties[ATTR_TYPE]);
-    }
+    VisuWidget* widget = VisuWidgetFactory::createWidget(parent, properties[ATTR_TYPE], properties);
+    VisuInstrument* instrument = static_cast<VisuInstrument*>(widget);
 
     attachInstrumentToSignal(instrument);
-    instrument->show();
     instrumentsList.append(instrument);
+    widget->show();
+
+    return instrument;
 }
 
 void VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
-    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_CONTROL);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_CONTROL);
 
     if (properties[ATTR_TYPE] == Button::TAG_NAME) {
         new Button(parent, properties);
@@ -143,7 +96,7 @@ void VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWid
 
 void VisuConfiguration::createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
-    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_STATIC);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_STATIC);
 
     if (properties[ATTR_TYPE] == StaticImage::TAG_NAME) {
         new StaticImage(parent, properties);
@@ -153,22 +106,26 @@ void VisuConfiguration::createStaticFromToken(QXmlStreamReader& xmlReader, QWidg
 void VisuConfiguration::initializeInstruments()
 {
     for (unsigned int i=0; i<signalsList.size(); i++) {
-        signalsList[i]->initialUpdate();
+        signalsList[i]->initializeInstruments();
     }
 }
 
 void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader)
 {
-    QMap<QString, QString> properties = parseToMap(xmlReader, TAG_CONFIGURATION);
+    setConfigValues(VisuConfigLoader::parseToMap(xmlReader, TAG_CONFIGURATION));
+
+    qDebug("Loading configuration, size: %dx%d", cWidth, cHeight);
+}
+
+void VisuConfiguration::setConfigValues(QMap<QString, QString> properties)
+{
+    mProperties = properties;
     GET_PROPERTY(cPort, quint16, properties);
     GET_PROPERTY(cWidth, quint16, properties);
     GET_PROPERTY(cHeight, quint16, properties);
     GET_PROPERTY(cColorBackground, QColor, properties);
     GET_PROPERTY(cName, QString, properties);
-
-    qDebug("Loading configuration, size: %dx%d", cWidth, cHeight);
 }
-
 
 void VisuConfiguration::loadFromXML(QWidget *parent, QString xmlString)
 {
@@ -226,11 +183,11 @@ void VisuConfiguration::loadFromXML(QWidget *parent, QString xmlString)
 
 VisuSignal* VisuConfiguration::getSignal(quint16 signalId)
 {
-    if (signalId < signalsList.size()) {
-        return signalsList[signalId];
+    if(signalId >= signalsList.size())
+    {
+        throw ConfigLoadException(QString("Signal id %1 too large!").arg(signalId));
     }
-
-    return NULL;
+    return signalsList[signalId];
 }
 
 VisuInstrument* VisuConfiguration::getInstrument(quint16 instrument_id)
@@ -241,6 +198,11 @@ VisuInstrument* VisuConfiguration::getInstrument(quint16 instrument_id)
 QVector<VisuInstrument*>& VisuConfiguration::getInstruments()
 {
     return instrumentsList;
+}
+
+QVector<VisuSignal*>& VisuConfiguration::getSignals()
+{
+    return signalsList;
 }
 
 quint16 VisuConfiguration::getPort()
@@ -266,4 +228,61 @@ QColor VisuConfiguration::getBackgroundColor()
 QString VisuConfiguration::getName()
 {
     return cName;
+}
+
+void VisuConfiguration::addSignal(VisuSignal* signal)
+{
+    // adds signal with signal id autoincremented
+    int signalId = signalsList.size();
+    signal->setId(signalId);
+    signalsList.push_back(signal);
+}
+
+void VisuConfiguration::deleteSignal(VisuSignal* signal)
+{
+    int signalId = signal->getId();
+    deleteSignal(signalId);
+}
+
+void VisuConfiguration::deleteSignal(int signalId)
+{
+    delete (signalsList[signalId]);
+    signalsList[signalId] = nullptr;
+}
+
+QMap<QString, QString>& VisuConfiguration::getProperties()
+{
+    return mProperties;
+}
+
+QString VisuConfiguration::toXML()
+{
+    QString xml;
+
+    xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+    xml += "<visu_config>\n";
+    xml += "\t<configuration>\n";
+    xml += VisuMisc::mapToString(mProperties, 2);
+    xml += "\t</configuration>\n";
+    xml += "\t<signals>\n";
+    for (VisuSignal* signal : getSignals())
+    {
+        xml += "\t\t<signal>\n";
+        xml += VisuMisc::mapToString(signal->getProperties(), 3);
+        xml += "\t\t</signal>\n";
+    }
+    xml += "\t</signals>\n";
+    xml += "\t<instruments>\n";
+
+    for (VisuInstrument* instrument : getInstruments())
+    {
+        xml += "\t\t<instrument>\n";
+        xml += VisuMisc::mapToString(instrument->getProperties(), 3);
+        xml += "\t\t</instrument>\n";
+    }
+
+    xml += "\t</instruments>\n";
+    xml += "<visu_config>\n";
+
+    return xml;
 }

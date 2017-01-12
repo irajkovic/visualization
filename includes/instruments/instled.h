@@ -21,6 +21,14 @@ public:
             QWidget *parent,
             QMap<QString, QString> properties) : VisuInstrument(parent, properties)
     {
+        load(properties);
+    }
+    static const QString TAG_NAME;
+
+    virtual void load(QMap<QString, QString> properties)
+    {
+        VisuInstrument::load(properties);
+
         GET_PROPERTY(cRadius, quint8, properties);
         GET_PROPERTY(cVal1, double, properties);
         GET_PROPERTY(cVal2, double, properties);
@@ -29,8 +37,9 @@ public:
         GET_PROPERTY(cColorOff, QColor, properties);
         GET_PROPERTY(cShowSignalName, quint8, properties);
         GET_PROPERTY(cFontSize, quint8, properties);
+
+        mTagName = InstLED::TAG_NAME;
     }
-    static const QString TAG_NAME;
 
 private:
     // configuration properties

@@ -10,7 +10,7 @@
 #include "visuhelper.h"
 
 class VisuInstrument;   // forward declare Instrument class
-class VisuSignal : QObject
+class VisuSignal : public QObject
 {
     Q_OBJECT
 
@@ -27,33 +27,31 @@ private:
 
     quint64 mTimestamp;                      // Last update timestamp
     quint64 mRawValue;                      // Last value
+    QMap<QString, QString> mProperties;
 
     // methods
     void notifyInstruments();
 
 signals:
+    void initialUpdate(const VisuSignal* const);
     void signalUpdated(const VisuSignal* const);
 
 public:
-    VisuSignal();
     VisuSignal(QMap<QString, QString> properties)
     {
-        GET_PROPERTY(cId, quint16, properties);
-        GET_PROPERTY(cName, QString, properties);
-        GET_PROPERTY(cUnit, QString, properties);
-        GET_PROPERTY(cFactor, double, properties);
-        GET_PROPERTY(cOffset, double, properties);
-        GET_PROPERTY(cMax, double, properties);
-        GET_PROPERTY(cMin, double, properties);
+        load(properties);
     }
 
-    void initialUpdate();
+    QMap<QString, QString>& getProperties();
+    void load(QMap<QString, QString> properties);
+    void initializeInstruments();
     void datagramUpdate(const VisuDatagram& datagram);
     void set_raw_ralue(quint64 value);
     quint64 getRawValue() const;
     void set_timestamp(quint64 mTimestamp);
     quint64 getTimestamp() const;
     quint16 getId() const;
+    void setId(quint16 id);
     double getFactor() const;
     double getOffset() const;
     double getRealValue() const;

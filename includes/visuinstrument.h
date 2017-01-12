@@ -45,12 +45,26 @@ protected:
 
 public slots:
     void signalUpdated(const VisuSignal* const mSignal);
+    void initialUpdate(const VisuSignal* const signal);
 
 public:
 
     explicit VisuInstrument(QWidget *parent, QMap<QString, QString> properties)
         : VisuWidget(parent, properties)
     {
+        load(properties);
+    }
+
+    void clearPixmaps()
+    {
+        mPixmap.fill(Qt::transparent);
+        mPixmapStatic.fill(Qt::transparent);
+    }
+
+    virtual void load(QMap<QString, QString> properties)
+    {
+        VisuWidget::load(properties);
+
         ConfigLoadException::setInstrumentLoadContext(properties);
 
         GET_PROPERTY(cSignalId, quint16, properties);
@@ -62,10 +76,8 @@ public:
         this->mPixmap = QPixmap(cWidth, cHeight);
         this->mPixmapStatic = QPixmap(cWidth, cHeight);
 
-        mPixmap.fill(Qt::transparent);
-        mPixmapStatic.fill(Qt::transparent);
+        clearPixmaps();
         setAttribute(Qt::WA_TranslucentBackground);
-
 
         setGeometry(cX, cY, cWidth, cHeight);
     }

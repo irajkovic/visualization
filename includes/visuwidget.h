@@ -15,7 +15,13 @@ public:
             QWidget *parent,
             QMap<QString, QString> properties) : QWidget(parent)
     {
-        this->mProperties = properties;
+        load(properties);
+        setObjectName(VisuWidget::OBJECT_NAME);
+    }
+
+    virtual void load(QMap<QString, QString> properties)
+    {
+        mProperties = properties;
 
         // custom properties initializer
         GET_PROPERTY(cId, quint16, properties);
@@ -24,7 +30,51 @@ public:
         GET_PROPERTY(cY, quint16, properties);
         GET_PROPERTY(cWidth, quint16, properties);
         GET_PROPERTY(cHeight, quint16, properties);
+
+        mSize = QSize(cWidth, cHeight);
+        setMinimumSize(mSize);
+        setMaximumSize(mSize);
     }
+
+    QMap<QString, QString> getProperties()
+    {
+        return mProperties;
+    }
+
+    QString getName()
+    {
+        return cName;
+    }
+    void setName(QString name)
+    {
+        cName = name;
+    }
+    void setPosition(QPoint position)
+    {
+        cX = position.x();
+        cY = position.y();
+        setGeometry(cX, cY, cWidth, cHeight);
+        mProperties["x"] = QString("%1").arg(cX);
+        mProperties["y"] = QString("%1").arg(cY);
+    }
+    const QSize sizeHint()
+    {
+        return mSize;
+    }
+
+    // Drag&drop related
+    QPoint mDragStartPosition;
+    QPoint mDragStartRelativePosition;
+    void mousePressEvent(QMouseEvent * event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent* event);
+    void mouseDoubleClickEvent(QMouseEvent* event);
+    QPoint getRelativeOffset();
+
+    static const QString OBJECT_NAME;
+
+signals:
+    void widgetActivated(VisuWidget*);
 
 protected:
 
@@ -37,6 +87,9 @@ protected:
     quint16 cY;                  // y position in pixels
     quint16 cWidth;              // width in pixels
     quint16 cHeight;             // height in pixels
+
+    QSize mSize;
+    QString mTagName;
 };
 
 #endif // VISUWIDGET_H
