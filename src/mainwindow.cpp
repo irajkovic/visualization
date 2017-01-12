@@ -59,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
     loadConfigurationFromFile("system/default.xml");
     setupToolbarWidgets(mToolbar);
 
+    setWindowTitle(tr("Configuration Editor"));
     setWindowState(Qt::WindowMaximized);
     show();
 }
