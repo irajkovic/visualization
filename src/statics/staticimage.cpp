@@ -10,4 +10,5 @@ void StaticImage::renderImage()
     setGeometry(QRect(cX, cY, cWidth, cHeight));
     label->setPixmap(QPixmap::fromImage(cData));
     label->show();
+    show();
 }
