@@ -44,7 +44,6 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    VisuSignal* mDefaultSignal;
 
     QWidget* mToolbar;
     Stage* mStage;
@@ -57,11 +56,14 @@ private:
     void setupMenu();
     void updateMenuSignalList();
     void mapToString(QMap<QString, QString> properties);
+    void loadConfigurationFromFile(QString configPath);
 
 private slots:
     void openConfiguration();
     void saveConfiguration();
     void openSignalsEditor();
+    void openConfigurationEditor();
+    void updateConfig();
 };
 
 #endif // MAINWINDOW_H

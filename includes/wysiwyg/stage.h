@@ -19,6 +19,7 @@ public:
 
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
+    void paintEvent(QPaintEvent *pe);
 
 public slots:
     void activateWidget(VisuWidget*);

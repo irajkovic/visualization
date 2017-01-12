@@ -19,6 +19,7 @@
 #include <QtGui>
 #include <QFileDialog>
 #include "visumisc.h"
+#include "wysiwyg/editconfiguration.h"
 
 MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     QMainWindow(parent),
@@ -27,6 +28,7 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     ui->setupUi(this);
 
     setupMenu();
+
 
     QWidget* window = new QWidget();
     QVBoxLayout* windowLayout = new QVBoxLayout();
@@ -37,7 +39,6 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     mToolbar->setObjectName("toolbar");
     mToolbar->setMinimumHeight(170);
     windowLayout->addWidget(mToolbar);
-    setupToolbarWidgets(mToolbar);
 
     QWidget* workArea = new QWidget(window);
     windowLayout->addWidget(workArea);
@@ -55,19 +56,23 @@ MainWindow::MainWindow(QString xmlPath, QWidget *parent) :
     mPropertiesTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     workAreaLayout->addWidget(mPropertiesTable);
 
-
-    mStage->setStyleSheet("background-color: gray;");
-#if 0
-    toolbar->setStyleSheet("background-color: green;");
-    workArea->setStyleSheet("background-color: gray;");
-#endif
-
-    mConfiguration = new VisuConfiguration();
-    mDefaultSignal = new VisuSignal(VisuConfigLoader::getTagFromFile("system/signal.xml", "signal"));
-    addSignal(mDefaultSignal, true);
+    loadConfigurationFromFile("system/default.xml");
+    setupToolbarWidgets(mToolbar);
 
     setWindowState(Qt::WindowMaximized);
     show();
+}
+
+void MainWindow::openConfigurationEditor()
+{
+    EditConfiguration* window = new EditConfiguration(mConfiguration);
+    connect(window, SIGNAL(configParamsUpdated()), this, SLOT(updateConfig()));
+}
+
+void MainWindow::updateConfig()
+{
+    mStage->setMaximumSize(mConfiguration->getWidth(), mConfiguration->getHeight());
+    VisuMisc::setBackgroundColor(mStage, mConfiguration->getBackgroundColor());
 }
 
 void MainWindow::openSignalsEditor()
@@ -88,17 +93,13 @@ void MainWindow::openSignalsEditor()
     connect(editSignalWindow, SIGNAL(signalAdded(VisuSignal*,bool)), this, SLOT(addSignal(VisuSignal*, bool)));
 }
 
-void MainWindow::openConfiguration()
+void MainWindow::loadConfigurationFromFile(QString configPath)
 {
-    QString configPath = QFileDialog::getOpenFileName(this,
-                                                      tr("Open configuration"),
-                                                      ".",
-                                                      "Configuration files (*.xml)");
     mConfiguration = new VisuConfiguration();
     QString xml = VisuConfigLoader::loadXMLFromFile(configPath);
     mConfiguration->loadFromXML(mStage, QString(xml));
-    VisuMisc::setBackgroundColor(mStage, mConfiguration->getBackgroundColor());
-    mStage->setGeometry(0, 0, mConfiguration->getWidth(), mConfiguration->getHeight());
+
+    updateConfig();
 
     // connect instruments
     for (auto instrument : mConfiguration->getInstruments())
@@ -107,6 +108,15 @@ void MainWindow::openConfiguration()
     }
 
     updateMenuSignalList();
+}
+
+void MainWindow::openConfiguration()
+{
+    QString configPath = QFileDialog::getOpenFileName(this,
+                                                      tr("Open configuration"),
+                                                      ".",
+                                                      "Configuration files (*.xml)");
+    loadConfigurationFromFile(configPath);
 }
 
 void MainWindow::saveConfiguration()
@@ -166,6 +176,10 @@ void MainWindow::setupMenu()
     mSignalsListMenu = signalsMenu->addMenu(tr("&List"));
 
     QMenu* configMenu = ui->menuBar->addMenu(tr("&Configuration"));
+    QAction* configParams = new QAction(tr("&Parameters"), this);
+    configParams->setStatusTip(tr("Edit configuration parameters"));
+    configMenu->addAction(configParams);
+    connect(configParams, SIGNAL(triggered()), this, SLOT(openConfigurationEditor()));
 }
 
 void MainWindow::updateMenuSignalList()
@@ -204,16 +218,17 @@ void MainWindow::setupToolbarWidgets(QWidget* toolbar)
     QHBoxLayout *layout = new QHBoxLayout;
     toolbar->setLayout(layout);
 
-    mDefaultSignal = new VisuSignal(VisuConfigLoader::getTagFromFile("system/signal.xml", "signal"));
 
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstAnalog::TAG_NAME, mDefaultSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLinear::TAG_NAME, mDefaultSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstTimePlot::TAG_NAME, mDefaultSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstDigital::TAG_NAME, mDefaultSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, mDefaultSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, mDefaultSignal));
+    VisuSignal* toolbarSignal = mConfiguration->getSignal(0);
 
-    mDefaultSignal->initialUpdate();
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstAnalog::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLinear::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstTimePlot::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstDigital::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, toolbarSignal));
+
+    toolbarSignal->initialUpdate();
 }
 
 void MainWindow::addSignal(VisuSignal* signal, bool isNewSignal)
@@ -277,7 +292,8 @@ void MainWindow::cellUpdated(int row, int col)
     }
     else
     {
-        mDefaultSignal->initialUpdate();
+        // default signal);
+        mConfiguration->getSignal(0)->initialUpdate();
     }
 }
 
@@ -294,7 +310,7 @@ widget->setStyleSheet("border: 20px solid white;");
 
 VisuSignal* MainWindow::getSignal()
 {
-    return mDefaultSignal;
+    return mConfiguration->getSignal(0);
 }
 
 MainWindow::~MainWindow()

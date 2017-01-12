@@ -27,9 +27,12 @@ class VisuConfiguration
         QColor cColorBackground;
         QString cName;
 
+        QMap<QString, QString> mProperties;
+
     public:
         VisuConfiguration();
         void loadFromXML(QWidget *parent, QString xml);
+        void setConfigValues(QMap<QString, QString> properties);
         VisuSignal* getSignal(quint16 signalId);
         VisuInstrument* getInstrument(quint16 instrument_id);
         QVector<VisuInstrument*>& getInstruments();
@@ -41,6 +44,7 @@ class VisuConfiguration
         void addSignal(VisuSignal* signal);
         void deleteSignal(VisuSignal* signal);
         void deleteSignal(int signalId);
+        QMap<QString, QString>& getProperties();
 
         quint16 getPort();
         quint16 getWidth();

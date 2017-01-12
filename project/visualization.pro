@@ -1,4 +1,4 @@
-#-------------------------------------------------
+ #-------------------------------------------------
 #
 # Project created by QtCreator 2015-03-13T21:18:19
 #
@@ -37,12 +37,14 @@ SOURCES += main.cpp\
     visuhelper.cpp \
     controls/button.cpp \
     visuwidget.cpp \
-    ../src/statics/staticimage.cpp \
-    ../src/visuconfigloader.cpp \
-    ../src/wysiwyg/stage.cpp \
-    ../src/wysiwyg/visuwidgetfactory.cpp \
-    ../src/visumisc.cpp \
-    ../src/wysiwyg/editsignal.cpp
+    statics/staticimage.cpp \
+    visuconfigloader.cpp \
+    wysiwyg/stage.cpp \
+    wysiwyg/visuwidgetfactory.cpp \
+    visumisc.cpp \
+    wysiwyg/editsignal.cpp \
+    wysiwyg/editconfiguration.cpp
+
 
 HEADERS  += ../includes/mainwindow.h \
     ../includes/visuinstrument.h \
@@ -66,6 +68,7 @@ HEADERS  += ../includes/mainwindow.h \
     ../includes/wysiwyg/stage.h \
     ../includes/wysiwyg/visuwidgetfactory.h \
     ../includes/visumisc.h \
-    ../includes/wysiwyg/editsignal.h
+    ../includes/wysiwyg/editsignal.h \
+    ../includes/wysiwyg/editconfiguration.h
 
 FORMS    += ../src/mainwindow.ui

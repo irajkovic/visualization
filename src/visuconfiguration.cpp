@@ -109,16 +109,20 @@ void VisuConfiguration::initializeInstruments()
 
 void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader)
 {
-    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_CONFIGURATION);
+    setConfigValues(VisuConfigLoader::parseToMap(xmlReader, TAG_CONFIGURATION));
+
+    qDebug("Loading configuration, size: %dx%d", cWidth, cHeight);
+}
+
+void VisuConfiguration::setConfigValues(QMap<QString, QString> properties)
+{
+    mProperties = properties;
     GET_PROPERTY(cPort, quint16, properties);
     GET_PROPERTY(cWidth, quint16, properties);
     GET_PROPERTY(cHeight, quint16, properties);
     GET_PROPERTY(cColorBackground, QColor, properties);
     GET_PROPERTY(cName, QString, properties);
-
-    qDebug("Loading configuration, size: %dx%d", cWidth, cHeight);
 }
-
 
 void VisuConfiguration::loadFromXML(QWidget *parent, QString xmlString)
 {
@@ -241,6 +245,9 @@ void VisuConfiguration::deleteSignal(int signalId)
 {
     delete (signalsList[signalId]);
     signalsList[signalId] = nullptr;
-    qDebug("Signal %d deleted", signalId);
 }
 
+QMap<QString, QString>& VisuConfiguration::getProperties()
+{
+    return mProperties;
+}
