@@ -119,29 +119,70 @@ void MainWindow::openConfiguration()
     loadConfigurationFromFile(configPath);
 }
 
-void MainWindow::saveConfiguration()
+void MainWindow::saveAsConfiguration()
 {
-    qDebug("Saving");
-    // recreate widgets tree
-    QList<VisuWidget*> widgets = mStage->findChildren<VisuWidget*>();
-
-    for (VisuWidget* widget : widgets)
+    QString configPath = QFileDialog::getSaveFileName(this,
+                                                      tr("Save configuration"),
+                                                      ".",
+                                                      "Configuration files (*.xml)");
+    QString xml = configurationToXML();
+    QFile file( configPath );
+    if ( file.open(QIODevice::WriteOnly) )
     {
-        mapToString(widget->getProperties());
+        QTextStream stream( &file );
+        stream << xml;
     }
+    file.close();
 }
 
-void MainWindow::mapToString(QMap<QString, QString> properties)
+void MainWindow::saveConfiguration()
+{
+
+}
+
+QString MainWindow::configurationToXML()
 {
     QString xml;
+
+    xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+    xml += "<visu_config>\n";
+    xml += "\t<configuration>\n";
+    xml += mapToString(mConfiguration->getProperties(), 2);
+    xml += "\t</configuration>\n";
+    xml += "\t<signals>\n";
+    for (VisuSignal* signal : mConfiguration->getSignals())
+    {
+        xml += "\t\t<signal>\n";
+        xml += mapToString(signal->getProperties(), 3);
+        xml += "\t\t</signal>\n";
+    }
+    xml += "\t</signals>\n";
+    xml += "\t<instruments>\n";
+    QList<VisuWidget*> widgets = mStage->findChildren<VisuWidget*>();
+    for (VisuWidget* widget : widgets)
+    {
+        xml += "\t\t<instrument>\n";
+        xml += mapToString(widget->getProperties(), 3);
+        xml += "\t\t</instrument>\n";
+    }
+    xml += "\t</instruments>\n";
+    xml += "<visu_config>\n";
+
+    return xml;
+}
+
+QString MainWindow::mapToString(QMap<QString, QString> properties, int tabs)
+{
+    QString xml;
+    QString whitespace = QString("\t").repeated(tabs);
     for (auto i = properties.begin(); i != properties.end(); ++i)
     {
-        xml += "<" + i.key() + ">";
+        xml += whitespace + "<" + i.key() + ">";
         xml += i.value();
         xml += "</" + i.key() + ">\n";
     }
 
-    qDebug(xml.toStdString().c_str());
+    return xml;
 }
 
 void MainWindow::setupMenu()
@@ -164,6 +205,7 @@ void MainWindow::setupMenu()
     saveAs->setShortcut(QKeySequence::SaveAs);
     saveAs->setStatusTip(tr("Save as new configuration"));
     fileMenu->addAction(saveAs);
+    connect(saveAs, SIGNAL(triggered()), this, SLOT(saveAsConfiguration()));
 
     QMenu* signalsMenu = ui->menuBar->addMenu(tr("&Signals"));
 

@@ -55,12 +55,14 @@ private:
 
     void setupMenu();
     void updateMenuSignalList();
-    void mapToString(QMap<QString, QString> properties);
+    QString mapToString(QMap<QString, QString> properties, int tabs = 0);
     void loadConfigurationFromFile(QString configPath);
+    QString configurationToXML();
 
 private slots:
     void openConfiguration();
     void saveConfiguration();
+    void saveAsConfiguration();
     void openSignalsEditor();
     void openConfigurationEditor();
     void updateConfig();
