@@ -23,12 +23,12 @@ void VisuWidget::mousePressEvent(QMouseEvent * event)
 
 void VisuWidget::mouseReleaseEvent(QMouseEvent* event)
 {
-
+    (void)event;
 }
 
 void VisuWidget::mouseDoubleClickEvent(QMouseEvent* event)
 {
-
+    (void)event;
 }
 
 void VisuWidget::mouseMoveEvent(QMouseEvent *event)
@@ -51,6 +51,5 @@ void VisuWidget::mouseMoveEvent(QMouseEvent *event)
     mimeData->setText(text);
     drag->setMimeData(mimeData);
 
-    Qt::DropAction dropAction = drag->exec(Qt::CopyAction | Qt::MoveAction);
-
+    drag->exec(Qt::CopyAction | Qt::MoveAction);
 }

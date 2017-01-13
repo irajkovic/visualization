@@ -13,7 +13,7 @@ void Stage::dragEnterEvent(QDragEnterEvent *event)
 
 QString getType(QString mimeDataText)
 {
-    int delPos = mimeDataText.indexOf("\|");
+    int delPos = mimeDataText.indexOf("|");
     return mimeDataText.mid(0, delPos);
 }
 
@@ -60,8 +60,9 @@ void Stage::activateWidget(VisuWidget* widget)
 
 void Stage::paintEvent(QPaintEvent *event)
 {
-  QStyleOption o;
-  o.initFrom(this);
-  QPainter p(this);
-  style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
+    (void)event;
+    QStyleOption o;
+    o.initFrom(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
 }

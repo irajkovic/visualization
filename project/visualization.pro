@@ -12,6 +12,7 @@ TARGET = visualization
 TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++0x
+QMAKE_CXXFLAGS += -Wall
 
 VPATH = ../src
 INCLUDEPATH = ../includes

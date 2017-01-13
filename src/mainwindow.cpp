@@ -272,6 +272,8 @@ void MainWindow::deleteSignal()
 
 void MainWindow::cellUpdated(int row, int col)
 {
+    (void)col;
+
     QString key = mPropertiesTable->item(row,0)->text();
     QString value = mPropertiesTable->item(row,1)->text();
 
