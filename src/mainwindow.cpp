@@ -38,6 +38,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setWindowTitle(tr("Configuration Editor"));
     setWindowState(Qt::WindowMaximized);
+
+    mActiveWidget = nullptr;
+
     show();
 }
 
