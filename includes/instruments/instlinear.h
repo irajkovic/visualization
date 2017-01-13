@@ -2,7 +2,6 @@
 #define INSTLINEAR_H
 
 #include "visuinstrument.h"
-#include <QPainter>
 
 class InstLinear : public VisuInstrument
 {

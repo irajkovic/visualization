@@ -54,4 +54,3 @@ void VisuWidget::mouseMoveEvent(QMouseEvent *event)
     Qt::DropAction dropAction = drag->exec(Qt::CopyAction | Qt::MoveAction);
 
 }
-

@@ -13,12 +13,6 @@ namespace Ui {
 class MainWindow;
 }
 
-enum DRAG_ORIGIN
-{
-    TOOLBAR = 0,
-    STAGE
-};
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -60,10 +54,13 @@ private:
     QMenu* mSignalsListMenu;
 
     void setupMenu();
+    void setupLayouts();
     void updateMenuSignalList();
     QString mapToString(QMap<QString, QString> properties, int tabs = 0);
     void loadConfigurationFromFile(QString configPath);
     QString configurationToXML();
+
+    static const QString INITIAL_EDITOR_CONFIG;
 
 private slots:
     void openConfiguration();

@@ -58,9 +58,10 @@ void Stage::activateWidget(VisuWidget* widget)
     mMainWindow->setActiveWidget(widget);
 }
 
-void Stage::paintEvent(QPaintEvent *pe) {
+void Stage::paintEvent(QPaintEvent *event)
+{
   QStyleOption o;
   o.initFrom(this);
   QPainter p(this);
   style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
-};
+}

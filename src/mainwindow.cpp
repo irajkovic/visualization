@@ -21,6 +21,8 @@
 #include "visumisc.h"
 #include "wysiwyg/editconfiguration.h"
 
+const QString MainWindow::INITIAL_EDITOR_CONFIG = "system/default.xml";
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -28,130 +30,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     setupMenu();
+    setupLayouts();
 
-
-    QWidget* window = new QWidget();
-    QVBoxLayout* windowLayout = new QVBoxLayout();
-    window->setLayout(windowLayout);
-    setCentralWidget(window);
-
-    mToolbar = new QWidget(window);
-    mToolbar->setObjectName("toolbar");
-    mToolbar->setMinimumHeight(170);
-    windowLayout->addWidget(mToolbar);
-
-    QWidget* workArea = new QWidget(window);
-    windowLayout->addWidget(workArea);
-
-    QHBoxLayout* workAreaLayout = new QHBoxLayout();
-    workArea->setLayout(workAreaLayout);
-
-    mStage = new Stage(this, workArea);
-    mStage->setObjectName("stage");
-    workAreaLayout->addWidget(mStage);
-
-    mPropertiesTable = new QTableWidget(workArea);
-    mPropertiesTable->setMaximumWidth(300);
-    mPropertiesTable->verticalHeader()->hide();
-    mPropertiesTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    workAreaLayout->addWidget(mPropertiesTable);
-
-    loadConfigurationFromFile("system/default.xml");
+    loadConfigurationFromFile(INITIAL_EDITOR_CONFIG);
     setupToolbarWidgets(mToolbar);
 
     setWindowTitle(tr("Configuration Editor"));
     setWindowState(Qt::WindowMaximized);
     show();
-}
-
-void MainWindow::openConfigurationEditor()
-{
-    EditConfiguration* window = new EditConfiguration(mConfiguration);
-    connect(window, SIGNAL(configParamsUpdated()), this, SLOT(updateConfig()));
-}
-
-void MainWindow::updateConfig()
-{
-    mStage->setMaximumSize(mConfiguration->getWidth(), mConfiguration->getHeight());
-    VisuMisc::setBackgroundColor(mStage, mConfiguration->getBackgroundColor());
-}
-
-void MainWindow::openSignalsEditor()
-{
-    if (editSignalWindow != nullptr)
-    {
-        disconnect(editSignalWindow, SIGNAL(signalAdded(VisuSignal*)), this, SLOT(addSignal(VisuSignal*, bool)));
-    }
-
-    QAction* s = static_cast<QAction*>(sender());
-    int signalId = s->data().toInt();
-    VisuSignal* signal = nullptr;
-    if (signalId >= 0)
-    {
-        signal = mConfiguration->getSignal(signalId);
-    }
-    editSignalWindow = new EditSignal(signal);
-    connect(editSignalWindow, SIGNAL(signalAdded(VisuSignal*,bool)), this, SLOT(addSignal(VisuSignal*, bool)));
-}
-
-void MainWindow::loadConfigurationFromFile(QString configPath)
-{
-    mConfiguration = new VisuConfiguration();
-    QString xml = VisuConfigLoader::loadXMLFromFile(configPath);
-    mConfiguration->loadFromXML(mStage, QString(xml));
-
-    updateConfig();
-
-    // connect instruments
-    for (auto instrument : mConfiguration->getInstruments())
-    {
-        connect(instrument, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
-    }
-
-    updateMenuSignalList();
-}
-
-void MainWindow::openConfiguration()
-{
-    QString configPath = QFileDialog::getOpenFileName(this,
-                                                      tr("Open configuration"),
-                                                      ".",
-                                                      "Configuration files (*.xml)");
-    loadConfigurationFromFile(configPath);
-}
-
-void MainWindow::saveAsConfiguration()
-{
-    QString configPath = QFileDialog::getSaveFileName(this,
-                                                      tr("Save configuration"),
-                                                      ".",
-                                                      "Configuration files (*.xml)");
-    QString xml = mConfiguration->toXML();
-    QFile file( configPath );
-    if ( file.open(QIODevice::WriteOnly) )
-    {
-        QTextStream stream( &file );
-        stream << xml;
-    }
-    file.close();
-}
-
-void MainWindow::saveConfiguration()
-{
-
-}
-
-void MainWindow::keyPressEvent( QKeyEvent *event )
-{
-    if (event->matches(QKeySequence::Delete))
-    {
-        if (mActiveWidget != nullptr)
-        {
-            mConfiguration->deleteInstrument(static_cast<VisuInstrument*>(mActiveWidget));
-            mActiveWidget = nullptr;
-            mPropertiesTable->clearContents();
-        }
-    }
 }
 
 void MainWindow::setupMenu()
@@ -193,6 +79,58 @@ void MainWindow::setupMenu()
     connect(configParams, SIGNAL(triggered()), this, SLOT(openConfigurationEditor()));
 }
 
+void MainWindow::setupLayouts()
+{
+    QWidget* window = new QWidget();
+    QVBoxLayout* windowLayout = new QVBoxLayout();
+    window->setLayout(windowLayout);
+    setCentralWidget(window);
+
+    mToolbar = new QWidget(window);
+    mToolbar->setObjectName("toolbar");
+    mToolbar->setMinimumHeight(170);
+    windowLayout->addWidget(mToolbar);
+
+    QWidget* workArea = new QWidget(window);
+    windowLayout->addWidget(workArea);
+
+    QHBoxLayout* workAreaLayout = new QHBoxLayout();
+    workArea->setLayout(workAreaLayout);
+
+    mStage = new Stage(this, workArea);
+    mStage->setObjectName("stage");
+    workAreaLayout->addWidget(mStage);
+
+    mPropertiesTable = new QTableWidget(workArea);
+    mPropertiesTable->setMaximumWidth(300);
+    mPropertiesTable->verticalHeader()->hide();
+    mPropertiesTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    workAreaLayout->addWidget(mPropertiesTable);
+}
+
+void MainWindow::loadConfigurationFromFile(QString configPath)
+{
+    mConfiguration = new VisuConfiguration();
+    QString xml = VisuConfigLoader::loadXMLFromFile(configPath);
+    mConfiguration->loadFromXML(mStage, QString(xml));
+
+    updateConfig();
+
+    // connect instruments
+    for (auto instrument : mConfiguration->getInstruments())
+    {
+        connect(instrument, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
+    }
+
+    updateMenuSignalList();
+}
+
+void MainWindow::updateConfig()
+{
+    mStage->setMaximumSize(mConfiguration->getWidth(), mConfiguration->getHeight());
+    VisuMisc::setBackgroundColor(mStage, mConfiguration->getBackgroundColor());
+}
+
 void MainWindow::updateMenuSignalList()
 {
     mSignalsListMenu->clear();
@@ -219,11 +157,6 @@ void MainWindow::updateMenuSignalList()
     }
 }
 
-bool MainWindow::dragOriginIsToolbar(QString originObjectName)
-{
-    return originObjectName == mToolbar->objectName();
-}
-
 void MainWindow::setupToolbarWidgets(QWidget* toolbar)
 {
     QHBoxLayout *layout = new QHBoxLayout;
@@ -240,6 +173,80 @@ void MainWindow::setupToolbarWidgets(QWidget* toolbar)
     layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, toolbarSignal));
 
     toolbarSignal->initializeInstruments();
+}
+
+void MainWindow::openConfigurationEditor()
+{
+    EditConfiguration* window = new EditConfiguration(mConfiguration);
+    connect(window, SIGNAL(configParamsUpdated()), this, SLOT(updateConfig()));
+}
+
+void MainWindow::openSignalsEditor()
+{
+    if (editSignalWindow != nullptr)
+    {
+        disconnect(editSignalWindow, SIGNAL(signalAdded(VisuSignal*)), this, SLOT(addSignal(VisuSignal*, bool)));
+    }
+
+    QAction* s = static_cast<QAction*>(sender());
+    int signalId = s->data().toInt();
+    VisuSignal* signal = nullptr;
+    if (signalId >= 0)
+    {
+        signal = mConfiguration->getSignal(signalId);
+    }
+    editSignalWindow = new EditSignal(signal);
+    connect(editSignalWindow, SIGNAL(signalAdded(VisuSignal*,bool)), this, SLOT(addSignal(VisuSignal*, bool)));
+}
+
+void MainWindow::openConfiguration()
+{
+    QString configPath = QFileDialog::getOpenFileName(this,
+                                                      tr("Open configuration"),
+                                                      ".",
+                                                      "Configuration files (*.xml)");
+    loadConfigurationFromFile(configPath);
+}
+
+void MainWindow::saveAsConfiguration()
+{
+    QString configPath = QFileDialog::getSaveFileName(this,
+                                                      tr("Save configuration"),
+                                                      ".",
+                                                      "Configuration files (*.xml)");
+    QString xml = mConfiguration->toXML();
+    QFile file( configPath );
+    if ( file.open(QIODevice::WriteOnly) )
+    {
+        QTextStream stream( &file );
+        stream << xml;
+    }
+    file.close();
+}
+
+void MainWindow::saveConfiguration()
+{
+
+}
+
+void MainWindow::keyPressEvent( QKeyEvent *event )
+{
+    if (mActiveWidget != nullptr)
+    {
+        if (event->matches(QKeySequence::Delete))
+        {
+
+            mConfiguration->deleteInstrument(static_cast<VisuInstrument*>(mActiveWidget));
+            mActiveWidget = nullptr;
+            mPropertiesTable->clearContents();
+
+        }
+    }
+}
+
+bool MainWindow::dragOriginIsToolbar(QString originObjectName)
+{
+    return originObjectName == mToolbar->objectName();
 }
 
 void MainWindow::addSignal(VisuSignal* signal, bool isNewSignal)
@@ -279,7 +286,7 @@ void MainWindow::cellUpdated(int row, int col)
     {
         position.setY(value.toInt());
     }
-    if (key == "signalId")
+    else if (key == "signalId")
     {
         // find old signal and detach instrument
         VisuInstrument* inst = static_cast<VisuInstrument*>(mActiveWidget);
@@ -290,33 +297,31 @@ void MainWindow::cellUpdated(int row, int col)
     mActiveWidget->load(properties);
     mActiveWidget->setPosition(position);
 
-    if (properties["signalId"].toInt() >= 0)
+    VisuInstrument* inst = static_cast<VisuInstrument*>(mActiveWidget);
+    VisuSignal* signal = mConfiguration->getSignal(inst->getSignalId());
+    if (key == "signalId")
     {
-        // actual signal
-        VisuInstrument* inst = static_cast<VisuInstrument*>(mActiveWidget);
-        VisuSignal* signal = mConfiguration->getSignal(inst->getSignalId());
-        if (key == "signalId")
-        {
-            mConfiguration->attachInstrumentToSignal(inst);
-        }
-        signal->initializeInstruments();
+        mConfiguration->attachInstrumentToSignal(inst);
     }
-    else
-    {
-        // default signal);
-        mConfiguration->getSignal(0)->initializeInstruments();
-    }
+
+    signal->initializeInstruments();
 }
 
 void MainWindow::setActiveWidget(VisuWidget* widget)
 {
+    if (mActiveWidget != nullptr)
+    {
+        // remove selected style. TODO :: refactor to work with other classes
+        static_cast<VisuInstrument*>(mActiveWidget)->setActive(false);
+    }
+
     QMap<QString, QString> properties = widget->getProperties();
     mActiveWidget = widget;
     disconnect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
     VisuMisc::updateTable(mPropertiesTable, properties);
     connect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
 
-widget->setStyleSheet("border: 20px solid white;");
+    static_cast<VisuInstrument*>(mActiveWidget)->setActive(true);
 }
 
 VisuSignal* MainWindow::getSignal()

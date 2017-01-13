@@ -1,6 +1,7 @@
 #include "visuinstrument.h"
 
 #include <QPainter>
+#include <QStyleOption>
 
 /**
  * @brief Instrument::signalUpdated
@@ -54,7 +55,20 @@ void VisuInstrument::paintEvent(QPaintEvent* event)
 {
     (void)event;    // supress compiler warning about unused parameter
     QPainter painter(this);
+#if 0
+    // allow for custom stylesheets
+    QStyleOption option;
+    option.initFrom(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &option, &painter, this);
+#endif
+    // draw instrument
     painter.drawPixmap(0, 0, mPixmap);
+
+    if (mActive)
+    {
+        setPen(&painter, cColorStatic, 2);
+        painter.drawRect(0, 0, cWidth, cHeight);
+    }
 }
 
 void VisuInstrument::setFont(QPainter* painter, int fontSize)
