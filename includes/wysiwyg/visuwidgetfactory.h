@@ -9,11 +9,14 @@ class VisuWidgetFactory
 {
 public:
     VisuWidgetFactory();
-    static VisuWidget* createWidget(QWidget* parent, QString type, VisuSignal* signal = nullptr);
-    static VisuWidget* createWidget(QWidget* parent,
+    static VisuWidget* createInstrument(QWidget* parent, QString type, VisuSignal* signal = nullptr);
+    static VisuWidget* createInstrument(QWidget* parent,
                                     QString type,
                                     QMap<QString, QString> properties,
                                     VisuSignal* signal = nullptr);
+    static VisuWidget* createControl(QWidget* parent, QString type);
+    static VisuWidget* createControl(QWidget* parent,
+                                     QMap<QString, QString> properties);
 };
 
 #endif // VISUWIDGETFACTORY_H

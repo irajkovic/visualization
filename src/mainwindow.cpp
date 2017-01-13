@@ -7,6 +7,7 @@
 #include "insttimeplot.h"
 #include "instled.h"
 #include "instxyplot.h"
+#include "button.h"
 #include "visuconfigloader.h"
 #include "wysiwyg/visuwidgetfactory.h"
 #include <QXmlStreamReader>
@@ -162,15 +163,14 @@ void MainWindow::setupToolbarWidgets(QWidget* toolbar)
     QHBoxLayout *layout = new QHBoxLayout;
     toolbar->setLayout(layout);
 
-
     VisuSignal* toolbarSignal = mConfiguration->getSignal(0);
 
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstAnalog::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLinear::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstTimePlot::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstDigital::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstAnalog::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstLinear::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstTimePlot::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstDigital::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstLED::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstXYPlot::TAG_NAME, toolbarSignal));
 
     toolbarSignal->initializeInstruments();
 }

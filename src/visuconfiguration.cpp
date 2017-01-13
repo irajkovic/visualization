@@ -81,7 +81,7 @@ VisuInstrument* VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& x
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_INSTRUMENT);
 
-    VisuWidget* widget = VisuWidgetFactory::createWidget(parent, properties[ATTR_TYPE], properties);
+    VisuWidget* widget = VisuWidgetFactory::createInstrument(parent, properties[ATTR_TYPE], properties);
     VisuInstrument* instrument = static_cast<VisuInstrument*>(widget);
 
     attachInstrumentToSignal(instrument);

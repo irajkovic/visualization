@@ -4,20 +4,20 @@
 	<colorForeground>250,50,50,200</colorForeground>
 	<colorStatic>0,0,0,255</colorStatic>
 	<fontSize>10</fontSize>
-	<height>75</height>
+	<height>50</height>
 	<horMargin>15</horMargin>
 	<id>3</id>
 	<lineThickness>2</lineThickness>
 	<majorCnt>5</majorCnt>
-	<majorLen>10</majorLen>
+	<majorLen>7</majorLen>
 	<minorCnt>2</minorCnt>
-	<minorLen>4</minorLen>
+	<minorLen>3</minorLen>
 	<name>Linear instrument</name>
 	<signalId>0</signalId>
 	<type>LINEAR</type>
-	<verMargin>30</verMargin>
+	<verMargin>20</verMargin>
 	<verMinorMargin>25</verMinorMargin>
-	<width>300</width>
+	<width>200</width>
 	<x>0</x>
 	<y>0</y>
 </instrument>

@@ -7,7 +7,6 @@ const QString InstDigital::TAG_NAME = "DIGITAL";
 void InstDigital::renderStatic(QPainter* painter)
 {
     clear(painter);
-    qDebug("digital static done");
 }
 
 void InstDigital::renderDynamic(QPainter* painter)

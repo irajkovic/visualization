@@ -8,6 +8,7 @@
 #include "instdigital.h"
 #include "instanalog.h"
 #include "instxyplot.h"
+#include "button.h"
 #include "visuconfigloader.h"
 
 VisuWidgetFactory::VisuWidgetFactory()
@@ -16,16 +17,17 @@ VisuWidgetFactory::VisuWidgetFactory()
 }
 
 
-VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
+VisuWidget* VisuWidgetFactory::createInstrument(QWidget* parent,
                                             QString type,
                                             VisuSignal* signal)
 {
     QString path = QString("system/%1.xml").arg(type);
     QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(path, "instrument");
-    return VisuWidgetFactory::createWidget(parent, type, properties, signal);
+    return VisuWidgetFactory::createInstrument(parent, type, properties, signal);
 }
 
-VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
+// TODO :: Check if type can be replaced by properties["type"]
+VisuWidget* VisuWidgetFactory::createInstrument(QWidget* parent,
                                             QString type,
                                             QMap<QString, QString> properties,
                                             VisuSignal* signal)
@@ -71,3 +73,22 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
 
     return widget;
 }
+
+VisuWidget* VisuWidgetFactory::createControl(QWidget* parent, QString type)
+{
+    QString path = QString("system/%1.xml").arg(type);
+    QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(path, "control");
+    return VisuWidgetFactory::createControl(parent, properties);
+}
+
+
+VisuWidget* VisuWidgetFactory::createControl(QWidget* parent,
+                                 QMap<QString, QString> properties)
+{
+    VisuWidget* widget = nullptr;
+    if (properties["type"] == Button::TAG_NAME) {
+        widget = new Button(parent, properties);
+    }
+    return widget;
+}
+
