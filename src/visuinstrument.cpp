@@ -33,10 +33,11 @@ quint16 VisuInstrument::getSignalId()
 
 void VisuInstrument::render()
 {
-    clearPixmaps();
+    mPixmap.fill(Qt::transparent);
 
     if (mFirstRun)
     {
+        mPixmapStatic.fill(Qt::transparent);
         QPainter painter_static(&mPixmapStatic);
         painter_static.setRenderHint(QPainter::Antialiasing);
         renderStatic(&painter_static);
