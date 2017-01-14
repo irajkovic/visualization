@@ -34,10 +34,13 @@ void VisuWidget::mouseDoubleClickEvent(QMouseEvent* event)
 void VisuWidget::mouseMoveEvent(QMouseEvent *event)
 {
     if (!(event->buttons() & Qt::LeftButton))
+    {
         return;
-    if ((event->pos() - mDragStartPosition).manhattanLength()
-         < QApplication::startDragDistance())
+    }
+    if ((event->pos() - mDragStartPosition).manhattanLength() < QApplication::startDragDistance())
+    {
         return;
+    }
 
     QDrag *drag = new QDrag(this);
     drag->setHotSpot(event->pos());
@@ -45,10 +48,8 @@ void VisuWidget::mouseMoveEvent(QMouseEvent *event)
 
     drag->setPixmap(grab());
 
-    // encode widget type and origin (toolbar / stage)
     QMimeData *mimeData = new QMimeData;
-    QString text = mTagName + "|" + parent()->objectName();
-    mimeData->setText(text);
+    mimeData->setText(mTagName);
     drag->setMimeData(mimeData);
 
     drag->exec(Qt::CopyAction | Qt::MoveAction);

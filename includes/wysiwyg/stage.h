@@ -29,6 +29,7 @@ public slots:
 private:
     MainWindow* mMainWindow;
 
+    VisuWidget *cloneWidget(VisuWidget* sourceWidget);
     QPoint getNewWidgetPosition(QPoint eventPos, QPoint grabOffset, QSize instSize);
 };
 

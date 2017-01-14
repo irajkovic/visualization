@@ -246,9 +246,9 @@ void MainWindow::keyPressEvent( QKeyEvent *event )
     }
 }
 
-bool MainWindow::dragOriginIsToolbar(QString originObjectName)
+bool MainWindow::dragOriginIsToolbar(QWidget* widget)
 {
-    return originObjectName == mToolbar->objectName();
+    return widget->parent() == mToolbar;
 }
 
 void MainWindow::addSignal(QPointer<VisuSignal> signal, bool isNewSignal)

@@ -11,49 +11,39 @@ void Stage::dragEnterEvent(QDragEnterEvent *event)
         event->acceptProposedAction();
 }
 
-QString getType(QString mimeDataText)
-{
-    int delPos = mimeDataText.indexOf("|");
-    return mimeDataText.mid(0, delPos);
-}
-
 void Stage::dropEvent(QDropEvent *event)
 {
-
-    QStringList parts = event->mimeData()->text().split("|");
-    QString type = parts[0];
-    QString origin = parts[1];
-
     VisuWidget* widget;
-    if (mMainWindow->dragOriginIsToolbar(origin))
+    VisuWidget* sourceWidget = static_cast<VisuWidget*>(event->source());
+
+    if (mMainWindow->dragOriginIsToolbar(sourceWidget))
     {
-        // TODO :: Refactor
-        QString path = QString("system/%1.xml").arg(type);
-        QString xmlString = VisuConfigLoader::loadXMLFromFile(path);
-        QXmlStreamReader xmlReader(xmlString);
-        widget = mMainWindow->getConfiguration()->createInstrumentFromToken(xmlReader, this);
-
-        VisuSignal* signal = mMainWindow->getSignal();
-        signal->initializeInstruments();
-
+        // This is new widget
+        widget = cloneWidget(sourceWidget);
+        mMainWindow->getSignal()->initializeInstruments();
         connect(widget, SIGNAL(widgetActivated(VisuWidget*)), this, SLOT(activateWidget(VisuWidget*)));
     }
     else
     {
-        widget = mMainWindow->getActiveWidget();
+        widget = sourceWidget;
     }
-
-    VisuWidget* sourceWidget = static_cast<VisuWidget*>(event->source());
 
     QPoint position = getNewWidgetPosition(event->pos(),
                                            sourceWidget->getRelativeOffset(),
                                            sourceWidget->size());
 
     widget->setPosition(position);
-
     mMainWindow->setActiveWidget(widget);
-
     event->acceptProposedAction();
+}
+
+VisuWidget* Stage::cloneWidget(VisuWidget *sourceWidget)
+{
+    QString type = sourceWidget->getType();
+    QString path = QString("system/%1.xml").arg(type);
+    QString xmlString = VisuConfigLoader::loadXMLFromFile(path);
+    QXmlStreamReader xmlReader(xmlString);
+    return mMainWindow->getConfiguration()->createInstrumentFromToken(xmlReader, this);
 }
 
 QPoint Stage::getNewWidgetPosition(QPoint eventPos, QPoint grabOffset, QSize instSize)
@@ -90,6 +80,7 @@ void Stage::activateWidget(VisuWidget* widget)
 
 void Stage::paintEvent(QPaintEvent *event)
 {
+    // Allow stylesheets
     (void)event;
     QStyleOption o;
     o.initFrom(this);

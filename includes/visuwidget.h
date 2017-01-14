@@ -61,6 +61,10 @@ public:
     {
         return mSize;
     }
+    QString getType()
+    {
+        return mTagName;
+    }
 
     // Drag&drop related
     QPoint mDragStartPosition;

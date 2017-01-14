@@ -23,7 +23,7 @@ public:
     void setupToolbarWidgets(QPointer<QWidget> toolbar);
     QPointer<VisuSignal> getSignal();
     void setActiveWidget(QPointer<VisuWidget> widget);
-    bool dragOriginIsToolbar(QString originObjectName);
+    bool dragOriginIsToolbar(QWidget *widget);
     void keyPressEvent( QKeyEvent *event );
     QPointer<VisuConfiguration> getConfiguration();
     QPointer<VisuWidget> getActiveWidget();
