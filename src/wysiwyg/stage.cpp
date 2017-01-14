@@ -24,8 +24,6 @@ void Stage::dropEvent(QDropEvent *event)
     QString type = parts[0];
     QString origin = parts[1];
 
-    qDebug("%s", event->mimeData()->text().toStdString().c_str());
-
     VisuWidget* widget;
     if (mMainWindow->dragOriginIsToolbar(origin))
     {
@@ -61,14 +59,27 @@ void Stage::dropEvent(QDropEvent *event)
 QPoint Stage::getNewWidgetPosition(QPoint eventPos, QPoint grabOffset, QSize instSize)
 {
     QPoint position = eventPos - grabOffset;
-    if (position.x() < 0 || position.x() + instSize.width() > width())
+
+    // corect if horizontal position outside of container
+    if (position.x() < 0)
     {
         position.setX(0);
     }
-    if (position.y() < 0 || position.y() + instSize.height() > height())
+    else if (position.x() + instSize.width() > width())
+    {
+        position.setX(width() - instSize.width());
+    }
+
+    // corect if vertical position outside of container
+    if (position.y() < 0)
     {
         position.setY(0);
     }
+    else if (position.y() + instSize.height() > height())
+    {
+        position.setY(height() - instSize.height());
+    }
+
     return position;
 }
 
