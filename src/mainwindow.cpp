@@ -80,6 +80,7 @@ void MainWindow::setupMenu()
     QMenu* configMenu = ui->menuBar->addMenu(tr("&Configuration"));
 
     QAction* configRun = new QAction(tr("&Run"), this);
+    saveAs->setShortcut(QKeySequence::SaveAs);
     configRun->setStatusTip(tr("Run current configuration"));
     configMenu->addAction(configRun);
     connect(configRun, SIGNAL(triggered()), this, SLOT(runConfiguration()));
@@ -108,9 +109,13 @@ void MainWindow::setupLayouts()
     QHBoxLayout* workAreaLayout = new QHBoxLayout();
     workArea->setLayout(workAreaLayout);
 
+    workAreaLayout->addStretch();
+
     mStage = new Stage(this, workArea);
     mStage->setObjectName("stage");
     workAreaLayout->addWidget(mStage);
+
+    workAreaLayout->addStretch();
 
     mPropertiesTable = new QTableWidget(workArea);
     mPropertiesTable->setMaximumWidth(300);
@@ -139,6 +144,7 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
 void MainWindow::updateConfig()
 {
     mStage->setMaximumSize(mConfiguration->getWidth(), mConfiguration->getHeight());
+    mStage->setMinimumSize(mConfiguration->getWidth(), mConfiguration->getHeight());
     VisuMisc::setBackgroundColor(mStage, mConfiguration->getBackgroundColor());
 }
 
