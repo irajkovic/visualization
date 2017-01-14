@@ -187,7 +187,7 @@ void MainWindow::openSignalsEditor()
 {
     if (editSignalWindow != nullptr)
     {
-        disconnect(editSignalWindow, SIGNAL(signalAdded(VisuSignal*)), this, SLOT(addSignal(VisuSignal*, bool)));
+        disconnect(editSignalWindow, SIGNAL(signalAdded(VQPointer<VisuSignal>)), this, SLOT(addSignal(QPointer<VisuSignal>, bool)));
     }
 
     QAction* s = static_cast<QAction*>(sender());
@@ -198,7 +198,7 @@ void MainWindow::openSignalsEditor()
         signal = mConfiguration->getSignal(signalId);
     }
     editSignalWindow = new EditSignal(signal);
-    connect(editSignalWindow, SIGNAL(signalAdded(VisuSignal*,bool)), this, SLOT(addSignal(VisuSignal*, bool)));
+    connect(editSignalWindow, SIGNAL(signalAdded(QPointer<VisuSignal>,bool)), this, SLOT(addSignal(QPointer<VisuSignal>, bool)));
 }
 
 void MainWindow::openConfiguration()

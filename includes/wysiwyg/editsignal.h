@@ -21,7 +21,7 @@ public:
     EditSignal(QPointer<VisuSignal> visuSignal = nullptr);
 
 signals:
-    void signalAdded(VisuSignal*,bool);
+    void signalAdded(QPointer<VisuSignal>,bool);
 
 public slots:
     void addSignal();
