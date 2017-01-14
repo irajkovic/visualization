@@ -11,7 +11,7 @@ EditConfiguration::EditConfiguration(QPointer<VisuConfiguration> configuration)
     mProperties = mConfiguration->getProperties();
 
     mTable = new QTableWidget();
-    VisuMisc::updateTable(mTable, mProperties);
+    VisuMisc::updateTable(mTable, mProperties, this, SLOT(updateColor()));
     mTable->setMaximumWidth(300);
     mTable->verticalHeader()->hide();
     mTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -46,7 +46,13 @@ void EditConfiguration::cellUpdated(int row, int col)
 {
     (void)col;
     QString key = mTable->item(row, 0)->text();
-    QString value = mTable->item(row, 1)->text();
+    QString value = VisuMisc::getValueString(row, key, mTable);
     mProperties[key] = value;
     mConfiguration->setConfigValues(mProperties);
+}
+
+void EditConfiguration::updateColor()
+{
+    int row = VisuMisc::updateColor(sender(), this);
+    cellUpdated(row, 1);
 }

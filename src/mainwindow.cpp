@@ -15,6 +15,7 @@
 #include "wysiwyg/stage.h"
 #include <QLabel>
 #include <QObject>
+#include <QColorDialog>
 
 #include <QLineEdit>
 #include <QTableWidgetItem>
@@ -277,20 +278,20 @@ void MainWindow::cellUpdated(int row, int col)
     (void)col;
 
     QString key = mPropertiesTable->item(row,0)->text();
-    QString value = mPropertiesTable->item(row,1)->text();
+    QString value = VisuMisc::getValueString(row, key, mPropertiesTable);
 
     QMap<QString, QString> properties = mActiveWidget->getProperties();
     QPoint position = mActiveWidget->pos();
 
-    if (key == "x")
+    if (key == VisuMisc::PROP_X)
     {
         position.setX(value.toInt());
     }
-    else if (key == "y")
+    else if (key == VisuMisc::PROP_Y)
     {
         position.setY(value.toInt());
     }
-    else if (key == "signalId")
+    else if (key == VisuMisc::PROP_SIGNAL_ID)
     {
         // find old signal and detach instrument
         VisuInstrument* inst = qobject_cast<VisuInstrument*>(mActiveWidget);
@@ -323,10 +324,16 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
     mActiveWidget = widget;
 
     disconnect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
-    VisuMisc::updateTable(mPropertiesTable, properties);
+    VisuMisc::updateTable(mPropertiesTable, properties, this, SLOT(updateColor()));
     connect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
 
     qobject_cast<VisuInstrument*>(mActiveWidget)->setActive(true);
+}
+
+void MainWindow::updateColor()
+{
+    int row = VisuMisc::updateColor(sender(), this);
+    cellUpdated(row, 1);
 }
 
 QPointer<VisuSignal> MainWindow::getSignal()

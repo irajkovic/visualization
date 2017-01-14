@@ -23,6 +23,9 @@ public:
 signals:
     void configParamsUpdated();
 
+public slots:
+    void updateColor();
+
 private slots:
     void updateConfigParams();
     void cellUpdated(int row, int col);

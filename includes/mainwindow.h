@@ -35,6 +35,7 @@ public slots:
     void cellUpdated(int row, int col);
     void addSignal(QPointer<VisuSignal> signal, bool isNewSignal);
     void deleteSignal();
+    void updateColor();
 
 private:
     Ui::MainWindow *ui;
