@@ -46,11 +46,30 @@ void Stage::dropEvent(QDropEvent *event)
     }
 
     VisuWidget* sourceWidget = static_cast<VisuWidget*>(event->source());
-    widget->setPosition(event->pos() - sourceWidget->getRelativeOffset());
+
+    QPoint position = getNewWidgetPosition(event->pos(),
+                                           sourceWidget->getRelativeOffset(),
+                                           sourceWidget->size());
+
+    widget->setPosition(position);
 
     mMainWindow->setActiveWidget(widget);
 
     event->acceptProposedAction();
+}
+
+QPoint Stage::getNewWidgetPosition(QPoint eventPos, QPoint grabOffset, QSize instSize)
+{
+    QPoint position = eventPos - grabOffset;
+    if (position.x() < 0 || position.x() + instSize.width() > width())
+    {
+        position.setX(0);
+    }
+    if (position.y() < 0 || position.y() + instSize.height() > height())
+    {
+        position.setY(0);
+    }
+    return position;
 }
 
 void Stage::activateWidget(VisuWidget* widget)

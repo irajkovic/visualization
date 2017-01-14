@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QDragEnterEvent>
 #include <QDropEvent>
+#include <QPoint>
+#include <QSize>
 #include "mainwindow.h"
 
 class Stage : public QWidget
@@ -26,6 +28,8 @@ public slots:
 
 private:
     MainWindow* mMainWindow;
+
+    QPoint getNewWidgetPosition(QPoint eventPos, QPoint grabOffset, QSize instSize);
 };
 
 #endif // STAGE_H
