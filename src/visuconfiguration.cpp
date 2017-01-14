@@ -2,22 +2,21 @@
 
 #include <QVector>
 #include <QPushButton>
+#include <algorithm>
+
 #include "visusignal.h"
+#include "visuhelper.h"
+#include "visuconfigloader.h"
+#include "visumisc.h"
+#include "exceptions/configloadexception.h"
 #include "instruments/instanalog.h"
 #include "instruments/instdigital.h"
 #include "instruments/instlinear.h"
 #include "instruments/insttimeplot.h"
 #include "instruments/instxyplot.h"
 #include "instruments/instled.h"
-#include "visuhelper.h"
 #include "controls/button.h"
 #include "statics/staticimage.h"
-#include <algorithm>
-#include "exceptions/configloadexception.h"
-#include "visuconfigloader.h"
-#include "visumisc.h"
-
-#define DBG_XML qDebug("XML-%d>> %s", xmlReader.tokenType(), xmlReader.name().toString().toStdString().c_str())
 
 const QString VisuConfiguration::TAG_INSTRUMENT = "instrument";
 const QString VisuConfiguration::TAG_CONTROL = "control";
@@ -35,12 +34,6 @@ const QString VisuConfiguration::TAG_INSTRUMENTS_PLACEHOLDER = "instruments";
 const QString VisuConfiguration::TAG_CONTROLS_PLACEHOLDER = "controls";
 
 #include "wysiwyg/visuwidgetfactory.h"
-
-VisuConfiguration::VisuConfiguration()
-{
-
-
-}
 
 void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument, int signalId)
 {
@@ -71,7 +64,7 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
     signalsList.push_back(signal);
 }
 
-void VisuConfiguration::deleteInstrument(VisuInstrument* instrument)
+void VisuConfiguration::deleteInstrument(QPointer<VisuInstrument> instrument)
 {
     detachInstrumentFromSignal(instrument);
     delete instrument;
@@ -123,7 +116,7 @@ void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader
     qDebug("Loading configuration, size: %dx%d", cWidth, cHeight);
 }
 
-void VisuConfiguration::setConfigValues(QMap<QString, QString> properties)
+void VisuConfiguration::setConfigValues(const QMap<QString, QString>& properties)
 {
     mProperties = properties;
     GET_PROPERTY(cPort, quint16, properties);
@@ -133,7 +126,7 @@ void VisuConfiguration::setConfigValues(QMap<QString, QString> properties)
     GET_PROPERTY(cName, QString, properties);
 }
 
-void VisuConfiguration::loadFromXML(QWidget *parent, QString xmlString)
+void VisuConfiguration::loadFromXML(QWidget *parent, const QString& xmlString)
 {
     QXmlStreamReader xmlReader(xmlString);
 
@@ -187,7 +180,7 @@ void VisuConfiguration::loadFromXML(QWidget *parent, QString xmlString)
     initializeInstruments();
 }
 
-VisuSignal* VisuConfiguration::getSignal(quint16 signalId)
+QPointer<VisuSignal> VisuConfiguration::getSignal(quint16 signalId)
 {
     if(signalId >= signalsList.size())
     {
@@ -206,7 +199,7 @@ QVector<VisuInstrument*>& VisuConfiguration::getInstruments()
     return instrumentsList;
 }
 
-QVector<VisuSignal*>& VisuConfiguration::getSignals()
+QVector<QPointer<VisuSignal>>& VisuConfiguration::getSignals()
 {
     return signalsList;
 }
@@ -236,7 +229,7 @@ QString VisuConfiguration::getName()
     return cName;
 }
 
-void VisuConfiguration::addSignal(VisuSignal* signal)
+void VisuConfiguration::addSignal(QPointer<VisuSignal> signal)
 {
     // adds signal with signal id autoincremented
     int signalId = signalsList.size();
@@ -244,7 +237,7 @@ void VisuConfiguration::addSignal(VisuSignal* signal)
     signalsList.push_back(signal);
 }
 
-void VisuConfiguration::deleteSignal(VisuSignal* signal)
+void VisuConfiguration::deleteSignal(QPointer<VisuSignal> signal)
 {
     int signalId = signal->getId();
     deleteSignal(signalId);
@@ -252,8 +245,8 @@ void VisuConfiguration::deleteSignal(VisuSignal* signal)
 
 void VisuConfiguration::deleteSignal(int signalId)
 {
+    // pointer will be cleared automaticaly by QPointer
     delete (signalsList[signalId]);
-    signalsList[signalId] = nullptr;
 }
 
 QMap<QString, QString>& VisuConfiguration::getProperties()

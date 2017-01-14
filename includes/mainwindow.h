@@ -4,6 +4,7 @@
 #include <QMenu>
 #include <QTableWidget>
 #include <QMainWindow>
+#include <QPointer>
 #include "visusignal.h"
 #include "visuconfiguration.h"
 #include "wysiwyg/editsignal.h"
@@ -19,45 +20,37 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    void setupToolbarWidgets(QWidget* toolbar);
-    VisuSignal* getSignal();
-    void setActiveWidget(VisuWidget* widget);
+    void setupToolbarWidgets(QPointer<QWidget> toolbar);
+    QPointer<VisuSignal> getSignal();
+    void setActiveWidget(QPointer<VisuWidget> widget);
     bool dragOriginIsToolbar(QString originObjectName);
     void keyPressEvent( QKeyEvent *event );
-    VisuConfiguration* getConfiguration()
-    {
-        return mConfiguration;
-    }
-
-    VisuWidget* getActiveWidget()
-    {
-        return mActiveWidget;
-    }
+    QPointer<VisuConfiguration> getConfiguration();
+    QPointer<VisuWidget> getActiveWidget();
 
     ~MainWindow();
 
 public slots:
 
     void cellUpdated(int row, int col);
-    void addSignal(VisuSignal* signal, bool isNewSignal);
+    void addSignal(QPointer<VisuSignal> signal, bool isNewSignal);
     void deleteSignal();
 
 private:
     Ui::MainWindow *ui;
 
-    QWidget* mToolbar;
-    Stage* mStage;
-    QTableWidget* mPropertiesTable;
-    VisuWidget* mActiveWidget;
-    VisuConfiguration* mConfiguration;
-    EditSignal* editSignalWindow;
-    QMenu* mSignalsListMenu;
+    QPointer<QWidget> mToolbar;
+    QPointer<Stage> mStage;
+    QPointer<QTableWidget> mPropertiesTable;
+    QPointer<VisuWidget> mActiveWidget;
+    QPointer<VisuConfiguration> mConfiguration;
+    QPointer<EditSignal> editSignalWindow;
+    QPointer<QMenu> mSignalsListMenu;
 
     void setupMenu();
     void setupLayouts();
     void updateMenuSignalList();
-    QString mapToString(QMap<QString, QString> properties, int tabs = 0);
-    void loadConfigurationFromFile(QString configPath);
+    void loadConfigurationFromFile(const QString& configPath);
     QString configurationToXML();
 
     static const QString INITIAL_EDITOR_CONFIG;

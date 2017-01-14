@@ -14,6 +14,7 @@
 #include <QTableWidget>
 #include "wysiwyg/stage.h"
 #include <QLabel>
+#include <QObject>
 
 #include <QLineEdit>
 #include <QTableWidgetItem>
@@ -38,8 +39,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setWindowTitle(tr("Configuration Editor"));
     setWindowState(Qt::WindowMaximized);
-
-    mActiveWidget = nullptr;
 
     show();
 }
@@ -112,7 +111,7 @@ void MainWindow::setupLayouts()
     workAreaLayout->addWidget(mPropertiesTable);
 }
 
-void MainWindow::loadConfigurationFromFile(QString configPath)
+void MainWindow::loadConfigurationFromFile(const QString& configPath)
 {
     mConfiguration = new VisuConfiguration();
     QString xml = VisuConfigLoader::loadXMLFromFile(configPath);
@@ -161,7 +160,7 @@ void MainWindow::updateMenuSignalList()
     }
 }
 
-void MainWindow::setupToolbarWidgets(QWidget* toolbar)
+void MainWindow::setupToolbarWidgets(QPointer<QWidget> toolbar)
 {
     QHBoxLayout *layout = new QHBoxLayout;
     toolbar->setLayout(layout);
@@ -239,7 +238,7 @@ void MainWindow::keyPressEvent( QKeyEvent *event )
         if (event->matches(QKeySequence::Delete))
         {
 
-            mConfiguration->deleteInstrument(static_cast<VisuInstrument*>(mActiveWidget));
+            mConfiguration->deleteInstrument(qobject_cast<VisuInstrument*>(mActiveWidget));
             mActiveWidget = nullptr;
             mPropertiesTable->clearContents();
 
@@ -252,7 +251,7 @@ bool MainWindow::dragOriginIsToolbar(QString originObjectName)
     return originObjectName == mToolbar->objectName();
 }
 
-void MainWindow::addSignal(VisuSignal* signal, bool isNewSignal)
+void MainWindow::addSignal(QPointer<VisuSignal> signal, bool isNewSignal)
 {
     if (isNewSignal)
     {
@@ -294,7 +293,7 @@ void MainWindow::cellUpdated(int row, int col)
     else if (key == "signalId")
     {
         // find old signal and detach instrument
-        VisuInstrument* inst = static_cast<VisuInstrument*>(mActiveWidget);
+        VisuInstrument* inst = qobject_cast<VisuInstrument*>(mActiveWidget);
         mConfiguration->detachInstrumentFromSignal(inst);
     }
 
@@ -302,7 +301,7 @@ void MainWindow::cellUpdated(int row, int col)
     mActiveWidget->load(properties);
     mActiveWidget->setPosition(position);
 
-    VisuInstrument* inst = static_cast<VisuInstrument*>(mActiveWidget);
+    VisuInstrument* inst = qobject_cast<VisuInstrument*>(mActiveWidget);
     VisuSignal* signal = mConfiguration->getSignal(inst->getSignalId());
     if (key == "signalId")
     {
@@ -312,24 +311,25 @@ void MainWindow::cellUpdated(int row, int col)
     signal->initializeInstruments();
 }
 
-void MainWindow::setActiveWidget(VisuWidget* widget)
+void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
 {
     if (mActiveWidget != nullptr)
     {
         // remove selected style. TODO :: refactor to work with other classes
-        static_cast<VisuInstrument*>(mActiveWidget)->setActive(false);
+        qobject_cast<VisuInstrument*>(mActiveWidget)->setActive(false);
     }
 
     QMap<QString, QString> properties = widget->getProperties();
     mActiveWidget = widget;
+
     disconnect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
     VisuMisc::updateTable(mPropertiesTable, properties);
     connect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
 
-    static_cast<VisuInstrument*>(mActiveWidget)->setActive(true);
+    qobject_cast<VisuInstrument*>(mActiveWidget)->setActive(true);
 }
 
-VisuSignal* MainWindow::getSignal()
+QPointer<VisuSignal> MainWindow::getSignal()
 {
     return mConfiguration->getSignal(0);
 }
@@ -337,4 +337,14 @@ VisuSignal* MainWindow::getSignal()
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+QPointer<VisuConfiguration> MainWindow::getConfiguration()
+{
+    return mConfiguration;
+}
+
+QPointer<VisuWidget> MainWindow::getActiveWidget()
+{
+    return mActiveWidget;
 }

@@ -2,6 +2,54 @@
 
 #include "visusignal.h"
 
+EditSignal::EditSignal(QPointer<VisuSignal> visuSignal)
+{
+    setAttribute(Qt::WA_DeleteOnClose);
+
+    QLayout* vlayout = new QVBoxLayout();
+    setLayout(vlayout);
+
+    mSignal = visuSignal;
+    mTable = new QTableWidget() ;
+
+    if (visuSignal == nullptr)
+    {
+        mProperties = VisuConfigLoader::getMapFromFile("system/signal.xml", "signal");
+        mSignal = new VisuSignal(mProperties);
+        mNewSignal = true;
+    }
+    else
+    {
+        mProperties = visuSignal->getProperties();
+        mNewSignal = false;
+    }
+    VisuMisc::updateTable(mTable, mProperties);
+
+    mTable->setMaximumWidth(300);
+    mTable->verticalHeader()->hide();
+    mTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    vlayout->addWidget(mTable);
+
+    QWidget* buttons = new QWidget();
+    QLayout* buttonsLayout = new QHBoxLayout();
+    buttons->setLayout(buttonsLayout);
+
+    QPushButton* saveButton = new QPushButton(tr("&Save"));
+    buttonsLayout->addWidget(saveButton);
+
+    QPushButton* cancelButton = new QPushButton(tr("&Cancel"));
+    buttonsLayout->addWidget(cancelButton);
+
+    buttons->setMaximumHeight(saveButton->height());
+    vlayout->addWidget(buttons);
+
+    show();
+    connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(saveButton, SIGNAL(clicked()), this, SLOT(addSignal()));
+    connect(mTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
+}
+
 void EditSignal::addSignal()
 {
     mSignal->initializeInstruments();

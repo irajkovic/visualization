@@ -1,17 +1,20 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
-#include "signal.h"
+#include "visusignal.h"
 #include "visuinstrument.h"
 #include <QWidget>
+#include <QObject>
 #include <QXmlStreamReader>
+#include <QPointer>
 #include <vector>
 
-class VisuConfiguration
+class VisuConfiguration : public QObject
 {
+    Q_OBJECT
 
     private:
-        QVector<VisuSignal*> signalsList;
+        QVector<QPointer<VisuSignal>> signalsList;
         QVector<VisuInstrument*> instrumentsList;
         void createSignalFromToken(QXmlStreamReader& xml_reader);
         void createConfigurationFromToken(QXmlStreamReader& xmlReader);
@@ -29,22 +32,26 @@ class VisuConfiguration
         QMap<QString, QString> mProperties;
 
     public:
-        VisuConfiguration();
+        void setConfigValues(const QMap<QString, QString>& properties);
+
+        void loadFromXML(QWidget *parent, const QString& xml);
         VisuInstrument* createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
-        void deleteInstrument(VisuInstrument* instrument);
-        void loadFromXML(QWidget *parent, QString xml);
-        void setConfigValues(QMap<QString, QString> properties);
-        VisuSignal* getSignal(quint16 signalId);
+        void deleteInstrument(QPointer<VisuInstrument> instrument);
+
+        QPointer<VisuSignal> getSignal(quint16 signalId);
+        QVector<QPointer<VisuSignal>> &getSignals();
         VisuInstrument* getInstrument(quint16 instrument_id);
         QVector<VisuInstrument*>& getInstruments();
-        QVector<VisuSignal*>& getSignals();
+
         void detachInstrumentFromSignal(VisuInstrument* instrument);
         void attachInstrumentToSignal(VisuInstrument* instrument);
         void detachInstrumentFromSignal(VisuInstrument* instrument, int signalId);
         void attachInstrumentToSignal(VisuInstrument* instrument, int signalId);
-        void addSignal(VisuSignal* signal);
-        void deleteSignal(VisuSignal* signal);
+
+        void addSignal(QPointer<VisuSignal> signal);
+        void deleteSignal(QPointer<VisuSignal> signal);
         void deleteSignal(int signalId);
+
         QMap<QString, QString>& getProperties();
         QString toXML();
 

@@ -4,6 +4,7 @@
 #include <QtGlobal>
 #include <QVector>
 #include <QString>
+#include <QObject>
 
 #include "visuinstrument.h"
 #include "visudatagram.h"
