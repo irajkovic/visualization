@@ -3,6 +3,7 @@
 #include <QPalette>
 #include <QPushButton>
 #include <QColorDialog>
+#include <QTextStream>
 #include "visuhelper.h"
 
 const char* VisuMisc::PROP_COLOR = "color";
@@ -111,3 +112,13 @@ QString VisuMisc::getValueString(int row, QString key, QTableWidget* table)
     return value;
 }
 
+QString VisuMisc::saveToFile(QFile &file, QString contents)
+{
+    if ( file.open(QIODevice::WriteOnly) )
+    {
+        QTextStream stream( &file );
+        stream << contents;
+        file.close();
+    }
+    return file.fileName();
+}

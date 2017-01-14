@@ -5,6 +5,7 @@
 #include <QColor>
 #include <QTableWidget>
 #include <QMap>
+#include <QFile>
 
 class VisuMisc
 {
@@ -18,6 +19,7 @@ public:
     static QString mapToString(QMap<QString, QString> properties, int tabs);
     static int updateColor(QObject* sender, QWidget* parent);
     static QString getValueString(int row, QString key, QTableWidget *table);
+    static QString saveToFile(QFile &file, QString contents);
 
     static const char* PROP_COLOR;
     static const char* PROP_ROW;

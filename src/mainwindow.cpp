@@ -21,6 +21,7 @@
 #include <QTableWidgetItem>
 #include <QtGui>
 #include <QFileDialog>
+#include <QProcess>
 #include "visumisc.h"
 #include "wysiwyg/editconfiguration.h"
 
@@ -77,6 +78,12 @@ void MainWindow::setupMenu()
     mSignalsListMenu = signalsMenu->addMenu(tr("&List"));
 
     QMenu* configMenu = ui->menuBar->addMenu(tr("&Configuration"));
+
+    QAction* configRun = new QAction(tr("&Run"), this);
+    configRun->setStatusTip(tr("Run current configuration"));
+    configMenu->addAction(configRun);
+    connect(configRun, SIGNAL(triggered()), this, SLOT(runConfiguration()));
+
     QAction* configParams = new QAction(tr("&Parameters"), this);
     configParams->setStatusTip(tr("Edit configuration parameters"));
     configMenu->addAction(configParams);
@@ -184,6 +191,18 @@ void MainWindow::openConfigurationEditor()
     connect(window, SIGNAL(configParamsUpdated()), this, SLOT(updateConfig()));
 }
 
+void MainWindow::runConfiguration()
+{
+    QString xml = mConfiguration->toXML();
+    QString configFilePath = VisuMisc::saveToFile(mTmpConfigFile, xml);
+    QString me = QCoreApplication::applicationFilePath();
+
+    QStringList args = {configFilePath};
+    QProcess *process = new QProcess(this);
+
+    process->start(me, args);
+}
+
 void MainWindow::openSignalsEditor()
 {
     if (editSignalWindow != nullptr)
@@ -217,15 +236,13 @@ void MainWindow::saveAsConfiguration()
                                                       tr("Save configuration"),
                                                       ".",
                                                       "Configuration files (*.xml)");
-    QString xml = mConfiguration->toXML();
+
     QFile file( configPath );
-    if ( file.open(QIODevice::WriteOnly) )
-    {
-        QTextStream stream( &file );
-        stream << xml;
-    }
-    file.close();
+    QString xml = mConfiguration->toXML();
+    VisuMisc::saveToFile(file, xml);
 }
+
+
 
 void MainWindow::saveConfiguration()
 {

@@ -5,6 +5,7 @@
 #include <QTableWidget>
 #include <QMainWindow>
 #include <QPointer>
+#include <QTemporaryFile>
 #include "visusignal.h"
 #include "visuconfiguration.h"
 #include "wysiwyg/editsignal.h"
@@ -47,6 +48,7 @@ private:
     QPointer<VisuConfiguration> mConfiguration;
     QPointer<EditSignal> editSignalWindow;
     QPointer<QMenu> mSignalsListMenu;
+    QTemporaryFile mTmpConfigFile;
 
     void setupMenu();
     void setupLayouts();
@@ -63,6 +65,7 @@ private slots:
     void openSignalsEditor();
     void openConfigurationEditor();
     void updateConfig();
+    void runConfiguration();
 };
 
 #endif // MAINWINDOW_H
