@@ -204,7 +204,7 @@ void InstTimePlot::calculateNewGraphPoint(quint64 timestamp)
 {
     double value = mSignal->getNormalizedValue();
     quint64 dt = timestamp > mLastUpdateTime ? (timestamp - mLastUpdateTime) : 0;
-    double dx = mPlotRangeX * dt / (cTimespan);
+    double dx = (double)mPlotRangeX * dt / (cTimespan);
 
     mNewUpdateX = mLastUpdateX + dx;
     mNewUpdateY = mPlotStartY - mPlotRangeY * value;
