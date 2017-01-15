@@ -71,6 +71,12 @@ void VisuConfiguration::deleteInstrument(QPointer<VisuInstrument> instrument)
     delete instrument;
 }
 
+void VisuConfiguration::deleteControl(QPointer<Button> control)
+{
+    controlsList[control->getId()] = nullptr;
+    delete control;
+}
+
 VisuInstrument* VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_INSTRUMENT);
@@ -94,7 +100,7 @@ Button* VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, Q
         control = new Button(parent, properties);
     }
 
-    controlsList.append(control);
+    addControl(control);
 
     return control;
 }
@@ -235,6 +241,23 @@ QString VisuConfiguration::getName()
     return cName;
 }
 
+void VisuConfiguration::addControl(Button* control)
+{
+    int controlId = getFreeId((QVector<void*>&)controlsList);
+    control->setId(controlId);
+
+    int size = controlsList.size();
+    if (controlId < size)
+    {
+        controlsList[controlId] = control;
+    }
+    else
+    {
+        controlsList.append(control);
+    }
+}
+
+
 void VisuConfiguration::addInstrument(VisuInstrument* instrument)
 {
      int instId = getFreeId((QVector<void*>&)instrumentsList);
@@ -315,11 +338,14 @@ QString VisuConfiguration::toXML()
     xml += "\t</configuration>\n";
 
     xml += "\t<signals>\n";
-    for (VisuSignal* signal : getSignals())
+    for (VisuSignal* signal : signalsList)
     {
-        xml += "\t\t<signal>\n";
-        xml += VisuMisc::mapToString(signal->getProperties(), 3);
-        xml += "\t\t</signal>\n";
+        if (signal != nullptr)
+        {
+            xml += "\t\t<signal>\n";
+            xml += VisuMisc::mapToString(signal->getProperties(), 3);
+            xml += "\t\t</signal>\n";
+        }
     }
     xml += "\t</signals>\n";
 
@@ -338,9 +364,12 @@ QString VisuConfiguration::toXML()
     xml += "\t<controls>\n";
     for (Button* control : controlsList)
     {
-        xml += "\t\t<control>\n";
-        xml += VisuMisc::mapToString(control->getProperties(), 3);
-        xml += "\t\t</control>\n";
+        if (control != nullptr)
+        {
+            xml += "\t\t<control>\n";
+            xml += VisuMisc::mapToString(control->getProperties(), 3);
+            xml += "\t\t</control>\n";
+        }
     }
     xml += "\t</controls>\n";
 

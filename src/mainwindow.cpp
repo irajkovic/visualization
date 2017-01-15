@@ -264,11 +264,20 @@ void MainWindow::keyPressEvent( QKeyEvent *event )
     {
         if (event->matches(QKeySequence::Delete))
         {
+            VisuInstrument* instrument = qobject_cast<VisuInstrument*>(mActiveWidget);
+            if (instrument != nullptr)
+            {
+                mConfiguration->deleteInstrument(instrument);
+            }
 
-            mConfiguration->deleteInstrument(qobject_cast<VisuInstrument*>(mActiveWidget));
-            mActiveWidget = nullptr;
+            Button* btn = qobject_cast<Button*>(mActiveWidget);
+            if (btn != nullptr)
+            {
+                mConfiguration->deleteControl(btn);
+            }
+
             mPropertiesTable->clearContents();
-
+            mActiveWidget = nullptr;
         }
     }
 }

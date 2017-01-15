@@ -39,7 +39,6 @@ class VisuConfiguration : public QObject
         void loadFromXML(QWidget *parent, const QString& xml);
         VisuInstrument* createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
         Button* createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
-        void deleteInstrument(QPointer<VisuInstrument> instrument);
 
         QPointer<VisuSignal> getSignal(quint16 signalId);
         QVector<QPointer<VisuSignal>> &getSignals();
@@ -52,9 +51,14 @@ class VisuConfiguration : public QObject
         void attachInstrumentToSignal(VisuInstrument* instrument, int signalId);
 
         void addInstrument(VisuInstrument* instrument);
+        void deleteInstrument(QPointer<VisuInstrument> instrument);
+
         void addSignal(QPointer<VisuSignal> signal);
         void deleteSignal(QPointer<VisuSignal> signal);
         void deleteSignal(int signalId);
+
+        void addControl(Button* control);
+        void deleteControl(QPointer<Button> control);
 
         QMap<QString, QString>& getProperties();
         QString toXML();

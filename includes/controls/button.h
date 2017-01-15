@@ -36,6 +36,7 @@ class Button : public VisuWidget
             //setMaximumSize(cWidth, cHeight);
 
         }
+
         static const QString TAG_NAME;
 
         virtual void loadProperties(QMap<QString, QString> properties);
