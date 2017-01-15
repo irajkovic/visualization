@@ -12,7 +12,7 @@
 	<majorLen>4</majorLen>
 	<name>XY plot instrument</name>
 	<signalId>0</signalId>
-	<signalYId>-1</signalYId>
+	<signalIdY>0</signalIdY>
 	<type>XY_PLOT</type>
 	<width>150</width>
 	<x>218</x>
