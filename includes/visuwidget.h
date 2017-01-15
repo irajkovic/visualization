@@ -15,11 +15,11 @@ public:
             QWidget *parent,
             QMap<QString, QString> properties) : QWidget(parent)
     {
-        load(properties);
+        loadProperties(properties);
         setObjectName(VisuWidget::OBJECT_NAME);
     }
 
-    virtual void load(QMap<QString, QString> properties)
+    virtual void loadProperties(QMap<QString, QString> properties)
     {
         mProperties = properties;
 

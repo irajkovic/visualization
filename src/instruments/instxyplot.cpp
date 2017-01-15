@@ -58,5 +58,5 @@ void InstXYPlot::renderDynamic(QPainter *painter)
 
 quint16 InstXYPlot::getSignalYId()
 {
-    return cSignalYId;
+    return cSignalIdY;
 }

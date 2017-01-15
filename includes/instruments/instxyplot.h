@@ -12,16 +12,16 @@ public:
             QWidget *parent,
             QMap<QString, QString> properties) : VisuInstrument(parent, properties)
     {
-        load(properties);
+        loadProperties(properties);
     }
     static const QString TAG_NAME;
     quint16 getSignalYId();
 
-    virtual void load(QMap<QString, QString> properties)
+    virtual void loadProperties(QMap<QString, QString> properties)
     {
-        VisuInstrument::load(properties);
+        VisuInstrument::loadProperties(properties);
 
-        GET_PROPERTY(cSignalYId, quint16, properties);
+        GET_PROPERTY(cSignalIdY, quint16, properties);
         GET_PROPERTY(cBallSize, quint16, properties);
         GET_PROPERTY(cMajorCnt, quint16, properties);
         GET_PROPERTY(cMajorLen, quint16, properties);
@@ -33,7 +33,7 @@ public:
 
 private:
     // configuration properties
-    quint16 cSignalYId;
+    quint16 cSignalIdY;
     quint16 cBallSize;
     quint16 cMajorCnt;
     quint16 cMajorLen;

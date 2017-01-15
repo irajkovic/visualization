@@ -11,13 +11,13 @@ class InstAnalog : public VisuInstrument
                 QWidget *parent,
                 QMap<QString, QString> properties) : VisuInstrument(parent, properties)
         {
-            load(properties);
+            loadProperties(properties);
         }
         static const QString TAG_NAME;
 
-        virtual void load(QMap<QString, QString> properties)
+        virtual void loadProperties(QMap<QString, QString> properties)
         {
-            VisuInstrument::load(properties);
+            VisuInstrument::loadProperties(properties);
 
             // custom properties initializer
             GET_PROPERTY(cLineThickness, quint8, properties);

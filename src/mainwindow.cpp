@@ -322,7 +322,7 @@ void MainWindow::cellUpdated(int row, int col)
     }
 
     properties[key] = value;
-    mActiveWidget->load(properties);
+    mActiveWidget->loadProperties(properties);
     mActiveWidget->setPosition(position);
 
     VisuInstrument* inst = qobject_cast<VisuInstrument*>(mActiveWidget);
@@ -347,15 +347,19 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
     mActiveWidget = widget;
 
     disconnect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
-    VisuMisc::updateTable(mPropertiesTable, properties, this, SLOT(updateColor()));
+    VisuMisc::updateTable(mPropertiesTable,
+                          properties,
+                          &(mConfiguration->getSignals()),
+                          this,
+                          SLOT(propertyChange()));
     connect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
 
     qobject_cast<VisuInstrument*>(mActiveWidget)->setActive(true);
 }
 
-void MainWindow::updateColor()
+void MainWindow::propertyChange(int parameter)
 {
-    int row = VisuMisc::updateColor(sender(), this);
+    int row = VisuMisc::updateWidgetProperty(sender(), this);
     cellUpdated(row, 1);
 }
 

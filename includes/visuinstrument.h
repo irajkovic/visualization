@@ -53,7 +53,7 @@ public:
     explicit VisuInstrument(QWidget *parent, QMap<QString, QString> properties)
         : VisuWidget(parent, properties)
     {
-        load(properties);
+        loadProperties(properties);
     }
 
     void clearPixmaps()
@@ -68,27 +68,7 @@ public:
         update();
     }
 
-    virtual void load(QMap<QString, QString> properties)
-    {
-        VisuWidget::load(properties);
-
-        ConfigLoadException::setInstrumentLoadContext(properties);
-
-        GET_PROPERTY(cSignalId, quint16, properties);
-        GET_PROPERTY(cColorBackground, QColor, properties);
-        GET_PROPERTY(cColorStatic, QColor, properties);
-        GET_PROPERTY(cColorForeground, QColor, properties);
-
-        this->mActive = false;
-        this->mFirstRun = true;
-        this->mPixmap = QPixmap(cWidth, cHeight);
-        this->mPixmapStatic = QPixmap(cWidth, cHeight);
-
-        clearPixmaps();
-        setAttribute(Qt::WA_TranslucentBackground);
-
-        setGeometry(cX, cY, cWidth, cHeight);
-    }
+    virtual void loadProperties(QMap<QString, QString> properties);
 
     // Getters
     quint16 getSignalId();
