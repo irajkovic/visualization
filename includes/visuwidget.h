@@ -19,52 +19,15 @@ public:
         setObjectName(VisuWidget::OBJECT_NAME);
     }
 
-    virtual void loadProperties(QMap<QString, QString> properties)
-    {
-        mProperties = properties;
+    virtual void loadProperties(QMap<QString, QString> properties);
 
-        // custom properties initializer
-        GET_PROPERTY(cId, quint16, properties);
-        GET_PROPERTY(cName, QString, properties);
-        GET_PROPERTY(cX, quint16, properties);
-        GET_PROPERTY(cY, quint16, properties);
-        GET_PROPERTY(cWidth, quint16, properties);
-        GET_PROPERTY(cHeight, quint16, properties);
-
-        mSize = QSize(cWidth, cHeight);
-        setMinimumSize(mSize);
-        setMaximumSize(mSize);
-    }
-
-    QMap<QString, QString> getProperties()
-    {
-        return mProperties;
-    }
-
-    QString getName()
-    {
-        return cName;
-    }
-    void setName(QString name)
-    {
-        cName = name;
-    }
-    void setPosition(QPoint position)
-    {
-        cX = position.x();
-        cY = position.y();
-        setGeometry(cX, cY, cWidth, cHeight);
-        mProperties["x"] = QString("%1").arg(cX);
-        mProperties["y"] = QString("%1").arg(cY);
-    }
-    const QSize sizeHint()
-    {
-        return mSize;
-    }
-    QString getType()
-    {
-        return mTagName;
-    }
+    QMap<QString, QString> getProperties();
+    QString getName();
+    void setName(QString name);
+    void setPosition(QPoint position);
+    const QSize sizeHint();
+    QString getType();
+    void setActive(bool active);
 
     // Drag&drop related
     QPoint mDragStartPosition;
@@ -73,6 +36,7 @@ public:
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent* event);
     void mouseDoubleClickEvent(QMouseEvent* event);
+    void paintEvent(QPaintEvent* event);
     QPoint getRelativeOffset();
 
     static const QString OBJECT_NAME;
@@ -94,6 +58,7 @@ protected:
 
     QSize mSize;
     QString mTagName;
+    bool    mActive;        // true when widget is active in wysiwyg editor
 };
 
 #endif // VISUWIDGET_H

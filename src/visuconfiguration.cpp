@@ -84,13 +84,18 @@ VisuInstrument* VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& x
     return instrument;
 }
 
-void VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
+Button* VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_CONTROL);
+    Button* control;
 
     if (properties[ATTR_TYPE] == Button::TAG_NAME) {
-        new Button(parent, properties);
+        control = new Button(parent, properties);
     }
+
+    controlsList.append(control);
+
+    return control;
 }
 
 void VisuConfiguration::createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
@@ -285,6 +290,7 @@ QString VisuConfiguration::toXML()
     xml += "\t<configuration>\n";
     xml += VisuMisc::mapToString(mProperties, 2);
     xml += "\t</configuration>\n";
+
     xml += "\t<signals>\n";
     for (VisuSignal* signal : getSignals())
     {
@@ -293,16 +299,25 @@ QString VisuConfiguration::toXML()
         xml += "\t\t</signal>\n";
     }
     xml += "\t</signals>\n";
-    xml += "\t<instruments>\n";
 
+    xml += "\t<instruments>\n";
     for (VisuInstrument* instrument : getInstruments())
     {
         xml += "\t\t<instrument>\n";
         xml += VisuMisc::mapToString(instrument->getProperties(), 3);
         xml += "\t\t</instrument>\n";
     }
-
     xml += "\t</instruments>\n";
+
+    xml += "\t<controls>\n";
+    for (Button* control : controlsList)
+    {
+        xml += "\t\t<control>\n";
+        xml += VisuMisc::mapToString(control->getProperties(), 3);
+        xml += "\t\t</control>\n";
+    }
+    xml += "\t</controls>\n";
+
     xml += "<visu_config>\n";
 
     return xml;

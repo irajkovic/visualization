@@ -1,0 +1,14 @@
+<control>
+    <id>1</id>
+    <type>BUTTON</type>
+    <width>100</width>
+    <height>30</height>
+    <x>0</x>
+    <y>0</y>
+    <name>Press me</name>
+    <actionIp>127.0.0.1</actionIp>
+    <actionPort>5000</actionPort>
+    <actionMessage>switch</actionMessage>
+    <css>color: black;  border: 1px solid red; border-radius: 5px; border-style: outset;</css>
+</control>
+

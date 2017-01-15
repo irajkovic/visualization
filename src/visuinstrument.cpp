@@ -3,7 +3,7 @@
 #include <QPainter>
 #include <QStyleOption>
 
- void VisuInstrument::loadProperties(QMap<QString, QString> properties)
+void VisuInstrument::loadProperties(QMap<QString, QString> properties)
 {
     VisuWidget::loadProperties(properties);
 

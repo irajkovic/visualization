@@ -3,6 +3,8 @@
 #include <QApplication>
 #include <QDrag>
 #include <QMimeData>
+#include <QStyleOption>
+#include <QPainter>
 
 const QString VisuWidget::OBJECT_NAME = "VisuWidget";
 
@@ -53,4 +55,69 @@ void VisuWidget::mouseMoveEvent(QMouseEvent *event)
     drag->setMimeData(mimeData);
 
     drag->exec(Qt::CopyAction | Qt::MoveAction);
+}
+
+void VisuWidget::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    QStyleOption option;
+    option.initFrom(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &option, &painter, this);
+}
+
+void VisuWidget::loadProperties(QMap<QString, QString> properties)
+{
+    mProperties = properties;
+
+    // custom properties initializer
+    GET_PROPERTY(cId, quint16, properties);
+    GET_PROPERTY(cName, QString, properties);
+    GET_PROPERTY(cX, quint16, properties);
+    GET_PROPERTY(cY, quint16, properties);
+    GET_PROPERTY(cWidth, quint16, properties);
+    GET_PROPERTY(cHeight, quint16, properties);
+
+    mSize = QSize(cWidth, cHeight);
+    setMinimumSize(mSize);
+    setMaximumSize(mSize);
+}
+
+QMap<QString, QString> VisuWidget::getProperties()
+{
+    return mProperties;
+}
+
+QString VisuWidget::getName()
+{
+    return cName;
+}
+
+void VisuWidget::setName(QString name)
+{
+    cName = name;
+}
+
+void VisuWidget::setPosition(QPoint position)
+{
+    cX = position.x();
+    cY = position.y();
+    setGeometry(cX, cY, cWidth, cHeight);
+    mProperties["x"] = QString("%1").arg(cX);
+    mProperties["y"] = QString("%1").arg(cY);
+}
+
+const QSize VisuWidget::sizeHint()
+{
+    return mSize;
+}
+
+QString VisuWidget::getType()
+{
+    return mTagName;
+}
+
+void VisuWidget::setActive(bool active)
+{
+    mActive = active;
+    update();
 }

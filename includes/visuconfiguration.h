@@ -3,6 +3,7 @@
 
 #include "visusignal.h"
 #include "visuinstrument.h"
+#include "button.h"
 #include <QWidget>
 #include <QObject>
 #include <QXmlStreamReader>
@@ -16,9 +17,9 @@ class VisuConfiguration : public QObject
     private:
         QVector<QPointer<VisuSignal>> signalsList;
         QVector<VisuInstrument*> instrumentsList;
+        QVector<Button*> controlsList;
         void createSignalFromToken(QXmlStreamReader& xml_reader);
         void createConfigurationFromToken(QXmlStreamReader& xmlReader);
-        void createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
         void createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
         void initializeInstruments();
 
@@ -36,6 +37,7 @@ class VisuConfiguration : public QObject
 
         void loadFromXML(QWidget *parent, const QString& xml);
         VisuInstrument* createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
+        Button* createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
         void deleteInstrument(QPointer<VisuInstrument> instrument);
 
         QPointer<VisuSignal> getSignal(quint16 signalId);

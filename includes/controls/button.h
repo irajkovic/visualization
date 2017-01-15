@@ -6,6 +6,7 @@
 #include <QMap>
 #include <QPushButton>
 #include <QUdpSocket>
+#include <QHBoxLayout>
 #include "visuhelper.h"
 #include "visuwidget.h"
 
@@ -17,17 +18,28 @@ class Button : public VisuWidget
                 QMap<QString, QString> properties) : VisuWidget(parent, properties)
         {
 
-            // custom properties initializer
-            GET_PROPERTY(cActionIp, QString, properties);
-            GET_PROPERTY(cActionPort, quint16, properties);
-            GET_PROPERTY(cActionMessage, QString, properties);
-            GET_PROPERTY(cCss, QString, properties);
+            loadProperties(properties);
 
+            setStyleSheet("background-color: gray;");
+            show();
+
+            //setMaximumSize(50, 20);
+
+            mTagName = TAG_NAME;
             mAddress = QHostAddress(cActionIp);
+            mLayout = new QHBoxLayout();
+            mLayout->setContentsMargins(0,0,0,0);
+            setLayout(mLayout);
+
             setupButton(parent);
+
+            //setMaximumSize(cWidth, cHeight);
+
         }
         static const QString TAG_NAME;
 
+        virtual void loadProperties(QMap<QString, QString> properties);
+        void redraw();
 
 private:
 
@@ -41,6 +53,7 @@ private:
     QPushButton* mButton;
     QHostAddress mAddress;
     QUdpSocket mSocket;
+    QHBoxLayout* mLayout;
 
     void setupButton(QWidget* parent);
 

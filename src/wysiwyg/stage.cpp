@@ -4,6 +4,7 @@
 #include "instruments/instanalog.h"
 #include "visuconfigloader.h"
 #include "wysiwyg/visuwidgetfactory.h"
+#include "button.h"
 
 void Stage::dragEnterEvent(QDragEnterEvent *event)
 {
@@ -20,7 +21,6 @@ void Stage::dropEvent(QDropEvent *event)
     {
         // This is new widget
         widget = cloneWidget(sourceWidget);
-        mMainWindow->getSignal()->initializeInstruments();
         connect(widget, SIGNAL(widgetActivated(VisuWidget*)), this, SLOT(activateWidget(VisuWidget*)));
     }
     else
@@ -43,7 +43,19 @@ VisuWidget* Stage::cloneWidget(VisuWidget *sourceWidget)
     QString path = QString("system/%1.xml").arg(type);
     QString xmlString = VisuConfigLoader::loadXMLFromFile(path);
     QXmlStreamReader xmlReader(xmlString);
-    return mMainWindow->getConfiguration()->createInstrumentFromToken(xmlReader, this);
+    VisuWidget* widget;
+
+    if (qobject_cast<VisuInstrument*>(sourceWidget) != nullptr)
+    {
+        widget = mMainWindow->getConfiguration()->createInstrumentFromToken(xmlReader, this);
+        mMainWindow->getSignal()->initializeInstruments();
+    }
+    else if (qobject_cast<Button*>(sourceWidget) != nullptr)
+    {
+        widget = mMainWindow->getConfiguration()->createControlFromToken(xmlReader, this);
+    }
+
+    return widget;
 }
 
 QPoint Stage::getNewWidgetPosition(QPoint eventPos, QPoint grabOffset, QSize instSize)

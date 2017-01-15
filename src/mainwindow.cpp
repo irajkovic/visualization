@@ -101,6 +101,7 @@ void MainWindow::setupLayouts()
     mToolbar = new QWidget(window);
     mToolbar->setObjectName("toolbar");
     mToolbar->setMinimumHeight(170);
+    mToolbar->setStyleSheet("border: 1px solid black;");
     windowLayout->addWidget(mToolbar);
 
     QWidget* workArea = new QWidget(window);
@@ -187,6 +188,8 @@ void MainWindow::setupToolbarWidgets(QPointer<QWidget> toolbar)
     layout->addWidget(VisuWidgetFactory::createInstrument(this, InstDigital::TAG_NAME, toolbarSignal));
     layout->addWidget(VisuWidgetFactory::createInstrument(this, InstLED::TAG_NAME, toolbarSignal));
     layout->addWidget(VisuWidgetFactory::createInstrument(this, InstXYPlot::TAG_NAME, toolbarSignal));
+
+    layout->addWidget(VisuWidgetFactory::createControl(this, Button::TAG_NAME));
 
     toolbarSignal->initializeInstruments();
 }
@@ -325,14 +328,24 @@ void MainWindow::cellUpdated(int row, int col)
     mActiveWidget->loadProperties(properties);
     mActiveWidget->setPosition(position);
 
+    // refresh instrument
     VisuInstrument* inst = qobject_cast<VisuInstrument*>(mActiveWidget);
-    VisuSignal* signal = mConfiguration->getSignal(inst->getSignalId());
-    if (key == "signalId")
+    if (inst != nullptr)
     {
-        mConfiguration->attachInstrumentToSignal(inst);
+        VisuSignal* signal = mConfiguration->getSignal(inst->getSignalId());
+        if (key == VisuMisc::PROP_SIGNAL_ID)
+        {
+            mConfiguration->attachInstrumentToSignal(inst);
+        }
+        signal->initializeInstruments();
     }
 
-    signal->initializeInstruments();
+    // refresh controls
+    Button* btn = qobject_cast<Button*>(mActiveWidget);
+    if (btn != nullptr)
+    {
+        btn->redraw();
+    }
 }
 
 void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
@@ -340,7 +353,7 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
     if (mActiveWidget != nullptr)
     {
         // remove selected style. TODO :: refactor to work with other classes
-        qobject_cast<VisuInstrument*>(mActiveWidget)->setActive(false);
+        mActiveWidget->setActive(false);
     }
 
     QMap<QString, QString> properties = widget->getProperties();
@@ -354,7 +367,7 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
                           SLOT(propertyChange()));
     connect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
 
-    qobject_cast<VisuInstrument*>(mActiveWidget)->setActive(true);
+    mActiveWidget->setActive(true);
 }
 
 void MainWindow::propertyChange(int parameter)
