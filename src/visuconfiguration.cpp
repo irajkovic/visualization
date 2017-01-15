@@ -231,10 +231,32 @@ QString VisuConfiguration::getName()
 
 void VisuConfiguration::addSignal(QPointer<VisuSignal> signal)
 {
-    // adds signal with signal id autoincremented
-    int signalId = signalsList.size();
-    signal->setId(signalId);
-    signalsList.push_back(signal);
+    // adds signal with signal id automatically assigned
+    int size = signalsList.size();
+
+    int  signalId = -1;
+
+    // find free space signal list
+    for (int i=0; i<size; ++i)
+    {
+        if (signalsList[i] == nullptr)
+        {
+            signalId = i;
+            break;
+        }
+    }
+
+    if (signalId == -1)
+    {
+        signalId = size;
+        signal->setId(signalId);
+        signalsList.push_back(signal);
+    }
+    else
+    {
+        signal->setId(signalId);
+        signalsList[signalId] = signal;
+    }
 }
 
 void VisuConfiguration::deleteSignal(QPointer<VisuSignal> signal)

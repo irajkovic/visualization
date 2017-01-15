@@ -56,6 +56,7 @@ quint16 VisuSignal::getId() const
 void VisuSignal::setId(quint16 id)
 {
     cId = id;
+    mProperties["id"] = QString("%1").arg(id);
 }
 
 /**
