@@ -22,6 +22,7 @@ class VisuConfiguration : public QObject
         void createConfigurationFromToken(QXmlStreamReader& xmlReader);
         void createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
         void initializeInstruments();
+        int getFreeId(QVector<void *>& list);
 
         // Properties
         quint16 cPort;
@@ -50,6 +51,7 @@ class VisuConfiguration : public QObject
         void detachInstrumentFromSignal(VisuInstrument* instrument, int signalId);
         void attachInstrumentToSignal(VisuInstrument* instrument, int signalId);
 
+        void addInstrument(VisuInstrument* instrument);
         void addSignal(QPointer<VisuSignal> signal);
         void deleteSignal(QPointer<VisuSignal> signal);
         void deleteSignal(int signalId);

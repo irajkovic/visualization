@@ -28,6 +28,8 @@ public:
     const QSize sizeHint();
     QString getType();
     void setActive(bool active);
+    quint16 getId() const;
+    void setId(quint16 id);
 
     // Drag&drop related
     QPoint mDragStartPosition;

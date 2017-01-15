@@ -67,6 +67,7 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
 void VisuConfiguration::deleteInstrument(QPointer<VisuInstrument> instrument)
 {
     detachInstrumentFromSignal(instrument);
+    instrumentsList[instrument->getId()] = nullptr;
     delete instrument;
 }
 
@@ -78,7 +79,7 @@ VisuInstrument* VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& x
     VisuInstrument* instrument = static_cast<VisuInstrument*>(widget);
 
     attachInstrumentToSignal(instrument);
-    instrumentsList.append(instrument);
+    addInstrument(instrument);
     widget->show();
 
     return instrument;
@@ -234,34 +235,56 @@ QString VisuConfiguration::getName()
     return cName;
 }
 
+void VisuConfiguration::addInstrument(VisuInstrument* instrument)
+{
+     int instId = getFreeId((QVector<void*>&)instrumentsList);
+     instrument->setId(instId);
+
+     int size = instrumentsList.size();
+     if (instId < size)
+     {
+         instrumentsList[instId] = instrument;
+     }
+     else
+     {
+         instrumentsList.append(instrument);
+     }
+}
+
 void VisuConfiguration::addSignal(QPointer<VisuSignal> signal)
 {
-    // adds signal with signal id automatically assigned
+    int signalId = getFreeId((QVector<void*>&)signalsList);
+    signal->setId(signalId);
+
     int size = signalsList.size();
-
-    int  signalId = -1;
-
-    // find free space signal list
-    for (int i=0; i<size; ++i)
+    if (signalId < size)
     {
-        if (signalsList[i] == nullptr)
-        {
-            signalId = i;
-            break;
-        }
-    }
-
-    if (signalId == -1)
-    {
-        signalId = size;
-        signal->setId(signalId);
-        signalsList.push_back(signal);
+        signalsList[signalId] = signal;
     }
     else
     {
-        signal->setId(signalId);
-        signalsList[signalId] = signal;
+        signalsList.append(signal);
     }
+}
+
+int VisuConfiguration::getFreeId(QVector<void*>& list)
+{
+    int id = -1;
+    int size = list.size();
+    for (int i=0 ; i<size; ++i)
+    {
+        if (list[i] == nullptr)
+        {
+            id = i;
+        }
+    }
+
+    if (id == -1)
+    {
+        id = size;
+    }
+
+    return id;
 }
 
 void VisuConfiguration::deleteSignal(QPointer<VisuSignal> signal)
@@ -303,9 +326,12 @@ QString VisuConfiguration::toXML()
     xml += "\t<instruments>\n";
     for (VisuInstrument* instrument : getInstruments())
     {
-        xml += "\t\t<instrument>\n";
-        xml += VisuMisc::mapToString(instrument->getProperties(), 3);
-        xml += "\t\t</instrument>\n";
+        if (instrument != nullptr)
+        {
+            xml += "\t\t<instrument>\n";
+            xml += VisuMisc::mapToString(instrument->getProperties(), 3);
+            xml += "\t\t</instrument>\n";
+        }
     }
     xml += "\t</instruments>\n";
 

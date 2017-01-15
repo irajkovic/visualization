@@ -82,6 +82,17 @@ void VisuWidget::loadProperties(QMap<QString, QString> properties)
     setMaximumSize(mSize);
 }
 
+quint16 VisuWidget::getId() const
+{
+    return cId;
+}
+
+void VisuWidget::setId(quint16 id)
+{
+    cId = id;
+    mProperties["id"] = QString("%1").arg(id);
+}
+
 QMap<QString, QString> VisuWidget::getProperties()
 {
     return mProperties;

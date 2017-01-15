@@ -75,7 +75,10 @@ void VisuMisc::updateTable(QTableWidget* table,
                 QComboBox* box = new QComboBox();
                 for (VisuSignal* visuSignal : *signalList)
                 {
-                    box->insertItem(visuSignal->getId(), visuSignal->getName());
+                    if (visuSignal != nullptr)
+                    {
+                        box->insertItem(visuSignal->getId(), visuSignal->getName());
+                    }
                 }
                 box->setCurrentIndex(value.toInt());
                 box->setProperty(VisuMisc::PROP_KEY, key);
