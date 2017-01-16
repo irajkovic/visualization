@@ -16,13 +16,13 @@ class VisuConfiguration : public QObject
 
     private:
         QVector<QPointer<VisuSignal>> signalsList;
-        QVector<VisuInstrument*> instrumentsList;
-        QVector<Button*> controlsList;
+        QVector<QPointer<VisuInstrument>> instrumentsList;
+        QVector<QPointer<Button>> controlsList;
         void createSignalFromToken(QXmlStreamReader& xml_reader);
         void createConfigurationFromToken(QXmlStreamReader& xmlReader);
         void createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
         void initializeInstruments();
-        int getFreeId(QVector<void *>& list);
+        int getFreeId(QVector<QPointer<QObject> > &list);
 
         // Properties
         quint16 cPort;
@@ -37,27 +37,27 @@ class VisuConfiguration : public QObject
         void setConfigValues(const QMap<QString, QString>& properties);
 
         void loadFromXML(QWidget *parent, const QString& xml);
-        VisuInstrument* createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
+        QPointer<VisuInstrument> createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
         Button* createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
 
         QPointer<VisuSignal> getSignal(quint16 signalId);
         QVector<QPointer<VisuSignal>> &getSignals();
-        VisuInstrument* getInstrument(quint16 instrument_id);
-        QVector<VisuInstrument*>& getInstruments();
+        QPointer<VisuInstrument> getInstrument(quint16 instrument_id);
+        QVector<QPointer<VisuInstrument>>& getInstruments();
 
-        void detachInstrumentFromSignal(VisuInstrument* instrument);
-        void attachInstrumentToSignal(VisuInstrument* instrument);
-        void detachInstrumentFromSignal(VisuInstrument* instrument, int signalId);
-        void attachInstrumentToSignal(VisuInstrument* instrument, int signalId);
+        void detachInstrumentFromSignal(QPointer<VisuInstrument> instrument);
+        void attachInstrumentToSignal(QPointer<VisuInstrument> instrument);
+        void detachInstrumentFromSignal(QPointer<VisuInstrument> instrument, int signalId);
+        void attachInstrumentToSignal(QPointer<VisuInstrument> instrument, int signalId);
 
-        void addInstrument(VisuInstrument* instrument);
+        void addInstrument(QPointer<VisuInstrument> instrument);
         void deleteInstrument(QPointer<VisuInstrument> instrument);
 
         void addSignal(QPointer<VisuSignal> signal);
         void deleteSignal(QPointer<VisuSignal> signal);
         void deleteSignal(int signalId);
 
-        void addControl(Button* control);
+        void addControl(QPointer<Button> control);
         void deleteControl(QPointer<Button> control);
 
         QMap<QString, QString>& getProperties();

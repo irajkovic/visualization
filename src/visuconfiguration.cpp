@@ -35,23 +35,23 @@ const QString VisuConfiguration::TAG_CONTROLS_PLACEHOLDER = "controls";
 
 #include "wysiwyg/visuwidgetfactory.h"
 
-void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument, int signalId)
+void VisuConfiguration::attachInstrumentToSignal(QPointer<VisuInstrument> instrument, int signalId)
 {
     getSignal(signalId)->connectInstrument(instrument);
 }
 
-void VisuConfiguration::detachInstrumentFromSignal(VisuInstrument* instrument, int signalId)
+void VisuConfiguration::detachInstrumentFromSignal(QPointer<VisuInstrument> instrument, int signalId)
 {
     getSignal(signalId)->disconnectInstrument(instrument);
 }
 
-void VisuConfiguration::attachInstrumentToSignal(VisuInstrument* instrument)
+void VisuConfiguration::attachInstrumentToSignal(QPointer<VisuInstrument> instrument)
 {
     quint16 signalId = instrument->getSignalId();
     attachInstrumentToSignal(instrument, signalId);
 }
 
-void VisuConfiguration::detachInstrumentFromSignal(VisuInstrument* instrument)
+void VisuConfiguration::detachInstrumentFromSignal(QPointer<VisuInstrument> instrument)
 {
     quint16 signalId = instrument->getSignalId();
     detachInstrumentFromSignal(instrument, signalId);
@@ -77,7 +77,7 @@ void VisuConfiguration::deleteControl(QPointer<Button> control)
     delete control;
 }
 
-VisuInstrument* VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
+QPointer<VisuInstrument> VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_INSTRUMENT);
 
@@ -124,7 +124,6 @@ void VisuConfiguration::initializeInstruments()
 void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader)
 {
     setConfigValues(VisuConfigLoader::parseToMap(xmlReader, TAG_CONFIGURATION));
-
     qDebug("Loading configuration, size: %dx%d", cWidth, cHeight);
 }
 
@@ -201,12 +200,12 @@ QPointer<VisuSignal> VisuConfiguration::getSignal(quint16 signalId)
     return signalsList[signalId];
 }
 
-VisuInstrument* VisuConfiguration::getInstrument(quint16 instrument_id)
+QPointer<VisuInstrument> VisuConfiguration::getInstrument(quint16 instrument_id)
 {
     return instrumentsList[instrument_id];
 }
 
-QVector<VisuInstrument*>& VisuConfiguration::getInstruments()
+QVector<QPointer<VisuInstrument>>& VisuConfiguration::getInstruments()
 {
     return instrumentsList;
 }
@@ -241,56 +240,28 @@ QString VisuConfiguration::getName()
     return cName;
 }
 
-void VisuConfiguration::addControl(Button* control)
+void VisuConfiguration::addControl(QPointer<Button> control)
 {
-    int controlId = getFreeId((QVector<void*>&)controlsList);
+    int controlId = getFreeId((QVector<QPointer<QObject>>&)controlsList);
     control->setId(controlId);
-
-    int size = controlsList.size();
-    if (controlId < size)
-    {
-        controlsList[controlId] = control;
-    }
-    else
-    {
-        controlsList.append(control);
-    }
+    controlsList[controlId] = control;
 }
 
-
-void VisuConfiguration::addInstrument(VisuInstrument* instrument)
+void VisuConfiguration::addInstrument(QPointer<VisuInstrument> instrument)
 {
-     int instId = getFreeId((QVector<void*>&)instrumentsList);
-     instrument->setId(instId);
-
-     int size = instrumentsList.size();
-     if (instId < size)
-     {
-         instrumentsList[instId] = instrument;
-     }
-     else
-     {
-         instrumentsList.append(instrument);
-     }
+    int instId = getFreeId((QVector<QPointer<QObject>>&)instrumentsList);
+    instrument->setId(instId);
+    instrumentsList[instId] = instrument;
 }
 
 void VisuConfiguration::addSignal(QPointer<VisuSignal> signal)
 {
-    int signalId = getFreeId((QVector<void*>&)signalsList);
+    int signalId = getFreeId((QVector<QPointer<QObject>>&)signalsList);
     signal->setId(signalId);
-
-    int size = signalsList.size();
-    if (signalId < size)
-    {
-        signalsList[signalId] = signal;
-    }
-    else
-    {
-        signalsList.append(signal);
-    }
+    signalsList[signalId] = signal;
 }
 
-int VisuConfiguration::getFreeId(QVector<void*>& list)
+int VisuConfiguration::getFreeId(QVector<QPointer<QObject>> &list)
 {
     int id = -1;
     int size = list.size();
@@ -305,6 +276,7 @@ int VisuConfiguration::getFreeId(QVector<void*>& list)
     if (id == -1)
     {
         id = size;
+        list.resize(size + 1);
     }
 
     return id;
