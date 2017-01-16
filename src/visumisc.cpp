@@ -128,10 +128,13 @@ int VisuMisc::updateWidgetProperty(QObject* sender, QWidget* parent)
                                                  QObject::tr("Set color"),
                                                  QColorDialog::ShowAlphaChannel);
 
-        QString colorString = QString("%1,%2,%3,%4").arg(newColor.red())
-                .arg(newColor.green()).arg(newColor.blue()).arg(newColor.alpha());
-        btn->setText(colorString);
-        VisuMisc::setBackgroundColor(btn, newColor);
+        if (newColor.isValid())
+        {
+            QString colorString = QString("%1,%2,%3,%4").arg(newColor.red())
+                    .arg(newColor.green()).arg(newColor.blue()).arg(newColor.alpha());
+            btn->setText(colorString);
+            VisuMisc::setBackgroundColor(btn, newColor);
+        }
     }
     else if (VisuMisc::isSignalIdProperty(key))
     {
