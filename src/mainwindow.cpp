@@ -55,11 +55,12 @@ void MainWindow::setupMenu()
     fileMenu->addAction(open);
     connect(open, SIGNAL(triggered()), this, SLOT(openConfiguration()));
 
-    QAction* save = new QAction(tr("&Save"), this);
-    save->setShortcut(QKeySequence::Save);
-    save->setStatusTip(tr("Save configuration"));
-    fileMenu->addAction(save);
-    connect(save, SIGNAL(triggered()), this, SLOT(saveConfiguration()));
+    mSave = new QAction(tr("&Save"), this);
+    mSave->setDisabled(true);
+    mSave->setShortcut(QKeySequence::Save);
+    mSave->setStatusTip(tr("Save configuration"));
+    fileMenu->addAction(mSave);
+    connect(mSave, SIGNAL(triggered()), this, SLOT(saveConfiguration()));
 
     QAction* saveAs = new QAction(tr("Save &as"), this);
     saveAs->setShortcut(QKeySequence::SaveAs);
@@ -236,7 +237,12 @@ void MainWindow::openConfiguration()
                                                       tr("Open configuration"),
                                                       ".",
                                                       "Configuration files (*.xml)");
-    loadConfigurationFromFile(configPath);
+    if (!configPath.isNull())
+    {
+        loadConfigurationFromFile(configPath);
+        mConfigPath = configPath;
+        mSave->setDisabled(false);
+    }
 }
 
 void MainWindow::saveAsConfiguration()
@@ -245,17 +251,24 @@ void MainWindow::saveAsConfiguration()
                                                       tr("Save configuration"),
                                                       ".",
                                                       "Configuration files (*.xml)");
-
-    QFile file( configPath );
-    QString xml = mConfiguration->toXML();
-    VisuMisc::saveToFile(file, xml);
+    if (!configPath.isNull())
+    {
+        QFile file( configPath );
+        QString xml = mConfiguration->toXML();
+        VisuMisc::saveToFile(file, xml);
+        mConfigPath = configPath;
+        mSave->setDisabled(false);
+    }
 }
-
-
 
 void MainWindow::saveConfiguration()
 {
-
+    if (!mConfigPath.isNull())
+    {
+        QFile file( mConfigPath );
+        QString xml = mConfiguration->toXML();
+        VisuMisc::saveToFile(file, xml);
+    }
 }
 
 void MainWindow::keyPressEvent( QKeyEvent *event )

@@ -49,6 +49,8 @@ private:
     QPointer<EditSignal> editSignalWindow;
     QPointer<QMenu> mSignalsListMenu;
     QTemporaryFile mTmpConfigFile;
+    QString mConfigPath;
+    QPointer<QAction> mSave;
 
     void setupMenu();
     void setupLayouts();
