@@ -98,7 +98,7 @@ void VisuInstrument::paintEvent(QPaintEvent* event)
 void VisuInstrument::setFont(QPainter* painter, int fontSize)
 {
     QFont font;
-    font.setPointSize(fontSize);
+    font.setPixelSize(fontSize);
     painter->setFont(font);
 }
 

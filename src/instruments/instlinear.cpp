@@ -47,6 +47,7 @@ void InstLinear::renderStatic(QPainter *painter)
     clear(painter);
 
     setPen(painter, cColorStatic, cLineThickness);
+    setFont(painter, cFontSize);
     renderDivisions(painter);
 
     painter->drawLine(cHorMargin, cVerMargin, mBarLength + cHorMargin, cVerMargin);
