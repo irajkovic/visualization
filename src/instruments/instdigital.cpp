@@ -21,7 +21,7 @@ void InstDigital::renderDynamic(QPainter* painter)
     }
 
     if (cShowSignalUnit) {
-        text += mSignal->getUnit();
+        text += " " + mSignal->getUnit();
     }
 
     painter->drawText(cPadding, cHeight - cPadding, text);

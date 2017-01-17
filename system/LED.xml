@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instrument>
-	<colorBackground>130,130,130,255</colorBackground>
+	<colorBackground>0,0,0,0</colorBackground>
 	<colorForeground>0,0,0,250</colorForeground>
 	<colorOff>100,100,100,250</colorOff>
 	<colorOn>200,255,30,255</colorOn>
 	<colorStatic>0,0,0,255</colorStatic>
 	<condition>0</condition>
-	<fontSize>12</fontSize>
-	<height>20</height>
+	<fontSize>18</fontSize>
+	<height>30</height>
 	<id>2</id>
 	<name>Led instrument</name>
-	<radius>15</radius>
+	<radius>20</radius>
 	<showSignalName>1</showSignalName>
 	<signalId>0</signalId>
 	<type>LED</type>
 	<val1>-10.0</val1>
 	<val2>6.0</val2>
-	<width>130</width>
+	<width>150</width>
 	<x>0</x>
 	<y>0</y>
 </instrument>

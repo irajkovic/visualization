@@ -51,6 +51,7 @@ private:
     QColor cColorOff;
     quint8 cShowSignalName;
     quint8 cFontSize;
+    quint16 cCenterH;
 
     // aux properties
     double mLastValX;

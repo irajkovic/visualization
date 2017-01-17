@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instrument>
-	<colorBackground>130,130,130,255</colorBackground>
+	<colorBackground>0,0,0,0</colorBackground>
 	<colorForeground>0,0,0,250</colorForeground>
-	<colorStatic>200,0,0,255</colorStatic>
-	<fontSize>12</fontSize>
+	<colorStatic>0,0,0,255</colorStatic>
+	<fontSize>18</fontSize>
 	<height>30</height>
 	<id>1</id>
 	<name>Digital instrument</name>

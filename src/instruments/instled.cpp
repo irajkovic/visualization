@@ -6,12 +6,16 @@ void InstLED::renderStatic(QPainter *painter)
 {
     clear(painter);
 
+    cCenterH = (cHeight - cRadius) / 2;
+
     if (cShowSignalName)
     {
         setPen(painter, cColorStatic);
         setFont(painter, cFontSize);
-        painter->drawText(cRadius+5, cHeight-5, mSignal->getName());
+        painter->drawText(cRadius+5, cCenterH + cFontSize, mSignal->getName());
     }
+
+
 }
 
 void InstLED::renderDynamic(QPainter *painter)
@@ -30,7 +34,7 @@ void InstLED::renderDynamic(QPainter *painter)
     }
 
     setBrush(painter, conditionOn ? cColorOn : cColorOff);
-    QRect rect(0, 0, cRadius, cRadius);
+    QRect rect(2, cCenterH, cRadius, cRadius);
     painter->drawEllipse(rect);
 }
 
