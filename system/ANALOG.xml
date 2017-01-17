@@ -7,10 +7,10 @@
 	<colorForeground>250,50,50,100</colorForeground>
 	<colorStatic>0,0,0,255</colorStatic>
 	<drawCircle>0</drawCircle>
-	<fontSize>11</fontSize>
+	<fontSize>15</fontSize>
 	<height>150</height>
 	<id>0</id>
-	<labelRadius>35</labelRadius>
+	<labelRadius>37</labelRadius>
 	<lineThickness>4</lineThickness>
 	<majorCnt>5</majorCnt>
 	<majorLen>10</majorLen>

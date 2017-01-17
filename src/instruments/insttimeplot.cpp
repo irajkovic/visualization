@@ -17,7 +17,7 @@ void InstTimePlot::init(QPainter* painter)
 
     mMaxLabelWidth = getLabelMaxWidth(painter);
 
-    mPlotStartX = mMaxLabelWidth;
+    mPlotStartX = mMaxLabelWidth + 2 * PADDING;
     mPlotEndX = cWidth - mMargin;
     mPlotStartY = cHeight - mMargin;
     mPlotEndY = mMargin;
@@ -57,7 +57,7 @@ void InstTimePlot::renderLabel(QPainter* painter, double sigCur, qint32 yPos)
     QFontMetrics fontMetrics = painter->fontMetrics();
     int labelWidth = fontMetrics.width(label);
     int labelHeight = fontMetrics.height();
-    painter->drawText(mMaxLabelWidth - labelWidth, yPos + labelHeight / 2, label);
+    painter->drawText(mMaxLabelWidth - labelWidth + PADDING, yPos + labelHeight / 2, label);
 }
 
 QPen InstTimePlot::getDashedPen()

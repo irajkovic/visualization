@@ -6,7 +6,7 @@
 	<colorStatic>0,0,0,255</colorStatic>
 	<decimals>1</decimals>
 	<divisionFormat>mm:ss</divisionFormat>
-	<fontSize>10</fontSize>
+	<fontSize>11</fontSize>
 	<height>150</height>
 	<id>4</id>
 	<lineThickness>2</lineThickness>

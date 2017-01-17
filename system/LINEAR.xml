@@ -3,7 +3,7 @@
 	<colorBackground>0,0,0,0</colorBackground>
 	<colorForeground>250,50,50,200</colorForeground>
 	<colorStatic>0,0,0,255</colorStatic>
-	<fontSize>10</fontSize>
+	<fontSize>15</fontSize>
 	<height>50</height>
 	<horMargin>15</horMargin>
 	<id>3</id>
