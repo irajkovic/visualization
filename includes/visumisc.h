@@ -13,6 +13,7 @@ class VisuMisc
 public:
     static bool isColorProperty(QString property);
     static bool isSignalIdProperty(QString property);
+    static bool isIdProperty(QString property);
     static void setBackgroundColor(QWidget* widget, QColor color);
     static void updateTable(QTableWidget* table,
                             QMap<QString, QString> properties,
@@ -30,6 +31,7 @@ public:
     static const char* PROP_X;
     static const char* PROP_Y;
     static const char* PROP_SIGNAL_ID;
+    static const char* PROP_ID;
 };
 
 #endif // VISUMISC_H

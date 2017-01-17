@@ -13,6 +13,7 @@ const char* VisuMisc::PROP_KEY = "key";
 const char* VisuMisc::PROP_X = "x";
 const char* VisuMisc::PROP_Y = "y";
 const char* VisuMisc::PROP_SIGNAL_ID = "signalId";
+const char* VisuMisc::PROP_ID = "id";
 
 bool VisuMisc::isColorProperty(QString property)
 {
@@ -22,6 +23,11 @@ bool VisuMisc::isColorProperty(QString property)
 bool VisuMisc::isSignalIdProperty(QString property)
 {
     return property.contains(VisuMisc::PROP_SIGNAL_ID);
+}
+
+bool VisuMisc::isIdProperty(QString property)
+{
+    return property == VisuMisc::PROP_ID;
 }
 
 void VisuMisc::setBackgroundColor(QWidget* widget, QColor color)
@@ -90,6 +96,13 @@ void VisuMisc::updateTable(QTableWidget* table,
                     QObject::connect(box, SIGNAL(currentIndexChanged(int)), object, slot);
                 }
             }
+        }
+        else if (VisuMisc::isIdProperty(key))
+        {
+            // delete row with key
+            QTableWidgetItem* item = new QTableWidgetItem(value);
+            item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+            table->setItem(row, 1, item);
         }
         else
         {
