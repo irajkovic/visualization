@@ -195,7 +195,7 @@ QPointer<VisuSignal> VisuConfiguration::getSignal(quint16 signalId)
 {
     if(signalId >= signalsList.size())
     {
-        throw ConfigLoadException(QString("Signal id %1 too large!").arg(signalId));
+        throw ConfigLoadException(QString("Signal id %1 too large!"), QString("%1").arg(signalId));
     }
     return signalsList[signalId];
 }

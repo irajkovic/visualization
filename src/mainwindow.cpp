@@ -22,6 +22,7 @@
 #include <QtGui>
 #include <QFileDialog>
 #include <QProcess>
+#include <QMessageBox>
 #include "visumisc.h"
 #include "wysiwyg/editconfiguration.h"
 
@@ -129,18 +130,36 @@ void MainWindow::setupLayouts()
 void MainWindow::loadConfigurationFromFile(const QString& configPath)
 {
     mConfiguration = new VisuConfiguration();
-    QString xml = VisuConfigLoader::loadXMLFromFile(configPath);
-    mConfiguration->loadFromXML(mStage, QString(xml));
 
-    updateConfig();
-
-    // connect instruments
-    for (auto instrument : mConfiguration->getInstruments())
+    try
     {
-        connect(instrument, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
-    }
+        QString xml = VisuConfigLoader::loadXMLFromFile(configPath);
+        mConfiguration->loadFromXML(mStage, QString(xml));
 
-    updateMenuSignalList();
+        updateConfig();
+
+        // connect instruments
+        for (auto instrument : mConfiguration->getInstruments())
+        {
+            connect(instrument, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
+        }
+
+        updateMenuSignalList();
+    }
+    catch(ConfigLoadException e)
+    {
+        QMessageBox::warning(
+                    NULL,
+                    "Error",
+                    e.what());
+    }
+    catch(...)
+    {
+        QMessageBox::warning(
+                    NULL,
+                    "Error",
+                    "Unknown exception!");
+    }
 }
 
 void MainWindow::updateConfig()

@@ -9,7 +9,7 @@
     </configuration>
     <signals>
         <signal>
-            <id>1</id>
+            <id>0</id>
             <name>CPU</name>
             <unit>%</unit>
             <factor>1.0</factor>
@@ -20,9 +20,9 @@
     </signals>
     <instruments> 
         <instrument>
-            <id>1</id>
+            <id>0</id>
             <type>TIME_PLOT</type>
-            <signalId>1</signalId>
+            <signalId>0</signalId>
             <name>Time plot</name>
             <width>800</width>
             <height>600</height>

@@ -9,7 +9,7 @@
    </configuration>
    <signals>
        <signal>
-           <id>1</id>
+           <id>0</id>
            <name>Light 1</name>
            <unit>status</unit>
            <factor>1.0</factor>
@@ -20,9 +20,9 @@
    </signals>
      <instruments>
         <instrument>
-            <id>1</id>  
+            <id>0</id>  
             <type>LED</type>
-            <signalId>1</signalId>
+            <signalId>0</signalId>
             <name>Led 1</name>
             <width>30</width>
             <height>30</height>
@@ -41,9 +41,9 @@
             <fontSize>20</fontSize>
         </instrument>
         <instrument>
-            <id>2</id>  
+            <id>1</id>  
             <type>LED</type>
-            <signalId>1</signalId>
+            <signalId>0</signalId>
             <name>Led 2</name>
             <width>30</width>
             <height>30</height>
