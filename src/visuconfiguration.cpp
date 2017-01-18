@@ -35,6 +35,24 @@ const QString VisuConfiguration::TAG_CONTROLS_PLACEHOLDER = "controls";
 
 #include "wysiwyg/visuwidgetfactory.h"
 
+VisuConfiguration::~VisuConfiguration()
+{
+    for (VisuInstrument* instrument : instrumentsList)
+    {
+        delete instrument;
+    }
+
+    for (VisuSignal* visuSig : signalsList)
+    {
+        delete visuSig;
+    }
+
+    for (Button* button : controlsList)
+    {
+        delete button;
+    }
+}
+
 void VisuConfiguration::attachInstrumentToSignal(QPointer<VisuInstrument> instrument, int signalId)
 {
     getSignal(signalId)->connectInstrument(instrument);

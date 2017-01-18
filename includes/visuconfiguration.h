@@ -34,6 +34,7 @@ class VisuConfiguration : public QObject
         QMap<QString, QString> mProperties;
 
     public:
+        virtual ~VisuConfiguration();
         void setConfigValues(const QMap<QString, QString>& properties);
 
         void loadFromXML(QWidget *parent, const QString& xml);

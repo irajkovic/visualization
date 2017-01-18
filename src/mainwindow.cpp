@@ -127,8 +127,15 @@ void MainWindow::setupLayouts()
     workAreaLayout->addWidget(mPropertiesTable);
 }
 
+void MainWindow::unloadConfiguration()
+{
+    delete mConfiguration;
+
+}
+
 void MainWindow::loadConfigurationFromFile(const QString& configPath)
 {
+    unloadConfiguration();
     mConfiguration = new VisuConfiguration();
 
     try

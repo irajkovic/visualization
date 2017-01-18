@@ -56,6 +56,7 @@ private:
     void setupLayouts();
     void updateMenuSignalList();
     void loadConfigurationFromFile(const QString& configPath);
+    void unloadConfiguration();
     QString configurationToXML();
 
     static const QString INITIAL_EDITOR_CONFIG;
