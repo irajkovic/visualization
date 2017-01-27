@@ -5,6 +5,7 @@
 EditSignal::EditSignal(QPointer<VisuSignal> visuSignal)
 {
     setAttribute(Qt::WA_DeleteOnClose);
+    setWindowTitle(tr("Signal parameters"));
 
     QLayout* vlayout = new QVBoxLayout();
     setLayout(vlayout);

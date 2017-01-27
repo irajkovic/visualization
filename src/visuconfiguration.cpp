@@ -123,13 +123,18 @@ Button* VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, Q
     return control;
 }
 
-void VisuConfiguration::createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
+StaticImage* VisuConfiguration::createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_STATIC);
+    StaticImage* image;
 
     if (properties[ATTR_TYPE] == StaticImage::TAG_NAME) {
-        new StaticImage(parent, properties);
+        image = new StaticImage(parent, properties);
     }
+
+    addStatic(image);
+
+    return image;
 }
 
 void VisuConfiguration::initializeInstruments()
@@ -258,6 +263,18 @@ QString VisuConfiguration::getName()
     return cName;
 }
 
+void VisuConfiguration::addStatic(QPointer<StaticImage> image)
+{
+    int staticId = getFreeId((QVector<QPointer<QObject>>&)staticsList);
+    image->setId(staticId);
+    staticsList[staticId] = image;
+}
+
+void VisuConfiguration::deleteStatic(int staticId)
+{
+    delete (staticsList[staticId]);
+}
+
 void VisuConfiguration::addControl(QPointer<Button> control)
 {
     int controlId = getFreeId((QVector<QPointer<QObject>>&)controlsList);
@@ -362,6 +379,18 @@ QString VisuConfiguration::toXML()
         }
     }
     xml += "\t</controls>\n";
+
+    xml += "\t<statics>\n";
+    for (StaticImage* image : staticsList)
+    {
+        if (image != nullptr)
+        {
+            xml += "\t\t<static>\n";
+            xml += VisuMisc::mapToString(image->getProperties(), 3);
+            xml += "\t\t</static>\n";
+        }
+    }
+    xml += "\t</statics>\n";
 
     xml += "<visu_config>\n";
 

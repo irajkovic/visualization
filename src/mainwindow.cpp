@@ -82,7 +82,6 @@ void MainWindow::setupMenu()
     QMenu* configMenu = ui->menuBar->addMenu(tr("&Configuration"));
 
     QAction* configRun = new QAction(tr("&Run"), this);
-    saveAs->setShortcut(QKeySequence::SaveAs);
     configRun->setStatusTip(tr("Run current configuration"));
     configMenu->addAction(configRun);
     connect(configRun, SIGNAL(triggered()), this, SLOT(runConfiguration()));
@@ -91,6 +90,14 @@ void MainWindow::setupMenu()
     configParams->setStatusTip(tr("Edit configuration parameters"));
     configMenu->addAction(configParams);
     connect(configParams, SIGNAL(triggered()), this, SLOT(openConfigurationEditor()));
+
+    QMenu* imagesMenu = ui->menuBar->addMenu(tr("&Images"));
+
+    QAction* imageAdd = new QAction(tr("&Add"), this);
+    imageAdd->setStatusTip(tr("Run current configuration"));
+    imagesMenu->addAction(imageAdd);
+    connect(imageAdd, SIGNAL(triggered()), this, SLOT(openImageAdder()));
+
 }
 
 void MainWindow::setupLayouts()
@@ -156,14 +163,14 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
     catch(ConfigLoadException e)
     {
         QMessageBox::warning(
-                    NULL,
+                    this,
                     "Error",
                     e.what());
     }
     catch(...)
     {
         QMessageBox::warning(
-                    NULL,
+                    this,
                     "Error",
                     "Unknown exception!");
     }
@@ -219,6 +226,49 @@ void MainWindow::setupToolbarWidgets(QPointer<QWidget> toolbar)
     layout->addWidget(VisuWidgetFactory::createControl(this, Button::TAG_NAME));
 
     toolbarSignal->initializeInstruments();
+}
+
+void MainWindow::openImageAdder()
+{
+    QString imagePath = QFileDialog::getOpenFileName(this,
+                                                      tr("Open image"),
+                                                      ".",
+                                                      "Image files (*.png *.jpg *.jpeg *.bmp)");
+    if (!imagePath.isNull())
+    {
+
+        QFile file(imagePath);
+
+        if (file.open(QIODevice::ReadOnly))
+        {
+            QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile("system/IMAGE.xml", "static");
+            QByteArray imgData = file.readAll();
+
+            properties["image"] = QString(imgData.toBase64());
+            properties["format"] = QFileInfo(imagePath).suffix();
+
+            QImage tmpImage;
+            tmpImage.loadFromData(imgData, properties["format"].toStdString().c_str());
+
+            if ((tmpImage.width() <= mStage->width()) & (tmpImage.height() <= mStage->height()) )
+            {
+                properties["width"] = QString("%1").arg(tmpImage.width());
+                properties["height"] = QString("%1").arg(tmpImage.height());
+
+                StaticImage* image = new StaticImage(mStage, properties);
+                mConfiguration->addStatic(image);
+                mStage->update();
+            }
+            else
+            {
+                QMessageBox::information(
+                            this,
+                            tr("Info"),
+                            tr("Image was too large for the stage.\n"
+                               "Please try with smaller image, or increase stage resolution"));
+            }
+        }
+    }
 }
 
 void MainWindow::openConfigurationEditor()

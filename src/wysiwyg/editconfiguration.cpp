@@ -3,6 +3,7 @@
 EditConfiguration::EditConfiguration(QPointer<VisuConfiguration> configuration)
 {
     setAttribute(Qt::WA_DeleteOnClose);
+    setWindowTitle(tr("Configuration parameters"));
 
     mConfiguration = configuration;
 

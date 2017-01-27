@@ -69,6 +69,7 @@ private slots:
     void openConfigurationEditor();
     void updateConfig();
     void runConfiguration();
+    void openImageAdder();
 };
 
 #endif // MAINWINDOW_H

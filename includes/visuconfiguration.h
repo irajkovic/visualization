@@ -4,6 +4,7 @@
 #include "visusignal.h"
 #include "visuinstrument.h"
 #include "button.h"
+#include "statics/staticimage.h"
 #include <QWidget>
 #include <QObject>
 #include <QXmlStreamReader>
@@ -18,9 +19,9 @@ class VisuConfiguration : public QObject
         QVector<QPointer<VisuSignal>> signalsList;
         QVector<QPointer<VisuInstrument>> instrumentsList;
         QVector<QPointer<Button>> controlsList;
+        QVector<QPointer<StaticImage>> staticsList;
         void createSignalFromToken(QXmlStreamReader& xml_reader);
         void createConfigurationFromToken(QXmlStreamReader& xmlReader);
-        void createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
         void initializeInstruments();
         int getFreeId(QVector<QPointer<QObject> > &list);
 
@@ -40,6 +41,7 @@ class VisuConfiguration : public QObject
         void loadFromXML(QWidget *parent, const QString& xml);
         QPointer<VisuInstrument> createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
         Button* createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
+        StaticImage* createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
 
         QPointer<VisuSignal> getSignal(quint16 signalId);
         QVector<QPointer<VisuSignal>> &getSignals();
@@ -50,6 +52,9 @@ class VisuConfiguration : public QObject
         void attachInstrumentToSignal(QPointer<VisuInstrument> instrument);
         void detachInstrumentFromSignal(QPointer<VisuInstrument> instrument, int signalId);
         void attachInstrumentToSignal(QPointer<VisuInstrument> instrument, int signalId);
+
+        void addStatic(QPointer<StaticImage> image);
+        void deleteStatic(int staticId);
 
         void addInstrument(QPointer<VisuInstrument> instrument);
         void deleteInstrument(QPointer<VisuInstrument> instrument);
