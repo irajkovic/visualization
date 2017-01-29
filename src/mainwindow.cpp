@@ -273,7 +273,7 @@ void MainWindow::openImageAdder()
 
 void MainWindow::openConfigurationEditor()
 {
-    EditConfiguration* window = new EditConfiguration(mConfiguration);
+    EditConfiguration* window = new EditConfiguration(this, mConfiguration);
     connect(window, SIGNAL(configParamsUpdated()), this, SLOT(updateConfig()));
 }
 

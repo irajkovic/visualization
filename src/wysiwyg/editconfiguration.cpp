@@ -1,6 +1,6 @@
 #include "wysiwyg/editconfiguration.h"
 
-EditConfiguration::EditConfiguration(QPointer<VisuConfiguration> configuration)
+void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
 {
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowTitle(tr("Configuration parameters"));
