@@ -15,7 +15,7 @@ VisuApplication::VisuApplication(QString path)
 void VisuApplication::loadConfiguration(QString path)
 {
     QByteArray xml = VisuConfigLoader::loadXMLFromFile(path);
-    configuration.loadFromXML(this, QString(xml));
+    configuration.fromXML(this, QString(xml));
 }
 
 void VisuApplication::setupWindow()

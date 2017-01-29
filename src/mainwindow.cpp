@@ -148,7 +148,7 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
     try
     {
         QString xml = VisuConfigLoader::loadXMLFromFile(configPath);
-        mConfiguration->loadFromXML(mStage, QString(xml));
+        mConfiguration->fromXML(mStage, QString(xml));
 
         updateConfig();
 
@@ -374,6 +374,13 @@ void MainWindow::keyPressEvent( QKeyEvent *event )
             {
                 mConfiguration->deleteControl(btn);
             }
+
+            StaticImage* image = qobject_cast<StaticImage*>(mActiveWidget);
+            if (image != nullptr)
+            {
+                mConfiguration->deleteImage(image);
+            }
+
 
             mPropertiesTable->clearContents();
             mActiveWidget = nullptr;

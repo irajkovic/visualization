@@ -85,14 +85,17 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
 void VisuConfiguration::deleteInstrument(QPointer<VisuInstrument> instrument)
 {
     detachInstrumentFromSignal(instrument);
-    instrumentsList[instrument->getId()] = nullptr;
-    delete instrument;
+    delete(instrumentsList[instrument->getId()]);
 }
 
 void VisuConfiguration::deleteControl(QPointer<Button> control)
 {
-    controlsList[control->getId()] = nullptr;
-    delete control;
+    delete(controlsList[control->getId()]);
+}
+
+void VisuConfiguration::deleteImage(QPointer<StaticImage> image)
+{
+    delete(controlsList[image->getId()]);
 }
 
 QPointer<VisuInstrument> VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
@@ -160,7 +163,7 @@ void VisuConfiguration::setConfigValues(const QMap<QString, QString>& properties
     GET_PROPERTY(cName, QString, properties);
 }
 
-void VisuConfiguration::loadFromXML(QWidget *parent, const QString& xmlString)
+void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
 {
     QXmlStreamReader xmlReader(xmlString);
 
