@@ -9,6 +9,8 @@ void Button::sendCommand()
                 cActionMessage.size(),
                 mAddress,
                 cActionPort);
+
+    emit(widgetActivated(this));
 }
 
 void Button::setupButton(QWidget* parent)

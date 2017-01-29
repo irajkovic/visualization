@@ -31,6 +31,8 @@ void VisuWidget::mouseReleaseEvent(QMouseEvent* event)
 void VisuWidget::mouseDoubleClickEvent(QMouseEvent* event)
 {
     (void)event;
+
+    emit(widgetActivated(this));
 }
 
 void VisuWidget::mouseMoveEvent(QMouseEvent *event)

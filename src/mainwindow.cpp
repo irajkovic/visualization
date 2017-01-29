@@ -157,6 +157,16 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
         {
             connect(instrument, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
         }
+        // connect controls
+        for (auto button : mConfiguration->getControls())
+        {
+            connect(button, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
+        }
+        // connect statics
+        for (auto image : mConfiguration->getStatics())
+        {
+            connect(image, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
+        }
 
         updateMenuSignalList();
     }

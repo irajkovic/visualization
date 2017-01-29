@@ -55,6 +55,7 @@ class VisuConfiguration : public QObject
 
         void addStatic(QPointer<StaticImage> image);
         void deleteStatic(int staticId);
+        QVector<QPointer<StaticImage>>& getStatics();
 
         void addInstrument(QPointer<VisuInstrument> instrument);
         void deleteInstrument(QPointer<VisuInstrument> instrument);
@@ -65,6 +66,7 @@ class VisuConfiguration : public QObject
 
         void addControl(QPointer<Button> control);
         void deleteControl(QPointer<Button> control);
+        QVector<QPointer<Button>>& getControls();
 
         QMap<QString, QString>& getProperties();
         QString toXML();

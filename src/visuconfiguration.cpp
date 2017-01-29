@@ -241,6 +241,17 @@ QVector<QPointer<VisuSignal>>& VisuConfiguration::getSignals()
     return signalsList;
 }
 
+
+QVector<QPointer<Button>>& VisuConfiguration::getControls()
+{
+    return controlsList;
+}
+
+QVector<QPointer<StaticImage>>& VisuConfiguration::getStatics()
+{
+    return staticsList;
+}
+
 quint16 VisuConfiguration::getPort()
 {
     return cPort;
