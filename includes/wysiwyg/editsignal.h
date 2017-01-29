@@ -18,7 +18,11 @@ class EditSignal : public QWidget
     Q_OBJECT
 
 public:
-    EditSignal(QPointer<VisuSignal> visuSignal = nullptr);
+    EditSignal(QWidget* parent, QPointer<VisuSignal> visuSignal = nullptr) : QWidget(parent)
+    {
+        setWindowFlags(Qt::Dialog);
+        setup(visuSignal);
+    }
 
 signals:
     void signalAdded(QPointer<VisuSignal>,bool);
@@ -32,6 +36,8 @@ private:
     QPointer<QTableWidget> mTable;
     bool mNewSignal;
     QPointer<VisuSignal> mSignal;
+
+    void setup(QPointer<VisuSignal> visuSignal);
 };
 
 #endif // EDITSIGNAL_H

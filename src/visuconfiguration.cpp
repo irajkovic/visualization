@@ -218,7 +218,10 @@ QPointer<VisuSignal> VisuConfiguration::getSignal(quint16 signalId)
 {
     if(signalId >= signalsList.size())
     {
-        throw ConfigLoadException(QString("Signal id %1 too large!"), QString("%1").arg(signalId));
+        // We shouldn't throw unhandled exception here, as that would
+        // mean that signal source can crash application if wrong
+        // signal id is sent.
+        qDebug("Signal id %d too large!", signalId);
     }
     return signalsList[signalId];
 }
@@ -326,7 +329,10 @@ void VisuConfiguration::deleteSignal(QPointer<VisuSignal> signal)
 void VisuConfiguration::deleteSignal(int signalId)
 {
     // pointer will be cleared automaticaly by QPointer
-    delete (signalsList[signalId]);
+    QPointer<VisuSignal> ptr = signalsList[signalId];
+    delete ptr;
+    //delete (signalsList[signalId]);
+    qDebug("deleted");
 }
 
 QMap<QString, QString>& VisuConfiguration::getProperties()

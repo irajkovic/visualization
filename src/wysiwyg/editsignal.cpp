@@ -2,7 +2,7 @@
 
 #include "visusignal.h"
 
-EditSignal::EditSignal(QPointer<VisuSignal> visuSignal)
+void EditSignal::setup(QPointer<VisuSignal> visuSignal)
 {
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowTitle(tr("Signal parameters"));

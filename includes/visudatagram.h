@@ -3,10 +3,10 @@
 
 struct VisuDatagram
 {
-    quint16 signalId;
-    quint16 packetNumber;
     quint64 timestamp;
     quint64 rawValue;
+    quint16 signalId;
+    quint16 packetNumber;
     quint8 checksum;
 
     static quint8 getChecksum(const quint8* data, quint16 datagram_size)

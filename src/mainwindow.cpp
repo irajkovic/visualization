@@ -303,7 +303,7 @@ void MainWindow::openSignalsEditor()
     {
         signal = mConfiguration->getSignal(signalId);
     }
-    editSignalWindow = new EditSignal(signal);
+    editSignalWindow = new EditSignal(this, signal);
     connect(editSignalWindow, SIGNAL(signalAdded(QPointer<VisuSignal>,bool)), this, SLOT(addSignal(QPointer<VisuSignal>, bool)));
 }
 

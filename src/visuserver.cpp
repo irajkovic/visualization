@@ -71,7 +71,7 @@ void VisuServer::handleDatagram()
 void VisuServer::updateSignal(const VisuDatagram& datagram)
 {
     VisuSignal* signal = configuration->getSignal(datagram.signalId);
-    if (signal != NULL) {
+    if (signal != nullptr) {
         signal->datagramUpdate(datagram);
     }
 }
