@@ -20,10 +20,7 @@ class Button : public VisuWidget
 
             loadProperties(properties);
 
-            setStyleSheet("background-color: gray;");
             show();
-
-            //setMaximumSize(50, 20);
 
             mTagName = TAG_NAME;
             mAddress = QHostAddress(cActionIp);
@@ -32,9 +29,6 @@ class Button : public VisuWidget
             setLayout(mLayout);
 
             setupButton(parent);
-
-            //setMaximumSize(cWidth, cHeight);
-
         }
 
         static const QString TAG_NAME;
