@@ -216,12 +216,12 @@ void MainWindow::setupToolbarWidgets(QPointer<QWidget> toolbar)
 
     VisuSignal* toolbarSignal = mConfiguration->getSignal(0);
 
-    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstAnalog::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstLinear::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstTimePlot::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstDigital::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstLED::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstXYPlot::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstAnalog::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLinear::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstTimePlot::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstDigital::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, toolbarSignal));
 
     layout->addWidget(VisuWidgetFactory::createControl(this, CtrlButton::TAG_NAME));
 

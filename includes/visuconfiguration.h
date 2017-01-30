@@ -45,7 +45,7 @@ class VisuConfiguration : public QObject
         QVector<QPointer<VisuWidget>> getWidgets();
 
         // Instrument specific methods
-        QPointer<VisuInstrument> createInstrumentFromToken(QXmlStreamReader& xml_reader, QWidget *parent);
+        QPointer<VisuWidget> createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent, QString tag);
         QPointer<VisuInstrument> getInstrument(quint16 instrument_id);
         void detachInstrumentFromSignal(QPointer<VisuInstrument> instrument);
         void attachInstrumentToSignal(QPointer<VisuInstrument> instrument);
@@ -58,10 +58,6 @@ class VisuConfiguration : public QObject
         void deleteSignal(int signalId);
         QPointer<VisuSignal> getSignal(quint16 signalId);
         QVector<QPointer<VisuSignal>> &getSignals();
-
-        // Other widget specific methods
-        CtrlButton* createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
-        StaticImage* createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
 
         // Getters
         QMap<QString, QString>& getProperties();

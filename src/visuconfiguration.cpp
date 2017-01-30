@@ -72,46 +72,21 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
     signalsList.push_back(signal);
 }
 
-QPointer<VisuInstrument> VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
+QPointer<VisuWidget> VisuConfiguration::createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent, QString tag)
 {
-    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_INSTRUMENT);
-
-    VisuWidget* widget = VisuWidgetFactory::createInstrument(parent, properties[ATTR_TYPE], properties);
-    VisuInstrument* instrument = static_cast<VisuInstrument*>(widget);
-
-    attachInstrumentToSignal(instrument);
-    addWidget(instrument);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, tag);
+    VisuWidget* widget = VisuWidgetFactory::createWidget(parent, properties[ATTR_TYPE], properties);
+    addWidget(widget);
     widget->show();
 
-    return instrument;
-}
-
-CtrlButton* VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
-{
-    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_CONTROL);
-    CtrlButton* control;
-
-    if (properties[ATTR_TYPE] == CtrlButton::TAG_NAME) {
-        control = new CtrlButton(parent, properties);
+    // instrument needs special handling
+    VisuInstrument* instrument = static_cast<VisuInstrument*>(widget);
+    if (instrument != nullptr)
+    {
+        attachInstrumentToSignal(instrument);
     }
 
-    addWidget(control);
-
-    return control;
-}
-
-StaticImage* VisuConfiguration::createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
-{
-    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_STATIC);
-    StaticImage* image;
-
-    if (properties[ATTR_TYPE] == StaticImage::TAG_NAME) {
-        image = new StaticImage(parent, properties);
-    }
-
-    addWidget(image);
-
-    return image;
+    return widget;
 }
 
 void VisuConfiguration::initializeInstruments()
@@ -151,13 +126,13 @@ void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
                 createSignalFromToken(xmlReader);
             }
             else if (xmlReader.name() == TAG_INSTRUMENT) {
-                createInstrumentFromToken(xmlReader, parent);
+                createWidgetFromToken(xmlReader, parent, TAG_INSTRUMENT);
             }
             else if (xmlReader.name() == TAG_CONTROL) {
-                createControlFromToken(xmlReader, parent);
+                createWidgetFromToken(xmlReader, parent, TAG_CONTROL);
             }
             else if (xmlReader.name() == TAG_STATIC) {
-                createStaticFromToken(xmlReader, parent);
+                createWidgetFromToken(xmlReader, parent, TAG_STATIC);
             }
             else if (xmlReader.name() == TAG_CONFIGURATION) {
                 createConfigurationFromToken(xmlReader);

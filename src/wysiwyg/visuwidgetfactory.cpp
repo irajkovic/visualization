@@ -17,17 +17,17 @@ VisuWidgetFactory::VisuWidgetFactory()
 }
 
 
-VisuWidget* VisuWidgetFactory::createInstrument(QWidget* parent,
+VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
                                             QString type,
                                             VisuSignal* signal)
 {
     QString path = QString("system/%1.xml").arg(type);
     QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(path, "instrument");
-    return VisuWidgetFactory::createInstrument(parent, type, properties, signal);
+    return VisuWidgetFactory::createWidget(parent, type, properties, signal);
 }
 
 // TODO :: Check if type can be replaced by properties["type"]
-VisuWidget* VisuWidgetFactory::createInstrument(QWidget* parent,
+VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
                                             QString type,
                                             QMap<QString, QString> properties,
                                             VisuSignal* signal)
@@ -58,14 +58,20 @@ VisuWidget* VisuWidgetFactory::createInstrument(QWidget* parent,
     {
         widget = new InstXYPlot(parent, properties);
     }
+    else if (type == CtrlButton::TAG_NAME)
+    {
+        widget = new CtrlButton(parent, properties);
+    }
+    else if (type == StaticImage::TAG_NAME)
+    {
+        widget = new StaticImage(parent, properties);
+    }
     else
     {
-        qDebug("Instrument of type %s not recognized.", type.toStdString().c_str());
+        ; // Do nothing
     }
 
-    Q_ASSERT(widget != nullptr);
-
-    if (signal != nullptr)
+    if (signal != nullptr && widget != nullptr)
     {
         signal->connectInstrument(static_cast<VisuInstrument*>(widget));
         signal->initializeInstruments();
