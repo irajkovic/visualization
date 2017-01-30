@@ -36,7 +36,7 @@ SOURCES += main.cpp\
     instruments/instxyplot.cpp \
     instruments/instled.cpp \
     visuhelper.cpp \
-    controls/button.cpp \
+    controls/ctrlbutton.cpp \
     visuwidget.cpp \
     statics/staticimage.cpp \
     visuconfigloader.cpp \
@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     wysiwyg/visuwidgetfactory.cpp \
     visumisc.cpp \
     wysiwyg/editsignal.cpp \
-    wysiwyg/editconfiguration.cpp
+    wysiwyg/editconfiguration.cpp \
+    visucontrol.cpp
 
 
 HEADERS  += ../includes/mainwindow.h \
@@ -62,7 +63,6 @@ HEADERS  += ../includes/mainwindow.h \
     ../includes/exceptions/configloadexception.h \
     ../includes/instruments/instxyplot.h \
     ../includes/instruments/instled.h \
-    ../includes/controls/button.h \
     ../includes/visuwidget.h \
     ../includes/statics/staticimage.h \
     ../includes/visuconfigloader.h \
@@ -70,6 +70,8 @@ HEADERS  += ../includes/mainwindow.h \
     ../includes/wysiwyg/visuwidgetfactory.h \
     ../includes/visumisc.h \
     ../includes/wysiwyg/editsignal.h \
-    ../includes/wysiwyg/editconfiguration.h
+    ../includes/wysiwyg/editconfiguration.h \
+    ../includes/visucontrol.h \
+    ../includes/controls/ctrlbutton.h
 
 FORMS    += ../src/mainwindow.ui

@@ -3,7 +3,7 @@
 
 #include "visusignal.h"
 #include "visuinstrument.h"
-#include "button.h"
+#include "ctrlbutton.h"
 #include "statics/staticimage.h"
 #include <QWidget>
 #include <QObject>
@@ -18,7 +18,7 @@ class VisuConfiguration : public QObject
     private:
         QVector<QPointer<VisuSignal>> signalsList;
         QVector<QPointer<VisuInstrument>> instrumentsList;
-        QVector<QPointer<Button>> controlsList;
+        QVector<QPointer<CtrlButton>> controlsList;
         QVector<QPointer<StaticImage>> staticsList;
 
         void createSignalFromToken(QXmlStreamReader& xml_reader);
@@ -60,16 +60,16 @@ class VisuConfiguration : public QObject
         QVector<QPointer<VisuSignal>> &getSignals();
 
         // Controls
-        Button* createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
-        void addControl(QPointer<Button> control);
-        void deleteControl(QPointer<Button> control);
-        void deleteImage(QPointer<StaticImage> image);
-        QVector<QPointer<Button>>& getControls();
+        CtrlButton* createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
+        void addControl(QPointer<CtrlButton> control);
+        void deleteControl(QPointer<CtrlButton> control);
+        QVector<QPointer<CtrlButton>>& getControls();
 
         // Statics
         StaticImage* createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
         void addStatic(QPointer<StaticImage> image);
         void deleteStatic(int staticId);
+        void deleteImage(QPointer<StaticImage> image);
         QVector<QPointer<StaticImage>>& getStatics();
 
         QMap<QString, QString>& getProperties();

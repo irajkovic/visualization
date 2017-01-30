@@ -15,7 +15,7 @@
 #include "instruments/insttimeplot.h"
 #include "instruments/instxyplot.h"
 #include "instruments/instled.h"
-#include "controls/button.h"
+#include "controls/ctrlbutton.h"
 #include "statics/staticimage.h"
 
 const QString VisuConfiguration::TAG_INSTRUMENT = "instrument";
@@ -47,7 +47,7 @@ VisuConfiguration::~VisuConfiguration()
         delete visuSig;
     }
 
-    for (Button* button : controlsList)
+    for (CtrlButton* button : controlsList)
     {
         delete button;
     }
@@ -88,7 +88,7 @@ void VisuConfiguration::deleteInstrument(QPointer<VisuInstrument> instrument)
     delete(instrumentsList[instrument->getId()]);
 }
 
-void VisuConfiguration::deleteControl(QPointer<Button> control)
+void VisuConfiguration::deleteControl(QPointer<CtrlButton> control)
 {
     delete(controlsList[control->getId()]);
 }
@@ -112,13 +112,13 @@ QPointer<VisuInstrument> VisuConfiguration::createInstrumentFromToken(QXmlStream
     return instrument;
 }
 
-Button* VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
+CtrlButton* VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_CONTROL);
-    Button* control;
+    CtrlButton* control;
 
-    if (properties[ATTR_TYPE] == Button::TAG_NAME) {
-        control = new Button(parent, properties);
+    if (properties[ATTR_TYPE] == CtrlButton::TAG_NAME) {
+        control = new CtrlButton(parent, properties);
     }
 
     addControl(control);
@@ -245,7 +245,7 @@ QVector<QPointer<VisuSignal>>& VisuConfiguration::getSignals()
 }
 
 
-QVector<QPointer<Button>>& VisuConfiguration::getControls()
+QVector<QPointer<CtrlButton>>& VisuConfiguration::getControls()
 {
     return controlsList;
 }
@@ -292,7 +292,7 @@ void VisuConfiguration::deleteStatic(int staticId)
     delete (staticsList[staticId]);
 }
 
-void VisuConfiguration::addControl(QPointer<Button> control)
+void VisuConfiguration::addControl(QPointer<CtrlButton> control)
 {
     int controlId = getFreeId((QVector<QPointer<QObject>>&)controlsList);
     control->setId(controlId);
@@ -389,7 +389,7 @@ QString VisuConfiguration::toXML()
     xml += "\t</instruments>\n";
 
     xml += "\t<controls>\n";
-    for (Button* control : controlsList)
+    for (CtrlButton* control : controlsList)
     {
         if (control != nullptr)
         {

@@ -8,7 +8,7 @@
 #include "instdigital.h"
 #include "instanalog.h"
 #include "instxyplot.h"
-#include "button.h"
+#include "ctrlbutton.h"
 #include "visuconfigloader.h"
 
 VisuWidgetFactory::VisuWidgetFactory()
@@ -86,8 +86,8 @@ VisuWidget* VisuWidgetFactory::createControl(QWidget* parent,
                                  QMap<QString, QString> properties)
 {
     VisuWidget* widget = nullptr;
-    if (properties["type"] == Button::TAG_NAME) {
-        widget = new Button(parent, properties);
+    if (properties["type"] == CtrlButton::TAG_NAME) {
+        widget = new CtrlButton(parent, properties);
     }
     return widget;
 }

@@ -7,7 +7,7 @@
 #include "insttimeplot.h"
 #include "instled.h"
 #include "instxyplot.h"
-#include "button.h"
+#include "ctrlbutton.h"
 #include "visuconfigloader.h"
 #include "wysiwyg/visuwidgetfactory.h"
 #include <QXmlStreamReader>
@@ -233,7 +233,7 @@ void MainWindow::setupToolbarWidgets(QPointer<QWidget> toolbar)
     layout->addWidget(VisuWidgetFactory::createInstrument(this, InstLED::TAG_NAME, toolbarSignal));
     layout->addWidget(VisuWidgetFactory::createInstrument(this, InstXYPlot::TAG_NAME, toolbarSignal));
 
-    layout->addWidget(VisuWidgetFactory::createControl(this, Button::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createControl(this, CtrlButton::TAG_NAME));
 
     toolbarSignal->initializeInstruments();
 }
@@ -369,7 +369,7 @@ void MainWindow::keyPressEvent( QKeyEvent *event )
                 mConfiguration->deleteInstrument(instrument);
             }
 
-            Button* btn = qobject_cast<Button*>(mActiveWidget);
+            CtrlButton* btn = qobject_cast<CtrlButton*>(mActiveWidget);
             if (btn != nullptr)
             {
                 mConfiguration->deleteControl(btn);
@@ -456,7 +456,7 @@ void MainWindow::cellUpdated(int row, int col)
     }
 
     // refresh controls
-    Button* btn = qobject_cast<Button*>(mActiveWidget);
+    CtrlButton* btn = qobject_cast<CtrlButton*>(mActiveWidget);
     if (btn != nullptr)
     {
         btn->redraw();
