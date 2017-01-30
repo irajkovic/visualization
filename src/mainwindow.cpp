@@ -241,7 +241,7 @@ void MainWindow::openImageAdder()
 
         if (file.open(QIODevice::ReadOnly))
         {
-            QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile("system/IMAGE.xml", "static");
+            QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile("system/IMAGE.xml", VisuConfiguration::TAG_WIDGET);
             QByteArray imgData = file.readAll();
 
             properties["image"] = QString(imgData.toBase64());
