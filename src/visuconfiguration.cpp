@@ -76,7 +76,7 @@ QPointer<VisuWidget> VisuConfiguration::createWidgetFromToken(QXmlStreamReader& 
     widget->show();
 
     // instrument needs special handling
-    VisuInstrument* instrument = static_cast<VisuInstrument*>(widget);
+    VisuInstrument* instrument = qobject_cast<VisuInstrument*>(widget);
     if (instrument != nullptr)
     {
         attachInstrumentToSignal(instrument);
