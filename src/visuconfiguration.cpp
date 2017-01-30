@@ -198,6 +198,7 @@ QPointer<VisuSignal> VisuConfiguration::getSignal(quint16 signalId)
         // mean that signal source can crash application if wrong
         // signal id is sent.
         qDebug("Signal id %d too large!", signalId);
+        return nullptr;
     }
     return signalsList[signalId];
 }
