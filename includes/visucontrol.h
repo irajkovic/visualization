@@ -8,6 +8,7 @@
 
 class VisuControl : public VisuWidget
 {
+    Q_OBJECT
 public:
 
     explicit VisuControl(QWidget* parent, QMap<QString, QString> properties) : VisuWidget(parent, properties)

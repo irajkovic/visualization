@@ -152,20 +152,10 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
 
         updateConfig();
 
-        // connect instruments
-        for (auto instrument : mConfiguration->getInstruments())
+        // connect widgets
+        for (VisuWidget* widget : mConfiguration->getWidgets())
         {
-            connect(instrument, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
-        }
-        // connect controls
-        for (auto button : mConfiguration->getControls())
-        {
-            connect(button, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
-        }
-        // connect statics
-        for (auto image : mConfiguration->getStatics())
-        {
-            connect(image, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
+            connect(widget, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
         }
 
         updateMenuSignalList();
@@ -266,7 +256,7 @@ void MainWindow::openImageAdder()
                 properties["height"] = QString("%1").arg(tmpImage.height());
 
                 StaticImage* image = new StaticImage(mStage, properties);
-                mConfiguration->addStatic(image);
+                mConfiguration->addWidget(image);
                 mStage->update();
             }
             else
@@ -363,25 +353,7 @@ void MainWindow::keyPressEvent( QKeyEvent *event )
     {
         if (event->matches(QKeySequence::Delete))
         {
-            VisuInstrument* instrument = qobject_cast<VisuInstrument*>(mActiveWidget);
-            if (instrument != nullptr)
-            {
-                mConfiguration->deleteInstrument(instrument);
-            }
-
-            CtrlButton* btn = qobject_cast<CtrlButton*>(mActiveWidget);
-            if (btn != nullptr)
-            {
-                mConfiguration->deleteControl(btn);
-            }
-
-            StaticImage* image = qobject_cast<StaticImage*>(mActiveWidget);
-            if (image != nullptr)
-            {
-                mConfiguration->deleteImage(image);
-            }
-
-
+            mConfiguration->deleteWidget(mActiveWidget);
             mPropertiesTable->clearContents();
             mActiveWidget = nullptr;
         }

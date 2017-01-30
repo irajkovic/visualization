@@ -37,19 +37,9 @@ const QString VisuConfiguration::TAG_CONTROLS_PLACEHOLDER = "controls";
 
 VisuConfiguration::~VisuConfiguration()
 {
-    for (VisuInstrument* instrument : instrumentsList)
+    for (VisuWidget* widget : widgetsList)
     {
-        delete instrument;
-    }
-
-    for (VisuSignal* visuSig : signalsList)
-    {
-        delete visuSig;
-    }
-
-    for (CtrlButton* button : controlsList)
-    {
-        delete button;
+        delete widget;
     }
 }
 
@@ -82,22 +72,6 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
     signalsList.push_back(signal);
 }
 
-void VisuConfiguration::deleteInstrument(QPointer<VisuInstrument> instrument)
-{
-    detachInstrumentFromSignal(instrument);
-    delete(instrumentsList[instrument->getId()]);
-}
-
-void VisuConfiguration::deleteControl(QPointer<CtrlButton> control)
-{
-    delete(controlsList[control->getId()]);
-}
-
-void VisuConfiguration::deleteImage(QPointer<StaticImage> image)
-{
-    delete(controlsList[image->getId()]);
-}
-
 QPointer<VisuInstrument> VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_INSTRUMENT);
@@ -106,7 +80,7 @@ QPointer<VisuInstrument> VisuConfiguration::createInstrumentFromToken(QXmlStream
     VisuInstrument* instrument = static_cast<VisuInstrument*>(widget);
 
     attachInstrumentToSignal(instrument);
-    addInstrument(instrument);
+    addWidget(instrument);
     widget->show();
 
     return instrument;
@@ -121,7 +95,7 @@ CtrlButton* VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReade
         control = new CtrlButton(parent, properties);
     }
 
-    addControl(control);
+    addWidget(control);
 
     return control;
 }
@@ -135,7 +109,7 @@ StaticImage* VisuConfiguration::createStaticFromToken(QXmlStreamReader& xmlReade
         image = new StaticImage(parent, properties);
     }
 
-    addStatic(image);
+    addWidget(image);
 
     return image;
 }
@@ -150,7 +124,6 @@ void VisuConfiguration::initializeInstruments()
 void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader)
 {
     setConfigValues(VisuConfigLoader::parseToMap(xmlReader, TAG_CONFIGURATION));
-    qDebug("Loading configuration, size: %dx%d", cWidth, cHeight);
 }
 
 void VisuConfiguration::setConfigValues(const QMap<QString, QString>& properties)
@@ -231,28 +204,12 @@ QPointer<VisuSignal> VisuConfiguration::getSignal(quint16 signalId)
 
 QPointer<VisuInstrument> VisuConfiguration::getInstrument(quint16 instrument_id)
 {
-    return instrumentsList[instrument_id];
-}
-
-QVector<QPointer<VisuInstrument>>& VisuConfiguration::getInstruments()
-{
-    return instrumentsList;
+    return qobject_cast<VisuInstrument*>(widgetsList[instrument_id]);
 }
 
 QVector<QPointer<VisuSignal>>& VisuConfiguration::getSignals()
 {
     return signalsList;
-}
-
-
-QVector<QPointer<CtrlButton>>& VisuConfiguration::getControls()
-{
-    return controlsList;
-}
-
-QVector<QPointer<StaticImage>>& VisuConfiguration::getStatics()
-{
-    return staticsList;
 }
 
 quint16 VisuConfiguration::getPort()
@@ -280,30 +237,27 @@ QString VisuConfiguration::getName()
     return cName;
 }
 
-void VisuConfiguration::addStatic(QPointer<StaticImage> image)
+QVector<QPointer<VisuWidget>> VisuConfiguration::getWidgets()
 {
-    int staticId = getFreeId((QVector<QPointer<QObject>>&)staticsList);
-    image->setId(staticId);
-    staticsList[staticId] = image;
+    return widgetsList;
 }
 
-void VisuConfiguration::deleteStatic(int staticId)
+void VisuConfiguration::addWidget(QPointer<VisuWidget> widget)
 {
-    delete (staticsList[staticId]);
+    int id = getFreeId((QVector<QPointer<QObject>>&)widgetsList);
+    widget->setId(id);
+    widgetsList[id] = widget;
 }
 
-void VisuConfiguration::addControl(QPointer<CtrlButton> control)
+void VisuConfiguration::deleteWidget(QPointer<VisuWidget> widget)
 {
-    int controlId = getFreeId((QVector<QPointer<QObject>>&)controlsList);
-    control->setId(controlId);
-    controlsList[controlId] = control;
-}
+    VisuInstrument* instrument;
+    if ( (instrument = qobject_cast<VisuInstrument*>(widget)) != nullptr)
+    {
+        detachInstrumentFromSignal(instrument);
+    }
 
-void VisuConfiguration::addInstrument(QPointer<VisuInstrument> instrument)
-{
-    int instId = getFreeId((QVector<QPointer<QObject>>&)instrumentsList);
-    instrument->setId(instId);
-    instrumentsList[instId] = instrument;
+    delete(widgetsList[widget->getId()]);
 }
 
 void VisuConfiguration::addSignal(QPointer<VisuSignal> signal)
@@ -343,10 +297,7 @@ void VisuConfiguration::deleteSignal(QPointer<VisuSignal> signal)
 void VisuConfiguration::deleteSignal(int signalId)
 {
     // pointer will be cleared automaticaly by QPointer
-    QPointer<VisuSignal> ptr = signalsList[signalId];
-    delete ptr;
-    //delete (signalsList[signalId]);
-    qDebug("deleted");
+    delete (signalsList[signalId]);
 }
 
 QMap<QString, QString>& VisuConfiguration::getProperties()
@@ -377,8 +328,9 @@ QString VisuConfiguration::toXML()
     xml += "\t</signals>\n";
 
     xml += "\t<instruments>\n";
-    for (VisuInstrument* instrument : getInstruments())
+    for (VisuWidget* instrument : widgetsList)
     {
+        instrument = qobject_cast<VisuInstrument*>(instrument);
         if (instrument != nullptr)
         {
             xml += "\t\t<instrument>\n";
@@ -389,8 +341,9 @@ QString VisuConfiguration::toXML()
     xml += "\t</instruments>\n";
 
     xml += "\t<controls>\n";
-    for (CtrlButton* control : controlsList)
+    for (VisuWidget* control : widgetsList)
     {
+        control = qobject_cast<VisuControl*>(control);
         if (control != nullptr)
         {
             xml += "\t\t<control>\n";
@@ -401,8 +354,9 @@ QString VisuConfiguration::toXML()
     xml += "\t</controls>\n";
 
     xml += "\t<statics>\n";
-    for (StaticImage* image : staticsList)
+    for (VisuWidget* image : widgetsList)
     {
+        image = qobject_cast<StaticImage*>(image);
         if (image != nullptr)
         {
             xml += "\t\t<static>\n";
