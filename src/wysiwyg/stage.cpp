@@ -47,12 +47,12 @@ VisuWidget* Stage::cloneWidget(VisuWidget *sourceWidget)
 
     if (qobject_cast<VisuInstrument*>(sourceWidget) != nullptr)
     {
-        widget = mMainWindow->getConfiguration()->createWidgetFromToken(xmlReader, this, VisuConfiguration::TAG_INSTRUMENT);
+        widget = mMainWindow->getConfiguration()->createWidgetFromToken(xmlReader, this, VisuConfiguration::TAG_WIDGET);
         mMainWindow->getSignal()->initializeInstruments();
     }
     else if (qobject_cast<CtrlButton*>(sourceWidget) != nullptr)
     {
-        widget = mMainWindow->getConfiguration()->createWidgetFromToken(xmlReader, this, VisuConfiguration::TAG_CONTROL);
+        widget = mMainWindow->getConfiguration()->createWidgetFromToken(xmlReader, this, VisuConfiguration::TAG_WIDGET);
     }
 
     return widget;

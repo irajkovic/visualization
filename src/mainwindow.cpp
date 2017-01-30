@@ -223,7 +223,7 @@ void MainWindow::setupToolbarWidgets(QPointer<QWidget> toolbar)
     layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, toolbarSignal));
     layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, toolbarSignal));
 
-    layout->addWidget(VisuWidgetFactory::createControl(this, CtrlButton::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, CtrlButton::TAG_NAME));
 
     toolbarSignal->initializeInstruments();
 }

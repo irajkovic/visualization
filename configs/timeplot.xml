@@ -18,8 +18,8 @@
             <max>100</max>
         </signal>
     </signals>
-    <instruments> 
-        <instrument>
+    <widgets> 
+        <widget>
             <id>0</id>
             <type>TIME_PLOT</type>
             <signalId>0</signalId>
@@ -53,7 +53,7 @@
             <decimals>0</decimals>
             <divisionFormat>mm:ss</divisionFormat>
             <masterTimeFormat>hh:mm:ss</masterTimeFormat>
-        </instrument>
-    </instruments>
+        </widget>
+    </widgets>
 </visu_config>
 

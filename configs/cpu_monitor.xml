@@ -27,8 +27,8 @@
 			<unit>MB</unit>
 		</signal>
 	</signals>
-	<instruments>
-		<instrument>
+	<widgets>
+		<widget>
 			<angleEnd>3.14159</angleEnd>
 			<angleStart>1.570795</angleStart>
 			<arrowWidth>5</arrowWidth>
@@ -55,8 +55,8 @@
 			<width>300</width>
 			<x>30</x>
 			<y>20</y>
-		</instrument>
-		<instrument>
+		</widget>
+		<widget>
 			<arrowWidth>3</arrowWidth>
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>255,100,100,250</colorForeground>
@@ -90,8 +90,8 @@
 			<width>650</width>
 			<x>220</x>
 			<y>10</y>
-		</instrument>
-		<instrument>
+		</widget>
+		<widget>
 			<arrowWidth>3</arrowWidth>
 			<colorBackground>30,30,30,0</colorBackground>
 			<colorForeground>255,100,100,250</colorForeground>
@@ -120,8 +120,8 @@
 			<width>80</width>
 			<x>120</x>
 			<y>120</y>
-		</instrument>
-		<instrument>
+		</widget>
+		<widget>
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>255,100,100,250</colorForeground>
 			<colorOff>255,30,30,250</colorOff>
@@ -141,10 +141,6 @@
 			<width>100</width>
 			<x>10</x>
 			<y>10</y>
-		</instrument>
-	</instruments>
-	<controls>
-	</controls>
-	<statics>
-	</statics>
+		</widget>
+	</widgets>
 <visu_config>

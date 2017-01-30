@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget>
+     <id>0</id>
+     <type>IMAGE</type>
+     <width>150</width> 	
+     <height>150</height>
+	 <name>Image</name>
+	 <format>PNG</format>
+     <x>0</x>
+	 <y>0</y>
+	 <image>0</image>
+</widget>
+
+

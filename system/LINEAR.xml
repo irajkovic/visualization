@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<instrument>
+<widget>
 	<colorBackground>0,0,0,0</colorBackground>
 	<colorForeground>250,50,50,200</colorForeground>
 	<colorStatic>0,0,0,255</colorStatic>
@@ -20,4 +20,4 @@
 	<width>200</width>
 	<x>0</x>
 	<y>0</y>
-</instrument>
+</widget>

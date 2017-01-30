@@ -40,12 +40,12 @@ class VisuConfiguration : public QObject
         QString toXML();
 
         // General widget methods
+        QPointer<VisuWidget> createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent, QString tag);
         void addWidget(QPointer<VisuWidget> widget);
         void deleteWidget(QPointer<VisuWidget> widget);
         QVector<QPointer<VisuWidget>> getWidgets();
 
         // Instrument specific methods
-        QPointer<VisuWidget> createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent, QString tag);
         QPointer<VisuInstrument> getInstrument(quint16 instrument_id);
         void detachInstrumentFromSignal(QPointer<VisuInstrument> instrument);
         void attachInstrumentToSignal(QPointer<VisuInstrument> instrument);
@@ -67,18 +67,13 @@ class VisuConfiguration : public QObject
         QColor getBackgroundColor();
         QString getName();
 
-        static const QString TAG_STATIC;
-        static const QString TAG_CONTROL;
-        static const QString TAG_INSTRUMENT;
+        static const QString TAG_WIDGET;
         static const QString TAG_SIGNAL;
         static const QString TAG_CONFIGURATION;
         static const QString ATTR_TYPE;
         static const QString TAG_VISU_CONFIG;
-        static const QString TAG_STATICS_PLACEHOLDER;
+        static const QString TAG_WIDGETS_PLACEHOLDER;
         static const QString TAG_SIGNALS_PLACEHOLDER;
-        static const QString TAG_INSTRUMENTS_PLACEHOLDER;
-        static const QString TAG_CONTROLS_PLACEHOLDER;
-
 };
 
 #endif // CONFIGURATION_H

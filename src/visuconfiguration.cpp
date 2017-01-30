@@ -18,20 +18,16 @@
 #include "controls/ctrlbutton.h"
 #include "statics/staticimage.h"
 
-const QString VisuConfiguration::TAG_INSTRUMENT = "instrument";
-const QString VisuConfiguration::TAG_CONTROL = "control";
+const QString VisuConfiguration::TAG_WIDGET = "widget";
 const QString VisuConfiguration::TAG_SIGNAL = "signal";
-const QString VisuConfiguration::TAG_STATIC = "static";
 const QString VisuConfiguration::TAG_CONFIGURATION = "configuration";
 const QString VisuConfiguration::ATTR_TYPE = "type";
 
 // These tags are not used, except for purpose of verification of XML structure.
 // Perhaps some kind of load hooks can be later triggered when reading these tags.
 const QString VisuConfiguration::TAG_VISU_CONFIG = "visu_config";
-const QString VisuConfiguration::TAG_STATICS_PLACEHOLDER = "statics";
+const QString VisuConfiguration::TAG_WIDGETS_PLACEHOLDER = "widgets";
 const QString VisuConfiguration::TAG_SIGNALS_PLACEHOLDER = "signals";
-const QString VisuConfiguration::TAG_INSTRUMENTS_PLACEHOLDER = "instruments";
-const QString VisuConfiguration::TAG_CONTROLS_PLACEHOLDER = "controls";
 
 #include "wysiwyg/visuwidgetfactory.h"
 
@@ -125,14 +121,8 @@ void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
             if (xmlReader.name() == TAG_SIGNAL) {
                 createSignalFromToken(xmlReader);
             }
-            else if (xmlReader.name() == TAG_INSTRUMENT) {
-                createWidgetFromToken(xmlReader, parent, TAG_INSTRUMENT);
-            }
-            else if (xmlReader.name() == TAG_CONTROL) {
-                createWidgetFromToken(xmlReader, parent, TAG_CONTROL);
-            }
-            else if (xmlReader.name() == TAG_STATIC) {
-                createWidgetFromToken(xmlReader, parent, TAG_STATIC);
+            else if (xmlReader.name() == TAG_WIDGET) {
+                createWidgetFromToken(xmlReader, parent, TAG_WIDGET);
             }
             else if (xmlReader.name() == TAG_CONFIGURATION) {
                 createConfigurationFromToken(xmlReader);
@@ -140,13 +130,7 @@ void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
             else if (xmlReader.name() == TAG_VISU_CONFIG) {
                 // No actions needed.
             }
-            else if (xmlReader.name() == TAG_INSTRUMENTS_PLACEHOLDER) {
-                // No actions needed.
-            }
-            else if (xmlReader.name() == TAG_CONTROLS_PLACEHOLDER) {
-                // No actions needed.
-            }
-            else if (xmlReader.name() == TAG_STATICS_PLACEHOLDER) {
+            else if (xmlReader.name() == TAG_WIDGETS_PLACEHOLDER) {
                 // No actions needed.
             }
             else if (xmlReader.name() == TAG_SIGNALS_PLACEHOLDER) {
@@ -303,44 +287,17 @@ QString VisuConfiguration::toXML()
     }
     xml += "\t</signals>\n";
 
-    xml += "\t<instruments>\n";
-    for (VisuWidget* instrument : widgetsList)
+    xml += "\t<widgets>\n";
+    for (VisuWidget* widget : widgetsList)
     {
-        instrument = qobject_cast<VisuInstrument*>(instrument);
-        if (instrument != nullptr)
+        if (widget != nullptr)
         {
-            xml += "\t\t<instrument>\n";
-            xml += VisuMisc::mapToString(instrument->getProperties(), 3);
-            xml += "\t\t</instrument>\n";
+            xml += "\t\t<widget>\n";
+            xml += VisuMisc::mapToString(widget->getProperties(), 3);
+            xml += "\t\t</widget>\n";
         }
     }
-    xml += "\t</instruments>\n";
-
-    xml += "\t<controls>\n";
-    for (VisuWidget* control : widgetsList)
-    {
-        control = qobject_cast<VisuControl*>(control);
-        if (control != nullptr)
-        {
-            xml += "\t\t<control>\n";
-            xml += VisuMisc::mapToString(control->getProperties(), 3);
-            xml += "\t\t</control>\n";
-        }
-    }
-    xml += "\t</controls>\n";
-
-    xml += "\t<statics>\n";
-    for (VisuWidget* image : widgetsList)
-    {
-        image = qobject_cast<StaticImage*>(image);
-        if (image != nullptr)
-        {
-            xml += "\t\t<static>\n";
-            xml += VisuMisc::mapToString(image->getProperties(), 3);
-            xml += "\t\t</static>\n";
-        }
-    }
-    xml += "\t</statics>\n";
+    xml += "\t</widgets>\n";
 
     xml += "<visu_config>\n";
 

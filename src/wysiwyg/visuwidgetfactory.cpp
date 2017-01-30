@@ -22,7 +22,7 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
                                             VisuSignal* signal)
 {
     QString path = QString("system/%1.xml").arg(type);
-    QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(path, "instrument");
+    QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(path, VisuConfiguration::TAG_WIDGET);
     return VisuWidgetFactory::createWidget(parent, type, properties, signal);
 }
 
@@ -77,24 +77,6 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
         signal->initializeInstruments();
     }
 
-    return widget;
-}
-
-VisuWidget* VisuWidgetFactory::createControl(QWidget* parent, QString type)
-{
-    QString path = QString("system/%1.xml").arg(type);
-    QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(path, "control");
-    return VisuWidgetFactory::createControl(parent, properties);
-}
-
-
-VisuWidget* VisuWidgetFactory::createControl(QWidget* parent,
-                                 QMap<QString, QString> properties)
-{
-    VisuWidget* widget = nullptr;
-    if (properties["type"] == CtrlButton::TAG_NAME) {
-        widget = new CtrlButton(parent, properties);
-    }
     return widget;
 }
 

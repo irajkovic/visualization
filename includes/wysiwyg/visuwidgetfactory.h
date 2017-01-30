@@ -14,9 +14,6 @@ public:
                                     QString type,
                                     QMap<QString, QString> properties,
                                     VisuSignal* signal = nullptr);
-    static VisuWidget* createControl(QWidget* parent, QString type);
-    static VisuWidget* createControl(QWidget* parent,
-                                     QMap<QString, QString> properties);
 };
 
 #endif // VISUWIDGETFACTORY_H
