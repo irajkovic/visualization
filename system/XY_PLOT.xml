@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<instrument>
+<widget>
 	<ballSize>15</ballSize>
 	<colorBackground>200,200,200,0</colorBackground>
 	<colorForeground>250,50,50,200</colorForeground>
@@ -17,5 +17,5 @@
 	<width>150</width>
 	<x>218</x>
 	<y>161</y>
-</instrument>
+</widget>
 

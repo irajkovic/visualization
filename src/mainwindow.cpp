@@ -7,7 +7,7 @@
 #include "insttimeplot.h"
 #include "instled.h"
 #include "instxyplot.h"
-#include "button.h"
+#include "ctrlbutton.h"
 #include "visuconfigloader.h"
 #include "wysiwyg/visuwidgetfactory.h"
 #include <QXmlStreamReader>
@@ -152,20 +152,10 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
 
         updateConfig();
 
-        // connect instruments
-        for (auto instrument : mConfiguration->getInstruments())
+        // connect widgets
+        for (VisuWidget* widget : mConfiguration->getWidgets())
         {
-            connect(instrument, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
-        }
-        // connect controls
-        for (auto button : mConfiguration->getControls())
-        {
-            connect(button, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
-        }
-        // connect statics
-        for (auto image : mConfiguration->getStatics())
-        {
-            connect(image, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
+            connect(widget, SIGNAL(widgetActivated(VisuWidget*)), mStage, SLOT(activateWidget(VisuWidget*)));
         }
 
         updateMenuSignalList();
@@ -226,14 +216,14 @@ void MainWindow::setupToolbarWidgets(QPointer<QWidget> toolbar)
 
     VisuSignal* toolbarSignal = mConfiguration->getSignal(0);
 
-    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstAnalog::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstLinear::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstTimePlot::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstDigital::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstLED::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createInstrument(this, InstXYPlot::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstAnalog::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLinear::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstTimePlot::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstDigital::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, toolbarSignal));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, toolbarSignal));
 
-    layout->addWidget(VisuWidgetFactory::createControl(this, Button::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, CtrlButton::TAG_NAME));
 
     toolbarSignal->initializeInstruments();
 }
@@ -251,7 +241,7 @@ void MainWindow::openImageAdder()
 
         if (file.open(QIODevice::ReadOnly))
         {
-            QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile("system/IMAGE.xml", "static");
+            QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile("system/IMAGE.xml", VisuConfiguration::TAG_WIDGET);
             QByteArray imgData = file.readAll();
 
             properties["image"] = QString(imgData.toBase64());
@@ -266,7 +256,7 @@ void MainWindow::openImageAdder()
                 properties["height"] = QString("%1").arg(tmpImage.height());
 
                 StaticImage* image = new StaticImage(mStage, properties);
-                mConfiguration->addStatic(image);
+                mConfiguration->addWidget(image);
                 mStage->update();
             }
             else
@@ -363,25 +353,7 @@ void MainWindow::keyPressEvent( QKeyEvent *event )
     {
         if (event->matches(QKeySequence::Delete))
         {
-            VisuInstrument* instrument = qobject_cast<VisuInstrument*>(mActiveWidget);
-            if (instrument != nullptr)
-            {
-                mConfiguration->deleteInstrument(instrument);
-            }
-
-            Button* btn = qobject_cast<Button*>(mActiveWidget);
-            if (btn != nullptr)
-            {
-                mConfiguration->deleteControl(btn);
-            }
-
-            StaticImage* image = qobject_cast<StaticImage*>(mActiveWidget);
-            if (image != nullptr)
-            {
-                mConfiguration->deleteImage(image);
-            }
-
-
+            mConfiguration->deleteWidget(mActiveWidget);
             mPropertiesTable->clearContents();
             mActiveWidget = nullptr;
         }
@@ -456,7 +428,7 @@ void MainWindow::cellUpdated(int row, int col)
     }
 
     // refresh controls
-    Button* btn = qobject_cast<Button*>(mActiveWidget);
+    CtrlButton* btn = qobject_cast<CtrlButton*>(mActiveWidget);
     if (btn != nullptr)
     {
         btn->redraw();

@@ -15,41 +15,27 @@
 #include "instruments/insttimeplot.h"
 #include "instruments/instxyplot.h"
 #include "instruments/instled.h"
-#include "controls/button.h"
+#include "controls/ctrlbutton.h"
 #include "statics/staticimage.h"
 
-const QString VisuConfiguration::TAG_INSTRUMENT = "instrument";
-const QString VisuConfiguration::TAG_CONTROL = "control";
+const QString VisuConfiguration::TAG_WIDGET = "widget";
 const QString VisuConfiguration::TAG_SIGNAL = "signal";
-const QString VisuConfiguration::TAG_STATIC = "static";
 const QString VisuConfiguration::TAG_CONFIGURATION = "configuration";
 const QString VisuConfiguration::ATTR_TYPE = "type";
 
 // These tags are not used, except for purpose of verification of XML structure.
 // Perhaps some kind of load hooks can be later triggered when reading these tags.
 const QString VisuConfiguration::TAG_VISU_CONFIG = "visu_config";
-const QString VisuConfiguration::TAG_STATICS_PLACEHOLDER = "statics";
+const QString VisuConfiguration::TAG_WIDGETS_PLACEHOLDER = "widgets";
 const QString VisuConfiguration::TAG_SIGNALS_PLACEHOLDER = "signals";
-const QString VisuConfiguration::TAG_INSTRUMENTS_PLACEHOLDER = "instruments";
-const QString VisuConfiguration::TAG_CONTROLS_PLACEHOLDER = "controls";
 
 #include "wysiwyg/visuwidgetfactory.h"
 
 VisuConfiguration::~VisuConfiguration()
 {
-    for (VisuInstrument* instrument : instrumentsList)
+    for (VisuWidget* widget : widgetsList)
     {
-        delete instrument;
-    }
-
-    for (VisuSignal* visuSig : signalsList)
-    {
-        delete visuSig;
-    }
-
-    for (Button* button : controlsList)
-    {
-        delete button;
+        delete widget;
     }
 }
 
@@ -82,62 +68,21 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
     signalsList.push_back(signal);
 }
 
-void VisuConfiguration::deleteInstrument(QPointer<VisuInstrument> instrument)
+QPointer<VisuWidget> VisuConfiguration::createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent, QString tag)
 {
-    detachInstrumentFromSignal(instrument);
-    delete(instrumentsList[instrument->getId()]);
-}
-
-void VisuConfiguration::deleteControl(QPointer<Button> control)
-{
-    delete(controlsList[control->getId()]);
-}
-
-void VisuConfiguration::deleteImage(QPointer<StaticImage> image)
-{
-    delete(controlsList[image->getId()]);
-}
-
-QPointer<VisuInstrument> VisuConfiguration::createInstrumentFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
-{
-    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_INSTRUMENT);
-
-    VisuWidget* widget = VisuWidgetFactory::createInstrument(parent, properties[ATTR_TYPE], properties);
-    VisuInstrument* instrument = static_cast<VisuInstrument*>(widget);
-
-    attachInstrumentToSignal(instrument);
-    addInstrument(instrument);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, tag);
+    VisuWidget* widget = VisuWidgetFactory::createWidget(parent, properties[ATTR_TYPE], properties);
+    addWidget(widget);
     widget->show();
 
-    return instrument;
-}
-
-Button* VisuConfiguration::createControlFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
-{
-    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_CONTROL);
-    Button* control;
-
-    if (properties[ATTR_TYPE] == Button::TAG_NAME) {
-        control = new Button(parent, properties);
+    // instrument needs special handling
+    VisuInstrument* instrument = static_cast<VisuInstrument*>(widget);
+    if (instrument != nullptr)
+    {
+        attachInstrumentToSignal(instrument);
     }
 
-    addControl(control);
-
-    return control;
-}
-
-StaticImage* VisuConfiguration::createStaticFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
-{
-    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_STATIC);
-    StaticImage* image;
-
-    if (properties[ATTR_TYPE] == StaticImage::TAG_NAME) {
-        image = new StaticImage(parent, properties);
-    }
-
-    addStatic(image);
-
-    return image;
+    return widget;
 }
 
 void VisuConfiguration::initializeInstruments()
@@ -150,7 +95,6 @@ void VisuConfiguration::initializeInstruments()
 void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader)
 {
     setConfigValues(VisuConfigLoader::parseToMap(xmlReader, TAG_CONFIGURATION));
-    qDebug("Loading configuration, size: %dx%d", cWidth, cHeight);
 }
 
 void VisuConfiguration::setConfigValues(const QMap<QString, QString>& properties)
@@ -177,14 +121,8 @@ void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
             if (xmlReader.name() == TAG_SIGNAL) {
                 createSignalFromToken(xmlReader);
             }
-            else if (xmlReader.name() == TAG_INSTRUMENT) {
-                createInstrumentFromToken(xmlReader, parent);
-            }
-            else if (xmlReader.name() == TAG_CONTROL) {
-                createControlFromToken(xmlReader, parent);
-            }
-            else if (xmlReader.name() == TAG_STATIC) {
-                createStaticFromToken(xmlReader, parent);
+            else if (xmlReader.name() == TAG_WIDGET) {
+                createWidgetFromToken(xmlReader, parent, TAG_WIDGET);
             }
             else if (xmlReader.name() == TAG_CONFIGURATION) {
                 createConfigurationFromToken(xmlReader);
@@ -192,13 +130,7 @@ void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
             else if (xmlReader.name() == TAG_VISU_CONFIG) {
                 // No actions needed.
             }
-            else if (xmlReader.name() == TAG_INSTRUMENTS_PLACEHOLDER) {
-                // No actions needed.
-            }
-            else if (xmlReader.name() == TAG_CONTROLS_PLACEHOLDER) {
-                // No actions needed.
-            }
-            else if (xmlReader.name() == TAG_STATICS_PLACEHOLDER) {
+            else if (xmlReader.name() == TAG_WIDGETS_PLACEHOLDER) {
                 // No actions needed.
             }
             else if (xmlReader.name() == TAG_SIGNALS_PLACEHOLDER) {
@@ -225,34 +157,19 @@ QPointer<VisuSignal> VisuConfiguration::getSignal(quint16 signalId)
         // mean that signal source can crash application if wrong
         // signal id is sent.
         qDebug("Signal id %d too large!", signalId);
+        return nullptr;
     }
     return signalsList[signalId];
 }
 
 QPointer<VisuInstrument> VisuConfiguration::getInstrument(quint16 instrument_id)
 {
-    return instrumentsList[instrument_id];
-}
-
-QVector<QPointer<VisuInstrument>>& VisuConfiguration::getInstruments()
-{
-    return instrumentsList;
+    return qobject_cast<VisuInstrument*>(widgetsList[instrument_id]);
 }
 
 QVector<QPointer<VisuSignal>>& VisuConfiguration::getSignals()
 {
     return signalsList;
-}
-
-
-QVector<QPointer<Button>>& VisuConfiguration::getControls()
-{
-    return controlsList;
-}
-
-QVector<QPointer<StaticImage>>& VisuConfiguration::getStatics()
-{
-    return staticsList;
 }
 
 quint16 VisuConfiguration::getPort()
@@ -280,30 +197,27 @@ QString VisuConfiguration::getName()
     return cName;
 }
 
-void VisuConfiguration::addStatic(QPointer<StaticImage> image)
+QVector<QPointer<VisuWidget>> VisuConfiguration::getWidgets()
 {
-    int staticId = getFreeId((QVector<QPointer<QObject>>&)staticsList);
-    image->setId(staticId);
-    staticsList[staticId] = image;
+    return widgetsList;
 }
 
-void VisuConfiguration::deleteStatic(int staticId)
+void VisuConfiguration::addWidget(QPointer<VisuWidget> widget)
 {
-    delete (staticsList[staticId]);
+    int id = getFreeId((QVector<QPointer<QObject>>&)widgetsList);
+    widget->setId(id);
+    widgetsList[id] = widget;
 }
 
-void VisuConfiguration::addControl(QPointer<Button> control)
+void VisuConfiguration::deleteWidget(QPointer<VisuWidget> widget)
 {
-    int controlId = getFreeId((QVector<QPointer<QObject>>&)controlsList);
-    control->setId(controlId);
-    controlsList[controlId] = control;
-}
+    VisuInstrument* instrument;
+    if ( (instrument = qobject_cast<VisuInstrument*>(widget)) != nullptr)
+    {
+        detachInstrumentFromSignal(instrument);
+    }
 
-void VisuConfiguration::addInstrument(QPointer<VisuInstrument> instrument)
-{
-    int instId = getFreeId((QVector<QPointer<QObject>>&)instrumentsList);
-    instrument->setId(instId);
-    instrumentsList[instId] = instrument;
+    delete(widgetsList[widget->getId()]);
 }
 
 void VisuConfiguration::addSignal(QPointer<VisuSignal> signal)
@@ -343,10 +257,7 @@ void VisuConfiguration::deleteSignal(QPointer<VisuSignal> signal)
 void VisuConfiguration::deleteSignal(int signalId)
 {
     // pointer will be cleared automaticaly by QPointer
-    QPointer<VisuSignal> ptr = signalsList[signalId];
-    delete ptr;
-    //delete (signalsList[signalId]);
-    qDebug("deleted");
+    delete (signalsList[signalId]);
 }
 
 QMap<QString, QString>& VisuConfiguration::getProperties()
@@ -376,41 +287,17 @@ QString VisuConfiguration::toXML()
     }
     xml += "\t</signals>\n";
 
-    xml += "\t<instruments>\n";
-    for (VisuInstrument* instrument : getInstruments())
+    xml += "\t<widgets>\n";
+    for (VisuWidget* widget : widgetsList)
     {
-        if (instrument != nullptr)
+        if (widget != nullptr)
         {
-            xml += "\t\t<instrument>\n";
-            xml += VisuMisc::mapToString(instrument->getProperties(), 3);
-            xml += "\t\t</instrument>\n";
+            xml += "\t\t<widget>\n";
+            xml += VisuMisc::mapToString(widget->getProperties(), 3);
+            xml += "\t\t</widget>\n";
         }
     }
-    xml += "\t</instruments>\n";
-
-    xml += "\t<controls>\n";
-    for (Button* control : controlsList)
-    {
-        if (control != nullptr)
-        {
-            xml += "\t\t<control>\n";
-            xml += VisuMisc::mapToString(control->getProperties(), 3);
-            xml += "\t\t</control>\n";
-        }
-    }
-    xml += "\t</controls>\n";
-
-    xml += "\t<statics>\n";
-    for (StaticImage* image : staticsList)
-    {
-        if (image != nullptr)
-        {
-            xml += "\t\t<static>\n";
-            xml += VisuMisc::mapToString(image->getProperties(), 3);
-            xml += "\t\t</static>\n";
-        }
-    }
-    xml += "\t</statics>\n";
+    xml += "\t</widgets>\n";
 
     xml += "<visu_config>\n";
 

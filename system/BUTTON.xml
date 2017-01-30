@@ -1,4 +1,4 @@
-<control>
+<widget>
     <id>1</id>
     <type>BUTTON</type>
     <width>100</width>
@@ -10,5 +10,5 @@
     <actionPort>5000</actionPort>
     <actionMessage>switch</actionMessage>
     <css>color: black;  border: 1px solid red; border-radius: 5px; border-style: outset;</css>
-</control>
+</widget>
 

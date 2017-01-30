@@ -1,8 +1,8 @@
-#include "button.h"
+#include "ctrlbutton.h"
 
-const QString Button::TAG_NAME = "BUTTON";
+const QString CtrlButton::TAG_NAME = "BUTTON";
 
-void Button::sendCommand()
+void CtrlButton::sendCommand()
 {
     mSocket.writeDatagram(
                 cActionMessage.toStdString().c_str(),
@@ -13,12 +13,10 @@ void Button::sendCommand()
     emit(widgetActivated(this));
 }
 
-void Button::setupButton(QWidget* parent)
+void CtrlButton::setupButton(QWidget* parent)
 {
     setGeometry(QRect(cX, cY, cWidth, cHeight));
     mButton = new QPushButton(parent);
-    mButton->setGeometry(QRect(cX, cY, cWidth, cHeight));
-
     mButton->setMinimumSize(cWidth, cHeight);
     mButton->setMinimumSize(cWidth, cHeight);
 
@@ -31,17 +29,25 @@ void Button::setupButton(QWidget* parent)
                      SLOT(sendCommand()));
 }
 
-void Button::loadProperties(QMap<QString, QString> properties)
+void CtrlButton::loadProperties(QMap<QString, QString> properties)
 {
     VisuWidget::loadProperties(properties);
 
-    GET_PROPERTY(cActionIp, QString, properties);
-    GET_PROPERTY(cActionPort, quint16, properties);
     GET_PROPERTY(cActionMessage, QString, properties);
     GET_PROPERTY(cCss, QString, properties);
 }
 
-void Button::redraw()
+void CtrlButton::setup(QWidget *parent)
+{
+    mTagName = TAG_NAME;
+    mLayout = new QHBoxLayout();
+    mLayout->setContentsMargins(0,0,0,0);
+    setLayout(mLayout);
+    setupButton(parent);
+    show();
+}
+
+void CtrlButton::redraw()
 {
     mButton->setText(cName);
     mButton->setMinimumSize(cWidth, cHeight);

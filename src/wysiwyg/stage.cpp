@@ -4,7 +4,7 @@
 #include "instruments/instanalog.h"
 #include "visuconfigloader.h"
 #include "wysiwyg/visuwidgetfactory.h"
-#include "button.h"
+#include "ctrlbutton.h"
 
 void Stage::dragEnterEvent(QDragEnterEvent *event)
 {
@@ -47,12 +47,12 @@ VisuWidget* Stage::cloneWidget(VisuWidget *sourceWidget)
 
     if (qobject_cast<VisuInstrument*>(sourceWidget) != nullptr)
     {
-        widget = mMainWindow->getConfiguration()->createInstrumentFromToken(xmlReader, this);
+        widget = mMainWindow->getConfiguration()->createWidgetFromToken(xmlReader, this, VisuConfiguration::TAG_WIDGET);
         mMainWindow->getSignal()->initializeInstruments();
     }
-    else if (qobject_cast<Button*>(sourceWidget) != nullptr)
+    else if (qobject_cast<CtrlButton*>(sourceWidget) != nullptr)
     {
-        widget = mMainWindow->getConfiguration()->createControlFromToken(xmlReader, this);
+        widget = mMainWindow->getConfiguration()->createWidgetFromToken(xmlReader, this, VisuConfiguration::TAG_WIDGET);
     }
 
     return widget;

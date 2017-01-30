@@ -45,8 +45,8 @@
 			<unit>C</unit>
 		</signal>
 	</signals>
-	<instruments>
-		<instrument>
+	<widgets>
+		<widget>
 			<angleEnd>1.570795</angleEnd>
 			<angleStart>0.0</angleStart>
 			<arrowWidth>5</arrowWidth>
@@ -73,8 +73,8 @@
 			<width>300</width>
 			<x>30</x>
 			<y>10</y>
-		</instrument>
-		<instrument>
+		</widget>
+		<widget>
 			<angleEnd>0</angleEnd>
 			<angleStart>1.570795</angleStart>
 			<arrowWidth>5</arrowWidth>
@@ -101,8 +101,8 @@
 			<width>300</width>
 			<x>350</x>
 			<y>10</y>
-		</instrument>
-		<instrument>
+		</widget>
+		<widget>
 			<angleEnd>3.14</angleEnd>
 			<angleStart>0</angleStart>
 			<arrowWidth>3</arrowWidth>
@@ -129,8 +129,8 @@
 			<width>100</width>
 			<x>230</x>
 			<y>210</y>
-		</instrument>
-		<instrument>
+		</widget>
+		<widget>
 			<angleEnd>0</angleEnd>
 			<angleStart>3.14</angleStart>
 			<arrowWidth>3</arrowWidth>
@@ -157,8 +157,8 @@
 			<width>100</width>
 			<x>340</x>
 			<y>210</y>
-		</instrument>
-		<instrument>
+		</widget>
+		<widget>
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>250,50,50,200</colorForeground>
 			<colorStatic>255,50,50,255</colorStatic>
@@ -179,8 +179,8 @@
 			<width>400</width>
 			<x>135</x>
 			<y>320</y>
-		</instrument>
-		<instrument>
+		</widget>
+		<widget>
 			<angleEnd>0</angleEnd>
 			<angleStart>3.14</angleStart>
 			<arrowWidth>3</arrowWidth>
@@ -217,8 +217,6 @@
 			<width>700</width>
 			<x>10</x>
 			<y>400</y>
-		</instrument>
-	</instruments>
-	<controls>
-	</controls>
+		</widget>
+	</widgets>
 <visu_config>
