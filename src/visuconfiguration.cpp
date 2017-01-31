@@ -229,22 +229,13 @@ void VisuConfiguration::addSignal(QPointer<VisuSignal> signal)
 
 int VisuConfiguration::getFreeId(QVector<QPointer<QObject>> &list)
 {
-    int id = -1;
-    int size = list.size();
-    for (int i=0 ; i<size; ++i)
+    auto it = std::find_if(list.begin(), list.end(),
+                           [](const QPointer<QObject>& ptr){return ptr == nullptr; });
+    int id = it - list.begin();
+    if (it == list.end())
     {
-        if (list[i] == nullptr)
-        {
-            id = i;
-        }
+        list.resize(id + 1);
     }
-
-    if (id == -1)
-    {
-        id = size;
-        list.resize(size + 1);
-    }
-
     return id;
 }
 
