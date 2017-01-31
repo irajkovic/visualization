@@ -40,7 +40,7 @@ class VisuConfiguration : public QObject
         QString toXML();
 
         // General widget methods
-        QPointer<VisuWidget> createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent, QString tag);
+        QPointer<VisuWidget> createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
         void addWidget(QPointer<VisuWidget> widget);
         void deleteWidget(QPointer<VisuWidget> widget);
         QVector<QPointer<VisuWidget>> getWidgets();

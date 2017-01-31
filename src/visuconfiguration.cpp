@@ -68,9 +68,9 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
     signalsList.push_back(signal);
 }
 
-QPointer<VisuWidget> VisuConfiguration::createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent, QString tag)
+QPointer<VisuWidget> VisuConfiguration::createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
-    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, tag);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_WIDGET);
     VisuWidget* widget = VisuWidgetFactory::createWidget(parent, properties[ATTR_TYPE], properties);
     addWidget(widget);
     widget->show();
@@ -122,7 +122,7 @@ void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
                 createSignalFromToken(xmlReader);
             }
             else if (xmlReader.name() == TAG_WIDGET) {
-                createWidgetFromToken(xmlReader, parent, TAG_WIDGET);
+                createWidgetFromToken(xmlReader, parent);
             }
             else if (xmlReader.name() == TAG_CONFIGURATION) {
                 createConfigurationFromToken(xmlReader);
