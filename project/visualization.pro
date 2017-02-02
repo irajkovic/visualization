@@ -72,6 +72,7 @@ HEADERS  += ../includes/mainwindow.h \
     ../includes/wysiwyg/editsignal.h \
     ../includes/wysiwyg/editconfiguration.h \
     ../includes/visucontrol.h \
-    ../includes/controls/ctrlbutton.h
+    ../includes/controls/ctrlbutton.h \
+    ../includes/visupropertymeta.h
 
 FORMS    += ../src/mainwindow.ui

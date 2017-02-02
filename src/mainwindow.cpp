@@ -444,11 +444,17 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
     }
 
     QMap<QString, QString> properties = widget->getProperties();
+
+    // TODO :: optimize to avoid reloading file on each click
+    QMap<QString, VisuPropertyMeta> metaProperties =
+            VisuConfigLoader::getMetaMapFromFile("system/"+widget->getType()+".xml", VisuConfiguration::TAG_WIDGET);
+
     mActiveWidget = widget;
 
     disconnect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
     VisuMisc::updateTable(mPropertiesTable,
                           properties,
+                          &metaProperties,
                           &(mConfiguration->getSignals()),
                           this,
                           SLOT(propertyChange()));
@@ -460,6 +466,7 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
 void MainWindow::propertyChange(int parameter)
 {
     int row = VisuMisc::updateWidgetProperty(sender(), this);
+    qDebug("Property change at row %d", row);
     cellUpdated(row, 1);
 }
 

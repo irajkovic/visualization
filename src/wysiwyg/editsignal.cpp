@@ -13,6 +13,8 @@ void EditSignal::setup(QPointer<VisuSignal> visuSignal)
     mSignal = visuSignal;
     mTable = new QTableWidget() ;
 
+    mMetaProperties = VisuConfigLoader::getMetaMapFromFile("system/signal.xml", "signal");
+
     if (visuSignal == nullptr)
     {
         mProperties = VisuConfigLoader::getMapFromFile("system/signal.xml", "signal");
@@ -24,7 +26,7 @@ void EditSignal::setup(QPointer<VisuSignal> visuSignal)
         mProperties = visuSignal->getProperties();
         mNewSignal = false;
     }
-    VisuMisc::updateTable(mTable, mProperties);
+    VisuMisc::updateTable(mTable, mProperties, &mMetaProperties);
 
     mTable->setMaximumWidth(300);
     mTable->verticalHeader()->hide();

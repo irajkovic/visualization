@@ -5,7 +5,7 @@
 	<colorOff>100,100,100,250</colorOff>
 	<colorOn>200,255,30,255</colorOn>
 	<colorStatic>0,0,0,255</colorStatic>
-	<condition>0</condition>
+	<condition type="enum" extra="BETWEEN,LESS_THAN,LESS_EQUAL,MORE_EQUAL,MORE_THAN">0</condition>
 	<fontSize>18</fontSize>
 	<height>30</height>
 	<id>2</id>

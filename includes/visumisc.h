@@ -7,6 +7,7 @@
 #include <QMap>
 #include <QFile>
 #include <visuconfiguration.h>
+#include "visupropertymeta.h"
 
 class VisuMisc
 {
@@ -17,6 +18,7 @@ public:
     static void setBackgroundColor(QWidget* widget, QColor color);
     static void updateTable(QTableWidget* table,
                             QMap<QString, QString> properties,
+                            QMap<QString, VisuPropertyMeta>* metaProperties = nullptr,
                             QVector<QPointer<VisuSignal>>* signalList = nullptr,
                             QWidget* object = nullptr,
                             const char* slot = nullptr);

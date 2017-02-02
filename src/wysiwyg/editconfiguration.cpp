@@ -14,6 +14,7 @@ void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
     mTable = new QTableWidget();
     VisuMisc::updateTable(mTable,
                           mProperties,
+                          nullptr,
                           &(mConfiguration->getSignals()),
                           this,
                           SLOT(updateColor()));
