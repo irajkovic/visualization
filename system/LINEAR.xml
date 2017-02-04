@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<colorBackground>0,0,0,0</colorBackground>
-	<colorForeground>250,50,50,200</colorForeground>
-	<colorStatic>0,0,0,255</colorStatic>
-	<fontSize>15</fontSize>
-	<height>50</height>
-	<horMargin>15</horMargin>
-	<id>3</id>
-	<lineThickness>2</lineThickness>
-	<majorCnt>5</majorCnt>
-	<majorLen>7</majorLen>
-	<minorCnt>2</minorCnt>
-	<minorLen>3</minorLen>
+	<colorBackground type="color">0,0,0,0</colorBackground>
+	<colorForeground type="color">250,50,50,200</colorForeground>
+	<colorStatic type="color">0,0,0,255</colorStatic>
+	<fontSize type="int" min="0">15</fontSize>
+	<height type="int" min="0">50</height>
+	<horMargin type="int">15</horMargin>
+	<id type="read_only">3</id>
+	<lineThickness type="int">2</lineThickness>
+	<majorCnt type="int" min="0">5</majorCnt>
+	<majorLen type="int" min="0">7</majorLen>
+	<minorCnt type="int" min="0">2</minorCnt>
+	<minorLen type="int" min="0">3</minorLen>
 	<name>Linear instrument</name>
-	<signalId>0</signalId>
-	<type>LINEAR</type>
-	<verMargin>20</verMargin>
-	<verMinorMargin>25</verMinorMargin>
-	<width>200</width>
-	<x>0</x>
-	<y>0</y>
+	<signalId type="signal">0</signalId>
+	<type type="read_only">LINEAR</type>
+	<verMargin type="int" min="0">20</verMargin>
+	<verMinorMargin type="int" min="0">25</verMinorMargin>
+	<width type="int" min="0">200</width>
+	<x type="int" min="0">0</x>
+	<y type="int" min="0">0</y>
 </widget>

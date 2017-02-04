@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<colorBackground>0,0,0,0</colorBackground>
-	<colorForeground>0,0,0,250</colorForeground>
-	<colorStatic>0,0,0,255</colorStatic>
-	<fontSize>18</fontSize>
-	<height>30</height>
-	<id>1</id>
+	<colorBackground type="color">0,0,0,0</colorBackground>
+	<colorForeground type="color">0,0,0,250</colorForeground>
+	<colorStatic type="color">0,0,0,255</colorStatic>
+	<fontSize type="int" min="0">18</fontSize>
+	<height type="int" min="0">30</height>
+	<id type="read_only">1</id>
 	<name>Digital instrument</name>
-	<padding>10</padding>
-	<showSignalName>1</showSignalName>
-	<showSignalUnit>1</showSignalUnit>
-	<signalId>0</signalId>
-	<type>DIGITAL</type>
-	<width>200</width>
-	<x>0</x>
-	<y>0</y>
+	<padding type="int" min="0">10</padding>
+	<showSignalName type="bool">1</showSignalName>
+	<showSignalUnit type="bool">1</showSignalUnit>
+	<signalId type="signal">0</signalId>
+	<type type="read_only">DIGITAL</type>
+	<width type="int" min="0">200</width>
+	<x type="int" min="0">0</x>
+	<y type="int" min="0">0</y>
 </widget>
 

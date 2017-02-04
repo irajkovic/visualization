@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<colorBackground>130,130,130,255</colorBackground>
-	<colorForeground>0,0,0,255</colorForeground>
-	<colorGraphBackground>255,255,255,255</colorGraphBackground>
-	<colorStatic>0,0,0,255</colorStatic>
-	<decimals>1</decimals>
+	<colorBackground type="color">130,130,130,255</colorBackground>
+	<colorForeground type="color">0,0,0,255</colorForeground>
+	<colorGraphBackground type="color">255,255,255,255</colorGraphBackground>
+	<colorStatic type="color">0,0,0,255</colorStatic>
+	<decimals type="int" min="0" max="9">1</decimals>
 	<divisionFormat>mm:ss</divisionFormat>
-	<fontSize>11</fontSize>
-	<height>150</height>
-	<id>4</id>
-	<lineThickness>2</lineThickness>
-	<majorCnt>4</majorCnt>
-	<markerDt>500</markerDt>
-	<markerThickness>1</markerThickness>
+	<fontSize type="int" min="0">11</fontSize>
+	<height type="int" min="0">150</height>
+	<id type="read_only">4</id>
+	<lineThickness type="int" min="0">2</lineThickness>
+	<majorCnt type="int" min="0">4</majorCnt>
+	<markerDt type="int" min="0">500</markerDt>
+	<markerThickness type="int" min="0">1</markerThickness>
 	<masterTimeFormat>hh:mm:ss</masterTimeFormat>
-	<minorCnt>2</minorCnt>
+	<minorCnt type="int" min="0">2</minorCnt>
 	<name>Time plot instrument</name>
-	<signalId>0</signalId>
-	<staticThickness>1</staticThickness>
-	<ticksInSecond>100</ticksInSecond>
-	<timespan>3000</timespan>
-	<type>TIME_PLOT</type>
-	<width>300</width>
-	<x>0</x>
-	<y>0</y>
+	<signalId type="signal">0</signalId>
+	<staticThickness type="int" min="0">1</staticThickness>
+	<ticksInSecond type="int" min="0">100</ticksInSecond>
+	<timespan type="int" min="0">3000</timespan>
+	<type type="read_only">TIME_PLOT</type>
+	<width type="int" min="0">300</width>
+	<x type="int" min="0">0</x>
+	<y type="int" min="0">0</y>
 </widget>
 

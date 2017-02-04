@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<ballSize>15</ballSize>
-	<colorBackground>200,200,200,0</colorBackground>
-	<colorForeground>250,50,50,200</colorForeground>
-	<colorStatic>0,0,0,255</colorStatic>
-	<height>150</height>
-	<id>5</id>
+	<ballSize type="int" min="0">15</ballSize>
+	<colorBackground type="color">200,200,200,0</colorBackground>
+	<colorForeground type="color">250,50,50,200</colorForeground>
+	<colorStatic type="color">0,0,0,255</colorStatic>
+	<height type="int" min="0">150</height>
+	<id type="read_only">5</id>
 	<labelX>X osa</labelX>
 	<labelY>Y osa</labelY>
-	<majorCnt>10</majorCnt>
-	<majorLen>4</majorLen>
+	<majorCnt type="int" min="0">10</majorCnt>
+	<majorLen type="int" min="0">4</majorLen>
 	<name>XY plot instrument</name>
-	<signalId>0</signalId>
-	<signalIdY>0</signalIdY>
-	<type>XY_PLOT</type>
-	<width>150</width>
-	<x>218</x>
-	<y>161</y>
+	<signalId type="signal">0</signalId>
+	<signalIdY type="signal">0</signalIdY>
+	<type type="read_only">XY_PLOT</type>
+	<width type="int" min="0">150</width>
+	<x type="int" min="0">218</x>
+	<y type="int" min="0">161</y>
 </widget>
 

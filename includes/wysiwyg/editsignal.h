@@ -10,6 +10,7 @@
 #include "visumisc.h"
 #include "visuconfigloader.h"
 #include "visusignal.h"
+#include "visupropertymeta.h"
 #include <QTableWidget>
 #include <QMap>
 
@@ -33,6 +34,7 @@ public slots:
 
 private:
     QMap<QString, QString> mProperties;
+    QMap<QString, VisuPropertyMeta> mMetaProperties;
     QPointer<QTableWidget> mTable;
     bool mNewSignal;
     QPointer<VisuSignal> mSignal;
