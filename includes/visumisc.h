@@ -12,8 +12,6 @@
 class VisuMisc
 {
 public:
-    static bool isColorProperty(QString property);
-    static bool isSignalIdProperty(QString property);
     static bool isIdProperty(QString property);
     static void setBackgroundColor(QWidget* widget, QColor color);
     static void updateTable(QTableWidget* table,
@@ -26,6 +24,12 @@ public:
     static int updateWidgetProperty(QObject* sender, QWidget* parent);
     static QString getValueString(int row, QString key, QTableWidget *table);
     static QString saveToFile(QFile &file, QString contents);
+    static void setupTableWidget(QWidget* widget,
+                                    QTableWidget* table,
+                                    QWidget* object,
+                                    const char* slot,
+                                    QString key,
+                                    int row);
 
     static const char* PROP_COLOR;
     static const char* PROP_ROW;

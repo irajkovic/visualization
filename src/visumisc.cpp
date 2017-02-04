@@ -5,6 +5,7 @@
 #include <QColorDialog>
 #include <QTextStream>
 #include <QComboBox>
+#include <QLineEdit>
 #include "visuhelper.h"
 
 const char* VisuMisc::PROP_COLOR = "color";
@@ -14,16 +15,6 @@ const char* VisuMisc::PROP_X = "x";
 const char* VisuMisc::PROP_Y = "y";
 const char* VisuMisc::PROP_SIGNAL_ID = "signalId";
 const char* VisuMisc::PROP_ID = "id";
-
-bool VisuMisc::isColorProperty(QString property)
-{
-    return property.contains(VisuMisc::PROP_COLOR);
-}
-
-bool VisuMisc::isSignalIdProperty(QString property)
-{
-    return property.contains(VisuMisc::PROP_SIGNAL_ID);
-}
 
 bool VisuMisc::isIdProperty(QString property)
 {
@@ -37,6 +28,23 @@ void VisuMisc::setBackgroundColor(QWidget* widget, QColor color)
             .arg(color.green())
             .arg(color.blue());
     widget->setStyleSheet(stylesheet);
+}
+
+void VisuMisc::setupTableWidget(QWidget* widget,
+                                QTableWidget* table,
+                                QWidget* object,
+                                const char* slot,
+                                QString key,
+                                int row)
+{
+    widget->setProperty(VisuMisc::PROP_KEY, key);
+    widget->setProperty(VisuMisc::PROP_ROW, row);
+    table->setCellWidget(row, 1, widget);
+
+    if (object != nullptr && slot != nullptr)
+    {
+        QObject::connect(widget, SIGNAL(currentIndexChanged(int)), object, slot);
+    }
 }
 
 void VisuMisc::updateTable(QTableWidget* table,
@@ -64,37 +72,38 @@ void VisuMisc::updateTable(QTableWidget* table,
             meta = (*metaProperties)[key];
         }
 
-        if (meta.type == "enum")
+        if (meta.type == VisuPropertyMeta::TYPE_ENUM)
         {
             QComboBox* box = new QComboBox();
 
-            box->insertItems(0, meta.extra.split(","));
-qDebug("Current value: %d", value.toInt());
+            box->insertItems(0, meta.getEnumOptions());
             box->setCurrentIndex(value.toInt());
-            box->setProperty(VisuMisc::PROP_KEY, key);
-            box->setProperty(VisuMisc::PROP_ROW, row);
-            table->setCellWidget(row, 1, box);
 
-            if (object != nullptr && slot != nullptr)
-            {
-                QObject::connect(box, SIGNAL(currentIndexChanged(int)), object, slot);
-            }
+            VisuMisc::setupTableWidget(box, table, object, slot, key, row);
         }
-        if (VisuMisc::isColorProperty(key))
+        else if (meta.type == VisuPropertyMeta::TYPE_COLOR)
         {
             QColor color = VisuHelper::get<QColor>(key, properties);
             QPushButton* btn = new QPushButton(i.value());
-            btn->setProperty(VisuMisc::PROP_COLOR, color);
-            btn->setProperty(VisuMisc::PROP_KEY, key);
-            btn->setProperty(VisuMisc::PROP_ROW, row);
             VisuMisc::setBackgroundColor(btn, color);
-            table->setCellWidget(row, 1, btn);
+            btn->setProperty(VisuMisc::PROP_COLOR, color);
+
+            VisuMisc::setupTableWidget(btn, table, nullptr, nullptr, key, row);
             if (object != nullptr && slot != nullptr)
             {
                 QObject::connect(btn, SIGNAL(clicked()), object, slot);
             }
         }
-        else if (VisuMisc::isSignalIdProperty(key))
+        else if (meta.type == VisuPropertyMeta::TYPE_BOOL)
+        {
+            QComboBox* box = new QComboBox();
+            box->insertItem(0, "No");
+            box->insertItem(1, "Yes");
+            box->setCurrentIndex(value.toInt());
+
+            VisuMisc::setupTableWidget(box, table, object, slot, key, row);
+        }
+        else if (meta.type == VisuPropertyMeta::TYPE_SIGNAL)
         {
             if (signalList != nullptr)
             {
@@ -107,26 +116,38 @@ qDebug("Current value: %d", value.toInt());
                     }
                 }
                 box->setCurrentIndex(value.toInt());
-                box->setProperty(VisuMisc::PROP_KEY, key);
-                box->setProperty(VisuMisc::PROP_ROW, row);
-                table->setCellWidget(row, 1, box);
 
-                if (object != nullptr && slot != nullptr)
-                {
-                    QObject::connect(box, SIGNAL(currentIndexChanged(int)), object, slot);
-                }
+                VisuMisc::setupTableWidget(box, table, object, slot, key, row);
             }
         }
-        else if (VisuMisc::isIdProperty(key))
+        else if (meta.type == VisuPropertyMeta::TYPE_READ_ONLY)
         {
-            // delete row with key
             QTableWidgetItem* item = new QTableWidgetItem(value);
             item->setFlags(item->flags() ^ Qt::ItemIsEditable);
             table->setItem(row, 1, item);
         }
         else
         {
-            table->setItem(row, 1, new QTableWidgetItem(value));
+            //table->setItem(row, 1, new QTableWidgetItem(value));
+
+            QLineEdit* edit = new QLineEdit(value);
+            VisuMisc::setupTableWidget(edit, table, nullptr, nullptr, key, row);
+
+            if (meta.type == VisuPropertyMeta::TYPE_INT)
+            {
+                QValidator *validator = new QIntValidator(meta.min, meta.max);
+                edit->setValidator(validator);
+            }
+            else if (meta.type == VisuPropertyMeta::TYPE_FLOAT)
+            {
+                QValidator *validator = new QDoubleValidator(meta.min, meta.max, 3);
+                edit->setValidator(validator);
+            }
+
+            if (object != nullptr && slot != nullptr)
+            {
+                QObject::connect(edit, SIGNAL(editingFinished()), object, slot);
+            }
         }
 
         ++row;
@@ -152,9 +173,10 @@ int VisuMisc::updateWidgetProperty(QObject* sender, QWidget* parent)
     QString key = sender->property(VisuMisc::PROP_KEY).toString();
     int row = sender->property(VisuMisc::PROP_ROW).toInt();
 
-    if (VisuMisc::isColorProperty(key))
+    QPushButton* btn;
+
+    if ( (btn = qobject_cast<QPushButton*>(sender)) != nullptr )
     {
-        QPushButton* btn = static_cast<QPushButton*>(sender);
         QColor oldColor = btn->property(VisuMisc::PROP_COLOR).value<QColor>();
         QColor newColor = QColorDialog::getColor(oldColor,
                                                  parent,
@@ -169,10 +191,6 @@ int VisuMisc::updateWidgetProperty(QObject* sender, QWidget* parent)
             VisuMisc::setBackgroundColor(btn, newColor);
         }
     }
-    else if (VisuMisc::isSignalIdProperty(key))
-    {
-        //QComboBox* box = static_cast<QComboBox*>(sender);
-    }
 
     return row;
 }
@@ -181,16 +199,21 @@ QString VisuMisc::getValueString(int row, QString key, QTableWidget* table)
 {
     QString value;
 
-    QComboBox* box = qobject_cast<QComboBox*>(table->cellWidget(row, 1));
-    if (box != nullptr)
+    QComboBox* box;
+    QLineEdit* edit;
+    QPushButton* button;
+
+    if ( (box = qobject_cast<QComboBox*>(table->cellWidget(row, 1))) != nullptr)
     {
-        qDebug("New combo value: %d", box->currentIndex());
         value = QString("%1").arg(box->currentIndex());
     }
-    else if (VisuMisc::isColorProperty(key))
+    else if ( (edit = qobject_cast<QLineEdit*>(table->cellWidget(row, 1))) != nullptr )
     {
-        QPushButton* btn = static_cast<QPushButton*>(table->cellWidget(row, 1));
-        value = btn->text();
+        value = edit->text();
+    }
+    else if ( (button = qobject_cast<QPushButton*>(table->cellWidget(row, 1))) != nullptr )
+    {
+        value = button->text();
     }
     else
     {

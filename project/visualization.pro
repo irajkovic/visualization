@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     visumisc.cpp \
     wysiwyg/editsignal.cpp \
     wysiwyg/editconfiguration.cpp \
-    visucontrol.cpp
+    visucontrol.cpp \
+    visupropertymeta.cpp
 
 
 HEADERS  += ../includes/mainwindow.h \

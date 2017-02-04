@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<angleEnd>1.0</angleEnd>
-	<angleStart>1.0</angleStart>
-	<arrowWidth>5</arrowWidth>
-	<colorBackground>30,30,30,0</colorBackground>
-	<colorForeground>250,50,50,100</colorForeground>
-	<colorStatic>0,0,0,255</colorStatic>
-	<drawCircle>0</drawCircle>
-	<fontSize>15</fontSize>
-	<height>150</height>
-	<id>0</id>
-	<labelRadius>37</labelRadius>
-	<lineThickness>4</lineThickness>
-	<majorCnt>5</majorCnt>
-	<majorLen>10</majorLen>
-	<minorCnt>4</minorCnt>
-	<minorLen>5</minorLen>
+	<angleEnd type="float">1.0</angleEnd>
+	<angleStart type="float">1.0</angleStart>
+	<arrowWidth type="int" min="1" max="100">5</arrowWidth>
+	<colorBackground type="color">30,30,30,0</colorBackground>
+	<colorForeground type="color">250,50,50,100</colorForeground>
+	<colorStatic type="color">0,0,0,255</colorStatic>
+	<drawCircle type="bool">0</drawCircle>
+	<fontSize type="int" min="0">15</fontSize>
+	<height type="int" min="0">150</height>
+	<id type="read_only">0</id>
+	<labelRadius type="int" min="0">37</labelRadius>
+	<lineThickness type="int" min="0">4</lineThickness>
+	<majorCnt type="int" min="0">5</majorCnt>
+	<majorLen type="int" min="0">10</majorLen>
+	<minorCnt type="int" min="0" max="999">4</minorCnt>
+	<minorLen type="int" min="0">5</minorLen>
 	<name>Analog instrument</name>
-	<nameX>30</nameX>
-	<nameY>130</nameY>
-	<offsetX>0</offsetX>
-	<offsetY>0</offsetY>
-	<signalId>0</signalId>
-	<type>ANALOG</type>
-	<width>150</width>
-	<x>0</x>
-	<y>0</y>
+	<nameX type="int">30</nameX>
+	<nameY type="int">130</nameY>
+	<offsetX type="int">0</offsetX>
+	<offsetY type="int">0</offsetY>
+	<signalId type="signal">0</signalId>
+	<type type="read_only">ANALOG</type>
+	<width type="int" min="0">150</width>
+	<x type="int" min="0">0</x>
+	<y type="int" min="0">0</y>
 </widget>
 
