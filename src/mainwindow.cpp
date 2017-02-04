@@ -25,6 +25,7 @@
 #include <QMessageBox>
 #include "visumisc.h"
 #include "wysiwyg/editconfiguration.h"
+#include "wysiwyg/visupropertieshelper.h"
 
 const QString MainWindow::INITIAL_EDITOR_CONFIG = "system/default.xml";
 
@@ -390,20 +391,20 @@ void MainWindow::cellUpdated(int row, int col)
     (void)col;
 
     QString key = mPropertiesTable->item(row,0)->text();
-    QString value = VisuMisc::getValueString(row, key, mPropertiesTable);
+    QString value = VisuPropertiesHelper::getValueString(row, key, mPropertiesTable);
 
     QMap<QString, QString> properties = mActiveWidget->getProperties();
     QPoint position = mActiveWidget->pos();
 
-    if (key == VisuMisc::PROP_X)
+    if (key == VisuPropertiesHelper::PROP_X)
     {
         position.setX(value.toInt());
     }
-    else if (key == VisuMisc::PROP_Y)
+    else if (key == VisuPropertiesHelper::PROP_Y)
     {
         position.setY(value.toInt());
     }
-    else if (key == VisuMisc::PROP_SIGNAL_ID)
+    else if (key == VisuPropertiesHelper::PROP_SIGNAL_ID)
     {
         // find old signal and detach instrument
         VisuInstrument* inst = qobject_cast<VisuInstrument*>(mActiveWidget);
@@ -419,7 +420,7 @@ void MainWindow::cellUpdated(int row, int col)
     if (inst != nullptr)
     {
         VisuSignal* signal = mConfiguration->getSignal(inst->getSignalId());
-        if (key == VisuMisc::PROP_SIGNAL_ID)
+        if (key == VisuPropertiesHelper::PROP_SIGNAL_ID)
         {
             mConfiguration->attachInstrumentToSignal(inst);
         }
@@ -451,7 +452,7 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
     mActiveWidget = widget;
 
     disconnect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
-    VisuMisc::updateTable(mPropertiesTable,
+    VisuPropertiesHelper::updateTable(mPropertiesTable,
                           properties,
                           &metaProperties,
                           &(mConfiguration->getSignals()),
@@ -464,8 +465,7 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
 
 void MainWindow::propertyChange(int parameter)
 {
-    int row = VisuMisc::updateWidgetProperty(sender(), this);
-    qDebug("Property change at row %d", row);
+    int row = VisuPropertiesHelper::updateWidgetProperty(sender(), this);
     cellUpdated(row, 1);
 }
 

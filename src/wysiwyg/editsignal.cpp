@@ -1,5 +1,5 @@
 #include "wysiwyg/editsignal.h"
-
+#include "wysiwyg/visupropertieshelper.h"
 #include "visusignal.h"
 
 void EditSignal::setup(QPointer<VisuSignal> visuSignal)
@@ -26,7 +26,7 @@ void EditSignal::setup(QPointer<VisuSignal> visuSignal)
         mProperties = visuSignal->getProperties();
         mNewSignal = false;
     }
-    VisuMisc::updateTable(mTable, mProperties, &mMetaProperties);
+    VisuPropertiesHelper::updateTable(mTable, mProperties, &mMetaProperties);
 
     mTable->setMaximumWidth(300);
     mTable->verticalHeader()->hide();

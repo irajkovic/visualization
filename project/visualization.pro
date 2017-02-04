@@ -46,7 +46,8 @@ SOURCES += main.cpp\
     wysiwyg/editsignal.cpp \
     wysiwyg/editconfiguration.cpp \
     visucontrol.cpp \
-    visupropertymeta.cpp
+    visupropertymeta.cpp \
+    wysiwyg/visupropertieshelper.cpp
 
 
 HEADERS  += ../includes/mainwindow.h \
@@ -74,6 +75,7 @@ HEADERS  += ../includes/mainwindow.h \
     ../includes/wysiwyg/editconfiguration.h \
     ../includes/visucontrol.h \
     ../includes/controls/ctrlbutton.h \
-    ../includes/visupropertymeta.h
+    ../includes/visupropertymeta.h \
+    ../includes/wysiwyg/visupropertieshelper.h
 
 FORMS    += ../src/mainwindow.ui

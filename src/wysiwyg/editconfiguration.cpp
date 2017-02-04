@@ -1,4 +1,5 @@
 #include "wysiwyg/editconfiguration.h"
+#include "wysiwyg/visupropertieshelper.h"
 
 void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
 {
@@ -12,7 +13,7 @@ void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
     mProperties = mConfiguration->getProperties();
 
     mTable = new QTableWidget();
-    VisuMisc::updateTable(mTable,
+    VisuPropertiesHelper::updateTable(mTable,
                           mProperties,
                           nullptr,
                           &(mConfiguration->getSignals()),
@@ -52,13 +53,13 @@ void EditConfiguration::cellUpdated(int row, int col)
 {
     (void)col;
     QString key = mTable->item(row, 0)->text();
-    QString value = VisuMisc::getValueString(row, key, mTable);
+    QString value = VisuPropertiesHelper::getValueString(row, key, mTable);
     mProperties[key] = value;
     mConfiguration->setConfigValues(mProperties);
 }
 
 void EditConfiguration::updateColor()
 {
-    int row = VisuMisc::updateWidgetProperty(sender(), this);
+    int row = VisuPropertiesHelper::updateWidgetProperty(sender(), this);
     cellUpdated(row, 1);
 }
