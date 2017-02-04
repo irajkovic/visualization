@@ -162,7 +162,6 @@ QString VisuPropertiesHelper::getValueString(int row, QString key, QTableWidget*
 
 int VisuPropertiesHelper::updateWidgetProperty(QObject* sender, QWidget* parent)
 {
-    QString key = sender->property(VisuPropertiesHelper::PROP_KEY).toString();
     int row = sender->property(VisuPropertiesHelper::PROP_ROW).toInt();
 
     QPushButton* btn;
