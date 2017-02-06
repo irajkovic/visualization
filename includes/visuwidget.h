@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QMap>
 #include "visuhelper.h"
+#include "visupropertymeta.h"
 
 class VisuWidget : public QWidget
 {
@@ -13,7 +14,7 @@ class VisuWidget : public QWidget
 public:
     explicit VisuWidget(
             QWidget *parent,
-            QMap<QString, QString> properties) : QWidget(parent)
+            QMap<QString, QString> properties) : QWidget(parent), mPropertiesMeta(nullptr)
     {
         loadProperties(properties);
         setObjectName(VisuWidget::OBJECT_NAME);
@@ -22,6 +23,8 @@ public:
     virtual void loadProperties(QMap<QString, QString> properties);
 
     QMap<QString, QString> getProperties();
+    void setPropertiesMeta(QMap<QString, VisuPropertyMeta>* meta);
+    QMap<QString, VisuPropertyMeta>* getPropertiesMeta();
     QString getName();
     void setName(QString name);
     void setPosition(QPoint position);
@@ -50,6 +53,7 @@ protected:
 
     // properties map
     QMap<QString, QString> mProperties;
+    QMap<QString, VisuPropertyMeta>* mPropertiesMeta;
 
     quint16 cId;
     QString cName;

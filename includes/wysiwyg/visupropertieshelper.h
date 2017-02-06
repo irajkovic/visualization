@@ -10,7 +10,7 @@
 #include <QTableWidget>
 #include "visupropertymeta.h"
 #include "visusignal.h"
-
+#include <QSharedPointer>
 
 class VisuPropertiesHelper
 {
@@ -19,7 +19,7 @@ public:
 
     static void updateTable(QTableWidget* table,
                             QMap<QString, QString> properties,
-                            QMap<QString, VisuPropertyMeta>* metaProperties = nullptr,
+                            QMap<QString, VisuPropertyMeta> *metaProperties = nullptr,
                             QVector<QPointer<VisuSignal>>* signalList = nullptr,
                             QWidget* object = nullptr,
                             const char* slot = nullptr);
@@ -30,7 +30,7 @@ public:
                                     QString key,
                                     int row);
     static int updateWidgetProperty(QObject* sender, QWidget* parent);
-    static QString getValueString(int row, QString key, QTableWidget *table);
+    static QString getValueString(QTableWidget *table, int row);
 
     static const char* PROP_COLOR;
     static const char* PROP_ROW;

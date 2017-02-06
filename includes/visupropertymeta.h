@@ -4,9 +4,15 @@
 #include <QString>
 #include <QStringList>
 
-struct VisuPropertyMeta
+class VisuPropertyMeta
 {
-    VisuPropertyMeta() : min(std::numeric_limits<int>::min()), max(std::numeric_limits<int>::max()), defaultVal(0), type("") {}
+public:
+
+    VisuPropertyMeta() :    min(std::numeric_limits<int>::min()),
+                            max(std::numeric_limits<int>::max()),
+                            defaultVal(0),
+                            type(""),
+                            extra("") {}
 
     double min;
     double max;

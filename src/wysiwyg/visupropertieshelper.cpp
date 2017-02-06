@@ -60,19 +60,6 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
 
             VisuPropertiesHelper::setupTableWidget(box, table, object, slot, key, row);
         }
-        else if (meta.type == VisuPropertyMeta::TYPE_COLOR)
-        {
-            QColor color = VisuHelper::get<QColor>(key, properties);
-            QPushButton* btn = new QPushButton(i.value());
-            VisuMisc::setBackgroundColor(btn, color);
-            btn->setProperty(VisuPropertiesHelper::PROP_COLOR, color);
-
-            VisuPropertiesHelper::setupTableWidget(btn, table, nullptr, nullptr, key, row);
-            if (object != nullptr && slot != nullptr)
-            {
-                QObject::connect(btn, SIGNAL(clicked()), object, slot);
-            }
-        }
         else if (meta.type == VisuPropertyMeta::TYPE_BOOL)
         {
             QComboBox* box = new QComboBox();
@@ -99,6 +86,20 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
                 VisuPropertiesHelper::setupTableWidget(box, table, object, slot, key, row);
             }
         }
+        else if (meta.type == VisuPropertyMeta::TYPE_COLOR)
+        {
+            QColor color = VisuHelper::get<QColor>(key, properties);
+            QPushButton* btn = new QPushButton(i.value());
+            VisuMisc::setBackgroundColor(btn, color);
+            btn->setProperty(VisuPropertiesHelper::PROP_COLOR, color);
+
+            VisuPropertiesHelper::setupTableWidget(btn, table, nullptr, nullptr, key, row);
+            if (object != nullptr && slot != nullptr)
+            {
+                QObject::connect(btn, SIGNAL(clicked()), object, slot);
+            }
+        }
+
         else if (meta.type == VisuPropertyMeta::TYPE_READ_ONLY)
         {
             QTableWidgetItem* item = new QTableWidgetItem(value);
@@ -107,8 +108,6 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
         }
         else
         {
-            //table->setItem(row, 1, new QTableWidgetItem(value));
-
             QLineEdit* edit = new QLineEdit(value);
             VisuPropertiesHelper::setupTableWidget(edit, table, nullptr, nullptr, key, row);
 
@@ -133,10 +132,9 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
     }
 }
 
-QString VisuPropertiesHelper::getValueString(int row, QString key, QTableWidget* table)
+QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
 {
     QString value;
-
     QComboBox* box;
     QLineEdit* edit;
     QPushButton* button;

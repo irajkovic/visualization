@@ -13,6 +13,7 @@
 #include "visupropertymeta.h"
 #include <QTableWidget>
 #include <QMap>
+#include <QSharedPointer>
 
 class EditSignal : public QWidget
 {
@@ -34,7 +35,7 @@ public slots:
 
 private:
     QMap<QString, QString> mProperties;
-    QMap<QString, VisuPropertyMeta> mMetaProperties;
+    QMap<QString, VisuPropertyMeta>* mMetaProperties;
     QPointer<QTableWidget> mTable;
     bool mNewSignal;
     QPointer<VisuSignal> mSignal;

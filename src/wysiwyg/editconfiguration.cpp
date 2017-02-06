@@ -53,7 +53,7 @@ void EditConfiguration::cellUpdated(int row, int col)
 {
     (void)col;
     QString key = mTable->item(row, 0)->text();
-    QString value = VisuPropertiesHelper::getValueString(row, key, mTable);
+    QString value = VisuPropertiesHelper::getValueString(mTable, row);
     mProperties[key] = value;
     mConfiguration->setConfigValues(mProperties);
 }

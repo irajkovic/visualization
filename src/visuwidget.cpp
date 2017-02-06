@@ -100,6 +100,16 @@ QMap<QString, QString> VisuWidget::getProperties()
     return mProperties;
 }
 
+void VisuWidget::setPropertiesMeta(QMap<QString, VisuPropertyMeta>* meta)
+{
+    mPropertiesMeta = meta;
+}
+
+QMap<QString, VisuPropertyMeta> *VisuWidget::getPropertiesMeta()
+{
+    return mPropertiesMeta;
+}
+
 QString VisuWidget::getName()
 {
     return cName;

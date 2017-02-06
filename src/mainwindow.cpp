@@ -391,9 +391,11 @@ void MainWindow::cellUpdated(int row, int col)
     (void)col;
 
     QString key = mPropertiesTable->item(row,0)->text();
-    QString value = VisuPropertiesHelper::getValueString(row, key, mPropertiesTable);
+    QString value = VisuPropertiesHelper::getValueString(mPropertiesTable, row);
 
     QMap<QString, QString> properties = mActiveWidget->getProperties();
+    QMap<QString, VisuPropertyMeta>* metaProperties = mActiveWidget->getPropertiesMeta();
+
     QPoint position = mActiveWidget->pos();
 
     if (key == VisuPropertiesHelper::PROP_X)
@@ -404,7 +406,7 @@ void MainWindow::cellUpdated(int row, int col)
     {
         position.setY(value.toInt());
     }
-    else if (key == VisuPropertiesHelper::PROP_SIGNAL_ID)
+    else if (metaProperties->value(key).type == VisuPropertyMeta::TYPE_SIGNAL)
     {
         // find old signal and detach instrument
         VisuInstrument* inst = qobject_cast<VisuInstrument*>(mActiveWidget);
@@ -442,19 +444,22 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
         // remove selected style. TODO :: refactor to work with other classes
         mActiveWidget->setActive(false);
     }
+    mActiveWidget = widget;
 
     QMap<QString, QString> properties = widget->getProperties();
 
-    // TODO :: optimize to avoid reloading file on each click
-    QMap<QString, VisuPropertyMeta> metaProperties =
-            VisuConfigLoader::getMetaMapFromFile("system/"+widget->getType()+".xml", VisuConfiguration::TAG_WIDGET);
-
-    mActiveWidget = widget;
+    QMap<QString, VisuPropertyMeta>* metaProperties = mActiveWidget->getPropertiesMeta();
+    if (metaProperties == nullptr)
+    {
+        metaProperties = VisuConfigLoader::getMetaMapFromFile("system/"+mActiveWidget->getType()+".xml",
+                                                              VisuConfiguration::TAG_WIDGET);
+        mActiveWidget->setPropertiesMeta(metaProperties);
+    }
 
     disconnect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
     VisuPropertiesHelper::updateTable(mPropertiesTable,
                           properties,
-                          &metaProperties,
+                          metaProperties,
                           &(mConfiguration->getSignals()),
                           this,
                           SLOT(propertyChange()));
