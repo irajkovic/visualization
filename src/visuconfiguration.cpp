@@ -258,37 +258,38 @@ QString VisuConfiguration::toXML()
 {
     QString xml;
 
-    xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-    xml += "<visu_config>\n";
-    xml += "\t<configuration>\n";
-    xml += VisuMisc::mapToString(mProperties, 2);
-    xml += "\t</configuration>\n";
+    xml = VisuMisc::getXMLDeclaration();
+    xml += VisuMisc::openTag(TAG_VISU_CONFIG);
 
-    xml += "\t<signals>\n";
+    xml += VisuMisc::openTag(TAG_NAME, 1);
+    xml += VisuMisc::mapToString(mProperties, 2);
+    xml += VisuMisc::closeTag(TAG_NAME, 1);
+
+    xml += VisuMisc::openTag(TAG_SIGNALS_PLACEHOLDER, 1);
     for (VisuSignal* signal : signalsList)
     {
         if (signal != nullptr)
         {
-            xml += "\t\t<signal>\n";
+            xml += VisuMisc::openTag(VisuSignal::TAG_NAME, 2);
             xml += VisuMisc::mapToString(signal->getProperties(), 3);
-            xml += "\t\t</signal>\n";
+            xml += VisuMisc::closeTag(VisuSignal::TAG_NAME, 2);
         }
     }
-    xml += "\t</signals>\n";
+    xml += VisuMisc::closeTag(TAG_SIGNALS_PLACEHOLDER, 1);
 
-    xml += "\t<widgets>\n";
+    xml += VisuMisc::openTag(TAG_WIDGETS_PLACEHOLDER, 1);
     for (VisuWidget* widget : widgetsList)
     {
         if (widget != nullptr)
         {
-            xml += "\t\t<widget>\n";
+            xml += VisuMisc::openTag(VisuWidget::TAG_NAME, 2);
             xml += VisuMisc::mapToString(widget->getProperties(), 3);
-            xml += "\t\t</widget>\n";
+            xml += VisuMisc::closeTag(VisuWidget::TAG_NAME, 2);
         }
     }
-    xml += "\t</widgets>\n";
+    xml += VisuMisc::closeTag(TAG_WIDGETS_PLACEHOLDER, 1);
 
-    xml += "<visu_config>\n";
+    xml += VisuMisc::closeTag(TAG_VISU_CONFIG);
 
     return xml;
 }
