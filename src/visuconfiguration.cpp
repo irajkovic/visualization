@@ -3,7 +3,7 @@
 #include <QVector>
 #include <QPushButton>
 #include <algorithm>
-
+#include <functional>
 #include "visusignal.h"
 #include "visuhelper.h"
 #include "visuconfigloader.h"
@@ -254,6 +254,15 @@ QMap<QString, QString>& VisuConfiguration::getProperties()
     return mProperties;
 }
 
+template <typename T>
+void VisuConfiguration::append(T* elem, QString& xml, int tabs)
+{
+    if (elem != nullptr)
+    {
+        xml += VisuMisc::addElement(T::TAG_NAME, elem->getProperties(), tabs);
+    }
+}
+
 QString VisuConfiguration::toXML()
 {
     QString xml;
@@ -261,32 +270,19 @@ QString VisuConfiguration::toXML()
     xml = VisuMisc::getXMLDeclaration();
     xml += VisuMisc::openTag(TAG_VISU_CONFIG);
 
-    xml += VisuMisc::openTag(TAG_NAME, 1);
-    xml += VisuMisc::mapToString(mProperties, 2);
-    xml += VisuMisc::closeTag(TAG_NAME, 1);
+    // Configuration properties
+    xml += VisuMisc::addElement(TAG_NAME, mProperties, 1);
 
+    // Signals
     xml += VisuMisc::openTag(TAG_SIGNALS_PLACEHOLDER, 1);
-    for (VisuSignal* signal : signalsList)
-    {
-        if (signal != nullptr)
-        {
-            xml += VisuMisc::openTag(VisuSignal::TAG_NAME, 2);
-            xml += VisuMisc::mapToString(signal->getProperties(), 3);
-            xml += VisuMisc::closeTag(VisuSignal::TAG_NAME, 2);
-        }
-    }
+    auto appendSignal = std::bind(append<VisuSignal>, std::placeholders::_1, std::ref(xml), 2);
+    std::for_each(signalsList.begin(), signalsList.end(), appendSignal);
     xml += VisuMisc::closeTag(TAG_SIGNALS_PLACEHOLDER, 1);
 
+    // Widgets
     xml += VisuMisc::openTag(TAG_WIDGETS_PLACEHOLDER, 1);
-    for (VisuWidget* widget : widgetsList)
-    {
-        if (widget != nullptr)
-        {
-            xml += VisuMisc::openTag(VisuWidget::TAG_NAME, 2);
-            xml += VisuMisc::mapToString(widget->getProperties(), 3);
-            xml += VisuMisc::closeTag(VisuWidget::TAG_NAME, 2);
-        }
-    }
+    auto appendWidget = std::bind(append<VisuWidget>, std::placeholders::_1, std::ref(xml), 2);
+    std::for_each(widgetsList.begin(), widgetsList.end(), appendWidget);
     xml += VisuMisc::closeTag(TAG_WIDGETS_PLACEHOLDER, 1);
 
     xml += VisuMisc::closeTag(TAG_VISU_CONFIG);

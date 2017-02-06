@@ -19,6 +19,8 @@ class VisuConfiguration : public QObject
         QVector<QPointer<VisuSignal>> signalsList;
         QVector<QPointer<VisuWidget>> widgetsList;
 
+        template <typename T>
+        static void append(T* elem, QString& xml, int tabs);
         void createSignalFromToken(QXmlStreamReader& xml_reader);
         void createConfigurationFromToken(QXmlStreamReader& xmlReader);
         void initializeInstruments();

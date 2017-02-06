@@ -15,6 +15,14 @@ QString VisuMisc::getXMLDeclaration()
     return "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 }
 
+QString VisuMisc::addElement(QString tag, QMap<QString, QString> properties, int tabs)
+{
+    QString xml = VisuMisc::openTag(tag, tabs);
+    xml += VisuMisc::mapToString(properties, tabs + 1);
+    xml += VisuMisc::closeTag(tag, tabs);
+    return xml;
+}
+
 QString VisuMisc::openTag(QString tag, int tabs)
 {
     return QString("\t").repeated(tabs) + "<" + tag + ">\n";
