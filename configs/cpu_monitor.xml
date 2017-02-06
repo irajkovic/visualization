@@ -17,15 +17,6 @@
 			<offset>0.0</offset>
 			<unit>%</unit>
 		</signal>
-		<signal>
-			<factor>1000.0</factor>
-			<id>1</id>
-			<max>16</max>
-			<min>0</min>
-			<name>RAM</name>
-			<offset>0.0</offset>
-			<unit>MB</unit>
-		</signal>
 	</signals>
 	<widgets>
 		<widget>
@@ -46,8 +37,8 @@
 			<minorCnt>2</minorCnt>
 			<minorLen>5</minorLen>
 			<name>Analog 1</name>
-			<nameX>120</nameX>
-			<nameY>200</nameY>
+			<nameX>5</nameX>
+			<nameY>15</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>0</offsetY>
 			<signalId>0</signalId>
@@ -65,8 +56,8 @@
 			<decimals>1</decimals>
 			<divisionFormat>mm:ss</divisionFormat>
 			<drawCircle>30</drawCircle>
-			<fontSize>10</fontSize>
-			<height>180</height>
+			<fontSize>12</fontSize>
+			<height>220</height>
 			<id>1</id>
 			<labelRadius>20</labelRadius>
 			<lineThickness>2</lineThickness>
@@ -127,20 +118,20 @@
 			<colorOff>255,30,30,250</colorOff>
 			<colorOn>30,255,30,255</colorOn>
 			<colorStatic>200,0,0,255</colorStatic>
-			<condition>0</condition>
+			<condition>2</condition>
 			<fontSize>26</fontSize>
 			<height>30</height>
 			<id>3</id>
 			<name>Led</name>
-			<radius>25</radius>
-			<showSignalName>1</showSignalName>
+			<radius>15</radius>
+			<showSignalName>0</showSignalName>
 			<signalId>0</signalId>
 			<type>LED</type>
-			<val1>-10.0</val1>
-			<val2>6.0</val2>
-			<width>100</width>
-			<x>10</x>
-			<y>10</y>
+			<val1>50</val1>
+			<val2>0</val2>
+			<width>20</width>
+			<x>64</x>
+			<y>16</y>
 		</widget>
 	</widgets>
-<visu_config>
+</visu_config>
