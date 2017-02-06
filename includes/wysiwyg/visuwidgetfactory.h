@@ -8,7 +8,6 @@
 class VisuWidgetFactory
 {
 public:
-    VisuWidgetFactory();
     static VisuWidget* createWidget(QWidget* parent, QString type, VisuSignal* signal = nullptr);
     static VisuWidget* createWidget(QWidget* parent,
                                     QString type,

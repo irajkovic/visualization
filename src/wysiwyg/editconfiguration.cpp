@@ -1,5 +1,6 @@
 #include "wysiwyg/editconfiguration.h"
 #include "wysiwyg/visupropertieshelper.h"
+#include "visuconfigloader.h"
 
 void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
 {
@@ -15,10 +16,10 @@ void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
     mTable = new QTableWidget();
     VisuPropertiesHelper::updateTable(mTable,
                           mProperties,
-                          nullptr,
+                          VisuConfigLoader::getMetaMapFromFile(VisuConfiguration::TAG_NAME, VisuConfiguration::TAG_NAME),
                           &(mConfiguration->getSignals()),
                           this,
-                          SLOT(updateColor()));
+                          SLOT(propertyChange()));
     mTable->setMaximumWidth(300);
     mTable->verticalHeader()->hide();
     mTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -58,7 +59,8 @@ void EditConfiguration::cellUpdated(int row, int col)
     mConfiguration->setConfigValues(mProperties);
 }
 
-void EditConfiguration::updateColor()
+
+void EditConfiguration::propertyChange()
 {
     int row = VisuPropertiesHelper::updateWidgetProperty(sender(), this);
     cellUpdated(row, 1);

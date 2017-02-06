@@ -38,6 +38,8 @@ signals:
     void signalUpdated(const VisuSignal* const);
 
 public:
+    static const QString TAG_NAME;
+
     VisuSignal(QMap<QString, QString> properties)
     {
         load(properties);

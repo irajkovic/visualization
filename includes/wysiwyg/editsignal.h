@@ -32,6 +32,7 @@ signals:
 public slots:
     void addSignal();
     void cellUpdated(int row, int col);
+    void propertyChange();
 
 private:
     QMap<QString, QString> mProperties;

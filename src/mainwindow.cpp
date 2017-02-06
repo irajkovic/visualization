@@ -241,7 +241,7 @@ void MainWindow::openImageAdder()
 
         if (file.open(QIODevice::ReadOnly))
         {
-            QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile("system/IMAGE.xml", VisuConfiguration::TAG_WIDGET);
+            QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(StaticImage::TAG_NAME, VisuWidget::TAG_NAME);
             QByteArray imgData = file.readAll();
 
             properties["image"] = QString(imgData.toBase64());
@@ -451,8 +451,8 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
     QMap<QString, VisuPropertyMeta>* metaProperties = mActiveWidget->getPropertiesMeta();
     if (metaProperties == nullptr)
     {
-        metaProperties = VisuConfigLoader::getMetaMapFromFile("system/"+mActiveWidget->getType()+".xml",
-                                                              VisuConfiguration::TAG_WIDGET);
+        metaProperties = VisuConfigLoader::getMetaMapFromFile(mActiveWidget->getType(),
+                                                              VisuWidget::TAG_NAME);
         mActiveWidget->setPropertiesMeta(metaProperties);
     }
 

@@ -23,6 +23,7 @@ INCLUDEPATH += ../includes/instruments
 
 SOURCES += main.cpp\
     mainwindow.cpp \
+    visuwidget.cpp \
     visuinstrument.cpp \
     visusignal.cpp \
     visuserver.cpp \
@@ -37,7 +38,6 @@ SOURCES += main.cpp\
     instruments/instled.cpp \
     visuhelper.cpp \
     controls/ctrlbutton.cpp \
-    visuwidget.cpp \
     statics/staticimage.cpp \
     visuconfigloader.cpp \
     wysiwyg/stage.cpp \

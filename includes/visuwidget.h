@@ -21,6 +21,7 @@ public:
     }
 
     virtual void loadProperties(QMap<QString, QString> properties);
+    static const QString TAG_NAME;
 
     QMap<QString, QString> getProperties();
     void setPropertiesMeta(QMap<QString, VisuPropertyMeta>* meta);

@@ -3,9 +3,7 @@
 #include "exceptions/configloadexception.h"
 #include <QXmlStreamAttribute>
 
-VisuConfigLoader::VisuConfigLoader()
-{
-}
+const QString VisuConfigLoader::PATH = "system/";
 
 QByteArray VisuConfigLoader::loadXMLFromFile(QString path)
 {
@@ -104,16 +102,18 @@ QMap<QString, QString> VisuConfigLoader::parseToMap(QXmlStreamReader& xmlReader,
 
 }
 
-QMap<QString, QString> VisuConfigLoader::getMapFromFile(QString file, QString tag)
+QMap<QString, QString> VisuConfigLoader::getMapFromFile(QString type, QString tag)
 {
-    QString xmlString = VisuConfigLoader::loadXMLFromFile(file);
+    QString path = PATH + type + ".xml";
+    QString xmlString = VisuConfigLoader::loadXMLFromFile(path);
     QXmlStreamReader xmlReader(xmlString);
     return VisuConfigLoader::parseToMap(xmlReader, tag);
 }
 
-QMap<QString, VisuPropertyMeta>* VisuConfigLoader::getMetaMapFromFile(QString file, QString tag)
+QMap<QString, VisuPropertyMeta>* VisuConfigLoader::getMetaMapFromFile(QString type, QString tag)
 {
-    QString xmlString = VisuConfigLoader::loadXMLFromFile(file);
+    QString path = PATH + type + ".xml";
+    QString xmlString = VisuConfigLoader::loadXMLFromFile(path);
     QXmlStreamReader xmlReader(xmlString);
     return VisuConfigLoader::parseMetaToMap(xmlReader, tag);
 }

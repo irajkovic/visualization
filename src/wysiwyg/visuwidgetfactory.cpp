@@ -11,18 +11,11 @@
 #include "ctrlbutton.h"
 #include "visuconfigloader.h"
 
-VisuWidgetFactory::VisuWidgetFactory()
-{
-
-}
-
-
 VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
                                             QString type,
                                             VisuSignal* signal)
 {
-    QString path = QString("system/%1.xml").arg(type);
-    QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(path, VisuConfiguration::TAG_WIDGET);
+    QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(type, VisuWidget::TAG_NAME);
     return VisuWidgetFactory::createWidget(parent, type, properties, signal);
 }
 

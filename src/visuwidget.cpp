@@ -7,6 +7,7 @@
 #include <QPainter>
 
 const QString VisuWidget::OBJECT_NAME = "VisuWidget";
+const QString VisuWidget::TAG_NAME = "widget";
 
 QPoint VisuWidget::getRelativeOffset()
 {

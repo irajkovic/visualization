@@ -15,6 +15,7 @@ public:
     {
 
         GET_PROPERTY(cImage, QImage, properties);
+        mTagName = StaticImage::TAG_NAME;
 
         mLayout = new QHBoxLayout();
         mLayout->setContentsMargins(0,0,0,0);

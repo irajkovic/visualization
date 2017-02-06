@@ -13,11 +13,11 @@ void EditSignal::setup(QPointer<VisuSignal> visuSignal)
     mSignal = visuSignal;
     mTable = new QTableWidget() ;
 
-    mMetaProperties = VisuConfigLoader::getMetaMapFromFile("system/signal.xml", "signal");
+    mMetaProperties = VisuConfigLoader::getMetaMapFromFile(VisuSignal::TAG_NAME, VisuSignal::TAG_NAME);
 
     if (visuSignal == nullptr)
     {
-        mProperties = VisuConfigLoader::getMapFromFile("system/signal.xml", "signal");
+        mProperties = VisuConfigLoader::getMapFromFile(VisuSignal::TAG_NAME, VisuSignal::TAG_NAME);
         mSignal = new VisuSignal(mProperties);
         mNewSignal = true;
     }
@@ -26,7 +26,7 @@ void EditSignal::setup(QPointer<VisuSignal> visuSignal)
         mProperties = visuSignal->getProperties();
         mNewSignal = false;
     }
-    VisuPropertiesHelper::updateTable(mTable, mProperties, mMetaProperties);
+    VisuPropertiesHelper::updateTable(mTable, mProperties, mMetaProperties, nullptr, this, SLOT(propertyChange()));
 
     mTable->setMaximumWidth(300);
     mTable->verticalHeader()->hide();
@@ -50,7 +50,6 @@ void EditSignal::setup(QPointer<VisuSignal> visuSignal)
     show();
     connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
     connect(saveButton, SIGNAL(clicked()), this, SLOT(addSignal()));
-    connect(mTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
 }
 
 void EditSignal::addSignal()
@@ -64,7 +63,14 @@ void EditSignal::cellUpdated(int row, int col)
 {
     (void)col;
     QString key = mTable->item(row, 0)->text();
-    QString value = mTable->item(row, 1)->text();
+    QString value = VisuPropertiesHelper::getValueString(mTable, row);
     mProperties[key] = value;
     mSignal->load(mProperties);
 }
+
+void EditSignal::propertyChange()
+{
+    int row = VisuPropertiesHelper::updateWidgetProperty(sender(), this);
+    cellUpdated(row, 1);
+}
+

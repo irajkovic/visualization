@@ -1,5 +1,7 @@
 #include "visusignal.h"
 
+const QString VisuSignal::TAG_NAME = "signal";
+
 QMap<QString, QString>& VisuSignal::getProperties()
 {
     return mProperties;

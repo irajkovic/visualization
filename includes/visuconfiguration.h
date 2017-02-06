@@ -69,7 +69,7 @@ class VisuConfiguration : public QObject
 
         static const QString TAG_WIDGET;
         static const QString TAG_SIGNAL;
-        static const QString TAG_CONFIGURATION;
+        static const QString TAG_NAME;
         static const QString ATTR_TYPE;
         static const QString TAG_VISU_CONFIG;
         static const QString TAG_WIDGETS_PLACEHOLDER;

@@ -18,16 +18,14 @@
 #include "controls/ctrlbutton.h"
 #include "statics/staticimage.h"
 
-const QString VisuConfiguration::TAG_WIDGET = "widget";
-const QString VisuConfiguration::TAG_SIGNAL = "signal";
-const QString VisuConfiguration::TAG_CONFIGURATION = "configuration";
+const QString VisuConfiguration::TAG_NAME = "configuration";
 const QString VisuConfiguration::ATTR_TYPE = "type";
 
 // These tags are not used, except for purpose of verification of XML structure.
 // Perhaps some kind of load hooks can be later triggered when reading these tags.
 const QString VisuConfiguration::TAG_VISU_CONFIG = "visu_config";
-const QString VisuConfiguration::TAG_WIDGETS_PLACEHOLDER = "widgets";
-const QString VisuConfiguration::TAG_SIGNALS_PLACEHOLDER = "signals";
+const QString VisuConfiguration::TAG_WIDGETS_PLACEHOLDER = VisuWidget::TAG_NAME + "s";
+const QString VisuConfiguration::TAG_SIGNALS_PLACEHOLDER = VisuSignal::TAG_NAME + "s";
 
 #include "wysiwyg/visuwidgetfactory.h"
 
@@ -63,14 +61,14 @@ void VisuConfiguration::detachInstrumentFromSignal(QPointer<VisuInstrument> inst
 
 void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
 {
-    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_SIGNAL);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, VisuSignal::TAG_NAME);
     VisuSignal* signal = new VisuSignal(properties);
     signalsList.push_back(signal);
 }
 
 QPointer<VisuWidget> VisuConfiguration::createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
-    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_WIDGET);
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, VisuWidget::TAG_NAME);
     VisuWidget* widget = VisuWidgetFactory::createWidget(parent, properties[ATTR_TYPE], properties);
     addWidget(widget);
     widget->show();
@@ -94,7 +92,7 @@ void VisuConfiguration::initializeInstruments()
 
 void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader)
 {
-    setConfigValues(VisuConfigLoader::parseToMap(xmlReader, TAG_CONFIGURATION));
+    setConfigValues(VisuConfigLoader::parseToMap(xmlReader, TAG_NAME));
 }
 
 void VisuConfiguration::setConfigValues(const QMap<QString, QString>& properties)
@@ -118,13 +116,13 @@ void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
 
             ConfigLoadException::setContext("loading configuration");
 
-            if (xmlReader.name() == TAG_SIGNAL) {
+            if (xmlReader.name() == VisuSignal::TAG_NAME) {
                 createSignalFromToken(xmlReader);
             }
-            else if (xmlReader.name() == TAG_WIDGET) {
+            else if (xmlReader.name() == VisuWidget::TAG_NAME) {
                 createWidgetFromToken(xmlReader, parent);
             }
-            else if (xmlReader.name() == TAG_CONFIGURATION) {
+            else if (xmlReader.name() == TAG_NAME) {
                 createConfigurationFromToken(xmlReader);
             }
             else if (xmlReader.name() == TAG_VISU_CONFIG) {

@@ -28,7 +28,7 @@ signals:
     void configParamsUpdated();
 
 public slots:
-    void updateColor();
+    void propertyChange();
 
 private slots:
     void updateConfigParams();
