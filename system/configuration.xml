@@ -1,0 +1,8 @@
+<configuration>
+   <port type="int" min="1024">3334</port>
+   <width type="int" min="0">800</width>
+   <heigh type="int" min="0"t>600</height>
+   <colorBackground type="color">130,130,130,255</colorBackground>
+   <name>Sample configuration</name>
+</configuration>
+
