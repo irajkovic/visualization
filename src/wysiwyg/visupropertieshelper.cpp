@@ -1,5 +1,6 @@
 #include "wysiwyg/visupropertieshelper.h"
 #include "visumisc.h"
+#include <QSpinBox>
 
 const char* VisuPropertiesHelper::PROP_COLOR = "color";
 const char* VisuPropertiesHelper::PROP_ROW = "row";
@@ -99,24 +100,31 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
                 QObject::connect(btn, SIGNAL(clicked()), object, slot);
             }
         }
-
         else if (meta.type == VisuPropertyMeta::TYPE_READ_ONLY)
         {
             QTableWidgetItem* item = new QTableWidgetItem(value);
             item->setFlags(item->flags() ^ Qt::ItemIsEditable);
             table->setItem(row, 1, item);
         }
+        else if (meta.type == VisuPropertyMeta::TYPE_INT)
+        {
+            QSpinBox* spinbox = new QSpinBox();
+            spinbox->setMinimum(meta.min);
+            spinbox->setMaximum(meta.max);
+            spinbox->setValue(value.toInt());
+
+            VisuPropertiesHelper::setupTableWidget(spinbox, table, nullptr, nullptr, key, row);
+            if (object != nullptr && slot != nullptr)
+            {
+                QObject::connect(spinbox, SIGNAL(valueChanged(int)), object, slot);
+            }
+        }
         else
         {
             QLineEdit* edit = new QLineEdit(value);
             VisuPropertiesHelper::setupTableWidget(edit, table, nullptr, nullptr, key, row);
 
-            if (meta.type == VisuPropertyMeta::TYPE_INT)
-            {
-                QValidator *validator = new QIntValidator(meta.min, meta.max);
-                edit->setValidator(validator);
-            }
-            else if (meta.type == VisuPropertyMeta::TYPE_FLOAT)
+            if (meta.type == VisuPropertyMeta::TYPE_FLOAT)
             {
                 QValidator *validator = new QDoubleValidator(meta.min, meta.max, 3);
                 edit->setValidator(validator);
@@ -138,10 +146,15 @@ QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
     QComboBox* box;
     QLineEdit* edit;
     QPushButton* button;
+    QSpinBox* spinbox;
 
     if ( (box = qobject_cast<QComboBox*>(table->cellWidget(row, 1))) != nullptr)
     {
         value = QString("%1").arg(box->currentIndex());
+    }
+    else if ( (spinbox = qobject_cast<QSpinBox*>(table->cellWidget(row, 1))) != nullptr)
+    {
+        value = QString("%1").arg(spinbox->value());
     }
     else if ( (edit = qobject_cast<QLineEdit*>(table->cellWidget(row, 1))) != nullptr )
     {

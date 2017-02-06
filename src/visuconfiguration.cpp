@@ -24,8 +24,8 @@ const QString VisuConfiguration::ATTR_TYPE = "type";
 // These tags are not used, except for purpose of verification of XML structure.
 // Perhaps some kind of load hooks can be later triggered when reading these tags.
 const QString VisuConfiguration::TAG_VISU_CONFIG = "visu_config";
-const QString VisuConfiguration::TAG_WIDGETS_PLACEHOLDER = VisuWidget::TAG_NAME + "s";
-const QString VisuConfiguration::TAG_SIGNALS_PLACEHOLDER = VisuSignal::TAG_NAME + "s";
+const QString VisuConfiguration::TAG_WIDGETS_PLACEHOLDER = "widgets";
+const QString VisuConfiguration::TAG_SIGNALS_PLACEHOLDER = "signals";
 
 #include "wysiwyg/visuwidgetfactory.h"
 

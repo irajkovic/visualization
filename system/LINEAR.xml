@@ -3,11 +3,11 @@
 	<colorBackground type="color">0,0,0,0</colorBackground>
 	<colorForeground type="color">250,50,50,200</colorForeground>
 	<colorStatic type="color">0,0,0,255</colorStatic>
-	<fontSize type="int" min="0">15</fontSize>
+	<fontSize type="int" min="1">15</fontSize>
 	<height type="int" min="0">50</height>
 	<horMargin type="int">15</horMargin>
 	<id type="read_only">3</id>
-	<lineThickness type="int">2</lineThickness>
+	<lineThickness type="int" min="1">2</lineThickness>
 	<majorCnt type="int" min="0">5</majorCnt>
 	<majorLen type="int" min="0">7</majorLen>
 	<minorCnt type="int" min="0">2</minorCnt>
