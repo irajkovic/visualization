@@ -46,6 +46,7 @@
 			<width>300</width>
 			<x>30</x>
 			<y>20</y>
+			<showLabel>1</showLabel>
 		</widget>
 		<widget>
 			<arrowWidth>3</arrowWidth>

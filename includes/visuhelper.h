@@ -31,6 +31,9 @@ namespace VisuHelper
 
     template<>
     QImage get<QImage>(QString key, QMap<QString, QString> properties);
+
+    template<>
+    bool get<bool>(QString key, QMap<QString, QString> properties);
 }
 
 

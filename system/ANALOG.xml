@@ -22,6 +22,7 @@
 	<offsetX type="int">0</offsetX>
 	<offsetY type="int">0</offsetY>
 	<signalId type="signal">0</signalId>
+	<showLabel type="bool">1</showLabel>
 	<type type="read_only">ANALOG</type>
 	<width type="int" min="0">150</width>
 	<x type="int" min="0">0</x>

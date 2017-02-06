@@ -65,4 +65,11 @@ namespace VisuHelper
         image.loadFromData(rawImageData, properties["format"].toStdString().c_str());
         return image;
     }
+
+    template<>
+    bool get<bool>(QString key, QMap<QString, QString> properties)
+    {
+        checkIfKeyExists(key, properties);
+        return (properties[key].toInt() != 0);
+    }
 }

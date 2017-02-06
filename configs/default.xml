@@ -73,6 +73,7 @@
 			<width>300</width>
 			<x>30</x>
 			<y>10</y>
+			<showLabel>1</showLabel>
 		</widget>
 		<widget>
 			<angleEnd>0</angleEnd>
@@ -101,6 +102,7 @@
 			<width>300</width>
 			<x>350</x>
 			<y>10</y>
+			<showLabel>1</showLabel>
 		</widget>
 		<widget>
 			<angleEnd>3.14</angleEnd>
@@ -129,6 +131,7 @@
 			<width>100</width>
 			<x>230</x>
 			<y>210</y>
+			<showLabel>1</showLabel>
 		</widget>
 		<widget>
 			<angleEnd>0</angleEnd>
@@ -137,7 +140,7 @@
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>250,50,50,100</colorForeground>
 			<colorStatic>255,50,50,255</colorStatic>
-			<drawCircle>30</drawCircle>
+			<drawCircle>0</drawCircle>
 			<fontSize>10</fontSize>
 			<height>100</height>
 			<id>3</id>
@@ -157,6 +160,7 @@
 			<width>100</width>
 			<x>340</x>
 			<y>210</y>
+			<showLabel>1</showLabel>
 		</widget>
 		<widget>
 			<colorBackground>30,30,30,255</colorBackground>

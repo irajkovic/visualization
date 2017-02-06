@@ -10,8 +10,16 @@ const QString InstAnalog::TAG_NAME = "ANALOG";
 void InstAnalog::renderStatic(QPainter* painter)
 {
     clear(painter);
-    renderLabel(painter);
-    if (1 == cDrawCircle) {
+    setPen(painter, cColorStatic);
+    setFont(painter, cFontSize);
+
+    if (cShowLabel)
+    {
+        renderLabel(painter);
+    }
+
+    if (cDrawCircle) {
+
         renderOutterCircle(painter);
     }
     renderCircularFeatures(painter);
@@ -27,8 +35,6 @@ void InstAnalog::setPen(QPainter* painter, QColor color)
 
 void InstAnalog::renderLabel(QPainter* painter)
 {
-    setPen(painter, cColorStatic);
-    setFont(painter, cFontSize);
     painter->drawText(cNameX, cNameY, mSignal->getName());
 }
 

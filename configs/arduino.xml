@@ -231,6 +231,7 @@
            <nameY>100</nameY>
            <offsetX>0</offsetX>
            <offsetY>0</offsetY>
+		   <showLabel >1</showLabel>
        </widget>
        <widget>
            <id>1</id>
@@ -259,6 +260,7 @@
            <nameY>100</nameY>
            <offsetX>0</offsetX>
            <offsetY>0</offsetY>
+		   <showLabel >1</showLabel>
        </widget>
 	  <widget>
            <id>2</id>
@@ -287,6 +289,7 @@
            <nameY>100</nameY>
            <offsetX>0</offsetX>
            <offsetY>0</offsetY>
+		   <showLabel >1</showLabel>
        </widget>
 	  <widget>
            <id>3</id>
@@ -315,6 +318,7 @@
            <nameY>100</nameY>
            <offsetX>0</offsetX>
            <offsetY>0</offsetY>
+		   <showLabel >1</showLabel>
        </widget>
 	  <widget>
            <id>4</id>
@@ -343,6 +347,7 @@
            <nameY>100</nameY>
            <offsetX>0</offsetX>
            <offsetY>0</offsetY>
+		   <showLabel >1</showLabel>
        </widget>
 	  <widget>
            <id>5</id>
@@ -371,6 +376,7 @@
            <nameY>100</nameY>
            <offsetX>0</offsetX>
            <offsetY>0</offsetY>
+		   <showLabel >1</showLabel>
        </widget>
 		<widget>
             <id>1</id>  

@@ -27,7 +27,7 @@ class InstAnalog : public VisuInstrument
             GET_PROPERTY(cMinorCnt, quint8, properties);
             GET_PROPERTY(cFontSize, quint8, properties);
             GET_PROPERTY(cArrowWidth, quint8, properties);
-            GET_PROPERTY(cDrawCircle, quint8, properties);
+            GET_PROPERTY(cDrawCircle, bool, properties);
             GET_PROPERTY(cLabelRadius, quint16, properties);
             GET_PROPERTY(cAngleStart, double, properties);
             GET_PROPERTY(cAngleEnd, double, properties);
@@ -35,6 +35,7 @@ class InstAnalog : public VisuInstrument
             GET_PROPERTY(cNameY, quint16, properties);
             GET_PROPERTY(cOffsetX, qint16, properties);
             GET_PROPERTY(cOffsetY, qint16, properties);
+            GET_PROPERTY(cShowLabel, bool, properties);
 
             mTagName = InstAnalog::TAG_NAME;
         }
@@ -51,7 +52,7 @@ class InstAnalog : public VisuInstrument
         quint8 cMinorCnt;       // Number of minor count divisions
         quint8 cFontSize;       // Size of font used on labels
         quint8 cArrowWidth;     // Width of arrow at it's base
-        quint8 cDrawCircle;     // 1 / 0 to draw circle allong pointer tip
+        bool cDrawCircle;     // 1 / 0 to draw circle allong pointer tip
         quint16 cLabelRadius;   // Radius of circle on which major labels are drawn
         double cAngleStart;     // Angle of minimum value
         double cAngleEnd;       // Angle of maximum value
@@ -59,6 +60,7 @@ class InstAnalog : public VisuInstrument
         quint16 cNameY;         // Signal label Y coordinate
         qint16 cOffsetX;        // X offset of instrument center
         qint16 cOffsetY;        // Y offset of instrument center
+        bool cShowLabel;
 
         // aux propertis
         double mAngleSin;
