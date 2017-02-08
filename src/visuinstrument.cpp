@@ -40,7 +40,6 @@ void VisuInstrument::signalUpdated(const VisuSignal* const signal)
 void VisuInstrument::initialUpdate(const VisuSignal* const signal)
 {
     mFirstRun = true;
-    qDebug("Signal %s initial", signal->getName().toStdString().c_str());
     signalUpdated(signal);
 }
 
@@ -136,7 +135,6 @@ void VisuInstrument::connectSignals(const QVector<QPointer<VisuSignal>>& signals
             {
                 connectedSignals.append(sig);
                 sig->connectInstrument(this);
-                qDebug("Connecting signal %d to instr %d", sig->getId(), cId);
             }
         }
 
@@ -156,5 +154,5 @@ void VisuInstrument::initializeInstrument()
 {
     std::for_each(connectedSignals.begin(),
                   connectedSignals.end(),
-                  [this](QPointer<VisuSignal> sig){ qDebug("Initialize sig: %s", sig->getName().toStdString().c_str()); sig->initializeInstruments(); } );
+                  [this](QPointer<VisuSignal> sig){ sig->initializeInstruments(); } );
 }

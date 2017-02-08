@@ -35,6 +35,9 @@ public:
         mTagName = InstXYPlot::TAG_NAME;
     }
 
+    static const int SIGNAL_FIRST = 0;
+    static const int SIGNAL_SECOND = 1;
+
 private:
     // configuration properties
     quint16 cSignalIdY;
@@ -52,6 +55,7 @@ private:
     double mCenterX;
     double mCenterY;
 
+    void renderSingleAxis(QPainter* painter, int sigInd, int divisions, int length);
     void renderAxis(QPainter* painter);
     void renderBall(QPainter* painter);
 
