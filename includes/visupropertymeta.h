@@ -22,6 +22,10 @@ public:
 
     QStringList getEnumOptions();
 
+    static const QString KEY_MIN;
+    static const QString KEY_MAX;
+    static const QString KEY_TYPE;
+    static const QString KEY_EXTRA;
     static const QString TYPE_ENUM;
     static const QString TYPE_COLOR;
     static const QString TYPE_SIGNAL;

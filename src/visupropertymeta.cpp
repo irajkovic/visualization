@@ -1,5 +1,9 @@
 #include "visupropertymeta.h"
 
+const QString VisuPropertyMeta::KEY_MIN = "min";
+const QString VisuPropertyMeta::KEY_MAX = "max";
+const QString VisuPropertyMeta::KEY_TYPE = "type";
+const QString VisuPropertyMeta::KEY_EXTRA = "extra";
 const QString VisuPropertyMeta::TYPE_ENUM = "enum";
 const QString VisuPropertyMeta::TYPE_COLOR = "color";
 const QString VisuPropertyMeta::TYPE_SIGNAL = "signal";

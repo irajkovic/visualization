@@ -51,7 +51,6 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
     }
     else if (type == InstXYPlot::TAG_NAME)
     {
-        //signalsList.append();
         widget = new InstXYPlot(parent, properties);
     }
     else if (type == CtrlButton::TAG_NAME)

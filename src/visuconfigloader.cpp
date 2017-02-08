@@ -39,19 +39,19 @@ QMap<QString, VisuPropertyMeta>* VisuConfigLoader::parseMetaToMap(QXmlStreamRead
 
             for (const QXmlStreamAttribute& attr : xmlReader.attributes())
             {
-                if (attr.name().toString() == "min")
+                if (attr.name().toString() == VisuPropertyMeta::KEY_MIN)
                 {
                     meta.min = attr.value().toDouble();
                 }
-                else if (attr.name().toString() == "max")
+                else if (attr.name().toString() == VisuPropertyMeta::KEY_MAX)
                 {
                     meta.max = attr.value().toDouble();
                 }
-                else if (attr.name().toString() == "type")
+                else if (attr.name().toString() == VisuPropertyMeta::KEY_TYPE)
                 {
                     meta.type = attr.value().toString();
                 }
-                else if (attr.name().toString() == "extra")
+                else if (attr.name().toString() == VisuPropertyMeta::KEY_EXTRA)
                 {
                     meta.extra = attr.value().toString();
                 }
