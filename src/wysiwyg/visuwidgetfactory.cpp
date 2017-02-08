@@ -13,17 +13,19 @@
 
 VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
                                             QString type,
-                                            VisuSignal* signal)
+                                            const QVector<QPointer<VisuSignal>>& signalsList)
 {
     QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(type, VisuWidget::TAG_NAME);
-    return VisuWidgetFactory::createWidget(parent, type, properties, signal);
+    QMap<QString, VisuPropertyMeta>* metaProperties = VisuConfigLoader::getMetaMapFromFile(type, VisuWidget::TAG_NAME);
+    return VisuWidgetFactory::createWidget(parent, type, properties, metaProperties, signalsList);
 }
 
 // TODO :: Check if type can be replaced by properties["type"]
 VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
                                             QString type,
                                             QMap<QString, QString> properties,
-                                            VisuSignal* signal)
+                                            QMap<QString, VisuPropertyMeta>* metaProperties,
+                                            const QVector<QPointer<VisuSignal>>& signalsList)
 {
     VisuWidget* widget = nullptr;
 
@@ -49,6 +51,7 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
     }
     else if (type == InstXYPlot::TAG_NAME)
     {
+        //signalsList.append();
         widget = new InstXYPlot(parent, properties);
     }
     else if (type == CtrlButton::TAG_NAME)
@@ -64,10 +67,14 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
         ; // Do nothing
     }
 
-    if (signal != nullptr && widget != nullptr)
+    if (widget != nullptr)
     {
-        signal->connectInstrument(static_cast<VisuInstrument*>(widget));
-        signal->initializeInstruments();
+        widget->setPropertiesMeta(metaProperties);
+        VisuInstrument* visuWidget = qobject_cast<VisuInstrument*>(widget);
+        if (visuWidget != nullptr)
+        {
+            visuWidget->connectSignals(signalsList);
+        }
     }
 
     return widget;

@@ -4,16 +4,42 @@ const QString InstXYPlot::TAG_NAME = "XY_PLOT";
 
 void InstXYPlot::renderAxis(QPainter* painter)
 {
-    int dx = cWidth / cMajorCnt;
-    int dy = cHeight / cMajorCnt;
-    int x = 0;
-    int y = 0;
-    for (int i=0; i<cMajorCnt + 1; ++i)
+    double dx = (double)cWidth / cMajorCntX;
+    double dy = (double)cHeight / cMajorCntY;
+    double x = 0;
+    double y = 0;
+
+    double lblX = 0.0;
+    double lblDx = 0.0;
+    double lblY = 0.0;
+    double lblDy = 0.0;
+
+    mSignalX = connectedSignals[0];
+    lblX = mSignalX->getMin();
+    lblDx = (mSignalX->getMax() - mSignalX->getMin()) / cMajorCntX;
+    for (int i=0; i<cMajorCntX + 1; ++i)
     {
         painter->drawLine(x, mCenterY-cMajorLen, x, mCenterY+cMajorLen);
-        painter->drawLine(mCenterX-cMajorLen, y, mCenterX+cMajorLen, y);
+        if (lblDx != 0.0)
+        {
+            painter->drawText(x, mCenterY-cMajorLen, QString("%1").arg(lblX));
+        }
         x += dx;
+        lblX += lblDx;
+    }
+
+    mSignalY = connectedSignals[1];
+    lblY = mSignalY->getMin();
+    lblDy = (mSignalY->getMax() - mSignalY->getMin()) / cMajorCntY;
+    for (int i=0; i<cMajorCntY + 1; ++i)
+    {
+        painter->drawLine(mCenterX-cMajorLen, y, mCenterX+cMajorLen, y);
+        if (lblDy != 0.0)
+        {
+            painter->drawText(mCenterX+cMajorLen, y, QString("%1").arg(lblY));
+        }
         y += dy;
+        lblY += lblDy;
     }
 }
 
@@ -27,6 +53,7 @@ void InstXYPlot::renderBall(QPainter* painter)
 
 void InstXYPlot::renderStatic(QPainter *painter)
 {
+    setFont(painter, cFontSize);
     setPen(painter, cColorStatic);
     clear(painter);
 
@@ -37,9 +64,6 @@ void InstXYPlot::renderStatic(QPainter *painter)
     painter->drawLine(mCenterX, 0, mCenterX, cHeight);
 
     renderAxis(painter);
-
-    painter->drawText(0, mCenterY-cMajorLen, cLabelX);
-    painter->drawText(mCenterX+cMajorLen, cHeight, cLabelY);
 }
 
 void InstXYPlot::renderDynamic(QPainter *painter)
@@ -47,16 +71,14 @@ void InstXYPlot::renderDynamic(QPainter *painter)
     if (mSignal->getId() == cSignalId)
     {
         mLastValX = mSignal->getNormalizedValue();   // primary signal shown on X axis
+        mSignalX = mSignal;
     }
     else
     {
         mLastValY = mSignal->getNormalizedValue();   // additional signal shown on Y axis
+        mSignalY = mSignal;
     }
+    qDebug("Sigid: %d,%d %d ", mSignal->getId(), cSignalId, cSignalIdY);
 
     renderBall(painter);
-}
-
-quint16 InstXYPlot::getSignalYId()
-{
-    return cSignalIdY;
 }

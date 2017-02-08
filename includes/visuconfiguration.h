@@ -23,7 +23,6 @@ class VisuConfiguration : public QObject
         static void append(T* elem, QString& xml, int tabs);
         void createSignalFromToken(QXmlStreamReader& xml_reader);
         void createConfigurationFromToken(QXmlStreamReader& xmlReader);
-        void initializeInstruments();
         int getFreeId(QVector<QPointer<QObject> > &list);
 
         // Properties
@@ -40,6 +39,7 @@ class VisuConfiguration : public QObject
         void setConfigValues(const QMap<QString, QString>& properties);
         void fromXML(QWidget *parent, const QString& xml);
         QString toXML();
+        void initializeInstruments();
 
         // General widget methods
         QPointer<VisuWidget> createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
@@ -49,10 +49,6 @@ class VisuConfiguration : public QObject
 
         // Instrument specific methods
         QPointer<VisuInstrument> getInstrument(quint16 instrument_id);
-        void detachInstrumentFromSignal(QPointer<VisuInstrument> instrument);
-        void attachInstrumentToSignal(QPointer<VisuInstrument> instrument);
-        void detachInstrumentFromSignal(QPointer<VisuInstrument> instrument, int signalId);
-        void attachInstrumentToSignal(QPointer<VisuInstrument> instrument, int signalId);
 
         // Signal specific methods
         void addSignal(QPointer<VisuSignal> signal);

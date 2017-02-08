@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include <QMap>
 #include <QPainter>
+#include <QPointer>
 
 #include "visuhelper.h"
 #include "visusignal.h"
@@ -33,6 +34,8 @@ protected:
 
     bool    mFirstRun;
     const VisuSignal *mSignal; // Pointer to last signal that was updated
+    const VisuSignal *mSignalX;
+    const VisuSignal *mSignalY;
 
     void paintEvent(QPaintEvent* event);
     virtual void renderStatic(QPainter*) = 0;   // Renders static parts of instrument
@@ -42,6 +45,8 @@ protected:
     void setPen(QPainter* painter, QColor color, int thickness = 1);
     void setBrush(QPainter* painter, QColor color);
     void clear(QPainter* painter);
+
+    QVector<QPointer<VisuSignal>> connectedSignals;
 
 public slots:
     void signalUpdated(const VisuSignal* const mSignal);
@@ -62,6 +67,9 @@ public:
     }
 
     virtual void loadProperties(QMap<QString, QString> properties);
+    void connectSignals(const QVector<QPointer<VisuSignal>>& signalsList);
+    void disconnectSignals();
+    void initializeInstrument();
 
     // Getters
     quint16 getSignalId();

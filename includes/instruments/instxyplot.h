@@ -13,9 +13,11 @@ public:
             QMap<QString, QString> properties) : VisuInstrument(parent, properties)
     {
         loadProperties(properties);
+
+        mSignalX = nullptr;
+        mSignalY = nullptr;
     }
     static const QString TAG_NAME;
-    quint16 getSignalYId();
 
     virtual void loadProperties(QMap<QString, QString> properties)
     {
@@ -23,10 +25,12 @@ public:
 
         GET_PROPERTY(cSignalIdY, quint16, properties);
         GET_PROPERTY(cBallSize, quint16, properties);
-        GET_PROPERTY(cMajorCnt, quint16, properties);
+        GET_PROPERTY(cMajorCntX, quint16, properties);
+        GET_PROPERTY(cMajorCntY, quint16, properties);
         GET_PROPERTY(cMajorLen, quint16, properties);
         GET_PROPERTY(cLabelX, QString, properties);
         GET_PROPERTY(cLabelY, QString, properties);
+        GET_PROPERTY(cFontSize, quint8, properties);
 
         mTagName = InstXYPlot::TAG_NAME;
     }
@@ -35,10 +39,12 @@ private:
     // configuration properties
     quint16 cSignalIdY;
     quint16 cBallSize;
-    quint16 cMajorCnt;
+    quint16 cMajorCntX;
+    quint16 cMajorCntY;
     quint16 cMajorLen;
     QString cLabelX;
     QString cLabelY;
+    quint8 cFontSize;
 
     // aux properties
     double mLastValX;

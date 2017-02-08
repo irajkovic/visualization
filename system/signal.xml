@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <signal>        
-   <id type="int">0</id>
+   <id type="read_only">0</id>
    <name type="string">Sample signal</name>
    <unit type="string">Units</unit>
    <factor type="float" min="0">1.0</factor>

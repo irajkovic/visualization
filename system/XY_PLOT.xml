@@ -8,7 +8,8 @@
 	<id type="read_only">5</id>
 	<labelX>X osa</labelX>
 	<labelY>Y osa</labelY>
-	<majorCnt type="int" min="0">10</majorCnt>
+	<majorCntX type="int" min="0">5</majorCntX>
+	<majorCntY type="int" min="0">5</majorCntY>
 	<majorLen type="int" min="0">4</majorLen>
 	<name>XY plot instrument</name>
 	<signalId type="signal">0</signalId>
@@ -17,5 +18,6 @@
 	<width type="int" min="0">150</width>
 	<x type="int" min="0">218</x>
 	<y type="int" min="0">161</y>
+	<fontSize type="int" min="1">12</fontSize>
 </widget>
 

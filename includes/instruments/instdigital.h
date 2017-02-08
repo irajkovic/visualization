@@ -20,8 +20,8 @@ class InstDigital : public VisuInstrument
             VisuInstrument::loadProperties(properties);
 
             GET_PROPERTY(cFontSize, quint8, properties);
-            GET_PROPERTY(cShowSignalName, quint8, properties);
-            GET_PROPERTY(cShowSignalUnit, quint8, properties);
+            GET_PROPERTY(cShowSignalName, bool, properties);
+            GET_PROPERTY(cShowSignalUnit, bool, properties);
             GET_PROPERTY(cPadding, quint8, properties);
 
             mTagName = InstDigital::TAG_NAME;
@@ -30,8 +30,8 @@ class InstDigital : public VisuInstrument
     private:
         // configuration properties
         quint8 cFontSize;
-        quint8 cShowSignalName;
-        quint8 cShowSignalUnit;
+        bool cShowSignalName;
+        bool cShowSignalUnit;
         quint8 cPadding;
 
         // aux members

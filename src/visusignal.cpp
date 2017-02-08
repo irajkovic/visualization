@@ -132,7 +132,7 @@ void VisuSignal::datagramUpdate(const VisuDatagram& datagram)
  */
 void VisuSignal::initializeInstruments()
 {
-    mRawValue = 0;
+    mRawValue = (cMin - cOffset) / cFactor;  // TODO :: Use default value
     mTimestamp = 0;
 
     emit(initialUpdate(this));

@@ -39,9 +39,9 @@ void VisuInstrument::signalUpdated(const VisuSignal* const signal)
 
 void VisuInstrument::initialUpdate(const VisuSignal* const signal)
 {
-    this->mSignal = signal;
     mFirstRun = true;
-    render();
+    qDebug("Signal %s initial", signal->getName().toStdString().c_str());
+    signalUpdated(signal);
 }
 
 quint16 VisuInstrument::getId()
@@ -118,4 +118,43 @@ void VisuInstrument::setBrush(QPainter* painter, QColor color)
 void VisuInstrument::clear(QPainter* painter)
 {
     painter->fillRect(0, 0, cWidth, cHeight, cColorBackground);
+}
+
+void VisuInstrument::connectSignals(const QVector<QPointer<VisuSignal>>& signalsList)
+{
+    disconnectSignals();
+
+    auto itr = mPropertiesMeta->begin();
+    while (itr != mPropertiesMeta->end())
+    {
+        VisuPropertyMeta meta = itr.value();
+        if (meta.type == VisuPropertyMeta::TYPE_SIGNAL)
+        {
+            int signalId = mProperties.value(itr.key()).toInt();
+            VisuSignal* sig = signalsList.at(signalId);
+            if (sig != nullptr)
+            {
+                connectedSignals.append(sig);
+                sig->connectInstrument(this);
+                qDebug("Connecting signal %d to instr %d", sig->getId(), cId);
+            }
+        }
+
+        ++itr;
+    }
+}
+
+void VisuInstrument::disconnectSignals()
+{
+    std::for_each(connectedSignals.begin(),
+                  connectedSignals.end(),
+                  [this](QPointer<VisuSignal> sig){ sig->disconnectInstrument(this); } );
+    connectedSignals.clear();
+}
+
+void VisuInstrument::initializeInstrument()
+{
+    std::for_each(connectedSignals.begin(),
+                  connectedSignals.end(),
+                  [this](QPointer<VisuSignal> sig){ qDebug("Initialize sig: %s", sig->getName().toStdString().c_str()); sig->initializeInstruments(); } );
 }

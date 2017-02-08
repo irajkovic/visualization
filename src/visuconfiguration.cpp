@@ -37,28 +37,6 @@ VisuConfiguration::~VisuConfiguration()
     }
 }
 
-void VisuConfiguration::attachInstrumentToSignal(QPointer<VisuInstrument> instrument, int signalId)
-{
-    getSignal(signalId)->connectInstrument(instrument);
-}
-
-void VisuConfiguration::detachInstrumentFromSignal(QPointer<VisuInstrument> instrument, int signalId)
-{
-    getSignal(signalId)->disconnectInstrument(instrument);
-}
-
-void VisuConfiguration::attachInstrumentToSignal(QPointer<VisuInstrument> instrument)
-{
-    quint16 signalId = instrument->getSignalId();
-    attachInstrumentToSignal(instrument, signalId);
-}
-
-void VisuConfiguration::detachInstrumentFromSignal(QPointer<VisuInstrument> instrument)
-{
-    quint16 signalId = instrument->getSignalId();
-    detachInstrumentFromSignal(instrument, signalId);
-}
-
 void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, VisuSignal::TAG_NAME);
@@ -69,16 +47,15 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
 QPointer<VisuWidget> VisuConfiguration::createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, VisuWidget::TAG_NAME);
-    VisuWidget* widget = VisuWidgetFactory::createWidget(parent, properties[ATTR_TYPE], properties);
+    QMap<QString, VisuPropertyMeta>* metaProperties = VisuConfigLoader::getMetaMapFromFile(properties[ATTR_TYPE],
+                                                                                          VisuWidget::TAG_NAME);
+    VisuWidget* widget = VisuWidgetFactory::createWidget(parent,
+                                                         properties[ATTR_TYPE],
+                                                         properties,
+                                                         metaProperties,
+                                                         signalsList);
     addWidget(widget);
     widget->show();
-
-    // instrument needs special handling
-    VisuInstrument* instrument = qobject_cast<VisuInstrument*>(widget);
-    if (instrument != nullptr)
-    {
-        attachInstrumentToSignal(instrument);
-    }
 
     return widget;
 }
@@ -212,7 +189,7 @@ void VisuConfiguration::deleteWidget(QPointer<VisuWidget> widget)
     VisuInstrument* instrument;
     if ( (instrument = qobject_cast<VisuInstrument*>(widget)) != nullptr)
     {
-        detachInstrumentFromSignal(instrument);
+        instrument->disconnectSignals();
     }
 
     delete(widgetsList[widget->getId()]);

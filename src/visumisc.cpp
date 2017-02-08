@@ -57,3 +57,13 @@ QString VisuMisc::saveToFile(QFile &file, QString contents)
     }
     return file.fileName();
 }
+/*
+template <typename T>
+void VisuMisc::notNullPtr(T* ptr, func )
+{
+    if (ptr != nullptr)
+    {
+        func(ptr);
+    }
+}
+*/

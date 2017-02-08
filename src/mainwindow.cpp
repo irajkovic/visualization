@@ -215,17 +215,17 @@ void MainWindow::setupToolbarWidgets(QPointer<QWidget> toolbar)
     QHBoxLayout *layout = new QHBoxLayout;
     toolbar->setLayout(layout);
 
-    VisuSignal* toolbarSignal = mConfiguration->getSignal(0);
+    QVector<QPointer<VisuSignal>> signalsList = mConfiguration->getSignals();
 
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstAnalog::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLinear::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstTimePlot::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstDigital::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, toolbarSignal));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, CtrlButton::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstAnalog::TAG_NAME, signalsList));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLinear::TAG_NAME, signalsList));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstTimePlot::TAG_NAME, signalsList));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstDigital::TAG_NAME, signalsList));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, signalsList));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, signalsList));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, CtrlButton::TAG_NAME, signalsList));
 
-    toolbarSignal->initializeInstruments();
+    mConfiguration->initializeInstruments();
 }
 
 void MainWindow::openImageAdder()
@@ -397,7 +397,6 @@ void MainWindow::cellUpdated(int row, int col)
     QMap<QString, VisuPropertyMeta>* metaProperties = mActiveWidget->getPropertiesMeta();
 
     QPoint position = mActiveWidget->pos();
-
     if (key == VisuPropertiesHelper::PROP_X)
     {
         position.setX(value.toInt());
@@ -406,27 +405,21 @@ void MainWindow::cellUpdated(int row, int col)
     {
         position.setY(value.toInt());
     }
-    else if (metaProperties->value(key).type == VisuPropertyMeta::TYPE_SIGNAL)
-    {
-        // find old signal and detach instrument
-        VisuInstrument* inst = qobject_cast<VisuInstrument*>(mActiveWidget);
-        mConfiguration->detachInstrumentFromSignal(inst);
-    }
+    mActiveWidget->setPosition(position);
 
     properties[key] = value;
     mActiveWidget->loadProperties(properties);
-    mActiveWidget->setPosition(position);
 
     // refresh instrument
     VisuInstrument* inst = qobject_cast<VisuInstrument*>(mActiveWidget);
     if (inst != nullptr)
     {
-        VisuSignal* signal = mConfiguration->getSignal(inst->getSignalId());
-        if (key == VisuPropertiesHelper::PROP_SIGNAL_ID)
+        // ID assigment changed, update instrument
+        if (metaProperties->value(key).type == VisuPropertyMeta::TYPE_SIGNAL)
         {
-            mConfiguration->attachInstrumentToSignal(inst);
+            inst->connectSignals(mConfiguration->getSignals());
         }
-        signal->initializeInstruments();
+        inst->initializeInstrument();
     }
 
     // refresh controls
@@ -447,14 +440,7 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
     mActiveWidget = widget;
 
     QMap<QString, QString> properties = widget->getProperties();
-
     QMap<QString, VisuPropertyMeta>* metaProperties = mActiveWidget->getPropertiesMeta();
-    if (metaProperties == nullptr)
-    {
-        metaProperties = VisuConfigLoader::getMetaMapFromFile(mActiveWidget->getType(),
-                                                              VisuWidget::TAG_NAME);
-        mActiveWidget->setPropertiesMeta(metaProperties);
-    }
 
     disconnect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
     VisuPropertiesHelper::updateTable(mPropertiesTable,
