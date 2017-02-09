@@ -23,6 +23,7 @@
 #include <QFileDialog>
 #include <QProcess>
 #include <QMessageBox>
+#include <QScrollArea>
 #include "visumisc.h"
 #include "wysiwyg/editconfiguration.h"
 #include "wysiwyg/visupropertieshelper.h"
@@ -35,16 +36,16 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setWindowTitle(tr("Configuration Editor"));
+    setWindowState(Qt::WindowMaximized);
+
+    show();
+
     setupMenu();
     setupLayouts();
 
     loadConfigurationFromFile(INITIAL_EDITOR_CONFIG);
     setupToolbarWidgets(mToolbar);
-
-    setWindowTitle(tr("Configuration Editor"));
-    setWindowState(Qt::WindowMaximized);
-
-    show();
 }
 
 void MainWindow::setupMenu()
@@ -103,18 +104,18 @@ void MainWindow::setupMenu()
 
 void MainWindow::setupLayouts()
 {
-    QWidget* window = new QWidget();
+    mWindow = new QWidget();
     QVBoxLayout* windowLayout = new QVBoxLayout();
-    window->setLayout(windowLayout);
-    setCentralWidget(window);
+    mWindow->setLayout(windowLayout);
+    setCentralWidget(mWindow);
 
-    mToolbar = new QWidget(window);
+    mToolbar = new QWidget(mWindow);
     mToolbar->setObjectName("toolbar");
-    mToolbar->setMinimumHeight(170);
+    mToolbar->setMinimumHeight(LAYOUT_TOOLBAR_HEIGHT);
     mToolbar->setStyleSheet("border: 1px solid black;");
     windowLayout->addWidget(mToolbar);
 
-    QWidget* workArea = new QWidget(window);
+    QWidget* workArea = new QWidget(mWindow);
     windowLayout->addWidget(workArea);
 
     QHBoxLayout* workAreaLayout = new QHBoxLayout();
@@ -124,12 +125,16 @@ void MainWindow::setupLayouts()
 
     mStage = new Stage(this, workArea);
     mStage->setObjectName("stage");
-    workAreaLayout->addWidget(mStage);
+
+    mScrollArea = new QScrollArea(mWindow);
+    workAreaLayout->addWidget(mScrollArea);
+    mScrollArea->setWidget(mStage);
 
     workAreaLayout->addStretch();
 
     mPropertiesTable = new QTableWidget(workArea);
-    mPropertiesTable->setMaximumWidth(300);
+    mPropertiesTable->setMaximumWidth(LAYOUT_PROPERTIES_WIDTH);
+    mPropertiesTable->setMinimumWidth(LAYOUT_PROPERTIES_WIDTH);
     mPropertiesTable->verticalHeader()->hide();
     mPropertiesTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     workAreaLayout->addWidget(mPropertiesTable);
@@ -179,8 +184,36 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
 
 void MainWindow::updateConfig()
 {
-    mStage->setMaximumSize(mConfiguration->getWidth(), mConfiguration->getHeight());
-    mStage->setMinimumSize(mConfiguration->getWidth(), mConfiguration->getHeight());
+    QSize configSize = mConfiguration->getSize();
+    QSize windowSize = mWindow->size();
+
+    mStage->setMinimumSize(configSize);
+    mStage->setMaximumSize(configSize);
+
+    qDebug("%d %d %d %d", windowSize.width(), windowSize.height(), configSize.width(), configSize.height());
+
+    int maxAvailableWidth = windowSize.width() - LAYOUT_PROPERTIES_WIDTH - LAYOUT_MARGIN;
+    if (maxAvailableWidth > configSize.width())
+    {
+        mScrollArea->setMinimumWidth(configSize.width());
+    }
+    else
+    {
+        mScrollArea->setMinimumWidth(maxAvailableWidth);
+        mScrollArea->setMaximumWidth(maxAvailableWidth);
+    }
+
+    int maxAvailableHeight = windowSize.height() - LAYOUT_TOOLBAR_HEIGHT - LAYOUT_MARGIN;
+    if (maxAvailableHeight > configSize.height())
+    {
+        mScrollArea->setMinimumHeight(configSize.height());
+    }
+    else
+    {
+        mScrollArea->setMinimumHeight(maxAvailableHeight);
+        mScrollArea->setMinimumHeight(maxAvailableHeight);
+    }
+
     VisuMisc::setBackgroundColor(mStage, mConfiguration->getBackgroundColor());
 }
 

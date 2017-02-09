@@ -99,3 +99,13 @@ void Stage::paintEvent(QPaintEvent *event)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
 }
+
+QSize Stage::sizeHint() const
+{
+    VisuConfiguration* config = mMainWindow->getConfiguration();
+    if (config != nullptr)
+    {
+        return config->getSize();
+    }
+    return QSize(800, 600);
+}

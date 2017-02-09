@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include <QPointer>
 #include <QTemporaryFile>
+#include <QScrollArea>
 #include "visusignal.h"
 #include "visuconfiguration.h"
 #include "wysiwyg/editsignal.h"
@@ -41,8 +42,10 @@ public slots:
 private:
     Ui::MainWindow *ui;
 
+    QPointer<QWidget> mWindow;
     QPointer<QWidget> mToolbar;
     QPointer<Stage> mStage;
+    QPointer<QScrollArea> mScrollArea;
     QPointer<QTableWidget> mPropertiesTable;
     QPointer<VisuWidget> mActiveWidget;
     QPointer<VisuConfiguration> mConfiguration;
@@ -60,6 +63,9 @@ private:
     QString configurationToXML();
 
     static const QString INITIAL_EDITOR_CONFIG;
+    static const int LAYOUT_TOOLBAR_HEIGHT = 170;
+    static const int LAYOUT_PROPERTIES_WIDTH = 300;
+    static const int LAYOUT_MARGIN = 50;
 
 private slots:
     void openConfiguration();

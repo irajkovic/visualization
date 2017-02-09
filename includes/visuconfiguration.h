@@ -62,6 +62,7 @@ class VisuConfiguration : public QObject
         quint16 getPort();
         quint16 getWidth();
         quint16 getHeight();
+        QSize getSize() const;
         QColor getBackgroundColor();
         QString getName();
 

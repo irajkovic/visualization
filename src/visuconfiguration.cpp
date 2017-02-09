@@ -3,6 +3,7 @@
 #include <QVector>
 #include <QPushButton>
 #include <algorithm>
+#include <QSize>
 #include <functional>
 #include "visusignal.h"
 #include "visuhelper.h"
@@ -165,6 +166,11 @@ quint16 VisuConfiguration::getHeight()
 QColor VisuConfiguration::getBackgroundColor()
 {
     return cColorBackground;
+}
+
+QSize VisuConfiguration::getSize() const
+{
+    return QSize(cWidth, cHeight)                             ;
 }
 
 QString VisuConfiguration::getName()

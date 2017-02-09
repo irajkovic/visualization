@@ -22,6 +22,7 @@ public:
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
     void paintEvent(QPaintEvent *event);
+    QSize sizeHint() const;
 
 public slots:
     void activateWidget(VisuWidget*);
