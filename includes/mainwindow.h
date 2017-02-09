@@ -54,6 +54,10 @@ private:
     QTemporaryFile mTmpConfigFile;
     QString mConfigPath;
     QPointer<QAction> mSave;
+    QSize mWindowSize;
+    int mFrameDifference;
+
+    void resizeEvent(QResizeEvent * event);
 
     void setupMenu();
     void setupLayouts();

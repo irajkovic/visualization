@@ -36,16 +36,19 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setWindowTitle(tr("Configuration Editor"));
-    setWindowState(Qt::WindowMaximized);
-
-    show();
-
     setupMenu();
     setupLayouts();
 
     loadConfigurationFromFile(INITIAL_EDITOR_CONFIG);
     setupToolbarWidgets(mToolbar);
+
+    setWindowTitle(tr("Configuration Editor"));
+
+    show();
+    updateConfig();
+
+    mFrameDifference = this->frameGeometry().height() - this->geometry().height();
+    mFrameDifference += LAYOUT_TOOLBAR_HEIGHT + LAYOUT_MARGIN * 2;
 }
 
 void MainWindow::setupMenu()
@@ -143,7 +146,6 @@ void MainWindow::setupLayouts()
 void MainWindow::unloadConfiguration()
 {
     delete mConfiguration;
-
 }
 
 void MainWindow::loadConfigurationFromFile(const QString& configPath)
@@ -185,17 +187,24 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
 void MainWindow::updateConfig()
 {
     QSize configSize = mConfiguration->getSize();
-    QSize windowSize = mWindow->size();
+    QSize windowSize = mWindowSize;
+
+    if (!windowSize.isValid())
+    {
+        return;
+    }
 
     mStage->setMinimumSize(configSize);
     mStage->setMaximumSize(configSize);
 
     qDebug("%d %d %d %d", windowSize.width(), windowSize.height(), configSize.width(), configSize.height());
 
+    int sliderThickness = qApp->style()->pixelMetric(QStyle::PM_ScrollBarExtent);
+
     int maxAvailableWidth = windowSize.width() - LAYOUT_PROPERTIES_WIDTH - LAYOUT_MARGIN;
     if (maxAvailableWidth > configSize.width())
     {
-        mScrollArea->setMinimumWidth(configSize.width());
+        mScrollArea->setMinimumWidth(configSize.width()+sliderThickness);
     }
     else
     {
@@ -203,16 +212,17 @@ void MainWindow::updateConfig()
         mScrollArea->setMaximumWidth(maxAvailableWidth);
     }
 
-    int maxAvailableHeight = windowSize.height() - LAYOUT_TOOLBAR_HEIGHT - LAYOUT_MARGIN;
+    int maxAvailableHeight = windowSize.height() - mFrameDifference;
     if (maxAvailableHeight > configSize.height())
     {
-        mScrollArea->setMinimumHeight(configSize.height());
+        mScrollArea->setMinimumHeight(configSize.height()+sliderThickness);
     }
     else
     {
         mScrollArea->setMinimumHeight(maxAvailableHeight);
         mScrollArea->setMinimumHeight(maxAvailableHeight);
     }
+
 
     VisuMisc::setBackgroundColor(mStage, mConfiguration->getBackgroundColor());
 }
@@ -511,4 +521,11 @@ QPointer<VisuConfiguration> MainWindow::getConfiguration()
 QPointer<VisuWidget> MainWindow::getActiveWidget()
 {
     return mActiveWidget;
+}
+
+void MainWindow::resizeEvent(QResizeEvent * event)
+{
+    QMainWindow::resizeEvent(event);
+
+    mWindowSize = size();
 }

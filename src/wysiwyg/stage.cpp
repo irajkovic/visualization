@@ -103,9 +103,5 @@ void Stage::paintEvent(QPaintEvent *event)
 QSize Stage::sizeHint() const
 {
     VisuConfiguration* config = mMainWindow->getConfiguration();
-    if (config != nullptr)
-    {
-        return config->getSize();
-    }
-    return QSize(800, 600);
+    return (config != nullptr) ? config->getSize() : QSize();
 }
