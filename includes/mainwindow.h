@@ -55,7 +55,6 @@ private:
     QString mConfigPath;
     QPointer<QAction> mSave;
     QSize mWindowSize;
-    int mFrameDifference;
 
     void resizeEvent(QResizeEvent * event);
 
@@ -70,6 +69,7 @@ private:
     static const int LAYOUT_TOOLBAR_HEIGHT = 170;
     static const int LAYOUT_PROPERTIES_WIDTH = 300;
     static const int LAYOUT_MARGIN = 50;
+    static const int LAYOUT_QSCROLLAREA_MARGIN = 5;   // Margin between child widget and QScrollArea
 
 private slots:
     void openConfiguration();

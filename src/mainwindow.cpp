@@ -44,11 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setWindowTitle(tr("Configuration Editor"));
 
-    show();
+    showMaximized();
     updateConfig();
-
-    mFrameDifference = this->frameGeometry().height() - this->geometry().height();
-    mFrameDifference += LAYOUT_TOOLBAR_HEIGHT + LAYOUT_MARGIN * 2;
 }
 
 void MainWindow::setupMenu()
@@ -188,23 +185,25 @@ void MainWindow::updateConfig()
 {
     QSize configSize = mConfiguration->getSize();
     QSize windowSize = mWindowSize;
+    QSize areaSize = mScrollArea->size();
+
+    mStage->setMinimumSize(configSize);
+    mStage->setMaximumSize(configSize);
 
     if (!windowSize.isValid())
     {
         return;
     }
 
-    mStage->setMinimumSize(configSize);
-    mStage->setMaximumSize(configSize);
-
-    qDebug("%d %d %d %d", windowSize.width(), windowSize.height(), configSize.width(), configSize.height());
-
     int sliderThickness = qApp->style()->pixelMetric(QStyle::PM_ScrollBarExtent);
+    int sliderVerticalMargin = (areaSize.width() < configSize.width() ? 0 : sliderThickness) + LAYOUT_QSCROLLAREA_MARGIN;
+    int sliderHorizontalMargin = (areaSize.height() < configSize.height() ? 0 : sliderThickness) + LAYOUT_QSCROLLAREA_MARGIN;
 
     int maxAvailableWidth = windowSize.width() - LAYOUT_PROPERTIES_WIDTH - LAYOUT_MARGIN;
-    if (maxAvailableWidth > configSize.width())
+    int neededWidth = configSize.width() + sliderVerticalMargin;
+    if (maxAvailableWidth > neededWidth)
     {
-        mScrollArea->setMinimumWidth(configSize.width()+sliderThickness);
+        mScrollArea->setMinimumWidth(neededWidth);
     }
     else
     {
@@ -212,17 +211,19 @@ void MainWindow::updateConfig()
         mScrollArea->setMaximumWidth(maxAvailableWidth);
     }
 
-    int maxAvailableHeight = windowSize.height() - mFrameDifference;
-    if (maxAvailableHeight > configSize.height())
+    int verticalOcupiedSpace = this->frameGeometry().height() - this->geometry().height();
+    verticalOcupiedSpace += LAYOUT_TOOLBAR_HEIGHT + LAYOUT_MARGIN * 2;
+    int maxAvailableHeight = windowSize.height() - verticalOcupiedSpace;
+    int neededHeight = configSize.height() + sliderHorizontalMargin;
+    if (maxAvailableHeight > neededHeight )
     {
-        mScrollArea->setMinimumHeight(configSize.height()+sliderThickness);
+       mScrollArea->setMinimumHeight(neededHeight);
     }
     else
     {
-        mScrollArea->setMinimumHeight(maxAvailableHeight);
-        mScrollArea->setMinimumHeight(maxAvailableHeight);
+       mScrollArea->setMinimumHeight(maxAvailableHeight);
+       mScrollArea->setMinimumHeight(maxAvailableHeight);
     }
-
 
     VisuMisc::setBackgroundColor(mStage, mConfiguration->getBackgroundColor());
 }
