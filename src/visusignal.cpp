@@ -103,7 +103,7 @@ double VisuSignal::getRealValue() const
 
 double VisuSignal::getNormalizedValue() const
 {
-    double value = getRealValue() / (cMax - cMin);
+    double value = (getRealValue() - cMin) / (cMax - cMin);
     if (value < 0.0 || value > 1.0)
     {
         value = 0.0;
