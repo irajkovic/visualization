@@ -12,6 +12,7 @@ void InstAnalog::renderStatic(QPainter* painter)
     clear(painter);
     setPen(painter, cColorStatic);
     setFont(painter, cFontSize);
+    setupProperties();
 
     if (cShowLabel)
     {
@@ -40,10 +41,10 @@ void InstAnalog::renderLabel(QPainter* painter)
 
 void InstAnalog::renderOutterCircle(QPainter* painter)
 {
-    painter->drawArc( cLineThickness + cOffsetX
-                    , cLineThickness + cOffsetY
-                    , cWidth - 2 * cLineThickness + cOffsetX
-                    , cHeight - 2 * cLineThickness + cOffsetY
+    painter->drawArc( cLineThickness
+                    , cLineThickness
+                    , cWidth - 2 * cLineThickness
+                    , cHeight - 2 * cLineThickness
                     , 0
                     , 360 * 16);
 }
@@ -146,12 +147,12 @@ void InstAnalog::renderDivisionLine(QPainter* painter, int length)
 
 void InstAnalog::initDivisionProperties(int length)
 {
-    mStartLen = cWidth / 2 - length - cLineThickness * 2;
-    mEndLen = cWidth / 2 - cLineThickness * 2;
-    mStartPointX = -mStartLen * mAngleSin + cWidth / 2;
-    mStartPointY = mStartLen * mAngleCos + cHeight / 2;
-    mEndPointX = -mEndLen * mAngleSin + cWidth / 2;
-    mEndPointY = mEndLen * mAngleCos + cHeight / 2;
+    mStartLen = cDivisionRadius - length - cLineThickness * 2;
+    mEndLen = cDivisionRadius - cLineThickness * 2;
+    mStartPointX = -mStartLen * mAngleSin + mCenterX;
+    mStartPointY = mStartLen * mAngleCos + mCenterY;
+    mEndPointX = -mEndLen * mAngleSin + mCenterX;
+    mEndPointY = mEndLen * mAngleCos + mCenterY;
 }
 
 void InstAnalog::calculateAngleOffset()
@@ -174,7 +175,6 @@ void InstAnalog::renderDynamic(QPainter* painter)
     setPen(painter, cColorForeground);
     setBrush(painter, cColorForeground);
     calculateAngleOffset();
-    setupProperties();
     drawTrianglePointer(painter);
 }
 

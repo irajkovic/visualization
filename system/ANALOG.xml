@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<angleEnd type="slider" min="0.0" max="3.14159">1.0</angleEnd>
-	<angleStart type="slider" min="0.0" max="3.14159">1.0</angleStart>
+	<angleEnd type="slider" min="-3.14159" max="3.14159">1.0</angleEnd>
+	<angleStart type="slider" min="-3.14159" max="3.14159">1.0</angleStart>
 	<arrowWidth type="int" min="1" max="100">5</arrowWidth>
 	<colorBackground type="color">30,30,30,0</colorBackground>
 	<colorForeground type="color">250,50,50,100</colorForeground>
@@ -27,5 +27,6 @@
 	<width type="int" min="0">150</width>
 	<x type="int" min="0">0</x>
 	<y type="int" min="0">0</y>
+	<divisionRadius type="int" min="1">80</divisionRadius>
 </widget>
 

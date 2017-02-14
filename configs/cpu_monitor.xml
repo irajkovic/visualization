@@ -26,6 +26,7 @@
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>250,50,50,100</colorForeground>
 			<colorStatic>255,50,50,255</colorStatic>
+			<divisionRadius>150</divisionRadius>
 			<drawCircle>0</drawCircle>
 			<fontSize>14</fontSize>
 			<height>300</height>
@@ -33,20 +34,20 @@
 			<labelRadius>95</labelRadius>
 			<lineThickness>5</lineThickness>
 			<majorCnt>5</majorCnt>
-			<majorLen>10</majorLen>
+			<majorLen>16</majorLen>
 			<minorCnt>2</minorCnt>
-			<minorLen>5</minorLen>
+			<minorLen>7</minorLen>
 			<name>Analog 1</name>
 			<nameX>5</nameX>
 			<nameY>15</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>0</offsetY>
+			<showLabel>1</showLabel>
 			<signalId>0</signalId>
 			<type>ANALOG</type>
 			<width>300</width>
 			<x>30</x>
 			<y>20</y>
-			<showLabel>1</showLabel>
 		</widget>
 		<widget>
 			<arrowWidth>3</arrowWidth>
