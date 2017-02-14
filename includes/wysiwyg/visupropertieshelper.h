@@ -34,7 +34,7 @@ public:
     static double sliderToDouble(int slider);
     static int doubleToSlider(double value);
 
-    static const int SLIDER_FACTOR = 10;
+    static const int SLIDER_FACTOR = 100;
     static const char* PROP_COLOR;
     static const char* PROP_ROW;
     static const char* PROP_KEY;

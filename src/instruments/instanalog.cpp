@@ -127,29 +127,29 @@ void InstAnalog::renderMajorLabel(QPainter* painter)
 
 void InstAnalog::renderMajorDivision(QPainter* painter)
 {
-    renderDivisionLine(painter, 0.9);
+    renderDivisionLine(painter, cMajorLen);
 }
 
 void InstAnalog::renderMinorDivision(QPainter* painter)
 {
-    renderDivisionLine(painter, 1.0);
+    renderDivisionLine(painter, cMinorLen);
 }
 
-void InstAnalog::renderDivisionLine(QPainter* painter, double contractFactor)
+void InstAnalog::renderDivisionLine(QPainter* painter, int length)
 {
-    initDivisionProperties(contractFactor);
+    initDivisionProperties(length);
     painter->drawLine( mStartPointX + cOffsetX
                      , mStartPointY + cOffsetY
                      , mEndPointX + cOffsetX
                      , mEndPointY + cOffsetY);
 }
 
-void InstAnalog::initDivisionProperties(double factor)
+void InstAnalog::initDivisionProperties(int length)
 {
-    mStartLen = cWidth / 2 * factor - cLineThickness * 2;
+    mStartLen = cWidth / 2 - length - cLineThickness * 2;
     mEndLen = cWidth / 2 - cLineThickness * 2;
-    mStartPointX = -mStartLen * 0.9 * mAngleSin + cWidth / 2;
-    mStartPointY = mStartLen * 0.9 * mAngleCos + cHeight / 2;
+    mStartPointX = -mStartLen * mAngleSin + cWidth / 2;
+    mStartPointY = mStartLen * mAngleCos + cHeight / 2;
     mEndPointX = -mEndLen * mAngleSin + cWidth / 2;
     mEndPointY = mEndLen * mAngleCos + cHeight / 2;
 }

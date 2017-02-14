@@ -308,7 +308,8 @@ void MainWindow::openImageAdder()
                             this,
                             tr("Info"),
                             tr("Image was too large for the stage.\n"
-                               "Please try with smaller image, or increase stage resolution"));
+                               "Please try with smaller image, or increase stage resolution to %1x%2")
+                               .arg(tmpImage.width()).arg(tmpImage.height()));
             }
         }
     }

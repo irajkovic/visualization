@@ -82,8 +82,8 @@ class InstAnalog : public VisuInstrument
         void renderOutterCircle(QPainter* painter);
         void renderMajorDivision(QPainter* painter);
         void renderMinorDivision(QPainter* painter);
-        void renderDivisionLine(QPainter* painter, double lengthFactor);
-        void initDivisionProperties(double factor = 1.0);
+        void renderDivisionLine(QPainter* painter, int length);
+        void initDivisionProperties(int length);
         void renderMajorLabel(QPainter* painter);
         double getMajorDivisionStep();
         void updateDivisionAngles();
