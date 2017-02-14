@@ -14,7 +14,7 @@ public:
     static VisuWidget* createWidget(QWidget* parent,
                                     QString type,
                                     QMap<QString, QString> properties,
-                                    QMap<QString, VisuPropertyMeta>* metaProperties,
+                                    QMap<QString, VisuPropertyMeta> metaProperties,
                                     const QVector<QPointer<VisuSignal> > &signalList);
 };
 

@@ -48,7 +48,7 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
 QPointer<VisuWidget> VisuConfiguration::createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, VisuWidget::TAG_NAME);
-    QMap<QString, VisuPropertyMeta>* metaProperties = VisuConfigLoader::getMetaMapFromFile(properties[ATTR_TYPE],
+    QMap<QString, VisuPropertyMeta> metaProperties = VisuConfigLoader::getMetaMapFromFile(properties[ATTR_TYPE],
                                                                                           VisuWidget::TAG_NAME);
     VisuWidget* widget = VisuWidgetFactory::createWidget(parent,
                                                          properties[ATTR_TYPE],

@@ -10,9 +10,12 @@ const QString VisuPropertyMeta::TYPE_SIGNAL = "signal";
 const QString VisuPropertyMeta::TYPE_READ_ONLY = "read_only";
 const QString VisuPropertyMeta::TYPE_INT = "int";
 const QString VisuPropertyMeta::TYPE_FLOAT = "float";
+const QString VisuPropertyMeta::TYPE_SLIDER = "slider";
 const QString VisuPropertyMeta::TYPE_BOOL = "bool";
+const QString VisuPropertyMeta::TYPE_DEFAULT = "";
+const QString VisuPropertyMeta::DELIMITER = ",";
 
 QStringList VisuPropertyMeta::getEnumOptions()
 {
-    return extra.split(",");
+    return extra.split(VisuPropertyMeta::DELIMITER);
 }

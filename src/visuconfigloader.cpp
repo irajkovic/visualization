@@ -19,9 +19,9 @@ QByteArray VisuConfigLoader::loadXMLFromFile(QString path)
     return contents;
 }
 
-QMap<QString, VisuPropertyMeta>* VisuConfigLoader::parseMetaToMap(QXmlStreamReader& xmlReader, QString element)
+QMap<QString, VisuPropertyMeta> VisuConfigLoader::parseMetaToMap(QXmlStreamReader& xmlReader, QString element)
 {
-    QMap<QString, VisuPropertyMeta>* map = new QMap<QString, VisuPropertyMeta>;
+    QMap<QString, VisuPropertyMeta> map;
     QString name;
     VisuPropertyMeta meta;
 
@@ -60,7 +60,7 @@ QMap<QString, VisuPropertyMeta>* VisuConfigLoader::parseMetaToMap(QXmlStreamRead
         else if (xmlReader.tokenType() == QXmlStreamReader::Characters && !xmlReader.isWhitespace())
         {
             meta.defaultVal = xmlReader.text().toDouble();
-            (*map)[name] = meta;
+            map[name] = meta;
         }
 
         xmlReader.readNext();
@@ -110,7 +110,7 @@ QMap<QString, QString> VisuConfigLoader::getMapFromFile(QString type, QString ta
     return VisuConfigLoader::parseToMap(xmlReader, tag);
 }
 
-QMap<QString, VisuPropertyMeta>* VisuConfigLoader::getMetaMapFromFile(QString type, QString tag)
+QMap<QString, VisuPropertyMeta> VisuConfigLoader::getMetaMapFromFile(QString type, QString tag)
 {
     QString path = PATH + type + ".xml";
     QString xmlString = VisuConfigLoader::loadXMLFromFile(path);

@@ -14,7 +14,7 @@ class VisuWidget : public QWidget
 public:
     explicit VisuWidget(
             QWidget *parent,
-            QMap<QString, QString> properties) : QWidget(parent), mPropertiesMeta(nullptr)
+            QMap<QString, QString> properties) : QWidget(parent)
     {
         loadProperties(properties);
         setObjectName(VisuWidget::OBJECT_NAME);
@@ -24,8 +24,8 @@ public:
     static const QString TAG_NAME;
 
     QMap<QString, QString> getProperties();
-    void setPropertiesMeta(QMap<QString, VisuPropertyMeta>* meta);
-    QMap<QString, VisuPropertyMeta>* getPropertiesMeta();
+    void setPropertiesMeta(QMap<QString, VisuPropertyMeta> meta);
+    QMap<QString, VisuPropertyMeta> getPropertiesMeta();
     QString getName();
     void setName(QString name);
     void setPosition(QPoint position);
@@ -54,7 +54,7 @@ protected:
 
     // properties map
     QMap<QString, QString> mProperties;
-    QMap<QString, VisuPropertyMeta>* mPropertiesMeta;
+    QMap<QString, VisuPropertyMeta> mPropertiesMeta;
 
     quint16 cId;
     QString cName;

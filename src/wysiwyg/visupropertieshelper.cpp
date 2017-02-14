@@ -1,6 +1,7 @@
 #include "wysiwyg/visupropertieshelper.h"
 #include "visumisc.h"
 #include <QSpinBox>
+#include <QSlider>
 
 const char* VisuPropertiesHelper::PROP_COLOR = "color";
 const char* VisuPropertiesHelper::PROP_ROW = "row";
@@ -9,6 +10,16 @@ const char* VisuPropertiesHelper::PROP_X = "x";
 const char* VisuPropertiesHelper::PROP_Y = "y";
 const char* VisuPropertiesHelper::PROP_SIGNAL_ID = "signalId";
 const char* VisuPropertiesHelper::PROP_ID = "id";
+
+double VisuPropertiesHelper::sliderToDouble(int slider)
+{
+    return (double)slider / SLIDER_FACTOR;
+}
+
+int VisuPropertiesHelper::doubleToSlider(double value)
+{
+    return (int)(value * SLIDER_FACTOR);
+}
 
 void VisuPropertiesHelper::setupTableWidget(QWidget* widget,
                                 QTableWidget* table,
@@ -29,7 +40,7 @@ void VisuPropertiesHelper::setupTableWidget(QWidget* widget,
 
 void VisuPropertiesHelper::updateTable(QTableWidget* table,
                            QMap<QString, QString> properties,
-                           QMap<QString, VisuPropertyMeta>* metaProperties,
+                           QMap<QString, VisuPropertyMeta> metaProperties,
                            QVector<QPointer<VisuSignal>>* signalList,
                            QWidget* object,
                            const char* slot)
@@ -47,9 +58,9 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
         table->setItem(row, 0, new QTableWidgetItem(key));
 
         VisuPropertyMeta meta;
-        if (metaProperties != nullptr && metaProperties->contains(key))
+        if (metaProperties.contains(key))
         {
-            meta = (*metaProperties)[key];
+            meta = (metaProperties)[key];
         }
 
         if (meta.type == VisuPropertyMeta::TYPE_ENUM)
@@ -119,6 +130,19 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
                 QObject::connect(spinbox, SIGNAL(valueChanged(int)), object, slot);
             }
         }
+        else if (meta.type == VisuPropertyMeta::TYPE_SLIDER)
+        {
+            QSlider* slider = new QSlider(Qt::Horizontal);
+            slider->setMinimum(VisuPropertiesHelper::doubleToSlider(meta.min));
+            slider->setMaximum(VisuPropertiesHelper::doubleToSlider(meta.max));
+            slider->setValue(VisuPropertiesHelper::doubleToSlider(value.toDouble()));
+
+            VisuPropertiesHelper::setupTableWidget(slider, table, nullptr, nullptr, key, row);
+            if (object != nullptr && slot != nullptr)
+            {
+                QObject::connect(slider, SIGNAL(valueChanged(int)), object, slot);
+            }
+        }
         else
         {
             QLineEdit* edit = new QLineEdit(value);
@@ -147,6 +171,7 @@ QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
     QLineEdit* edit;
     QPushButton* button;
     QSpinBox* spinbox;
+    QSlider* slider;
 
     if ( (box = qobject_cast<QComboBox*>(table->cellWidget(row, 1))) != nullptr)
     {
@@ -163,6 +188,10 @@ QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
     else if ( (button = qobject_cast<QPushButton*>(table->cellWidget(row, 1))) != nullptr )
     {
         value = button->text();
+    }
+    else if (  (slider = qobject_cast<QSlider*>(table->cellWidget(row, 1))) != nullptr )
+    {
+        value = QString("%1").arg(VisuPropertiesHelper::sliderToDouble(slider->value()));
     }
     else
     {

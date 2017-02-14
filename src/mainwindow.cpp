@@ -438,7 +438,7 @@ void MainWindow::cellUpdated(int row, int col)
     QString value = VisuPropertiesHelper::getValueString(mPropertiesTable, row);
 
     QMap<QString, QString> properties = mActiveWidget->getProperties();
-    QMap<QString, VisuPropertyMeta>* metaProperties = mActiveWidget->getPropertiesMeta();
+    QMap<QString, VisuPropertyMeta> metaProperties = mActiveWidget->getPropertiesMeta();
 
     QPoint position = mActiveWidget->pos();
     if (key == VisuPropertiesHelper::PROP_X)
@@ -459,7 +459,7 @@ void MainWindow::cellUpdated(int row, int col)
     if (inst != nullptr)
     {
         // ID assigment changed, update instrument
-        if (metaProperties->value(key).type == VisuPropertyMeta::TYPE_SIGNAL)
+        if (metaProperties.value(key).type == VisuPropertyMeta::TYPE_SIGNAL)
         {
             inst->connectSignals(mConfiguration->getSignals());
         }
@@ -484,7 +484,7 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
     mActiveWidget = widget;
 
     QMap<QString, QString> properties = widget->getProperties();
-    QMap<QString, VisuPropertyMeta>* metaProperties = mActiveWidget->getPropertiesMeta();
+    QMap<QString, VisuPropertyMeta> metaProperties = mActiveWidget->getPropertiesMeta();
 
     disconnect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
     VisuPropertiesHelper::updateTable(mPropertiesTable,

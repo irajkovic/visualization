@@ -16,7 +16,7 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
                                             const QVector<QPointer<VisuSignal>>& signalsList)
 {
     QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(type, VisuWidget::TAG_NAME);
-    QMap<QString, VisuPropertyMeta>* metaProperties = VisuConfigLoader::getMetaMapFromFile(type, VisuWidget::TAG_NAME);
+    QMap<QString, VisuPropertyMeta> metaProperties = VisuConfigLoader::getMetaMapFromFile(type, VisuWidget::TAG_NAME);
     return VisuWidgetFactory::createWidget(parent, type, properties, metaProperties, signalsList);
 }
 
@@ -24,7 +24,7 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
 VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
                                             QString type,
                                             QMap<QString, QString> properties,
-                                            QMap<QString, VisuPropertyMeta>* metaProperties,
+                                            QMap<QString, VisuPropertyMeta> metaProperties,
                                             const QVector<QPointer<VisuSignal>>& signalsList)
 {
     VisuWidget* widget = nullptr;

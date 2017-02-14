@@ -123,8 +123,8 @@ void VisuInstrument::connectSignals(const QVector<QPointer<VisuSignal>>& signals
 {
     disconnectSignals();
 
-    auto itr = mPropertiesMeta->begin();
-    while (itr != mPropertiesMeta->end())
+    auto itr = mPropertiesMeta.begin();
+    while (itr != mPropertiesMeta.end())
     {
         VisuPropertyMeta meta = itr.value();
         if (meta.type == VisuPropertyMeta::TYPE_SIGNAL)

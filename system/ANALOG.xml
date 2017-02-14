@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<angleEnd type="float">1.0</angleEnd>
-	<angleStart type="float">1.0</angleStart>
+	<angleEnd type="slider" min="0.0" max="3.14159">1.0</angleEnd>
+	<angleStart type="slider" min="0.0" max="3.14159">1.0</angleStart>
 	<arrowWidth type="int" min="1" max="100">5</arrowWidth>
 	<colorBackground type="color">30,30,30,0</colorBackground>
 	<colorForeground type="color">250,50,50,100</colorForeground>
 	<colorStatic type="color">0,0,0,255</colorStatic>
 	<drawCircle type="bool">0</drawCircle>
-	<fontSize type="int" min="0">15</fontSize>
+	<fontSize type="int" min="1">15</fontSize>
 	<height type="int" min="0">150</height>
 	<id type="read_only">0</id>
 	<labelRadius type="int" min="0">37</labelRadius>
-	<lineThickness type="int" min="0">4</lineThickness>
-	<majorCnt type="int" min="0">5</majorCnt>
+	<lineThickness type="int" min="1">4</lineThickness>
+	<majorCnt type="int" min="1">5</majorCnt>
 	<majorLen type="int" min="0">10</majorLen>
-	<minorCnt type="int" min="0" max="999">4</minorCnt>
+	<minorCnt type="int" min="1" max="999">4</minorCnt>
 	<minorLen type="int" min="0">5</minorLen>
 	<name>Analog instrument</name>
 	<nameX type="int">30</nameX>

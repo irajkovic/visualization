@@ -19,7 +19,7 @@ public:
 
     static void updateTable(QTableWidget* table,
                             QMap<QString, QString> properties,
-                            QMap<QString, VisuPropertyMeta> *metaProperties = nullptr,
+                            QMap<QString, VisuPropertyMeta> metaProperties,
                             QVector<QPointer<VisuSignal>>* signalList = nullptr,
                             QWidget* object = nullptr,
                             const char* slot = nullptr);
@@ -31,7 +31,10 @@ public:
                                     int row);
     static int updateWidgetProperty(QObject* sender, QWidget* parent);
     static QString getValueString(QTableWidget *table, int row);
+    static double sliderToDouble(int slider);
+    static int doubleToSlider(double value);
 
+    static const int SLIDER_FACTOR = 10;
     static const char* PROP_COLOR;
     static const char* PROP_ROW;
     static const char* PROP_KEY;

@@ -11,7 +11,7 @@ public:
     VisuPropertyMeta() :    min(std::numeric_limits<int>::min()),
                             max(std::numeric_limits<int>::max()),
                             defaultVal(0),
-                            type(""),
+                            type(TYPE_DEFAULT),
                             extra("") {}
 
     double min;
@@ -22,6 +22,7 @@ public:
 
     QStringList getEnumOptions();
 
+    static const QString DELIMITER;
     static const QString KEY_MIN;
     static const QString KEY_MAX;
     static const QString KEY_TYPE;
@@ -32,7 +33,9 @@ public:
     static const QString TYPE_READ_ONLY;
     static const QString TYPE_INT;
     static const QString TYPE_FLOAT;
+    static const QString TYPE_SLIDER;
     static const QString TYPE_BOOL;
+    static const QString TYPE_DEFAULT;
 };
 
 #endif // VISUPROPERTYMETA_H
