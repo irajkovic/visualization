@@ -6,6 +6,8 @@
 #include <QStyleOption>
 
 const QString StaticImage::TAG_NAME = "IMAGE";
+const QString StaticImage::KEY_FORMAT = "format";
+const QString StaticImage::KEY_IMAGE = "image";
 
 void StaticImage::renderImage()
 {

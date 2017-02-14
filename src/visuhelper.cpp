@@ -1,6 +1,6 @@
 #include "visuhelper.h"
 #include "exceptions/configloadexception.h"
-
+#include "statics/staticimage.h"
 #include <QByteArray>
 
 namespace VisuHelper
@@ -53,7 +53,7 @@ namespace VisuHelper
     QImage get<QImage>(QString key, QMap<QString, QString> properties)
     {
         checkIfKeyExists(key, properties);
-        checkIfKeyExists("format", properties);
+        checkIfKeyExists(StaticImage::KEY_FORMAT, properties);
 
         QByteArray base64Bytes;
         base64Bytes.append(properties[key]);
@@ -62,7 +62,7 @@ namespace VisuHelper
         rawImageData = QByteArray::fromBase64(base64Bytes);
 
         QImage image;
-        image.loadFromData(rawImageData, properties["format"].toStdString().c_str());
+        image.loadFromData(rawImageData, properties[StaticImage::KEY_FORMAT].toStdString().c_str());
         return image;
     }
 

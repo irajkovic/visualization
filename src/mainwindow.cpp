@@ -99,7 +99,6 @@ void MainWindow::setupMenu()
     imageAdd->setStatusTip(tr("Run current configuration"));
     imagesMenu->addAction(imageAdd);
     connect(imageAdd, SIGNAL(triggered()), this, SLOT(openImageAdder()));
-
 }
 
 void MainWindow::setupLayouts()
@@ -288,16 +287,16 @@ void MainWindow::openImageAdder()
             QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(StaticImage::TAG_NAME, VisuWidget::TAG_NAME);
             QByteArray imgData = file.readAll();
 
-            properties["image"] = QString(imgData.toBase64());
-            properties["format"] = QFileInfo(imagePath).suffix();
+            properties[StaticImage::KEY_IMAGE] = QString(imgData.toBase64());
+            properties[StaticImage::KEY_FORMAT] = QFileInfo(imagePath).suffix();
 
             QImage tmpImage;
-            tmpImage.loadFromData(imgData, properties["format"].toStdString().c_str());
+            tmpImage.loadFromData(imgData, properties[StaticImage::KEY_FORMAT].toStdString().c_str());
 
             if ((tmpImage.width() <= mStage->width()) & (tmpImage.height() <= mStage->height()) )
             {
-                properties["width"] = QString("%1").arg(tmpImage.width());
-                properties["height"] = QString("%1").arg(tmpImage.height());
+                properties[VisuWidget::KEY_WIDTH] = QString("%1").arg(tmpImage.width());
+                properties[VisuWidget::KEY_HEIGHT] = QString("%1").arg(tmpImage.height());
 
                 StaticImage* image = new StaticImage(mStage, properties);
                 mConfiguration->addWidget(image);

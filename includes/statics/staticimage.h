@@ -25,6 +25,8 @@ public:
     }
 
     static const QString TAG_NAME;
+    static const QString KEY_FORMAT;
+    static const QString KEY_IMAGE;
 
     void paintEvent(QPaintEvent* event);
 

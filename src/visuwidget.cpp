@@ -8,6 +8,11 @@
 
 const QString VisuWidget::OBJECT_NAME = "VisuWidget";
 const QString VisuWidget::TAG_NAME = "widget";
+const QString VisuWidget::KEY_ID = "id";
+const QString VisuWidget::KEY_WIDTH = "width";
+const QString VisuWidget::KEY_HEIGHT = "height";
+const QString VisuWidget::KEY_X = "x";
+const QString VisuWidget::KEY_Y = "y";
 
 QPoint VisuWidget::getRelativeOffset()
 {
@@ -93,7 +98,7 @@ quint16 VisuWidget::getId() const
 void VisuWidget::setId(quint16 id)
 {
     cId = id;
-    mProperties["id"] = QString("%1").arg(id);
+    mProperties[VisuWidget::KEY_ID] = QString("%1").arg(id);
 }
 
 QMap<QString, QString> VisuWidget::getProperties()
@@ -126,8 +131,8 @@ void VisuWidget::setPosition(QPoint position)
     cX = position.x();
     cY = position.y();
     setGeometry(cX, cY, cWidth, cHeight);
-    mProperties["x"] = QString("%1").arg(cX);
-    mProperties["y"] = QString("%1").arg(cY);
+    mProperties[VisuWidget::KEY_X] = QString("%1").arg(cX);
+    mProperties[VisuWidget::KEY_Y] = QString("%1").arg(cY);
 }
 
 const QSize VisuWidget::sizeHint()
