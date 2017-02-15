@@ -115,7 +115,7 @@ void InstAnalog::updateDivisionAngles()
 void InstAnalog::renderMajorLabel(QPainter* painter)
 {
     // Draw label
-    QString label = QString("%1").arg((int)mSignalMajorDivisionValue);
+    QString label = QString("%1").arg((int)mSignalMajorDivisionValue * cLabelMultiplier);
 
     QFontMetrics font_metrics = painter->fontMetrics();
     quint16 labelWidth = font_metrics.width(label);
@@ -167,7 +167,7 @@ void InstAnalog::setupProperties()
 {
     mCenterX = cWidth / 2;
     mCenterY = cHeight / 2;
-    mArrowLen = mCenterX - cLineThickness;
+    //mArrowLen = mCenterX - cLineThickness;
 }
 
 void InstAnalog::renderDynamic(QPainter* painter)
@@ -180,12 +180,12 @@ void InstAnalog::renderDynamic(QPainter* painter)
 
 void InstAnalog::drawTrianglePointer(QPainter* painter)
 {
-    quint16 endPointX = -mAngleSin * mArrowLen + mCenterX;
-    quint16 endPointY = mAngleCos * mArrowLen + mCenterY;
-    quint16 leftPointX = -mAngleCos * cArrowWidth + mCenterX;
-    quint16 leftPointY = -mAngleSin * cArrowWidth + mCenterY;
-    quint16 rightPointX = mAngleCos * cArrowWidth + mCenterX;
-    quint16 rightPointY = mAngleSin * cArrowWidth + mCenterY;
+    qint16 endPointX = -mAngleSin * cArrowLen + mCenterX;
+    qint16 endPointY = mAngleCos * cArrowLen + mCenterY;
+    qint16 leftPointX = -mAngleCos * cArrowWidth + mCenterX;
+    qint16 leftPointY = -mAngleSin * cArrowWidth + mCenterY;
+    qint16 rightPointX = mAngleCos * cArrowWidth + mCenterX;
+    qint16 rightPointY = mAngleSin * cArrowWidth + mCenterY;
 
     const QPointF points[3] = {
         QPointF(endPointX + cOffsetX, endPointY + cOffsetY),

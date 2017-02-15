@@ -37,6 +37,8 @@ class InstAnalog : public VisuInstrument
             GET_PROPERTY(cOffsetY, qint16, properties);
             GET_PROPERTY(cShowLabel, bool, properties);
             GET_PROPERTY(cDivisionRadius, qint16, properties);
+            GET_PROPERTY(cArrowLen, quint16, properties);
+            GET_PROPERTY(cLabelMultiplier, double, properties);
 
             mTagName = InstAnalog::TAG_NAME;
         }
@@ -63,6 +65,8 @@ class InstAnalog : public VisuInstrument
         qint16 cOffsetY;        // Y offset of instrument center
         bool cShowLabel;
         qint16 cDivisionRadius;
+        quint16 cArrowLen;
+        double cLabelMultiplier;
 
         // aux propertis
         double mAngleSin;
@@ -79,7 +83,6 @@ class InstAnalog : public VisuInstrument
         qint32 mEndPointY;
         quint16 mCenterX;
         quint16 mCenterY;
-        quint16 mArrowLen;
 
         void renderOutterCircle(QPainter* painter);
         void renderMajorDivision(QPainter* painter);

@@ -28,5 +28,7 @@
 	<x type="int" min="0">0</x>
 	<y type="int" min="0">0</y>
 	<divisionRadius type="int" min="1">80</divisionRadius>
+	<arrowLen type="int" min="1">75</arrowLen>
+	<labelMultiplier type="float">1.0</labelMultiplier>
 </widget>
 

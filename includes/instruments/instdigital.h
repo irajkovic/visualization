@@ -23,6 +23,7 @@ class InstDigital : public VisuInstrument
             GET_PROPERTY(cShowSignalName, bool, properties);
             GET_PROPERTY(cShowSignalUnit, bool, properties);
             GET_PROPERTY(cPadding, quint8, properties);
+            GET_PROPERTY(cLeadingDigits, quint8, properties);
 
             mTagName = InstDigital::TAG_NAME;
         }
@@ -33,6 +34,7 @@ class InstDigital : public VisuInstrument
         bool cShowSignalName;
         bool cShowSignalUnit;
         quint8 cPadding;
+        quint8 cLeadingDigits;
 
         // aux members
         QFont mFont;

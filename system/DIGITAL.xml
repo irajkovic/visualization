@@ -15,5 +15,6 @@
 	<width type="int" min="0">200</width>
 	<x type="int" min="0">0</x>
 	<y type="int" min="0">0</y>
+	<leadingDigits type="int" min="0" max="255">0</leadingDigits>
 </widget>
 
