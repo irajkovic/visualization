@@ -2,6 +2,7 @@
 
 #include <QPainter>
 #include <QStyleOption>
+#include "visumisc.h"
 
 void VisuInstrument::loadProperties(QMap<QString, QString> properties)
 {
@@ -89,7 +90,9 @@ void VisuInstrument::paintEvent(QPaintEvent* event)
 
     if (mActive)
     {
-        setPen(&painter, cColorStatic, 2);
+        setPen(&painter, Qt::GlobalColor::black, 4);
+        painter.drawRect(0, 0, cWidth, cHeight);
+        painter.setPen(VisuMisc::getDashedPen(Qt::GlobalColor::white, 4, {5, 5}));
         painter.drawRect(0, 0, cWidth, cHeight);
     }
 }

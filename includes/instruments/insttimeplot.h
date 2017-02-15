@@ -91,7 +91,6 @@ class InstTimePlot : public VisuInstrument
         void renderGraphSegment(QPainter* painter);
         void resetPlotToStart();
         bool noSpaceLeftOnRight();
-        QPen getDashedPen();
         void init(QPainter* painter);
         void setupGraphObjects();
         void renderGraphAreaBackground(QPainter* painter);

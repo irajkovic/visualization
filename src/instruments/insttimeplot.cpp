@@ -1,4 +1,5 @@
 #include "insttimeplot.h"
+#include "visumisc.h"
 
 const QString InstTimePlot::TAG_NAME = "TIME_PLOT";
 
@@ -60,16 +61,6 @@ void InstTimePlot::renderLabel(QPainter* painter, double sigCur, qint32 yPos)
     painter->drawText(mMaxLabelWidth - labelWidth + PADDING, yPos + labelHeight / 2, label);
 }
 
-QPen InstTimePlot::getDashedPen()
-{
-    QPen dashed;
-    QVector<qreal> pattern;
-    pattern << 10 << 4;
-    dashed.setDashPattern(pattern);
-    dashed.setColor(cColorStatic);
-    return dashed;
-}
-
 void InstTimePlot::renderLabelsAndMajors(QPainter* painter)
 {
     double sigCur = mSignal->getMin();
@@ -77,7 +68,7 @@ void InstTimePlot::renderLabelsAndMajors(QPainter* painter)
     double yPos = mPlotStartY;
     double yStep = (double)(cHeight - 2 * mMargin) / cnt;
 
-    QPen dashed = getDashedPen();
+    QPen dashed = VisuMisc::getDashedPen(cColorStatic, cStaticThickness, {3, 3});
 
     for (int i=0; i<=cnt; ++i)
     {

@@ -54,6 +54,7 @@ public:
 
 signals:
     void widgetActivated(VisuWidget*);
+    void widgetContextMenu(VisuWidget*);
 
 protected:
 

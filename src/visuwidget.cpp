@@ -25,6 +25,10 @@ void VisuWidget::mousePressEvent(QMouseEvent * event)
     {
         mDragStartPosition = event->pos();
     }
+    else if (event->button() == Qt::RightButton)
+    {
+        emit(widgetContextMenu(this));
+    }
 
     emit(widgetActivated(this));
 }

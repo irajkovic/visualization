@@ -57,13 +57,13 @@ QString VisuMisc::saveToFile(QFile &file, QString contents)
     }
     return file.fileName();
 }
-/*
-template <typename T>
-void VisuMisc::notNullPtr(T* ptr, func )
+
+QPen VisuMisc::getDashedPen(QColor color, int thickness, QVector<qreal> pattern)
 {
-    if (ptr != nullptr)
-    {
-        func(ptr);
-    }
+    QPen dashed;
+    //pattern << 3 << 3;
+    dashed.setDashPattern(pattern);
+    dashed.setColor(color);
+    dashed.setWidth(thickness);
+    return dashed;
 }
-*/

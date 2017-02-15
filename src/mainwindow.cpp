@@ -453,6 +453,7 @@ void MainWindow::cellUpdated(int row, int col)
 
     properties[key] = value;
     mActiveWidget->loadProperties(properties);
+    mActiveWidget->setActive(true); // loading properties resets active
 
     // refresh instrument
     VisuInstrument* inst = qobject_cast<VisuInstrument*>(mActiveWidget);
