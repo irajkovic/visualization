@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     try
     {
-        if (argc > 1 && QString(argv[1]) == "--editor" )
+        if (argc == 1)
         {
             new MainWindow();
         }
