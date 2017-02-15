@@ -4,6 +4,7 @@
 	<colorForeground type="color">250,50,50,200</colorForeground>
 	<colorStatic type="color">0,0,0,255</colorStatic>
 	<fontSize type="int" min="1">15</fontSize>
+	<fontType type="font">Arial</fontType>
 	<height type="int" min="0">50</height>
 	<horMargin type="int">15</horMargin>
 	<id type="read_only">3</id>

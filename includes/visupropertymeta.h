@@ -35,6 +35,7 @@ public:
     static const QString TYPE_FLOAT;
     static const QString TYPE_SLIDER;
     static const QString TYPE_BOOL;
+    static const QString TYPE_FONT;
     static const QString TYPE_DEFAULT;
 };
 

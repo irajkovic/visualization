@@ -58,11 +58,10 @@ QString VisuMisc::saveToFile(QFile &file, QString contents)
     return file.fileName();
 }
 
-QPen VisuMisc::getDashedPen(QColor color, int thickness, QVector<qreal> pattern)
+QPen VisuMisc::getDashedPen(QColor color, int thickness)
 {
     QPen dashed;
-    //pattern << 3 << 3;
-    dashed.setDashPattern(pattern);
+    dashed.setStyle(Qt::DashLine);
     dashed.setColor(color);
     dashed.setWidth(thickness);
     return dashed;

@@ -104,6 +104,7 @@
 			<divisionRadius>96</divisionRadius>
 			<drawCircle>1</drawCircle>
 			<fontSize>14</fontSize>
+			<fontType>Arial</fontType>
 			<height>192</height>
 			<id>0</id>
 			<labelMultiplier>1.0</labelMultiplier>
@@ -138,6 +139,7 @@
 			<divisionRadius>95</divisionRadius>
 			<drawCircle>1</drawCircle>
 			<fontSize>15</fontSize>
+			<fontType>Arial</fontType>
 			<height>192</height>
 			<id>1</id>
 			<labelMultiplier>0.001</labelMultiplier>
@@ -172,6 +174,7 @@
 			<divisionRadius>59</divisionRadius>
 			<drawCircle>1</drawCircle>
 			<fontSize>15</fontSize>
+			<fontType>Arial</fontType>
 			<height>95</height>
 			<id>2</id>
 			<labelMultiplier>1.0</labelMultiplier>
@@ -206,6 +209,7 @@
 			<divisionRadius>80</divisionRadius>
 			<drawCircle>1</drawCircle>
 			<fontSize>17</fontSize>
+			<fontType>Arial</fontType>
 			<height>95</height>
 			<id>3</id>
 			<labelMultiplier>1.0</labelMultiplier>
@@ -240,6 +244,7 @@
 			<divisionRadius>59</divisionRadius>
 			<drawCircle>1</drawCircle>
 			<fontSize>15</fontSize>
+			<fontType>Arial</fontType>
 			<height>95</height>
 			<id>4</id>
 			<labelMultiplier>1.0</labelMultiplier>
@@ -272,6 +277,7 @@
 			<divisionRadius>45</divisionRadius>
 			<drawCircle>0</drawCircle>
 			<fontSize>3</fontSize>
+			<fontType>Arial</fontType>
 			<height>95</height>
 			<id>5</id>
 			<labelMultiplier>1.0</labelMultiplier>
@@ -298,6 +304,7 @@
 			<colorForeground>0,0,0,250</colorForeground>
 			<colorStatic>0,0,0,255</colorStatic>
 			<fontSize>14</fontSize>
+			<fontType>Arial</fontType>
 			<height>21</height>
 			<id>6</id>
 			<leadingDigits>7</leadingDigits>
@@ -316,6 +323,7 @@
 			<colorForeground>0,0,0,250</colorForeground>
 			<colorStatic>0,0,0,255</colorStatic>
 			<fontSize>14</fontSize>
+			<fontType>Arial</fontType>
 			<height>21</height>
 			<id>7</id>
 			<leadingDigits>4</leadingDigits>
@@ -337,6 +345,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>1</condition>
 			<fontSize>18</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>8</id>
 			<name>Led instrument</name>
@@ -358,6 +367,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>4</condition>
 			<fontSize>18</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>9</id>
 			<name>Led instrument</name>

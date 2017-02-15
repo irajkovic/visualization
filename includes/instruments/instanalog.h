@@ -25,7 +25,6 @@ class InstAnalog : public VisuInstrument
             GET_PROPERTY(cMinorLen, quint8, properties);
             GET_PROPERTY(cMajorCnt, quint8, properties);
             GET_PROPERTY(cMinorCnt, quint8, properties);
-            GET_PROPERTY(cFontSize, quint8, properties);
             GET_PROPERTY(cArrowWidth, quint8, properties);
             GET_PROPERTY(cDrawCircle, bool, properties);
             GET_PROPERTY(cLabelRadius, quint16, properties);
@@ -53,7 +52,6 @@ class InstAnalog : public VisuInstrument
         quint8 cMinorLen;       // Length, in pixels, of minor division marks
         quint8 cMajorCnt;       // Number of major count divisions
         quint8 cMinorCnt;       // Number of minor count divisions
-        quint8 cFontSize;       // Size of font used on labels
         quint8 cArrowWidth;     // Width of arrow at it's base
         bool cDrawCircle;     // 1 / 0 to draw circle allong pointer tip
         quint16 cLabelRadius;   // Radius of circle on which major labels are drawn

@@ -4,6 +4,7 @@
 	<colorForeground type="color">0,0,0,250</colorForeground>
 	<colorStatic type="color">0,0,0,255</colorStatic>
 	<fontSize type="int" min="0">18</fontSize>
+	<fontType type="font">Arial</fontType>
 	<height type="int" min="0">30</height>
 	<id type="read_only">1</id>
 	<name>Digital instrument</name>

@@ -2,14 +2,12 @@
 #include "visumisc.h"
 #include <QSpinBox>
 #include <QSlider>
+#include <QFontDatabase>
 
 const char* VisuPropertiesHelper::PROP_COLOR = "color";
 const char* VisuPropertiesHelper::PROP_ROW = "row";
 const char* VisuPropertiesHelper::PROP_KEY = "key";
-const char* VisuPropertiesHelper::PROP_X = "x";
-const char* VisuPropertiesHelper::PROP_Y = "y";
-const char* VisuPropertiesHelper::PROP_SIGNAL_ID = "signalId";
-const char* VisuPropertiesHelper::PROP_ID = "id";
+const char* VisuPropertiesHelper::PROP_TYPE = "type";
 
 double VisuPropertiesHelper::sliderToDouble(int slider)
 {
@@ -26,9 +24,11 @@ void VisuPropertiesHelper::setupTableWidget(QWidget* widget,
                                 QWidget* object,
                                 const char* slot,
                                 QString key,
-                                int row)
+                                int row,
+                                QString type)
 {
     widget->setProperty(VisuPropertiesHelper::PROP_KEY, key);
+    widget->setProperty(VisuPropertiesHelper::PROP_TYPE, type);
     widget->setProperty(VisuPropertiesHelper::PROP_ROW, row);
     table->setCellWidget(row, 1, widget);
 
@@ -70,7 +70,16 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
             box->insertItems(0, meta.getEnumOptions());
             box->setCurrentIndex(value.toInt());
 
-            VisuPropertiesHelper::setupTableWidget(box, table, object, slot, key, row);
+            VisuPropertiesHelper::setupTableWidget(box, table, object, slot, key, row, meta.type);
+        }
+        else if (meta.type == VisuPropertyMeta::TYPE_FONT)
+        {
+            QComboBox* box = new QComboBox();
+
+            QFontDatabase db;
+            box->insertItems(0, db.families());
+            box->setCurrentText(value);
+            VisuPropertiesHelper::setupTableWidget(box, table, object, slot, key, row, meta.type);
         }
         else if (meta.type == VisuPropertyMeta::TYPE_BOOL)
         {
@@ -79,7 +88,7 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
             box->insertItem(1, "Yes");
             box->setCurrentIndex(value.toInt());
 
-            VisuPropertiesHelper::setupTableWidget(box, table, object, slot, key, row);
+            VisuPropertiesHelper::setupTableWidget(box, table, object, slot, key, row, meta.type);
         }
         else if (meta.type == VisuPropertyMeta::TYPE_SIGNAL)
         {
@@ -95,7 +104,7 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
                 }
                 box->setCurrentIndex(value.toInt());
 
-                VisuPropertiesHelper::setupTableWidget(box, table, object, slot, key, row);
+                VisuPropertiesHelper::setupTableWidget(box, table, object, slot, key, row, meta.type);
             }
         }
         else if (meta.type == VisuPropertyMeta::TYPE_COLOR)
@@ -105,7 +114,7 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
             VisuMisc::setBackgroundColor(btn, color);
             btn->setProperty(VisuPropertiesHelper::PROP_COLOR, color);
 
-            VisuPropertiesHelper::setupTableWidget(btn, table, nullptr, nullptr, key, row);
+            VisuPropertiesHelper::setupTableWidget(btn, table, nullptr, nullptr, key, row, meta.type);
             if (object != nullptr && slot != nullptr)
             {
                 QObject::connect(btn, SIGNAL(clicked()), object, slot);
@@ -124,7 +133,7 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
             spinbox->setMaximum(meta.max);
             spinbox->setValue(value.toInt());
 
-            VisuPropertiesHelper::setupTableWidget(spinbox, table, nullptr, nullptr, key, row);
+            VisuPropertiesHelper::setupTableWidget(spinbox, table, nullptr, nullptr, key, row, meta.type);
             if (object != nullptr && slot != nullptr)
             {
                 QObject::connect(spinbox, SIGNAL(valueChanged(int)), object, slot);
@@ -137,7 +146,7 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
             slider->setMaximum(VisuPropertiesHelper::doubleToSlider(meta.max));
             slider->setValue(VisuPropertiesHelper::doubleToSlider(value.toDouble()));
 
-            VisuPropertiesHelper::setupTableWidget(slider, table, nullptr, nullptr, key, row);
+            VisuPropertiesHelper::setupTableWidget(slider, table, nullptr, nullptr, key, row, meta.type);
             if (object != nullptr && slot != nullptr)
             {
                 QObject::connect(slider, SIGNAL(valueChanged(int)), object, slot);
@@ -146,7 +155,7 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
         else
         {
             QLineEdit* edit = new QLineEdit(value);
-            VisuPropertiesHelper::setupTableWidget(edit, table, nullptr, nullptr, key, row);
+            VisuPropertiesHelper::setupTableWidget(edit, table, nullptr, nullptr, key, row, meta.type);
 
             if (meta.type == VisuPropertyMeta::TYPE_FLOAT)
             {
@@ -175,7 +184,14 @@ QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
 
     if ( (box = qobject_cast<QComboBox*>(table->cellWidget(row, 1))) != nullptr)
     {
-        value = QString("%1").arg(box->currentIndex());
+        if (box->property(VisuPropertiesHelper::PROP_TYPE).toString() == VisuPropertyMeta::TYPE_FONT)
+        {
+            value = (box->currentText());
+        }
+        else
+        {
+            value = QString("%1").arg(box->currentIndex());
+        }
     }
     else if ( (spinbox = qobject_cast<QSpinBox*>(table->cellWidget(row, 1))) != nullptr)
     {

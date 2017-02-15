@@ -11,7 +11,7 @@ void InstLED::renderStatic(QPainter *painter)
     if (cShowSignalName)
     {
         setPen(painter, cColorStatic);
-        setFont(painter, cFontSize);
+        setFont(painter);
         painter->drawText(cRadius+5, cCenterH + cFontSize, mSignal->getName());
     }
 

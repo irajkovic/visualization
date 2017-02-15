@@ -22,6 +22,7 @@
 		<widget>
 			<angleEnd>3.14159</angleEnd>
 			<angleStart>1.570795</angleStart>
+			<arrowLen>143</arrowLen>
 			<arrowWidth>5</arrowWidth>
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>250,50,50,100</colorForeground>
@@ -29,8 +30,10 @@
 			<divisionRadius>150</divisionRadius>
 			<drawCircle>0</drawCircle>
 			<fontSize>14</fontSize>
+			<fontType>Arial</fontType>
 			<height>300</height>
 			<id>0</id>
+			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>95</labelRadius>
 			<lineThickness>5</lineThickness>
 			<majorCnt>5</majorCnt>
@@ -50,6 +53,7 @@
 			<y>20</y>
 		</widget>
 		<widget>
+			<arrowLen>65</arrowLen>
 			<arrowWidth>3</arrowWidth>
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>255,100,100,250</colorForeground>
@@ -59,8 +63,10 @@
 			<divisionFormat>mm:ss</divisionFormat>
 			<drawCircle>30</drawCircle>
 			<fontSize>12</fontSize>
+			<fontType>Arial</fontType>
 			<height>220</height>
 			<id>1</id>
+			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>20</labelRadius>
 			<lineThickness>2</lineThickness>
 			<majorCnt>5</majorCnt>
@@ -92,9 +98,11 @@
 			<color_grid>50,50,50,255</color_grid>
 			<drawCircle>30</drawCircle>
 			<fontSize>25</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>2</id>
 			<labelRadius>20</labelRadius>
+			<leadingDigits>3</leadingDigits>
 			<lineThickness>2</lineThickness>
 			<majorCnt>10</majorCnt>
 			<majorLen>10</majorLen>
@@ -122,6 +130,7 @@
 			<colorStatic>200,0,0,255</colorStatic>
 			<condition>2</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>3</id>
 			<name>Led</name>

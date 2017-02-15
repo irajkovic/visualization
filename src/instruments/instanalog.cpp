@@ -11,7 +11,7 @@ void InstAnalog::renderStatic(QPainter* painter)
 {
     clear(painter);
     setPen(painter, cColorStatic);
-    setFont(painter, cFontSize);
+    setFont(painter);
     setupProperties();
 
     if (cShowLabel)

@@ -204,6 +204,7 @@
 		<widget>
 			<angleEnd>1.9</angleEnd>
 			<angleStart>1.9</angleStart>
+			<arrowLen>65</arrowLen>
 			<arrowWidth>5</arrowWidth>
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>255,255,255,100</colorForeground>
@@ -211,8 +212,10 @@
 			<divisionRadius>70</divisionRadius>
 			<drawCircle>0</drawCircle>
 			<fontSize>12</fontSize>
+			<fontType>Arial</fontType>
 			<height>150</height>
 			<id>1</id>
+			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>45</labelRadius>
 			<lineThickness>2</lineThickness>
 			<majorCnt>5</majorCnt>
@@ -234,6 +237,7 @@
 		<widget>
 			<angleEnd>1.9</angleEnd>
 			<angleStart>1.9</angleStart>
+			<arrowLen>65</arrowLen>
 			<arrowWidth>5</arrowWidth>
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>255,255,255,100</colorForeground>
@@ -241,8 +245,10 @@
 			<divisionRadius>70</divisionRadius>
 			<drawCircle>0</drawCircle>
 			<fontSize>12</fontSize>
+			<fontType>Arial</fontType>
 			<height>150</height>
 			<id>2</id>
+			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>45</labelRadius>
 			<lineThickness>2</lineThickness>
 			<majorCnt>5</majorCnt>
@@ -264,6 +270,7 @@
 		<widget>
 			<angleEnd>1.9</angleEnd>
 			<angleStart>1.9</angleStart>
+			<arrowLen>65</arrowLen>
 			<arrowWidth>5</arrowWidth>
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>255,255,255,100</colorForeground>
@@ -271,8 +278,10 @@
 			<divisionRadius>70</divisionRadius>
 			<drawCircle>0</drawCircle>
 			<fontSize>12</fontSize>
+			<fontType>Arial</fontType>
 			<height>150</height>
 			<id>3</id>
+			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>45</labelRadius>
 			<lineThickness>2</lineThickness>
 			<majorCnt>5</majorCnt>
@@ -294,6 +303,7 @@
 		<widget>
 			<angleEnd>1.9</angleEnd>
 			<angleStart>1.9</angleStart>
+			<arrowLen>65</arrowLen>
 			<arrowWidth>5</arrowWidth>
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>255,255,255,100</colorForeground>
@@ -301,8 +311,10 @@
 			<divisionRadius>70</divisionRadius>
 			<drawCircle>0</drawCircle>
 			<fontSize>12</fontSize>
+			<fontType>Arial</fontType>
 			<height>150</height>
 			<id>4</id>
+			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>45</labelRadius>
 			<lineThickness>2</lineThickness>
 			<majorCnt>5</majorCnt>
@@ -324,6 +336,7 @@
 		<widget>
 			<angleEnd>1.9</angleEnd>
 			<angleStart>1.9</angleStart>
+			<arrowLen>65</arrowLen>
 			<arrowWidth>5</arrowWidth>
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>255,255,255,100</colorForeground>
@@ -331,8 +344,10 @@
 			<divisionRadius>70</divisionRadius>
 			<drawCircle>0</drawCircle>
 			<fontSize>12</fontSize>
+			<fontType>Arial</fontType>
 			<height>150</height>
 			<id>5</id>
+			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>45</labelRadius>
 			<lineThickness>2</lineThickness>
 			<majorCnt>5</majorCnt>
@@ -354,6 +369,7 @@
 		<widget>
 			<angleEnd>1.9</angleEnd>
 			<angleStart>1.9</angleStart>
+			<arrowLen>65</arrowLen>
 			<arrowWidth>5</arrowWidth>
 			<colorBackground>30,30,30,255</colorBackground>
 			<colorForeground>255,255,255,100</colorForeground>
@@ -361,8 +377,10 @@
 			<divisionRadius>70</divisionRadius>
 			<drawCircle>0</drawCircle>
 			<fontSize>12</fontSize>
+			<fontType>Arial</fontType>
 			<height>150</height>
 			<id>6</id>
+			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>45</labelRadius>
 			<lineThickness>2</lineThickness>
 			<majorCnt>5</majorCnt>
@@ -389,6 +407,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>7</id>
 			<name>Led</name>
@@ -410,6 +429,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>8</id>
 			<name>Led</name>
@@ -431,6 +451,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>9</id>
 			<name>Led</name>
@@ -452,6 +473,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>10</id>
 			<name>Led</name>
@@ -473,6 +495,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>11</id>
 			<name>Led</name>
@@ -494,6 +517,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>12</id>
 			<name>Led</name>
@@ -515,6 +539,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>13</id>
 			<name>Led</name>
@@ -536,6 +561,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>14</id>
 			<name>Led</name>
@@ -557,6 +583,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>15</id>
 			<name>Led</name>
@@ -578,6 +605,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>16</id>
 			<name>Led</name>
@@ -599,6 +627,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>17</id>
 			<name>Led</name>
@@ -620,6 +649,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>18</id>
 			<name>Led</name>
@@ -641,6 +671,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>19</id>
 			<name>Led</name>
@@ -662,6 +693,7 @@
 			<colorStatic>0,0,0,255</colorStatic>
 			<condition>0</condition>
 			<fontSize>26</fontSize>
+			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>20</id>
 			<name>Led</name>

@@ -11,12 +11,12 @@ void InstDigital::renderStatic(QPainter* painter)
 
 void InstDigital::renderDynamic(QPainter* painter)
 {
-    setFont(painter, cFontSize);
+    setFont(painter);
     setPen(painter, cColorForeground);
 
     //QString text = QString("%1").arg(mSignal->getRealValue(), cLeadingDigits, 10, QChar('0'));
 
-     QString text =  QString::number(mSignal->getRealValue()).rightJustified(cLeadingDigits, '0');
+    QString text =  QString::number(mSignal->getRealValue()).rightJustified(cLeadingDigits, '0');
 
     if (cShowSignalName) {
         text = mSignal->getName() + " = " + text;

@@ -12,6 +12,7 @@ const QString VisuPropertyMeta::TYPE_INT = "int";
 const QString VisuPropertyMeta::TYPE_FLOAT = "float";
 const QString VisuPropertyMeta::TYPE_SLIDER = "slider";
 const QString VisuPropertyMeta::TYPE_BOOL = "bool";
+const QString VisuPropertyMeta::TYPE_FONT = "font";
 const QString VisuPropertyMeta::TYPE_DEFAULT = "";
 const QString VisuPropertyMeta::DELIMITER = ",";
 

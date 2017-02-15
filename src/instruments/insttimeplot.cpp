@@ -68,7 +68,7 @@ void InstTimePlot::renderLabelsAndMajors(QPainter* painter)
     double yPos = mPlotStartY;
     double yStep = (double)(cHeight - 2 * mMargin) / cnt;
 
-    QPen dashed = VisuMisc::getDashedPen(cColorStatic, cStaticThickness, {3, 3});
+    QPen dashed = VisuMisc::getDashedPen(cColorStatic, cStaticThickness);
 
     for (int i=0; i<=cnt; ++i)
     {
@@ -112,7 +112,7 @@ void InstTimePlot::renderSignalName(QPainter* painter)
 void InstTimePlot::setupPainter(QPainter* painter)
 {
     setPen(painter, cColorStatic, cStaticThickness);
-    setFont(painter, cFontSize);
+    setFont(painter);
 }
 
 void InstTimePlot::renderStatic(QPainter* painter)
@@ -149,7 +149,7 @@ void InstTimePlot::renderMarker(QPainter* painter, quint64 timestamp)
         setPen(mGraphPainter, cColorStatic, cMarkerThickness);
         painter->drawLine(markerX, mPlotStartY, markerX, mPlotEndY);
 
-        setFont(mGraphPainter, cFontSize);
+        setFont(mGraphPainter);
         painter->drawText(markerX,
                             cHeight,
                             getDisplayTime(timestamp, cDivisionFormat));
@@ -165,7 +165,7 @@ bool InstTimePlot::shouldRenderMarker(quint64 timestamp)
 void InstTimePlot::renderTimeLabel(QPainter* painter)
 {
     setPen(painter, cColorStatic);
-    setFont(painter, cFontSize);
+    setFont(painter);
     quint64 timestamp = mSignal->getTimestamp();
     painter->drawText(mPlotStartX,
                       mPlotEndY - 5,

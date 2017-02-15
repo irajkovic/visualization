@@ -30,7 +30,6 @@ public:
         GET_PROPERTY(cMajorLen, quint16, properties);
         GET_PROPERTY(cLabelX, QString, properties);
         GET_PROPERTY(cLabelY, QString, properties);
-        GET_PROPERTY(cFontSize, quint8, properties);
 
         mTagName = InstXYPlot::TAG_NAME;
     }
@@ -47,7 +46,6 @@ private:
     quint16 cMajorLen;
     QString cLabelX;
     QString cLabelY;
-    quint8 cFontSize;
 
     // aux properties
     double mLastValX;

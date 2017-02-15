@@ -7,6 +7,7 @@
 	<decimals type="int" min="0" max="9">1</decimals>
 	<divisionFormat>mm:ss</divisionFormat>
 	<fontSize type="int" min="0">11</fontSize>
+	<fontType type="font">Arial</fontType>
 	<height type="int" min="0">150</height>
 	<id type="read_only">4</id>
 	<lineThickness type="int" min="0">2</lineThickness>

@@ -45,7 +45,7 @@ void InstXYPlot::renderBall(QPainter* painter)
 
 void InstXYPlot::renderStatic(QPainter *painter)
 {
-    setFont(painter, cFontSize);
+    setFont(painter);
     setPen(painter, cColorStatic);
     clear(painter);
 

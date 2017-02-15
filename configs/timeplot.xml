@@ -40,6 +40,7 @@
             <majorCnt>4</majorCnt>
             <minorCnt>3</minorCnt>
             <fontSize>18</fontSize>
+            <fontType>Arial</fontType>
             <arrowWidth>3</arrowWidth>
             <drawCircle>30</drawCircle>
             <labelRadius>20</labelRadius>

@@ -8,6 +8,7 @@
 	<colorStatic type="color">0,0,0,255</colorStatic>
 	<drawCircle type="bool">0</drawCircle>
 	<fontSize type="int" min="1">15</fontSize>
+	<fontType type="font">Arial</fontType>
 	<height type="int" min="0">150</height>
 	<id type="read_only">0</id>
 	<labelRadius type="int" min="0">37</labelRadius>

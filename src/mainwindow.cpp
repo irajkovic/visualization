@@ -441,11 +441,11 @@ void MainWindow::cellUpdated(int row, int col)
     QMap<QString, VisuPropertyMeta> metaProperties = mActiveWidget->getPropertiesMeta();
 
     QPoint position = mActiveWidget->pos();
-    if (key == VisuPropertiesHelper::PROP_X)
+    if (key == VisuWidget::KEY_X)
     {
         position.setX(value.toInt());
     }
-    else if (key == VisuPropertiesHelper::PROP_Y)
+    else if (key == VisuWidget::KEY_Y)
     {
         position.setY(value.toInt());
     }

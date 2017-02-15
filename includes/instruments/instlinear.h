@@ -24,7 +24,6 @@ class InstLinear : public VisuInstrument
             GET_PROPERTY(cMinorLen, quint8, properties);
             GET_PROPERTY(cMajorCnt, quint8, properties);
             GET_PROPERTY(cMinorCnt, quint8, properties);
-            GET_PROPERTY(cFontSize, quint8, properties);
             GET_PROPERTY(cHorMargin, quint16, properties);
             GET_PROPERTY(cVerMargin, quint16, properties);
             GET_PROPERTY(cVerMinorMargin, quint16, properties);
@@ -43,7 +42,6 @@ class InstLinear : public VisuInstrument
         quint8 cMinorLen;       // Length, in pixels, of minor division marks
         quint8 cMajorCnt;       // Number of major count divisions
         quint8 cMinorCnt;       // Number of minor count divisions
-        quint8 cFontSize;       // Size of font used on labels
         quint16 cHorMargin;
         quint16 cVerMargin;
         quint16 cVerMinorMargin;

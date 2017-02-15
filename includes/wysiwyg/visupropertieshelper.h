@@ -28,7 +28,8 @@ public:
                                     QWidget* object,
                                     const char* slot,
                                     QString key,
-                                    int row);
+                                    int row,
+                                    QString type);
     static int updateWidgetProperty(QObject* sender, QWidget* parent);
     static QString getValueString(QTableWidget *table, int row);
     static double sliderToDouble(int slider);
@@ -38,10 +39,7 @@ public:
     static const char* PROP_COLOR;
     static const char* PROP_ROW;
     static const char* PROP_KEY;
-    static const char* PROP_X;
-    static const char* PROP_Y;
-    static const char* PROP_SIGNAL_ID;
-    static const char* PROP_ID;
+    static const char* PROP_TYPE;
 };
 
 #endif // VISUPROPERTIESHELPER_H

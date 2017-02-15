@@ -19,5 +19,6 @@
 	<x type="int" min="0">218</x>
 	<y type="int" min="0">161</y>
 	<fontSize type="int" min="1">12</fontSize>
+	<fontType type="font">Arial</fontType>
 </widget>
 

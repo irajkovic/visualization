@@ -14,6 +14,8 @@ void VisuInstrument::loadProperties(QMap<QString, QString> properties)
     GET_PROPERTY(cColorBackground, QColor, properties);
     GET_PROPERTY(cColorStatic, QColor, properties);
     GET_PROPERTY(cColorForeground, QColor, properties);
+    GET_PROPERTY(cFontSize, quint8, properties);
+    GET_PROPERTY(cFontType, QString, properties);
 
     this->mActive = false;
     this->mFirstRun = true;
@@ -92,15 +94,16 @@ void VisuInstrument::paintEvent(QPaintEvent* event)
     {
         setPen(&painter, Qt::GlobalColor::black, 4);
         painter.drawRect(0, 0, cWidth, cHeight);
-        painter.setPen(VisuMisc::getDashedPen(Qt::GlobalColor::white, 4, {5, 5}));
+        painter.setPen(VisuMisc::getDashedPen(Qt::GlobalColor::white, 4));
         painter.drawRect(0, 0, cWidth, cHeight);
     }
 }
 
-void VisuInstrument::setFont(QPainter* painter, int fontSize)
+void VisuInstrument::setFont(QPainter* painter)
 {
     QFont font;
-    font.setPixelSize(fontSize);
+    font.setPixelSize(cFontSize);
+    font.setFamily(cFontType);
     painter->setFont(font);
 }
 
