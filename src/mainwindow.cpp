@@ -71,6 +71,11 @@ void MainWindow::setupMenu()
     fileMenu->addAction(saveAs);
     connect(saveAs, SIGNAL(triggered()), this, SLOT(saveAsConfiguration()));
 
+    QAction* screenshot = new QAction(tr("Screenshot"), this);
+    screenshot->setStatusTip(tr("Take configuration screenshot"));
+    fileMenu->addAction(screenshot);
+    connect(screenshot, SIGNAL(triggered()), this, SLOT(saveToImage()));
+
     QMenu* signalsMenu = ui->menuBar->addMenu(tr("&Signals"));
 
     QAction* newsig = new QAction(tr("&New"), this);
@@ -378,6 +383,18 @@ void MainWindow::saveAsConfiguration()
         VisuMisc::saveToFile(file, xml);
         mConfigPath = configPath;
         mSave->setDisabled(false);
+    }
+}
+
+void MainWindow::saveToImage()
+{
+    QString configPath = QFileDialog::getSaveFileName(this,
+                                                      tr("Save configuration"),
+                                                      ".");
+    if (!configPath.isNull())
+    {
+        QPixmap image = mStage->grab();
+        image.save(configPath);
     }
 }
 

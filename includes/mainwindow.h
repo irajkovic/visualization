@@ -75,6 +75,7 @@ private slots:
     void openConfiguration();
     void saveConfiguration();
     void saveAsConfiguration();
+    void saveToImage();
     void openSignalsEditor();
     void openConfigurationEditor();
     void updateConfig();

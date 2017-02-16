@@ -16,6 +16,9 @@ void StaticImage::renderImage()
 
     setGeometry(QRect(cX, cY, cWidth, cHeight));
 
+    setStyleSheet("background-color: transparent;");
+    setAttribute(Qt::WA_TranslucentBackground);
+    label->setAttribute(Qt::WA_TranslucentBackground);
     label->setPixmap(QPixmap::fromImage(cImage));
     label->show();
     show();
