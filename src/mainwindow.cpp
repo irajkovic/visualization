@@ -77,14 +77,14 @@ void MainWindow::setupMenu()
     connect(screenshot, SIGNAL(triggered()), this, SLOT(saveToImage()));
 
     QMenu* signalsMenu = ui->menuBar->addMenu(tr("&Signals"));
-
     QAction* newsig = new QAction(tr("&New"), this);
     newsig->setData(QVariant(-1));
     newsig->setStatusTip(tr("Add new signal"));
     signalsMenu->addAction(newsig);
     connect(newsig, SIGNAL(triggered()), this, SLOT(openSignalsEditor()));
-
     mSignalsListMenu = signalsMenu->addMenu(tr("&List"));
+
+    mInstrumentsListMenu = ui->menuBar->addMenu(tr("&Instruments"));
 
     QMenu* configMenu = ui->menuBar->addMenu(tr("&Configuration"));
 
@@ -149,6 +149,13 @@ void MainWindow::unloadConfiguration()
     delete mConfiguration;
 }
 
+void MainWindow::reloadConfiguration()
+{
+    QString xml = mConfiguration->toXML();
+    QString configFilePath = VisuMisc::saveToFile(mTmpConfigFile, xml);
+    loadConfigurationFromFile(configFilePath);
+}
+
 void MainWindow::loadConfigurationFromFile(const QString& configPath)
 {
     unloadConfiguration();
@@ -168,6 +175,7 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
         }
 
         updateMenuSignalList();
+        updateMenuInstrumentList();
     }
     catch(ConfigLoadException e)
     {
@@ -230,6 +238,41 @@ void MainWindow::updateConfig()
     }
 
     VisuMisc::setBackgroundColor(mStage, mConfiguration->getBackgroundColor());
+}
+
+void MainWindow::updateMenuInstrumentList()
+{
+    mInstrumentsListMenu->clear();
+    auto widgets = mConfiguration->getWidgets();
+    if (widgets.size() > 0)
+    {
+        for (VisuWidget* widget : widgets)
+        {
+            if (widget != nullptr)
+            {
+                QString menuItemText = QString("%1 (id: %2)")
+                        .arg(widget->getType())
+                        .arg(widget->getId());
+
+                QMenu* widgetMenuItem = mInstrumentsListMenu->addMenu(menuItemText);
+
+                QAction* select = new QAction(tr("Select"), this);
+                select->setData(QVariant(widget->getId()));
+                widgetMenuItem->addAction(select);
+                connect(select, SIGNAL(triggered()), this, SLOT(activateWidgetFromMenu()));
+
+                QAction* moveUp = new QAction(tr("Move up"), this);
+                moveUp->setData(QVariant(widget->getId()));
+                widgetMenuItem->addAction(moveUp);
+                connect(moveUp, SIGNAL(triggered()), this, SLOT(moveWidgetUp()));
+
+                QAction* moveDown = new QAction(tr("Move down"), this);
+                moveDown->setData(QVariant(widget->getId()));
+                widgetMenuItem->addAction(moveDown);
+                connect(moveDown, SIGNAL(triggered()), this, SLOT(moveWidgetDown()));
+            }
+        }
+    }
 }
 
 void MainWindow::updateMenuSignalList()
@@ -492,6 +535,57 @@ void MainWindow::cellUpdated(int row, int col)
     }
 }
 
+VisuWidget* MainWindow::actionDataToWidget(QAction* action)
+{
+    VisuWidget* widget = mConfiguration->getWidget(action->data().toInt());
+    return widget;
+}
+
+void MainWindow::activateWidgetFromMenu()
+{
+    QAction* action = static_cast<QAction*>(sender());
+    VisuWidget* widget = actionDataToWidget(action);
+    setActiveWidget(widget);
+}
+
+void MainWindow::moveWidgetUp()
+{
+    QAction* action = static_cast<QAction*>(sender());
+    VisuWidget* widget = actionDataToWidget(action);
+
+    mConfiguration->moveWidgetUp(widget->getId());
+    reloadConfiguration();
+}
+
+void MainWindow::moveWidgetDown()
+{
+    QAction* action = static_cast<QAction*>(sender());
+    VisuWidget* widget = actionDataToWidget(action);
+
+    mConfiguration->moveWidgetDown(widget->getId());
+    reloadConfiguration();
+}
+
+
+void MainWindow::markActiveInstrumentMenuItem(QPointer<VisuWidget> oldItem, QPointer<VisuWidget> newItem)
+{
+    for(QAction* action : mInstrumentsListMenu->actions())
+    {
+        VisuWidget* menuWidget = actionDataToWidget(action->menu()->actions()[0]);
+        action->setCheckable(true);
+
+        if (menuWidget == oldItem)
+        {
+            action->setChecked(false);
+        }
+
+        if (menuWidget == newItem)
+        {
+            action->setChecked(true);
+        }
+    }
+}
+
 void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
 {
     if (mActiveWidget != nullptr)
@@ -499,7 +593,9 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
         // remove selected style. TODO :: refactor to work with other classes
         mActiveWidget->setActive(false);
     }
+    markActiveInstrumentMenuItem(mActiveWidget, widget);
     mActiveWidget = widget;
+    mActiveWidget->setActive(true);
 
     QMap<QString, QString> properties = widget->getProperties();
     QMap<QString, VisuPropertyMeta> metaProperties = mActiveWidget->getPropertiesMeta();
@@ -512,8 +608,6 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
                           this,
                           SLOT(propertyChange()));
     connect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
-
-    mActiveWidget->setActive(true);
 }
 
 void MainWindow::propertyChange(int parameter)

@@ -46,6 +46,9 @@ class VisuConfiguration : public QObject
         void addWidget(QPointer<VisuWidget> widget);
         void deleteWidget(QPointer<VisuWidget> widget);
         QVector<QPointer<VisuWidget>> getWidgets();
+        QPointer<VisuWidget> getWidget(int id);
+        void moveWidgetUp(int id);
+        void moveWidgetDown(int id);
 
         // Instrument specific methods
         QPointer<VisuInstrument> getInstrument(quint16 instrument_id);

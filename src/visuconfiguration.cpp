@@ -143,7 +143,7 @@ QPointer<VisuInstrument> VisuConfiguration::getInstrument(quint16 instrument_id)
     return qobject_cast<VisuInstrument*>(widgetsList[instrument_id]);
 }
 
-QVector<QPointer<VisuSignal>>& VisuConfiguration::getSignals()
+QVector<QPointer<VisuSignal> >& VisuConfiguration::getSignals()
 {
     return signalsList;
 }
@@ -170,7 +170,7 @@ QColor VisuConfiguration::getBackgroundColor()
 
 QSize VisuConfiguration::getSize() const
 {
-    return QSize(cWidth, cHeight)                             ;
+    return QSize(cWidth, cHeight);
 }
 
 QString VisuConfiguration::getName()
@@ -178,9 +178,47 @@ QString VisuConfiguration::getName()
     return cName;
 }
 
-QVector<QPointer<VisuWidget>> VisuConfiguration::getWidgets()
+QVector<QPointer<VisuWidget> > VisuConfiguration::getWidgets()
 {
     return widgetsList;
+}
+
+QPointer<VisuWidget> VisuConfiguration::getWidget(int id)
+{
+    return widgetsList[id];
+}
+
+void VisuConfiguration::moveWidgetUp(int id)
+{
+    int swapId = id + 1;
+    int size =  widgetsList.size();
+    while (swapId < size)
+    {
+        if (widgetsList[swapId] != nullptr)
+        {
+            std::swap(widgetsList[id], widgetsList[swapId]);
+            widgetsList[id]->setId(id);
+            widgetsList[swapId]->setId(swapId);
+            break;
+        }
+        ++swapId;
+    }
+}
+
+void VisuConfiguration::moveWidgetDown(int id)
+{
+    int swapId = id - 1;
+    while (id > 0)
+    {
+        if (widgetsList[swapId] != nullptr)
+        {
+            std::swap(widgetsList[id], widgetsList[swapId]);
+            widgetsList[id]->setId(id);
+            widgetsList[swapId]->setId(swapId);
+            break;
+        }
+        --swapId;
+    }
 }
 
 void VisuConfiguration::addWidget(QPointer<VisuWidget> widget)
