@@ -551,18 +551,14 @@ void MainWindow::activateWidgetFromMenu()
 void MainWindow::moveWidgetUp()
 {
     QAction* action = static_cast<QAction*>(sender());
-    VisuWidget* widget = actionDataToWidget(action);
-
-    mConfiguration->moveWidgetUp(widget->getId());
+    mConfiguration->moveWidgetUp(action->data().toInt());
     reloadConfiguration();
 }
 
 void MainWindow::moveWidgetDown()
 {
     QAction* action = static_cast<QAction*>(sender());
-    VisuWidget* widget = actionDataToWidget(action);
-
-    mConfiguration->moveWidgetDown(widget->getId());
+    mConfiguration->moveWidgetDown(action->data().toInt());
     reloadConfiguration();
 }
 
