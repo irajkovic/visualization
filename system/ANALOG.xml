@@ -31,5 +31,6 @@
 	<divisionRadius type="int" min="1">80</divisionRadius>
 	<arrowLen type="int" min="1">75</arrowLen>
 	<labelMultiplier type="float">1.0</labelMultiplier>
+	<rotateLabels type="bool">0</rotateLabels>
 </widget>
 

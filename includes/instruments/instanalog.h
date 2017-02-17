@@ -38,6 +38,7 @@ class InstAnalog : public VisuInstrument
             GET_PROPERTY(cDivisionRadius, qint16, properties);
             GET_PROPERTY(cArrowLen, quint16, properties);
             GET_PROPERTY(cLabelMultiplier, double, properties);
+            GET_PROPERTY(cRotateLabels, bool, properties);
 
             mTagName = InstAnalog::TAG_NAME;
         }
@@ -65,10 +66,12 @@ class InstAnalog : public VisuInstrument
         qint16 cDivisionRadius;
         quint16 cArrowLen;
         double cLabelMultiplier;
+        bool cRotateLabels;
 
         // aux propertis
         double mAngleSin;
         double mAngleCos;
+        double mAngleLabel;
         double mDivisionAngle;
         double mDivisionAngleStep;
         double mSignalMajorDivisionValue;

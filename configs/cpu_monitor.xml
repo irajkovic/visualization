@@ -51,6 +51,7 @@
 			<width>300</width>
 			<x>30</x>
 			<y>20</y>
+			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<arrowLen>65</arrowLen>

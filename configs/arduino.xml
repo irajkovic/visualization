@@ -233,6 +233,7 @@
 			<width>150</width>
 			<x>10</x>
 			<y>430</y>
+			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<angleEnd>1.9</angleEnd>
@@ -266,6 +267,7 @@
 			<width>150</width>
 			<x>170</x>
 			<y>430</y>
+			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<angleEnd>1.9</angleEnd>
@@ -299,6 +301,7 @@
 			<width>150</width>
 			<x>330</x>
 			<y>430</y>
+			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<angleEnd>1.9</angleEnd>
@@ -332,6 +335,7 @@
 			<width>150</width>
 			<x>490</x>
 			<y>430</y>
+			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<angleEnd>1.9</angleEnd>
@@ -365,6 +369,7 @@
 			<width>150</width>
 			<x>650</x>
 			<y>430</y>
+			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<angleEnd>1.9</angleEnd>
@@ -398,6 +403,7 @@
 			<width>150</width>
 			<x>810</x>
 			<y>430</y>
+			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<colorBackground>30,30,30,0</colorBackground>
