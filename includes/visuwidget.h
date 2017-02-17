@@ -49,6 +49,7 @@ public:
     void mouseDoubleClickEvent(QMouseEvent* event);
     void paintEvent(QPaintEvent* event);
     QPoint getRelativeOffset();
+    void drawActiveBox(QPainter* painter);
 
     static const QString OBJECT_NAME;
 

@@ -22,8 +22,6 @@ void StaticImage::renderImage()
     label->setPixmap(QPixmap::fromImage(cImage));
     label->show();
     show();
-
-
 }
 
 void StaticImage::paintEvent(QPaintEvent* event)
@@ -35,4 +33,6 @@ void StaticImage::paintEvent(QPaintEvent* event)
     QStyleOption option;
     option.initFrom(this);
     style()->drawPrimitive(QStyle::PE_Widget, &option, &painter, this);
+
+    drawActiveBox(&painter);
 }

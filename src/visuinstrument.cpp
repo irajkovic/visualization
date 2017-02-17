@@ -90,13 +90,7 @@ void VisuInstrument::paintEvent(QPaintEvent* event)
     // draw instrument
     painter.drawPixmap(0, 0, mPixmap);
 
-    if (mActive)
-    {
-        setPen(&painter, Qt::GlobalColor::black, 4);
-        painter.drawRect(0, 0, cWidth, cHeight);
-        painter.setPen(VisuMisc::getDashedPen(Qt::GlobalColor::white, 4));
-        painter.drawRect(0, 0, cWidth, cHeight);
-    }
+    drawActiveBox(&painter);
 }
 
 void VisuInstrument::setFont(QPainter* painter)
