@@ -1,4 +1,5 @@
 #include "visuwidget.h"
+#include "visumisc.h"
 #include <QMouseEvent>
 #include <QApplication>
 #include <QDrag>
@@ -77,6 +78,20 @@ void VisuWidget::paintEvent(QPaintEvent *event)
     style()->drawPrimitive(QStyle::PE_Widget, &option, &painter, this);
 }
 
+void VisuWidget::drawActiveBox(QPainter* painter)
+{
+    if (mActive)
+    {
+        QPen pen;
+        pen.setColor(Qt::GlobalColor::black);
+        pen.setWidth(4);
+        painter->setPen(pen);
+        painter->drawRect(0, 0, cWidth, cHeight);
+        painter->setPen(VisuMisc::getDashedPen(Qt::GlobalColor::white, 4));
+        painter->drawRect(0, 0, cWidth, cHeight);
+    }
+}
+
 void VisuWidget::loadProperties(QMap<QString, QString> properties)
 {
     mProperties = properties;
@@ -92,6 +107,7 @@ void VisuWidget::loadProperties(QMap<QString, QString> properties)
     mSize = QSize(cWidth, cHeight);
     setMinimumSize(mSize);
     setMaximumSize(mSize);
+    mActive = false;
 }
 
 quint16 VisuWidget::getId() const
@@ -154,3 +170,4 @@ void VisuWidget::setActive(bool active)
     mActive = active;
     update();
 }
+

@@ -71,13 +71,8 @@ void MainWindow::setupMenu()
     fileMenu->addAction(saveAs);
     connect(saveAs, SIGNAL(triggered()), this, SLOT(saveAsConfiguration()));
 
-    QAction* screenshot = new QAction(tr("Screenshot"), this);
-    screenshot->setStatusTip(tr("Take configuration screenshot"));
-    fileMenu->addAction(screenshot);
-    connect(screenshot, SIGNAL(triggered()), this, SLOT(saveToImage()));
-
     QMenu* signalsMenu = ui->menuBar->addMenu(tr("&Signals"));
-    QAction* newsig = new QAction(tr("&New"), this);
+    QAction* newsig = new QAction(tr("&Add"), this);
     newsig->setData(QVariant(-1));
     newsig->setStatusTip(tr("Add new signal"));
     signalsMenu->addAction(newsig);
@@ -85,6 +80,13 @@ void MainWindow::setupMenu()
     mSignalsListMenu = signalsMenu->addMenu(tr("&List"));
 
     mInstrumentsListMenu = ui->menuBar->addMenu(tr("&Instruments"));
+
+    QMenu* imagesMenu = ui->menuBar->addMenu(tr("&Images"));
+
+    QAction* imageAdd = new QAction(tr("&Add"), this);
+    imageAdd->setStatusTip(tr("Run current configuration"));
+    imagesMenu->addAction(imageAdd);
+    connect(imageAdd, SIGNAL(triggered()), this, SLOT(openImageAdder()));
 
     QMenu* configMenu = ui->menuBar->addMenu(tr("&Configuration"));
 
@@ -98,12 +100,12 @@ void MainWindow::setupMenu()
     configMenu->addAction(configParams);
     connect(configParams, SIGNAL(triggered()), this, SLOT(openConfigurationEditor()));
 
-    QMenu* imagesMenu = ui->menuBar->addMenu(tr("&Images"));
+    QAction* screenshot = new QAction(tr("Take snapshot"), this);
+    screenshot->setStatusTip(tr("Save configuration to image"));
+    configMenu->addAction(screenshot);
+    connect(screenshot, SIGNAL(triggered()), this, SLOT(saveToImage()));
 
-    QAction* imageAdd = new QAction(tr("&Add"), this);
-    imageAdd->setStatusTip(tr("Run current configuration"));
-    imagesMenu->addAction(imageAdd);
-    connect(imageAdd, SIGNAL(triggered()), this, SLOT(openImageAdder()));
+
 }
 
 void MainWindow::setupLayouts()
@@ -433,7 +435,8 @@ void MainWindow::saveToImage()
 {
     QString configPath = QFileDialog::getSaveFileName(this,
                                                       tr("Save configuration"),
-                                                      ".");
+                                                      ".",
+                                                      "Image file (*.png)");
     if (!configPath.isNull())
     {
         QPixmap image = mStage->grab();
