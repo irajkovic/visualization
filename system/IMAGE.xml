@@ -4,11 +4,13 @@
      <type type="read_only">IMAGE</type>
      <width type="int" min="0">150</width> 	
      <height type="int" min="0">150</height>
-	 <name>Image</name>
-	 <format type="read_only">PNG</format>
+     <name>Image</name>
+     <format type="read_only">PNG</format>
      <x type="int" min="0">0</x>
-	 <y type="int" min="0">0</y>
-	 <image type="read_only">0</image>
+     <y type="int" min="0">0</y>
+     <image type="read_only">0</image>
+     <show type="bool">1</show>
+     <resize type="bool">1</resize>
 </widget>
 
 

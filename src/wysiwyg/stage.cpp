@@ -46,15 +46,13 @@ VisuWidget* Stage::cloneWidget(VisuWidget *sourceWidget)
     QXmlStreamReader xmlReader(xmlString);
     VisuWidget* widget;
 
+    widget = mMainWindow->getConfiguration()->createWidgetFromToken(xmlReader, this);
+
     if (qobject_cast<VisuInstrument*>(sourceWidget) != nullptr)
-    {
-        widget = mMainWindow->getConfiguration()->createWidgetFromToken(xmlReader, this);
+    {    
         mMainWindow->getSignal()->initializeInstruments();
     }
-    else if (qobject_cast<CtrlButton*>(sourceWidget) != nullptr)
-    {
-        widget = mMainWindow->getConfiguration()->createWidgetFromToken(xmlReader, this);
-    }
+
 
     return widget;
 }

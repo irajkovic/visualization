@@ -13,29 +13,23 @@ public:
             QWidget *parent,
             QMap<QString, QString> properties) : VisuWidget(parent, properties)
     {
-
-        GET_PROPERTY(cImage, QImage, properties);
+        loadProperties(properties);
         mTagName = StaticImage::TAG_NAME;
-
-        mLayout = new QHBoxLayout();
-        mLayout->setContentsMargins(0,0,0,0);
-        setLayout(mLayout);
-
-        renderImage();
+        setVisible(cShow);
     }
 
     static const QString TAG_NAME;
     static const QString KEY_FORMAT;
     static const QString KEY_IMAGE;
 
+    virtual void loadProperties(QMap<QString, QString> properties);
     void paintEvent(QPaintEvent* event);
+    void redraw();
 
 private:
     QImage cImage;
-
-    QHBoxLayout* mLayout;
-
-    void renderImage();
+    bool cShow;
+    bool cResize;
 };
 
 #endif // STATICIMAGE_H

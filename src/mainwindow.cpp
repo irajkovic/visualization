@@ -79,14 +79,12 @@ void MainWindow::setupMenu()
     connect(newsig, SIGNAL(triggered()), this, SLOT(openSignalsEditor()));
     mSignalsListMenu = signalsMenu->addMenu(tr("&List"));
 
-    mInstrumentsListMenu = ui->menuBar->addMenu(tr("&Instruments"));
-
-    QMenu* imagesMenu = ui->menuBar->addMenu(tr("&Images"));
-
-    QAction* imageAdd = new QAction(tr("&Add"), this);
-    imageAdd->setStatusTip(tr("Run current configuration"));
-    imagesMenu->addAction(imageAdd);
+    QMenu* instrumentsMenu = ui->menuBar->addMenu(tr("&Widgets"));
+    QAction* imageAdd = new QAction(tr("&Add image"), this);
+    imageAdd->setStatusTip(tr("Add image widget"));
+    instrumentsMenu->addAction(imageAdd);
     connect(imageAdd, SIGNAL(triggered()), this, SLOT(openImageAdder()));
+    mInstrumentsListMenu = instrumentsMenu->addMenu(tr("&List"));
 
     QMenu* configMenu = ui->menuBar->addMenu(tr("&Configuration"));
 
@@ -349,8 +347,11 @@ void MainWindow::openImageAdder()
                 properties[VisuWidget::KEY_HEIGHT] = QString("%1").arg(tmpImage.height());
 
                 StaticImage* image = new StaticImage(mStage, properties);
+                image->setPropertiesMeta(VisuConfigLoader::getMetaMapFromFile(StaticImage::TAG_NAME, VisuWidget::TAG_NAME));
+                setActiveWidget(image);
                 mConfiguration->addWidget(image);
                 mStage->update();
+                updateMenuInstrumentList();
             }
             else
             {
@@ -535,6 +536,12 @@ void MainWindow::cellUpdated(int row, int col)
     if (btn != nullptr)
     {
         btn->redraw();
+    }
+
+    StaticImage* image = qobject_cast<StaticImage*>(mActiveWidget);
+    if (image != nullptr)
+    {
+        image->redraw();
     }
 }
 

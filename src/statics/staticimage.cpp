@@ -9,19 +9,12 @@ const QString StaticImage::TAG_NAME = "IMAGE";
 const QString StaticImage::KEY_FORMAT = "format";
 const QString StaticImage::KEY_IMAGE = "image";
 
-void StaticImage::renderImage()
+void StaticImage::loadProperties(QMap<QString, QString> properties)
 {
-    QLabel* label = new QLabel();
-    mLayout->addWidget(label);
-
-    setGeometry(QRect(cX, cY, cWidth, cHeight));
-
-    setStyleSheet("background-color: transparent;");
-    setAttribute(Qt::WA_TranslucentBackground);
-    label->setAttribute(Qt::WA_TranslucentBackground);
-    label->setPixmap(QPixmap::fromImage(cImage));
-    label->show();
-    show();
+    VisuWidget::loadProperties(properties);
+    GET_PROPERTY(cImage, QImage, properties);
+    GET_PROPERTY(cShow, bool, properties);
+    GET_PROPERTY(cResize, bool, properties);
 }
 
 void StaticImage::paintEvent(QPaintEvent* event)
@@ -29,10 +22,22 @@ void StaticImage::paintEvent(QPaintEvent* event)
     (void)event;    // supress compiler warning about unused parameter
     QPainter painter(this);
 
-    // allow for custom stylesheets
-    QStyleOption option;
-    option.initFrom(this);
-    style()->drawPrimitive(QStyle::PE_Widget, &option, &painter, this);
+    if (cResize)
+    {
+        painter.drawImage(QRectF(0, 0, cWidth, cHeight),
+                          cImage,
+                          QRectF(0, 0, cImage.width(), cImage.height()));
+    }
+    else
+    {
+        painter.drawImage(0, 0, cImage, 0, 0);
+    }
 
     drawActiveBox(&painter);
+}
+
+
+void StaticImage::redraw()
+{
+   setVisible(cShow);
 }
