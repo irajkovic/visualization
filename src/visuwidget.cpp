@@ -107,6 +107,11 @@ void VisuWidget::loadProperties(QMap<QString, QString> properties)
     GET_PROPERTY(cWidth, quint16, properties);
     GET_PROPERTY(cHeight, quint16, properties);
 
+    setup();
+}
+
+void VisuWidget::setup()
+{
     mSize = QSize(cWidth, cHeight);
     setMinimumSize(mSize);
     setMaximumSize(mSize);
@@ -174,7 +179,7 @@ void VisuWidget::setActive(bool active)
 }
 
 
-void VisuWidget::refresh(const QString& key)
+bool VisuWidget::refresh(const QString& key)
 {
     QPoint position = pos();
     if (key == VisuWidget::KEY_X)
@@ -186,4 +191,5 @@ void VisuWidget::refresh(const QString& key)
         position.setY(cY);
     }
     setPosition(position);
+    return false;
 }

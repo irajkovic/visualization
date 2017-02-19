@@ -25,7 +25,7 @@ class CtrlButton : public VisuControl
         static const QString TAG_NAME;
 
         virtual void loadProperties(QMap<QString, QString> properties);
-        virtual void refresh(const QString& key);
+        virtual bool refresh(const QString& key);
         void setup(QWidget* parent);
 
 private:

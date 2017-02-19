@@ -510,7 +510,10 @@ void MainWindow::cellUpdated(int row, int col)
     QMap<QString, QString> properties = mActiveWidget->getProperties();
     properties[key] = value;
     mActiveWidget->loadProperties(properties);
-    mActiveWidget->refresh(key);
+    if (mActiveWidget->refresh(key))
+    {
+        setActiveWidget(mActiveWidget);
+    }
 
     refreshEditorGui(key);
 }

@@ -46,6 +46,7 @@ protected:
     void setPen(QPainter* painter, QColor color, int thickness = 1);
     void setBrush(QPainter* painter, QColor color);
     void clear(QPainter* painter);
+    void setup();
 
     QVector<QPointer<VisuSignal>> connectedSignals;
 
@@ -54,7 +55,7 @@ public slots:
     void initialUpdate(const VisuSignal* const signal);
 
 public:
-    virtual void refresh(const QString& key);
+    virtual bool refresh(const QString& key);
 
 public:
 
@@ -62,12 +63,6 @@ public:
         : VisuWidget(parent, properties)
     {
         loadProperties(properties);
-    }
-
-    void clearPixmaps()
-    {
-        mPixmap.fill(Qt::transparent);
-        mPixmapStatic.fill(Qt::transparent);
     }
 
     virtual void loadProperties(QMap<QString, QString> properties);

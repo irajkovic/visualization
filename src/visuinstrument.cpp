@@ -17,16 +17,18 @@ void VisuInstrument::loadProperties(QMap<QString, QString> properties)
     GET_PROPERTY(cFontSize, quint8, properties);
     GET_PROPERTY(cFontType, QString, properties);
 
+    setup();
+}
+
+void VisuInstrument::setup()
+{
+    VisuWidget::setup();
     mFirstRun = true;
     mPixmap = QPixmap(cWidth, cHeight);
     mPixmapStatic = QPixmap(cWidth, cHeight);
-
-    clearPixmaps();
     setAttribute(Qt::WA_TranslucentBackground);
-
     setGeometry(cX, cY, cWidth, cHeight);
 }
-
 
 /**
  * @brief Instrument::signalUpdated
@@ -80,12 +82,7 @@ void VisuInstrument::paintEvent(QPaintEvent* event)
 {
     (void)event;    // supress compiler warning about unused parameter
     QPainter painter(this);
-#if 0
-    // allow for custom stylesheets
-    QStyleOption option;
-    option.initFrom(this);
-    style()->drawPrimitive(QStyle::PE_Widget, &option, &painter, this);
-#endif
+
     // draw instrument
     painter.drawPixmap(0, 0, mPixmap);
 
@@ -158,7 +155,7 @@ void VisuInstrument::initializeInstrument()
                   [this](QPointer<VisuSignal> sig){ sig->initializeInstruments(); } );
 }
 
-void VisuInstrument::refresh(const QString& key)
+bool VisuInstrument::refresh(const QString& key)
 {
     VisuWidget::refresh(key);
     // Signal assigment changed, update signals map
@@ -167,4 +164,5 @@ void VisuInstrument::refresh(const QString& key)
         connectSignals();
     }
     initializeInstrument();
+    return false;
 }

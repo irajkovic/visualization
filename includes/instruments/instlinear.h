@@ -27,6 +27,7 @@ class InstLinear : public VisuInstrument
             GET_PROPERTY(cHorMargin, quint16, properties);
             GET_PROPERTY(cVerMargin, quint16, properties);
             GET_PROPERTY(cVerMinorMargin, quint16, properties);
+            GET_PROPERTY(cHorizontal, bool, properties);
 
             mTagName = InstLinear::TAG_NAME;
         }
@@ -34,6 +35,7 @@ class InstLinear : public VisuInstrument
     protected:
         virtual void renderStatic(QPainter *painter);   // Renders to pixmap_static
         virtual void renderDynamic(QPainter *painter);  // Renders to pixmap
+        virtual bool refresh(const QString &key);
 
     private:
         // configuration properties
@@ -45,12 +47,15 @@ class InstLinear : public VisuInstrument
         quint16 cHorMargin;
         quint16 cVerMargin;
         quint16 cVerMinorMargin;
+        bool cHorizontal;
 
         // additional properties not related to configuration
         quint16 mBarLength;
 
         void renderDivisions(QPainter* painter);
         void renderLabel(QPainter* painter, int sigCur, quint16 xOfs);
+
+        static const QString KEY_HORIZONTAL;
 
 };
 

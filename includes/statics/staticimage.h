@@ -24,7 +24,7 @@ public:
 
     virtual void loadProperties(QMap<QString, QString> properties);
     void paintEvent(QPaintEvent* event);
-    virtual void refresh(const QString& key);
+    virtual bool refresh(const QString& key);
 
 private:
     QImage cImage;

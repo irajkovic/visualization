@@ -53,7 +53,7 @@ public:
     void paintEvent(QPaintEvent* event);
     QPoint getRelativeOffset();
     void drawActiveBox(QPainter* painter);
-    virtual void refresh(const QString& key);
+    virtual bool refresh(const QString& key);
 
     static const QString OBJECT_NAME;
 
@@ -77,6 +77,8 @@ protected:
     QSize mSize;
     QString mTagName;
     bool    mActive;        // true when widget is active in wysiwyg editor
+
+    void setup();
 };
 
 #endif // VISUWIDGET_H

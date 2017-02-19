@@ -21,4 +21,5 @@
 	<width type="int" min="0">200</width>
 	<x type="int" min="0">0</x>
 	<y type="int" min="0">0</y>
+	<horizontal type="bool">1</horizontal>
 </widget>

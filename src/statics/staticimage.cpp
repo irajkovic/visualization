@@ -36,8 +36,9 @@ void StaticImage::paintEvent(QPaintEvent* event)
     drawActiveBox(&painter);
 }
 
-void StaticImage::refresh(const QString& key)
+bool StaticImage::refresh(const QString& key)
 {
     VisuWidget::refresh(key);
     setVisible(cShow);
+    return false;
 }
