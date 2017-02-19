@@ -15,6 +15,7 @@ const QString VisuWidget::KEY_HEIGHT = "height";
 const QString VisuWidget::KEY_X = "x";
 const QString VisuWidget::KEY_Y = "y";
 const QString VisuWidget::KEY_NAME = "name";
+const QString VisuWidget::KEY_TYPE = "type";
 
 
 QPoint VisuWidget::getRelativeOffset()

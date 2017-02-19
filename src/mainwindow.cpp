@@ -343,6 +343,7 @@ void MainWindow::openImageAdder()
             {
                 properties[VisuWidget::KEY_WIDTH] = QString("%1").arg(tmpImage.width());
                 properties[VisuWidget::KEY_HEIGHT] = QString("%1").arg(tmpImage.height());
+                properties[VisuWidget::KEY_NAME] = QFileInfo(imagePath).fileName();
 
                 StaticImage* image = new StaticImage(mStage, properties);
                 image->setPropertiesMeta(VisuConfigLoader::getMetaMapFromFile(StaticImage::TAG_NAME, VisuWidget::TAG_NAME));

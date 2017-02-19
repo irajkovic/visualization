@@ -29,6 +29,7 @@ public:
     static const QString KEY_X;
     static const QString KEY_Y;
     static const QString KEY_NAME;
+    static const QString KEY_TYPE;
 
     QMap<QString, QString> getProperties();
     void setPropertiesMeta(QMap<QString, VisuPropertyMeta> meta);

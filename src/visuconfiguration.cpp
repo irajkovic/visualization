@@ -22,7 +22,6 @@
 VisuConfiguration* VisuConfiguration::instance = nullptr;
 
 const QString VisuConfiguration::TAG_NAME = "configuration";
-const QString VisuConfiguration::ATTR_TYPE = "type";
 
 // These tags are not used, except for purpose of verification of XML structure.
 // Perhaps some kind of load hooks can be later triggered when reading these tags.
@@ -59,10 +58,10 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
 QPointer<VisuWidget> VisuConfiguration::createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, VisuWidget::TAG_NAME);
-    QMap<QString, VisuPropertyMeta> metaProperties = VisuConfigLoader::getMetaMapFromFile(properties[ATTR_TYPE],
+    QMap<QString, VisuPropertyMeta> metaProperties = VisuConfigLoader::getMetaMapFromFile(properties[VisuWidget::KEY_TYPE],
                                                                                           VisuWidget::TAG_NAME);
     VisuWidget* widget = VisuWidgetFactory::createWidget(parent,
-                                                         properties[ATTR_TYPE],
+                                                         properties[VisuWidget::KEY_TYPE],
                                                          properties,
                                                          metaProperties);
     addWidget(widget);
