@@ -22,7 +22,7 @@ void Stage::dropEvent(QDropEvent *event)
         // This is new widget
         widget = cloneWidget(sourceWidget);
         connect(widget, SIGNAL(widgetActivated(VisuWidget*)), this, SLOT(activateWidget(VisuWidget*)));
-        mMainWindow->updateMenuInstrumentList();
+        mMainWindow->updateMenuWidgetsList();
     }
     else
     {

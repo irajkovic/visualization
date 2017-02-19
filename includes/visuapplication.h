@@ -12,7 +12,7 @@
 class VisuApplication : public QWidget
 {
     private:
-        VisuConfiguration configuration;
+        VisuConfiguration* configuration;
         VisuServer *server;
         void setBackgroundColor();
         void setupWindow();

@@ -47,7 +47,7 @@ void CtrlButton::setup(QWidget *parent)
     show();
 }
 
-void CtrlButton::redraw()
+void CtrlButton::refresh(const QString& key)
 {
     mButton->setText(cName);
     mButton->setMinimumSize(cWidth, cHeight);

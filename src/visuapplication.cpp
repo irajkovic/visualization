@@ -7,27 +7,29 @@
 
 VisuApplication::VisuApplication(QString path)
 {
+    configuration = VisuConfiguration::get();
     loadConfiguration(path);
     setupWindow();
-    server = new VisuServer(&configuration);
+    server = new VisuServer(configuration);
 }
 
 void VisuApplication::loadConfiguration(QString path)
 {
     QByteArray xml = VisuConfigLoader::loadXMLFromFile(path);
-    configuration.fromXML(this, QString(xml));
+    configuration->fromXML(this, QString(xml));
 }
 
 void VisuApplication::setupWindow()
 {
-    setGeometry(100, 100, configuration.getWidth(), configuration.getHeight());
-    setWindowTitle(configuration.getName());
+    setGeometry(100, 100, configuration->getWidth(), configuration->getHeight());
+    setWindowTitle(configuration->getName());
     setBackgroundColor();
 }
 
 void VisuApplication::setBackgroundColor()
 {
-    QColor color = configuration.getBackgroundColor();
+    QColor color = configuration->getBackgroundColor();
+    // TODO :: Use VisuMisc helper
     QString stylesheet = QString("background-color: rgb(%1, %2, %3);")
             .arg(color.red())
             .arg(color.green())

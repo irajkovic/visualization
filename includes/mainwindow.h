@@ -29,7 +29,7 @@ public:
     void keyPressEvent( QKeyEvent *event );
     QPointer<VisuConfiguration> getConfiguration();
     QPointer<VisuWidget> getActiveWidget();
-    void updateMenuInstrumentList();
+    void updateMenuWidgetsList();
 
     ~MainWindow();
 
@@ -52,7 +52,7 @@ private:
     QPointer<VisuConfiguration> mConfiguration;
     QPointer<EditSignal> editSignalWindow;
     QPointer<QMenu> mSignalsListMenu;
-    QPointer<QMenu> mInstrumentsListMenu;
+    QPointer<QMenu> mWidgetsListMenu;
     QTemporaryFile mTmpConfigFile;
     QString mConfigPath;
     QPointer<QAction> mSave;
@@ -69,6 +69,8 @@ private:
     QString configurationToXML();
     void markActiveInstrumentMenuItem(QPointer<VisuWidget> oldItem, QPointer<VisuWidget> newItem);
     VisuWidget* actionDataToWidget(QAction* action);
+    void handlePositionChange(VisuWidget* widget, QString key, QString value);
+    void handleNameChange(QString key);
 
     static const QString INITIAL_EDITOR_CONFIG;
     static const int LAYOUT_TOOLBAR_HEIGHT = 170;

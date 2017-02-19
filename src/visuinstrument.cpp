@@ -156,3 +156,13 @@ void VisuInstrument::initializeInstrument()
                   connectedSignals.end(),
                   [this](QPointer<VisuSignal> sig){ sig->initializeInstruments(); } );
 }
+
+void VisuInstrument::refresh(const QString& key)
+{
+    // Signal assigment changed, update signals map
+    if (mPropertiesMeta[key].type == VisuPropertyMeta::TYPE_SIGNAL)
+    {
+        connectSignals(VisuConfiguration::get()->getSignals());
+    }
+    initializeInstrument();
+}

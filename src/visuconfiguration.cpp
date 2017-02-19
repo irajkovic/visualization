@@ -19,6 +19,8 @@
 #include "controls/ctrlbutton.h"
 #include "statics/staticimage.h"
 
+VisuConfiguration* VisuConfiguration::instance = nullptr;
+
 const QString VisuConfiguration::TAG_NAME = "configuration";
 const QString VisuConfiguration::ATTR_TYPE = "type";
 
@@ -29,6 +31,15 @@ const QString VisuConfiguration::TAG_WIDGETS_PLACEHOLDER = "widgets";
 const QString VisuConfiguration::TAG_SIGNALS_PLACEHOLDER = "signals";
 
 #include "wysiwyg/visuwidgetfactory.h"
+
+VisuConfiguration* VisuConfiguration::get()
+{
+    if (instance == nullptr)
+    {
+        instance = new VisuConfiguration();
+    }
+    return instance;
+}
 
 VisuConfiguration::~VisuConfiguration()
 {

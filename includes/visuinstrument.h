@@ -54,6 +54,9 @@ public slots:
     void initialUpdate(const VisuSignal* const signal);
 
 public:
+    virtual void refresh(const QString& key);
+
+public:
 
     explicit VisuInstrument(QWidget *parent, QMap<QString, QString> properties)
         : VisuWidget(parent, properties)

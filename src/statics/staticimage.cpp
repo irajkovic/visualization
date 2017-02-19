@@ -36,8 +36,7 @@ void StaticImage::paintEvent(QPaintEvent* event)
     drawActiveBox(&painter);
 }
 
-
-void StaticImage::redraw()
+void StaticImage::refresh(const QString& key)
 {
    setVisible(cShow);
 }

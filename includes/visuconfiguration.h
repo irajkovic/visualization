@@ -16,6 +16,8 @@ class VisuConfiguration : public QObject
     Q_OBJECT
 
     private:
+
+        static VisuConfiguration* instance;
         QVector<QPointer<VisuSignal>> signalsList;
         QVector<QPointer<VisuWidget>> widgetsList;
 
@@ -33,8 +35,10 @@ class VisuConfiguration : public QObject
         QString cName;
 
         QMap<QString, QString> mProperties;
+        VisuConfiguration() {}
 
     public:
+        static VisuConfiguration* get();
         virtual ~VisuConfiguration();
         void setConfigValues(const QMap<QString, QString>& properties);
         void fromXML(QWidget *parent, const QString& xml);

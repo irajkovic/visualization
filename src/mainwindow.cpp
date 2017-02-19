@@ -84,7 +84,7 @@ void MainWindow::setupMenu()
     imageAdd->setStatusTip(tr("Add image widget"));
     instrumentsMenu->addAction(imageAdd);
     connect(imageAdd, SIGNAL(triggered()), this, SLOT(openImageAdder()));
-    mInstrumentsListMenu = instrumentsMenu->addMenu(tr("&List"));
+    mWidgetsListMenu = instrumentsMenu->addMenu(tr("&List"));
 
     QMenu* configMenu = ui->menuBar->addMenu(tr("&Configuration"));
 
@@ -159,7 +159,7 @@ void MainWindow::reloadConfiguration()
 void MainWindow::loadConfigurationFromFile(const QString& configPath)
 {
     unloadConfiguration();
-    mConfiguration = new VisuConfiguration();
+    mConfiguration = VisuConfiguration::get();
 
     try
     {
@@ -175,7 +175,7 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
         }
 
         updateMenuSignalList();
-        updateMenuInstrumentList();
+        updateMenuWidgetsList();
     }
     catch(ConfigLoadException e)
     {
@@ -240,9 +240,9 @@ void MainWindow::updateConfig()
     VisuMisc::setBackgroundColor(mStage, mConfiguration->getBackgroundColor());
 }
 
-void MainWindow::updateMenuInstrumentList()
+void MainWindow::updateMenuWidgetsList()
 {
-    mInstrumentsListMenu->clear();
+    mWidgetsListMenu->clear();
     auto widgets = mConfiguration->getWidgets();
     if (widgets.size() > 0)
     {
@@ -250,11 +250,11 @@ void MainWindow::updateMenuInstrumentList()
         {
             if (widget != nullptr)
             {
-                QString menuItemText = QString("%1 (id: %2)")
+                QString menuItemText = QString("%1 (%2)")
                         .arg(widget->getType())
-                        .arg(widget->getId());
+                        .arg(widget->getName());
 
-                QMenu* widgetMenuItem = mInstrumentsListMenu->addMenu(menuItemText);
+                QMenu* widgetMenuItem = mWidgetsListMenu->addMenu(menuItemText);
 
                 QAction* select = new QAction(tr("Select"), this);
                 select->setData(QVariant(widget->getId()));
@@ -350,8 +350,7 @@ void MainWindow::openImageAdder()
                 image->setPropertiesMeta(VisuConfigLoader::getMetaMapFromFile(StaticImage::TAG_NAME, VisuWidget::TAG_NAME));
                 setActiveWidget(image);
                 mConfiguration->addWidget(image);
-                mStage->update();
-                updateMenuInstrumentList();
+                updateMenuWidgetsList();
             }
             else
             {
@@ -494,17 +493,9 @@ void MainWindow::deleteSignal()
     }
 }
 
-void MainWindow::cellUpdated(int row, int col)
+void MainWindow::handlePositionChange(VisuWidget* widget, QString key, QString value)
 {
-    (void)col;
-
-    QString key = mPropertiesTable->item(row,0)->text();
-    QString value = VisuPropertiesHelper::getValueString(mPropertiesTable, row);
-
-    QMap<QString, QString> properties = mActiveWidget->getProperties();
-    QMap<QString, VisuPropertyMeta> metaProperties = mActiveWidget->getPropertiesMeta();
-
-    QPoint position = mActiveWidget->pos();
+    QPoint position = widget->pos();
     if (key == VisuWidget::KEY_X)
     {
         position.setX(value.toInt());
@@ -513,36 +504,33 @@ void MainWindow::cellUpdated(int row, int col)
     {
         position.setY(value.toInt());
     }
-    mActiveWidget->setPosition(position);
+    widget->setPosition(position);
+}
+
+void MainWindow::handleNameChange(QString key)
+{
+    if (key == VisuWidget::KEY_NAME)
+    {
+        updateMenuWidgetsList();
+    }
+}
+
+void MainWindow::cellUpdated(int row, int col)
+{
+    (void)col;
+
+    QString key = mPropertiesTable->item(row,0)->text();
+    QString value = VisuPropertiesHelper::getValueString(mPropertiesTable, row);
+    QMap<QString, QString> properties = mActiveWidget->getProperties();
 
     properties[key] = value;
     mActiveWidget->loadProperties(properties);
     mActiveWidget->setActive(true); // loading properties resets active
 
-    // refresh instrument
-    VisuInstrument* inst = qobject_cast<VisuInstrument*>(mActiveWidget);
-    if (inst != nullptr)
-    {
-        // ID assigment changed, update instrument
-        if (metaProperties.value(key).type == VisuPropertyMeta::TYPE_SIGNAL)
-        {
-            inst->connectSignals(mConfiguration->getSignals());
-        }
-        inst->initializeInstrument();
-    }
+    handlePositionChange(mActiveWidget, key, value);
+    handleNameChange(key);
 
-    // refresh controls
-    CtrlButton* btn = qobject_cast<CtrlButton*>(mActiveWidget);
-    if (btn != nullptr)
-    {
-        btn->redraw();
-    }
-
-    StaticImage* image = qobject_cast<StaticImage*>(mActiveWidget);
-    if (image != nullptr)
-    {
-        image->redraw();
-    }
+    mActiveWidget->refresh(key);
 }
 
 VisuWidget* MainWindow::actionDataToWidget(QAction* action)
@@ -575,7 +563,7 @@ void MainWindow::moveWidgetDown()
 
 void MainWindow::markActiveInstrumentMenuItem(QPointer<VisuWidget> oldItem, QPointer<VisuWidget> newItem)
 {
-    for(QAction* action : mInstrumentsListMenu->actions())
+    for(QAction* action : mWidgetsListMenu->actions())
     {
         VisuWidget* menuWidget = actionDataToWidget(action->menu()->actions()[0]);
         action->setCheckable(true);

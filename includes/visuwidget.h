@@ -27,6 +27,7 @@ public:
     static const QString KEY_HEIGHT;
     static const QString KEY_X;
     static const QString KEY_Y;
+    static const QString KEY_NAME;
 
     QMap<QString, QString> getProperties();
     void setPropertiesMeta(QMap<QString, VisuPropertyMeta> meta);
@@ -50,6 +51,7 @@ public:
     void paintEvent(QPaintEvent* event);
     QPoint getRelativeOffset();
     void drawActiveBox(QPainter* painter);
+    virtual void refresh(const QString& key) = 0;
 
     static const QString OBJECT_NAME;
 

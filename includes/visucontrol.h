@@ -17,6 +17,7 @@ public:
     }
 
     void loadProperties(QMap<QString, QString> properties);
+    virtual void refresh(const QString& key) { (void)key; }
 
 protected:
 
