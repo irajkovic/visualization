@@ -12,20 +12,18 @@
 #include "visuconfigloader.h"
 
 VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
-                                            QString type,
-                                            const QVector<QPointer<VisuSignal>>& signalsList)
+                                            QString type)
 {
     QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(type, VisuWidget::TAG_NAME);
     QMap<QString, VisuPropertyMeta> metaProperties = VisuConfigLoader::getMetaMapFromFile(type, VisuWidget::TAG_NAME);
-    return VisuWidgetFactory::createWidget(parent, type, properties, metaProperties, signalsList);
+    return VisuWidgetFactory::createWidget(parent, type, properties, metaProperties);
 }
 
 // TODO :: Check if type can be replaced by properties["type"]
 VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
                                             QString type,
                                             QMap<QString, QString> properties,
-                                            QMap<QString, VisuPropertyMeta> metaProperties,
-                                            const QVector<QPointer<VisuSignal>>& signalsList)
+                                            QMap<QString, VisuPropertyMeta> metaProperties)
 {
     VisuWidget* widget = nullptr;
 
@@ -72,7 +70,7 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
         VisuInstrument* visuWidget = qobject_cast<VisuInstrument*>(widget);
         if (visuWidget != nullptr)
         {
-            visuWidget->connectSignals(signalsList);
+            visuWidget->connectSignals();
         }
     }
 

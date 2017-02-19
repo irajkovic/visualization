@@ -9,13 +9,11 @@ class VisuWidgetFactory
 {
 public:
     static VisuWidget* createWidget(QWidget* parent,
-                                    QString type,
-                                    const QVector<QPointer<VisuSignal> > &signalsList);
+                                    QString type);
     static VisuWidget* createWidget(QWidget* parent,
                                     QString type,
                                     QMap<QString, QString> properties,
-                                    QMap<QString, VisuPropertyMeta> metaProperties,
-                                    const QVector<QPointer<VisuSignal> > &signalList);
+                                    QMap<QString, VisuPropertyMeta> metaProperties);
 };
 
 #endif // VISUWIDGETFACTORY_H

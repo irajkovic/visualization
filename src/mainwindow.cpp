@@ -306,15 +306,13 @@ void MainWindow::setupToolbarWidgets(QPointer<QWidget> toolbar)
     QHBoxLayout *layout = new QHBoxLayout;
     toolbar->setLayout(layout);
 
-    QVector<QPointer<VisuSignal>> signalsList = mConfiguration->getSignals();
-
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstAnalog::TAG_NAME, signalsList));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLinear::TAG_NAME, signalsList));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstTimePlot::TAG_NAME, signalsList));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstDigital::TAG_NAME, signalsList));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME, signalsList));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME, signalsList));
-    layout->addWidget(VisuWidgetFactory::createWidget(this, CtrlButton::TAG_NAME, signalsList));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstAnalog::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLinear::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstTimePlot::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstDigital::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, CtrlButton::TAG_NAME));
 
     mConfiguration->initializeInstruments();
 }

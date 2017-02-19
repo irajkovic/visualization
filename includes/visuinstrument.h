@@ -71,7 +71,7 @@ public:
     }
 
     virtual void loadProperties(QMap<QString, QString> properties);
-    void connectSignals(const QVector<QPointer<VisuSignal>>& signalsList);
+    void connectSignals();
     void disconnectSignals();
     void initializeInstrument();
 

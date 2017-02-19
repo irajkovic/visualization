@@ -64,8 +64,7 @@ QPointer<VisuWidget> VisuConfiguration::createWidgetFromToken(QXmlStreamReader& 
     VisuWidget* widget = VisuWidgetFactory::createWidget(parent,
                                                          properties[ATTR_TYPE],
                                                          properties,
-                                                         metaProperties,
-                                                         signalsList);
+                                                         metaProperties);
     addWidget(widget);
     widget->show();
 

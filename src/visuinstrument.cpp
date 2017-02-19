@@ -118,9 +118,11 @@ void VisuInstrument::clear(QPainter* painter)
     painter->fillRect(0, 0, cWidth, cHeight, cColorBackground);
 }
 
-void VisuInstrument::connectSignals(const QVector<QPointer<VisuSignal>>& signalsList)
+void VisuInstrument::connectSignals()
 {
     disconnectSignals();
+
+    const QVector<QPointer<VisuSignal>>& signalsList = VisuConfiguration::get()->getSignals();
 
     auto itr = mPropertiesMeta.begin();
     while (itr != mPropertiesMeta.end())
@@ -162,7 +164,7 @@ void VisuInstrument::refresh(const QString& key)
     // Signal assigment changed, update signals map
     if (mPropertiesMeta[key].type == VisuPropertyMeta::TYPE_SIGNAL)
     {
-        connectSignals(VisuConfiguration::get()->getSignals());
+        connectSignals();
     }
     initializeInstrument();
 }
