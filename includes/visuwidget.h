@@ -18,6 +18,7 @@ public:
     {
         loadProperties(properties);
         setObjectName(VisuWidget::OBJECT_NAME);
+        mActive = false;
     }
 
     virtual void loadProperties(QMap<QString, QString> properties);

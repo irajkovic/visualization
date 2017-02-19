@@ -17,10 +17,9 @@ void VisuInstrument::loadProperties(QMap<QString, QString> properties)
     GET_PROPERTY(cFontSize, quint8, properties);
     GET_PROPERTY(cFontType, QString, properties);
 
-    this->mActive = false;
-    this->mFirstRun = true;
-    this->mPixmap = QPixmap(cWidth, cHeight);
-    this->mPixmapStatic = QPixmap(cWidth, cHeight);
+    mFirstRun = true;
+    mPixmap = QPixmap(cWidth, cHeight);
+    mPixmapStatic = QPixmap(cWidth, cHeight);
 
     clearPixmaps();
     setAttribute(Qt::WA_TranslucentBackground);

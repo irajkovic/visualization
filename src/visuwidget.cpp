@@ -109,7 +109,6 @@ void VisuWidget::loadProperties(QMap<QString, QString> properties)
     mSize = QSize(cWidth, cHeight);
     setMinimumSize(mSize);
     setMaximumSize(mSize);
-    mActive = false;
 }
 
 quint16 VisuWidget::getId() const

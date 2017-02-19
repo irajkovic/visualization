@@ -525,7 +525,6 @@ void MainWindow::cellUpdated(int row, int col)
 
     properties[key] = value;
     mActiveWidget->loadProperties(properties);
-    mActiveWidget->setActive(true); // loading properties resets active
 
     handlePositionChange(mActiveWidget, key, value);
     handleNameChange(key);
