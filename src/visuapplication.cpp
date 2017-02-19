@@ -1,7 +1,7 @@
 #include "visuapplication.h"
 #include "exceptions/configloadexception.h"
 #include "visuconfigloader.h"
-
+#include "visumisc.h"
 #include <QPainter>
 #include <QFile>
 
@@ -23,18 +23,7 @@ void VisuApplication::setupWindow()
 {
     setGeometry(100, 100, configuration->getWidth(), configuration->getHeight());
     setWindowTitle(configuration->getName());
-    setBackgroundColor();
-}
-
-void VisuApplication::setBackgroundColor()
-{
-    QColor color = configuration->getBackgroundColor();
-    // TODO :: Use VisuMisc helper
-    QString stylesheet = QString("background-color: rgb(%1, %2, %3);")
-            .arg(color.red())
-            .arg(color.green())
-            .arg(color.blue());
-    setStyleSheet(stylesheet);
+    VisuMisc::setBackgroundColor(this, configuration->getBackgroundColor());
 }
 
 void VisuApplication::run()

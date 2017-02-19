@@ -14,7 +14,6 @@ class VisuApplication : public QWidget
     private:
         VisuConfiguration* configuration;
         VisuServer *server;
-        void setBackgroundColor();
         void setupWindow();
         void loadConfiguration(QString path);
 

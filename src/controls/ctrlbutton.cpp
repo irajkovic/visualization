@@ -49,6 +49,7 @@ void CtrlButton::setup(QWidget *parent)
 
 void CtrlButton::refresh(const QString& key)
 {
+    VisuWidget::refresh(key);
     mButton->setText(cName);
     mButton->setMinimumSize(cWidth, cHeight);
     mButton->setMinimumSize(cWidth, cHeight);

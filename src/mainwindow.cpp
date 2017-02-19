@@ -493,21 +493,7 @@ void MainWindow::deleteSignal()
     }
 }
 
-void MainWindow::handlePositionChange(VisuWidget* widget, QString key, QString value)
-{
-    QPoint position = widget->pos();
-    if (key == VisuWidget::KEY_X)
-    {
-        position.setX(value.toInt());
-    }
-    else if (key == VisuWidget::KEY_Y)
-    {
-        position.setY(value.toInt());
-    }
-    widget->setPosition(position);
-}
-
-void MainWindow::handleNameChange(QString key)
+void MainWindow::refreshEditorGui(QString key)
 {
     if (key == VisuWidget::KEY_NAME)
     {
@@ -521,15 +507,13 @@ void MainWindow::cellUpdated(int row, int col)
 
     QString key = mPropertiesTable->item(row,0)->text();
     QString value = VisuPropertiesHelper::getValueString(mPropertiesTable, row);
-    QMap<QString, QString> properties = mActiveWidget->getProperties();
 
+    QMap<QString, QString> properties = mActiveWidget->getProperties();
     properties[key] = value;
     mActiveWidget->loadProperties(properties);
-
-    handlePositionChange(mActiveWidget, key, value);
-    handleNameChange(key);
-
     mActiveWidget->refresh(key);
+
+    refreshEditorGui(key);
 }
 
 VisuWidget* MainWindow::actionDataToWidget(QAction* action)

@@ -69,8 +69,7 @@ private:
     QString configurationToXML();
     void markActiveInstrumentMenuItem(QPointer<VisuWidget> oldItem, QPointer<VisuWidget> newItem);
     VisuWidget* actionDataToWidget(QAction* action);
-    void handlePositionChange(VisuWidget* widget, QString key, QString value);
-    void handleNameChange(QString key);
+    void refreshEditorGui(QString key);
 
     static const QString INITIAL_EDITOR_CONFIG;
     static const int LAYOUT_TOOLBAR_HEIGHT = 170;

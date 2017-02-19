@@ -52,7 +52,7 @@ public:
     void paintEvent(QPaintEvent* event);
     QPoint getRelativeOffset();
     void drawActiveBox(QPainter* painter);
-    virtual void refresh(const QString& key) = 0;
+    virtual void refresh(const QString& key);
 
     static const QString OBJECT_NAME;
 

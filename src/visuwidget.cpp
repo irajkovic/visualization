@@ -172,3 +172,17 @@ void VisuWidget::setActive(bool active)
     update();
 }
 
+
+void VisuWidget::refresh(const QString& key)
+{
+    QPoint position = pos();
+    if (key == VisuWidget::KEY_X)
+    {
+        position.setX(cX);
+    }
+    else if (key == VisuWidget::KEY_Y)
+    {
+        position.setY(cY);
+    }
+    setPosition(position);
+}

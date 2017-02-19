@@ -158,6 +158,7 @@ void VisuInstrument::initializeInstrument()
 
 void VisuInstrument::refresh(const QString& key)
 {
+    VisuWidget::refresh(key);
     // Signal assigment changed, update signals map
     if (mPropertiesMeta[key].type == VisuPropertyMeta::TYPE_SIGNAL)
     {
