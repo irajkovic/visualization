@@ -39,21 +39,11 @@ void Stage::dropEvent(QDropEvent *event)
 }
 
 VisuWidget* Stage::cloneWidget(VisuWidget *sourceWidget)
-{
-    QString type = sourceWidget->getType();
-    QString path = QString("system/%1.xml").arg(type);
-    QString xmlString = VisuConfigLoader::loadXMLFromFile(path);
-    QXmlStreamReader xmlReader(xmlString);
-    VisuWidget* widget;
-
-    widget = mMainWindow->getConfiguration()->createWidgetFromToken(xmlReader, this);
-
-    if (qobject_cast<VisuInstrument*>(sourceWidget) != nullptr)
-    {    
-        mMainWindow->getSignal()->initializeInstruments();
-    }
-
-
+{    
+    VisuWidget* widget = VisuWidgetFactory::createWidget(this, sourceWidget->getType());
+    mMainWindow->getConfiguration()->addWidget(widget);
+    widget->show();
+    widget->refresh(VisuWidget::KEY_ID);
     return widget;
 }
 
