@@ -35,10 +35,14 @@ class VisuConfiguration : public QObject
         QString cName;
 
         QMap<QString, QString> mProperties;
-        VisuConfiguration() {}
+        VisuConfiguration()
+        {
+            mProperties = QMap<QString, QString>();
+        }
 
     public:
         static VisuConfiguration* get();
+        static VisuConfiguration* getClean();
         virtual ~VisuConfiguration();
         void setConfigValues(const QMap<QString, QString>& properties);
         void fromXML(QWidget *parent, const QString& xml);

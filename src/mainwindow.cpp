@@ -144,11 +144,6 @@ void MainWindow::setupLayouts()
     workAreaLayout->addWidget(mPropertiesTable);
 }
 
-void MainWindow::unloadConfiguration()
-{
-    delete mConfiguration;
-}
-
 void MainWindow::reloadConfiguration()
 {
     QString xml = mConfiguration->toXML();
@@ -158,14 +153,12 @@ void MainWindow::reloadConfiguration()
 
 void MainWindow::loadConfigurationFromFile(const QString& configPath)
 {
-    unloadConfiguration();
-    mConfiguration = VisuConfiguration::get();
-
+    mConfiguration = VisuConfiguration::getClean();
     try
     {
         QString xml = VisuConfigLoader::loadXMLFromFile(configPath);
         mConfiguration->fromXML(mStage, QString(xml));
-
+        mConfigChanged = false;
         updateConfig();
 
         // connect widgets
@@ -349,6 +342,7 @@ void MainWindow::openImageAdder()
                 image->setPropertiesMeta(VisuConfigLoader::getMetaMapFromFile(StaticImage::TAG_NAME, VisuWidget::TAG_NAME));
                 setActiveWidget(image);
                 mConfiguration->addWidget(image);
+                mConfigChanged = true;
                 updateMenuWidgetsList();
             }
             else
@@ -402,15 +396,18 @@ void MainWindow::openSignalsEditor()
 
 void MainWindow::openConfiguration()
 {
-    QString configPath = QFileDialog::getOpenFileName(this,
-                                                      tr("Open configuration"),
-                                                      ".",
-                                                      "Configuration files (*.xml)");
-    if (!configPath.isNull())
+    if (confirmLoseChanges())
     {
-        loadConfigurationFromFile(configPath);
-        mConfigPath = configPath;
-        mSave->setDisabled(false);
+        QString configPath = QFileDialog::getOpenFileName(this,
+                                                          tr("Open configuration"),
+                                                          ".",
+                                                          "Configuration files (*.xml)");
+        if (!configPath.isNull())
+        {
+            loadConfigurationFromFile(configPath);
+            mConfigPath = configPath;
+            mSave->setDisabled(false);
+        }
     }
 }
 
@@ -427,6 +424,7 @@ void MainWindow::saveAsConfiguration()
         VisuMisc::saveToFile(file, xml);
         mConfigPath = configPath;
         mSave->setDisabled(false);
+        mConfigChanged = false;
     }
 }
 
@@ -450,6 +448,7 @@ void MainWindow::saveConfiguration()
         QFile file( mConfigPath );
         QString xml = mConfiguration->toXML();
         VisuMisc::saveToFile(file, xml);
+        mConfigChanged = false;
     }
 }
 
@@ -494,6 +493,7 @@ void MainWindow::deleteSignal()
 
 void MainWindow::refreshEditorGui(QString key)
 {
+    mConfigChanged = true;
     if (key == VisuWidget::KEY_NAME)
     {
         updateMenuWidgetsList();
@@ -514,7 +514,6 @@ void MainWindow::cellUpdated(int row, int col)
     {
         setActiveWidget(mActiveWidget);
     }
-
     refreshEditorGui(key);
 }
 
@@ -620,4 +619,35 @@ void MainWindow::resizeEvent(QResizeEvent * event)
     QMainWindow::resizeEvent(event);
 
     mWindowSize = size();
+}
+
+void MainWindow::setChanged()
+{
+    mConfigChanged = true;
+}
+
+bool MainWindow::confirmLoseChanges()
+{
+    QMessageBox::StandardButton response = QMessageBox::question( this, "Warning",
+                                                                tr("There are unsaved changes that will be lost. "
+                                                                   "Are you sure you want to proceed?\n"),
+                                                                QMessageBox::No | QMessageBox::Yes,
+                                                                QMessageBox::No);
+
+    return response == QMessageBox::Yes;
+}
+
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+    if (mConfigChanged)
+    {
+        bool response = confirmLoseChanges();
+        if (response)
+        {
+            event->accept();
+        } else
+        {
+            event->ignore();
+        }
+    }
 }

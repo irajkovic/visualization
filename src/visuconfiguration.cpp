@@ -40,6 +40,14 @@ VisuConfiguration* VisuConfiguration::get()
     return instance;
 }
 
+VisuConfiguration* VisuConfiguration::getClean()
+{
+    delete instance;
+    instance = nullptr;
+    return VisuConfiguration::get();
+}
+
+
 VisuConfiguration::~VisuConfiguration()
 {
     for (VisuWidget* widget : widgetsList)

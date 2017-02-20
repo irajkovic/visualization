@@ -35,6 +35,7 @@ void Stage::dropEvent(QDropEvent *event)
 
     widget->setPosition(position);
     mMainWindow->setActiveWidget(widget);
+    mMainWindow->setChanged();
     event->acceptProposedAction();
 }
 

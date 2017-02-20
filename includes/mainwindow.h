@@ -25,12 +25,13 @@ public:
     void setupToolbarWidgets(QPointer<QWidget> toolbar);
     QPointer<VisuSignal> getSignal();
     void setActiveWidget(QPointer<VisuWidget> widget);
+    void setChanged();
     bool dragOriginIsToolbar(QWidget *widget);
     void keyPressEvent( QKeyEvent *event );
     QPointer<VisuConfiguration> getConfiguration();
     QPointer<VisuWidget> getActiveWidget();
     void updateMenuWidgetsList();
-
+    void closeEvent(QCloseEvent* event);
     ~MainWindow();
 
 public slots:
@@ -57,7 +58,7 @@ private:
     QString mConfigPath;
     QPointer<QAction> mSave;
     QSize mWindowSize;
-
+    bool mConfigChanged;
     void resizeEvent(QResizeEvent * event);
 
     void setupMenu();
@@ -65,11 +66,11 @@ private:
     void updateMenuSignalList();
     void reloadConfiguration();
     void loadConfigurationFromFile(const QString& configPath);
-    void unloadConfiguration();
     QString configurationToXML();
     void markActiveInstrumentMenuItem(QPointer<VisuWidget> oldItem, QPointer<VisuWidget> newItem);
     VisuWidget* actionDataToWidget(QAction* action);
     void refreshEditorGui(QString key);
+    bool confirmLoseChanges();
 
     static const QString INITIAL_EDITOR_CONFIG;
     static const int LAYOUT_TOOLBAR_HEIGHT = 170;
