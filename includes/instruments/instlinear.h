@@ -24,9 +24,7 @@ class InstLinear : public VisuInstrument
             GET_PROPERTY(cMinorLen, quint8, properties);
             GET_PROPERTY(cMajorCnt, quint8, properties);
             GET_PROPERTY(cMinorCnt, quint8, properties);
-            GET_PROPERTY(cHorMargin, quint16, properties);
-            GET_PROPERTY(cVerMargin, quint16, properties);
-            GET_PROPERTY(cVerMinorMargin, quint16, properties);
+            GET_PROPERTY(cBarThickness, quint16, properties);
             GET_PROPERTY(cHorizontal, bool, properties);
 
             mTagName = InstLinear::TAG_NAME;
@@ -44,19 +42,19 @@ class InstLinear : public VisuInstrument
         quint8 cMinorLen;       // Length, in pixels, of minor division marks
         quint8 cMajorCnt;       // Number of major count divisions
         quint8 cMinorCnt;       // Number of minor count divisions
-        quint16 cHorMargin;
-        quint16 cVerMargin;
-        quint16 cVerMinorMargin;
+        quint16 cBarThickness;
         bool cHorizontal;
 
         // additional properties not related to configuration
         quint16 mBarLength;
+        quint16 mMargin;
 
         void renderDivisions(QPainter* painter);
         void renderLabel(QPainter* painter, int sigCur, quint16 xOfs);
+        void setupMargin(QPainter *painter);
 
         static const QString KEY_HORIZONTAL;
-
+        static const int SPACING = 5;
 };
 
 #endif // INSTLINEAR_H

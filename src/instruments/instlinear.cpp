@@ -11,30 +11,20 @@ void InstLinear::renderLabel(QPainter* painter, int sigCur, quint16 ofs)
     double labelHeight = fontMetrics.height();
     if (cHorizontal)
     {
-        painter->drawText(ofs - labelWidth / 2, cHeight - cVerMargin + labelHeight, label);
+        painter->drawText(ofs - labelWidth / 2, cBarThickness + cMajorLen + 2 * SPACING + labelHeight, label);
     }
     else
     {
-        painter->drawText(cWidth - cHorMargin, ofs + labelHeight / 2, label);
+        painter->drawText(cBarThickness + cMajorLen + 3 * SPACING, ofs + labelHeight / 2, label);
     }
 }
 
 void InstLinear::renderDivisions(QPainter* painter)
 {
     quint16 total = cMajorCnt * cMinorCnt;
-    double delta;
-    double ofs;
-
-    if (cHorizontal)
-    {
-        delta = (double)(cWidth - 2 * cHorMargin) / total;
-        ofs = cHorMargin;
-    }
-    else
-    {
-        delta = (double)(cHeight - 2 * cVerMargin) / total;
-        ofs = cVerMargin;
-    }
+    int directionDimension = cHorizontal ? cWidth : cHeight;
+    double delta = (double)(directionDimension - 2 * mMargin) / total;
+    double ofs = mMargin;
 
     quint16 tmpMargin;
     double sigMax = mSignal->getMax();
@@ -54,34 +44,43 @@ void InstLinear::renderDivisions(QPainter* painter)
         {
             renderLabel(painter, sigCur, ofs);
             sigCur += sigStep;
-            tmpMargin = cVerMargin;
+            tmpMargin = cMajorLen;
         }
         else
         {
-            tmpMargin = cVerMinorMargin;
+            tmpMargin = cMinorLen;
         }
 
         if (cHorizontal)
         {
-            painter->drawLine(ofs, cVerMargin, ofs, cHeight - tmpMargin);
+            painter->drawLine(ofs, cBarThickness + 2 * SPACING, ofs,  cBarThickness + 2 * SPACING + tmpMargin);
         }
         else
         {
-            painter->drawLine(cHorMargin, ofs, cWidth - tmpMargin, ofs);
+            painter->drawLine(cBarThickness + 2 * SPACING, ofs, cBarThickness + 2 * SPACING + tmpMargin, ofs);
         }
 
         ofs += delta;
     }
 
+
+    mBarLength = ofs - delta - mMargin;
+}
+
+void InstLinear::setupMargin(QPainter* painter)
+{
+    QFontMetrics fontMetrics = painter->fontMetrics();
+
     if (cHorizontal)
     {
-        mBarLength = ofs - delta - cHorMargin;
+        int minValueWidth = fontMetrics.width(QString("%1").arg(mSignal->getMin()));
+        int maxValueWidth = fontMetrics.width(QString("%1").arg(mSignal->getMax()));
+        mMargin = std::max(minValueWidth, maxValueWidth) / 2;
     }
     else
     {
-        mBarLength = ofs - delta - cVerMargin;
+        mMargin = fontMetrics.height() / 2;
     }
-
 }
 
 void InstLinear::renderStatic(QPainter *painter)
@@ -90,15 +89,16 @@ void InstLinear::renderStatic(QPainter *painter)
 
     setPen(painter, cColorStatic, cLineThickness);
     setFont(painter);
+    setupMargin(painter);
     renderDivisions(painter);
 
     if (cHorizontal)
     {
-        painter->drawLine(cHorMargin, cVerMargin, mBarLength + cHorMargin, cVerMargin);
+        painter->drawLine(mMargin, cBarThickness + 2 * SPACING, mBarLength + mMargin, cBarThickness + 2 * SPACING);
     }
     else
     {
-        painter->drawLine(cHorMargin, cVerMargin, cHorMargin, cVerMargin + mBarLength);
+        painter->drawLine(cBarThickness + 2 * SPACING, mMargin, cBarThickness + 2 * SPACING, mMargin + mBarLength);
     }
 
 }
@@ -111,13 +111,11 @@ void InstLinear::renderDynamic(QPainter *painter)
     double ofs = mSignal->getNormalizedValue() * mBarLength;
     if (cHorizontal)
     {
-        painter->drawRect(cHorMargin, 5, ofs, cVerMargin - 10);
+        painter->drawRect(mMargin, SPACING, ofs, cBarThickness);
     }
     else
     {
-        painter->drawRect(5, cHeight - cVerMargin, cHorMargin - 10,  -ofs);
-
-        qDebug("%d %f %d", cHeight, ofs, mBarLength);
+        painter->drawRect(SPACING, cHeight - mMargin, cBarThickness, -ofs);
     }
 }
 

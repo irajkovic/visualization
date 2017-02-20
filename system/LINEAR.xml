@@ -6,18 +6,16 @@
 	<fontSize type="int" min="1">15</fontSize>
 	<fontType type="font">Arial</fontType>
 	<height type="int" min="0">50</height>
-	<horMargin type="int">15</horMargin>
 	<id type="read_only">3</id>
 	<lineThickness type="int" min="1">2</lineThickness>
-	<majorCnt type="int" min="0">5</majorCnt>
+	<majorCnt type="int" min="1">5</majorCnt>
 	<majorLen type="int" min="0">7</majorLen>
-	<minorCnt type="int" min="0">2</minorCnt>
+	<minorCnt type="int" min="1">2</minorCnt>
 	<minorLen type="int" min="0">3</minorLen>
 	<name>Linear instrument</name>
 	<signalId type="signal">0</signalId>
 	<type type="read_only">LINEAR</type>
-	<verMargin type="int" min="0">20</verMargin>
-	<verMinorMargin type="int" min="0">25</verMinorMargin>
+	<barThickness type="int" min="1">10</barThickness>
 	<width type="int" min="0">200</width>
 	<x type="int" min="0">0</x>
 	<y type="int" min="0">0</y>
