@@ -35,8 +35,6 @@ protected:
 
     bool    mFirstRun;
     const VisuSignal *mSignal; // Pointer to last signal that was updated
-    const VisuSignal *mSignalX;
-    const VisuSignal *mSignalY;
 
     void paintEvent(QPaintEvent* event);
     virtual void renderStatic(QPainter*) = 0;   // Renders static parts of instrument

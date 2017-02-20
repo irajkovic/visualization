@@ -53,6 +53,9 @@ private:
     double mCenterX;
     double mCenterY;
 
+    const VisuSignal *mSignalX;
+    const VisuSignal *mSignalY;
+
     void renderSingleAxis(QPainter* painter, int sigInd, int divisions, int length);
     void renderAxis(QPainter* painter);
     void renderBall(QPainter* painter);
