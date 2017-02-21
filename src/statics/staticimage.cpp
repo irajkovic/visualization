@@ -42,3 +42,8 @@ bool StaticImage::refresh(const QString& key)
     setVisible(cShow);
     return false;
 }
+
+QImage StaticImage::getImage()
+{
+    return cImage;
+}

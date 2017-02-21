@@ -84,8 +84,8 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
         else if (meta.type == VisuPropertyMeta::TYPE_BOOL)
         {
             QComboBox* box = new QComboBox();
-            box->insertItem(0, "No");
-            box->insertItem(1, "Yes");
+            box->addItem("No", QVariant(0));
+            box->addItem("Yes", QVariant(1));
             box->setCurrentIndex(value.toInt());
 
             VisuPropertiesHelper::setupTableWidget(box, table, object, slot, key, row, meta.type);
@@ -95,17 +95,47 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
             if (signalList != nullptr)
             {
                 QComboBox* box = new QComboBox();
+                int selected = 0;
+                int intValue = value.toInt();
                 for (VisuSignal* visuSignal : *signalList)
                 {
                     if (visuSignal != nullptr)
                     {
-                        box->insertItem(visuSignal->getId(), visuSignal->getName());
+                        box->addItem(visuSignal->getName(), QVariant(visuSignal->getId()));
+                        if (visuSignal->getId() == intValue)
+                        {
+                            selected = box->count()-1;
+                        }
                     }
                 }
-                box->setCurrentIndex(value.toInt());
+                box->setCurrentIndex(selected);
 
                 VisuPropertiesHelper::setupTableWidget(box, table, object, slot, key, row, meta.type);
             }
+        }
+        else if (meta.type == VisuPropertyMeta::TYPE_IMAGE)
+        {
+            QComboBox* box = new QComboBox();
+            box->addItem("Use color", QVariant(-1));
+
+            QVector<QPointer<StaticImage> > list = VisuConfiguration::get()->getListOf<StaticImage>();
+            int selected = 0;
+            int intValue = value.toInt();
+            for (StaticImage* image : list)
+            {
+                if (image != nullptr)
+                {
+                    box->addItem(image->getName(), QVariant(image->getId()));
+
+                    if (image->getId() == intValue)
+                    {
+                        selected = box->count()-1;
+                    }
+                }
+            }
+            box->setCurrentIndex(selected);
+
+            VisuPropertiesHelper::setupTableWidget(box, table, object, slot, key, row, meta.type);
         }
         else if (meta.type == VisuPropertyMeta::TYPE_COLOR)
         {
@@ -186,11 +216,15 @@ QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
     {
         if (box->property(VisuPropertiesHelper::PROP_TYPE).toString() == VisuPropertyMeta::TYPE_FONT)
         {
-            value = (box->currentText());
+            value = box->currentText();
+        }
+        else if (box->property(VisuPropertiesHelper::PROP_TYPE).toString() == VisuPropertyMeta::TYPE_ENUM)
+        {
+            value = QString("%1").arg(box->currentIndex());
         }
         else
         {
-            value = QString("%1").arg(box->currentIndex());
+            value = QString("%1").arg(box->currentData().toInt());
         }
     }
     else if ( (spinbox = qobject_cast<QSpinBox*>(table->cellWidget(row, 1))) != nullptr)

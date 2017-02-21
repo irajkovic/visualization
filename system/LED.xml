@@ -8,6 +8,8 @@
 	<colorForeground type="color">0,0,0,250</colorForeground>
 	<colorOff type="color">100,100,100,250</colorOff>
 	<colorOn type="color">200,255,30,255</colorOn>
+	<imageOn type="image">-1</imageOn>
+	<imageOff type="image">-1</imageOff>
 	<colorStatic type="color">0,0,0,255</colorStatic>
 	<condition type="enum" extra="val1&gt; AND &lt;val2,&lt; val1,&lt;= val1,&gt;= val1,&gt; val1">0</condition>
 	<fontSize type="int" min="0">18</fontSize>

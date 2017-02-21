@@ -11,11 +11,11 @@
 	<height type="int" min="0">150</height>
 	<id type="read_only">4</id>
 	<lineThickness type="int" min="0">2</lineThickness>
-	<majorCnt type="int" min="0">4</majorCnt>
+	<majorCnt type="int" min="1">4</majorCnt>
 	<markerDt type="int" min="0">500</markerDt>
 	<markerThickness type="int" min="0">1</markerThickness>
 	<masterTimeFormat>hh:mm:ss</masterTimeFormat>
-	<minorCnt type="int" min="0">2</minorCnt>
+	<minorCnt type="int" min="1">2</minorCnt>
 	<name>Time plot instrument</name>
 	<signalId type="signal">0</signalId>
 	<staticThickness type="int" min="0">1</staticThickness>

@@ -14,6 +14,8 @@ const QString VisuPropertyMeta::TYPE_SLIDER = "slider";
 const QString VisuPropertyMeta::TYPE_BOOL = "bool";
 const QString VisuPropertyMeta::TYPE_FONT = "font";
 const QString VisuPropertyMeta::TYPE_DEFAULT = "";
+const QString VisuPropertyMeta::TYPE_IMAGE = "image";
+const QString VisuPropertyMeta::TYPE_HIDDEN = "hidden";
 const QString VisuPropertyMeta::DELIMITER = ",";
 
 QStringList VisuPropertyMeta::getEnumOptions()

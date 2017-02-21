@@ -35,6 +35,8 @@ public:
         GET_PROPERTY(cCondition, quint8, properties);
         GET_PROPERTY(cColorOn, QColor, properties);
         GET_PROPERTY(cColorOff, QColor, properties);
+        GET_PROPERTY(cImageOn, int, properties);
+        GET_PROPERTY(cImageOff, int, properties);
         GET_PROPERTY(cShowSignalName, quint8, properties);
 
         mTagName = InstLED::TAG_NAME;
@@ -48,6 +50,8 @@ private:
     quint8 cCondition;
     QColor cColorOn;
     QColor cColorOff;
+    int cImageOn;
+    int cImageOff;
     quint8 cShowSignalName;
     quint16 cCenterH;
 

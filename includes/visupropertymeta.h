@@ -37,6 +37,8 @@ public:
     static const QString TYPE_BOOL;
     static const QString TYPE_FONT;
     static const QString TYPE_DEFAULT;
+    static const QString TYPE_IMAGE;
+    static const QString TYPE_HIDDEN;
 };
 
 #endif // VISUPROPERTYMETA_H

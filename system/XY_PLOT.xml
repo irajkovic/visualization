@@ -8,8 +8,8 @@
 	<id type="read_only">5</id>
 	<labelX>X osa</labelX>
 	<labelY>Y osa</labelY>
-	<majorCntX type="int" min="0">5</majorCntX>
-	<majorCntY type="int" min="0">5</majorCntY>
+	<majorCntX type="int" min="1">5</majorCntX>
+	<majorCntY type="int" min="1">5</majorCntY>
 	<majorLen type="int" min="0">4</majorLen>
 	<name>XY plot instrument</name>
 	<signalId type="signal">0</signalId>

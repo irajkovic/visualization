@@ -119,13 +119,13 @@
 			<nameY>138</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>0</offsetY>
+			<rotateLabels>0</rotateLabels>
 			<showLabel>1</showLabel>
 			<signalId>1</signalId>
 			<type>ANALOG</type>
 			<width>192</width>
 			<x>6</x>
 			<y>7</y>
-			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<angleEnd>2.67</angleEnd>
@@ -155,13 +155,13 @@
 			<nameY>138</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>0</offsetY>
+			<rotateLabels>0</rotateLabels>
 			<showLabel>1</showLabel>
 			<signalId>2</signalId>
 			<type>ANALOG</type>
 			<width>192</width>
 			<x>318</x>
 			<y>7</y>
-			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<angleEnd>2.38</angleEnd>
@@ -191,13 +191,13 @@
 			<nameY>130</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>26</offsetY>
+			<rotateLabels>0</rotateLabels>
 			<showLabel>1</showLabel>
 			<signalId>3</signalId>
 			<type>ANALOG</type>
 			<width>95</width>
 			<x>84</x>
 			<y>230</y>
-			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<angleEnd>-3.14</angleEnd>
@@ -227,13 +227,13 @@
 			<nameY>130</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>0</offsetY>
+			<rotateLabels>0</rotateLabels>
 			<showLabel>1</showLabel>
 			<signalId>5</signalId>
 			<type>ANALOG</type>
 			<width>95</width>
 			<x>215</x>
 			<y>230</y>
-			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<angleEnd>2.36</angleEnd>
@@ -263,13 +263,13 @@
 			<nameY>130</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>26</offsetY>
+			<rotateLabels>0</rotateLabels>
 			<showLabel>1</showLabel>
 			<signalId>4</signalId>
 			<type>ANALOG</type>
 			<width>95</width>
 			<x>343</x>
 			<y>230</y>
-			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<angleEnd>-3.14</angleEnd>
@@ -297,20 +297,20 @@
 			<nameY>130</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>0</offsetY>
+			<rotateLabels>0</rotateLabels>
 			<showLabel>1</showLabel>
 			<signalId>6</signalId>
 			<type>ANALOG</type>
 			<width>95</width>
 			<x>215</x>
 			<y>230</y>
-			<rotateLabels>0</rotateLabels>
 		</widget>
 		<widget>
 			<colorBackground>0,0,0,0</colorBackground>
 			<colorForeground>0,0,0,250</colorForeground>
 			<colorStatic>0,0,0,255</colorStatic>
-			<fontSize>14</fontSize>
-			<fontType>Arial</fontType>
+			<fontSize>9</fontSize>
+			<fontType>DSEG7 Classic</fontType>
 			<height>21</height>
 			<id>6</id>
 			<leadingDigits>7</leadingDigits>
@@ -328,8 +328,8 @@
 			<colorBackground>0,0,0,0</colorBackground>
 			<colorForeground>0,0,0,250</colorForeground>
 			<colorStatic>0,0,0,255</colorStatic>
-			<fontSize>14</fontSize>
-			<fontType>Arial</fontType>
+			<fontSize>9</fontSize>
+			<fontType>DSEG7 Classic</fontType>
 			<height>21</height>
 			<id>7</id>
 			<leadingDigits>4</leadingDigits>

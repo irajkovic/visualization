@@ -58,6 +58,24 @@ class VisuConfiguration : public QObject
         void moveWidgetUp(int id);
         void moveWidgetDown(int id);
 
+        // Specialized methods
+        template <typename T>
+        QVector<QPointer<T> >  getListOf()
+        {
+            QVector<QPointer<T> > result;
+            int size = widgetsList.size();
+            for (int i = 0 ; i < size ; ++i)
+            {
+                T* match = qobject_cast<T*>(widgetsList.at(i));
+                if (match != nullptr)
+                {
+                    result.append(match);
+                }
+            }
+
+            return result;
+        }
+
         // Instrument specific methods
         QPointer<VisuInstrument> getInstrument(quint16 instrument_id);
 

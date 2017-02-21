@@ -202,7 +202,14 @@ QVector<QPointer<VisuWidget> > VisuConfiguration::getWidgets()
 
 QPointer<VisuWidget> VisuConfiguration::getWidget(int id)
 {
-    return widgetsList[id];
+    if (id >= 0 && widgetsList.size() > id)
+    {
+        return widgetsList.at(id);
+    }
+    else
+    {
+        return nullptr;
+    }
 }
 
 void VisuConfiguration::moveWidgetUp(int id)

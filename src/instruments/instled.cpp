@@ -1,4 +1,5 @@
 #include "instled.h"
+#include "visuconfiguration.h"
 
 const QString InstLED::TAG_NAME = "LED";
 
@@ -33,8 +34,21 @@ void InstLED::renderDynamic(QPainter *painter)
         case MORE_THAN:     conditionOn = value > cVal1; break;
     }
 
-    setBrush(painter, conditionOn ? cColorOn : cColorOff);
-    QRect rect(2, cCenterH, cRadius, cRadius);
-    painter->drawEllipse(rect);
+    int imageId = conditionOn ? cImageOn : cImageOff;
+    if (imageId >= 0)
+    {
+        VisuWidget* imageWidget = VisuConfiguration::get()->getWidget(imageId);
+        StaticImage* image;
+        if ( (image = qobject_cast<StaticImage*>(imageWidget)) != nullptr)
+        {
+            painter->drawImage(0, 0, image->getImage());
+        }
+    }
+    else
+    {
+        setBrush(painter, conditionOn ? cColorOn : cColorOff);
+        QRect rect(2, cCenterH, cRadius, cRadius);
+        painter->drawEllipse(rect);
+    }
 }
 
