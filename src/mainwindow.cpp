@@ -43,9 +43,9 @@ MainWindow::MainWindow(QWidget *parent) :
     setupToolbarWidgets(mToolbar);
 
     setWindowTitle(tr("Configuration Editor"));
-
     showMaximized();
     updateConfig();
+
 }
 
 void MainWindow::setupMenu()
@@ -582,7 +582,6 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
     VisuPropertiesHelper::updateTable(mPropertiesTable,
                           properties,
                           metaProperties,
-                          &(mConfiguration->getSignals()),
                           this,
                           SLOT(propertyChange()));
     connect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));

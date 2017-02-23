@@ -17,7 +17,6 @@ void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
     VisuPropertiesHelper::updateTable(mTable,
                           mProperties,
                           VisuConfigLoader::getMetaMapFromFile(VisuConfiguration::TAG_NAME, VisuConfiguration::TAG_NAME),
-                          &(mConfiguration->getSignals()),
                           this,
                           SLOT(propertyChange()));
     mTable->setMaximumWidth(300);

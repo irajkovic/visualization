@@ -167,8 +167,6 @@ void InstAnalog::initDivisionProperties(int length)
     mStartPointY = mStartLen * mAngleCos + mCenterY;
     mEndPointX = -mEndLen * mAngleSin + mCenterX;
     mEndPointY = mEndLen * mAngleCos + mCenterY;
-
-    qDebug("%f %f %f %f %f %f", mStartLen,mEndLen,mStartPointX,mStartPointY,mEndPointX,mEndPointY );
 }
 
 void InstAnalog::calculateAngleOffset()
