@@ -76,12 +76,12 @@ class InstAnalog : public VisuInstrument
         double mDivisionAngleStep;
         double mSignalMajorDivisionValue;
         double mSignalMajorDivisionStep;
-        quint16 mStartLen;
-        quint16 mEndLen;
-        qint32 mStartPointX;
-        qint32 mStartPointY;
-        qint32 mEndPointX;
-        qint32 mEndPointY;
+        double mStartLen;
+        double mEndLen;
+        double mStartPointX;
+        double mStartPointY;
+        double mEndPointX;
+        double mEndPointY;
         quint16 mCenterX;
         quint16 mCenterY;
 

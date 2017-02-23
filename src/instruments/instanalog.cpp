@@ -155,20 +155,20 @@ void InstAnalog::renderMinorDivision(QPainter* painter)
 void InstAnalog::renderDivisionLine(QPainter* painter, int length)
 {
     initDivisionProperties(length);
-    painter->drawLine( mStartPointX + cOffsetX
-                     , mStartPointY + cOffsetY
-                     , mEndPointX + cOffsetX
-                     , mEndPointY + cOffsetY);
+    painter->drawLine( QPointF(mStartPointX + cOffsetX, mStartPointY + cOffsetY),
+                       QPointF(mEndPointX + cOffsetX, mEndPointY + cOffsetY) );
 }
 
 void InstAnalog::initDivisionProperties(int length)
 {
-    mStartLen = cDivisionRadius - length - cLineThickness * 2;
-    mEndLen = cDivisionRadius - cLineThickness * 2;
+    mStartLen = cDivisionRadius - cLineThickness * 2;
+    mEndLen = mStartLen - length;
     mStartPointX = -mStartLen * mAngleSin + mCenterX;
     mStartPointY = mStartLen * mAngleCos + mCenterY;
     mEndPointX = -mEndLen * mAngleSin + mCenterX;
     mEndPointY = mEndLen * mAngleCos + mCenterY;
+
+    qDebug("%f %f %f %f %f %f", mStartLen,mEndLen,mStartPointX,mStartPointY,mEndPointX,mEndPointY );
 }
 
 void InstAnalog::calculateAngleOffset()
