@@ -3,6 +3,11 @@
 
 const QString InstTimePlot::TAG_NAME = "TIME_PLOT";
 
+void InstTimePlot::reloadProperties(QMap<QString, QString>& properties)
+{
+    InstTimePlot::loadProperties(properties);
+}
+
 int InstTimePlot::getFontHeight()
 {
     QFont font;

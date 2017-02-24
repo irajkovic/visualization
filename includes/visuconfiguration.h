@@ -44,7 +44,7 @@ class VisuConfiguration : public QObject
         static VisuConfiguration* get();
         static VisuConfiguration* getClean();
         virtual ~VisuConfiguration();
-        void setConfigValues(const QMap<QString, QString>& properties);
+        void setConfigValues(QMap<QString, QString>& properties);
         void fromXML(QWidget *parent, const QString& xml);
         QString toXML();
         void initializeInstruments();

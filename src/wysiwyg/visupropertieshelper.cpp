@@ -212,7 +212,10 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
     {
         QString key = i.key();
         QString value = i.value();
-        table->setItem(row, VisuPropertiesHelper::COLUMN_PROPERTY, new QTableWidgetItem(key));
+
+        QTableWidgetItem* label = new QTableWidgetItem(key);
+        label->setFlags(label->flags() & ~Qt::ItemIsEditable);
+        table->setItem(row, VisuPropertiesHelper::COLUMN_PROPERTY, label);
 
         VisuPropertyMeta meta;
         if (metaProperties.contains(key))

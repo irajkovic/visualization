@@ -10,7 +10,7 @@ public:
 
     VisuPropertyMeta() :    min(std::numeric_limits<int>::min()),
                             max(std::numeric_limits<int>::max()),
-                            defaultVal(0),
+                            defaultVal(""),
                             type(DEFAULT),
                             extra("") {}
 
@@ -35,7 +35,7 @@ public:
 
     double min;
     double max;
-    double defaultVal;
+    QString defaultVal;
     Type type;
     QString extra;
 

@@ -92,6 +92,30 @@
 	</signals>
 	<widgets>
 		<widget>
+			<colorBackground>0,0,0,0</colorBackground>
+			<colorForeground>0,0,0,250</colorForeground>
+			<colorOff>100,100,100,250</colorOff>
+			<colorOn>200,255,30,255</colorOn>
+			<colorStatic>0,0,0,255</colorStatic>
+			<condition>4</condition>
+			<fontSize>18</fontSize>
+			<fontType>Arial</fontType>
+			<height>30</height>
+			<id>0</id>
+			<imageOff>11</imageOff>
+			<imageOn>12</imageOn>
+			<name>Led instrument</name>
+			<radius>20</radius>
+			<showSignalName>0</showSignalName>
+			<signalId>1</signalId>
+			<type>LED</type>
+			<val1>100</val1>
+			<val2>6.0</val2>
+			<width>30</width>
+			<x>87</x>
+			<y>70</y>
+		</widget>
+		<widget>
 			<angleEnd>2.1</angleEnd>
 			<angleStart>0</angleStart>
 			<arrowLen>75</arrowLen>
@@ -106,7 +130,7 @@
 			<fontSize>14</fontSize>
 			<fontType>Arial</fontType>
 			<height>192</height>
-			<id>0</id>
+			<id>1</id>
 			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>70</labelRadius>
 			<lineThickness>2</lineThickness>
@@ -142,7 +166,7 @@
 			<fontSize>15</fontSize>
 			<fontType>Arial</fontType>
 			<height>192</height>
-			<id>1</id>
+			<id>2</id>
 			<labelMultiplier>0.001</labelMultiplier>
 			<labelRadius>69</labelRadius>
 			<lineThickness>2</lineThickness>
@@ -178,7 +202,7 @@
 			<fontSize>15</fontSize>
 			<fontType>Arial</fontType>
 			<height>95</height>
-			<id>2</id>
+			<id>3</id>
 			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>37</labelRadius>
 			<lineThickness>2</lineThickness>
@@ -214,7 +238,7 @@
 			<fontSize>17</fontSize>
 			<fontType>Arial</fontType>
 			<height>95</height>
-			<id>3</id>
+			<id>4</id>
 			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>37</labelRadius>
 			<lineThickness>2</lineThickness>
@@ -250,7 +274,7 @@
 			<fontSize>15</fontSize>
 			<fontType>Arial</fontType>
 			<height>95</height>
-			<id>4</id>
+			<id>5</id>
 			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>37</labelRadius>
 			<lineThickness>2</lineThickness>
@@ -284,7 +308,7 @@
 			<fontSize>3</fontSize>
 			<fontType>Arial</fontType>
 			<height>95</height>
-			<id>5</id>
+			<id>6</id>
 			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>40</labelRadius>
 			<lineThickness>1</lineThickness>
@@ -312,7 +336,7 @@
 			<fontSize>9</fontSize>
 			<fontType>DSEG7 Classic</fontType>
 			<height>21</height>
-			<id>6</id>
+			<id>7</id>
 			<leadingDigits>7</leadingDigits>
 			<name>Digital instrument</name>
 			<padding>10</padding>
@@ -331,7 +355,7 @@
 			<fontSize>9</fontSize>
 			<fontType>DSEG7 Classic</fontType>
 			<height>21</height>
-			<id>7</id>
+			<id>8</id>
 			<leadingDigits>4</leadingDigits>
 			<name>Digital instrument</name>
 			<padding>10</padding>
@@ -353,7 +377,9 @@
 			<fontSize>18</fontSize>
 			<fontType>Arial</fontType>
 			<height>30</height>
-			<id>8</id>
+			<id>9</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led instrument</name>
 			<radius>11</radius>
 			<showSignalName>0</showSignalName>
@@ -375,7 +401,9 @@
 			<fontSize>18</fontSize>
 			<fontType>Arial</fontType>
 			<height>30</height>
-			<id>9</id>
+			<id>10</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led instrument</name>
 			<radius>11</radius>
 			<showSignalName>0</showSignalName>
@@ -386,6 +414,32 @@
 			<width>20</width>
 			<x>414</x>
 			<y>242</y>
+		</widget>
+		<widget>
+			<format>png</format>
+			<height>30</height>
+			<id>11</id>
+			<image>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QIVCxovG2K+KQAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAH+SURBVEjH7da5a1RRFAbw30wSl8Qt4xYFMSCCKGghRGy1kDRiKSKC1qIQRLCwEUljKRb+AW6IlQTFwoCNTRAUFIKVS1ziguMScJkZmzPyiON782aC1XxwuHDfveee73z3nPvo4D+h0MSatViNaoaf93g5V4EtRS2HDTTruDvjexkjWJVgPIAjuIRnMVfEB0zP1cHdGJ61bnGMW0KGOqq4iC95NV4UTl+jhI1Yj2v4EVaIlCb31zAvbBse5dXzSsLJWEK37ziesfdorB2K7NQztAwrwor/SvX8BPMFod8FzEQgaeiL8XRoXcYorqIfXTiD640234ioSxjHvRzZGsbTKKmv4WdHjC/wNgL6g2KG/j1NHnwbm6LeD8XczRjHcC4IHU47eE0i7c2ihkrY82D/GZN4iMv4iFNpqZ4KB+M5GDcqwz70Juam8CmN8R28y5AhC7/wLS5mUrpqWgMZwWATzaUtFFt8ONpGGqsKfrbotzd6QTWhay1JNMm4K8G4gp14HHYf25s8dCj2PMAEjmEdFkY7/ovxE2yNQp/E7ujX9aAmsCcuX9b7PRidbwM2Rwb6I4hcuu6K2qzhBJaHo1IDOzirc72JGp5upHEt4+C72Ivz0YX2R7k0wsoYZ3ArgizibDs3eAlOYl/Kr1ABr3AgntKeIFbO+H3qoIMOWsNvUF19bjzWhU4AAAAASUVORK5CYII=</image>
+			<name>service_off.png</name>
+			<resize>1</resize>
+			<show>0</show>
+			<type>IMAGE</type>
+			<width>30</width>
+			<x>86</x>
+			<y>66</y>
+		</widget>
+		<widget>
+			<format>png</format>
+			<height>30</height>
+			<id>12</id>
+			<image>iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QIVCxsPORevoAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAJ8SURBVEjH7ZZNiE5RGMd/d8wZoyHEYEZEo9EZDZLMQrFSJit7dXaUjS1iapgSNkKIjROlLGxoyt4gSr5ySPncWMyMaDLmPa/32jy3zlz3vfd9p2blfep2Pp/znP/z8T8XGhKId2bW9kd5hyht8c70APOBuOCsOUrbx4nejA2LcQ28qQN0r9L2dS0bmwvWvwA3gFZBHANdwFbgGfBeLh8BU8DnWm/YlI5NKk6twHqgA+iUb5GsLQzmOoDuYK02xBLLTmCN0vahxHWXHLatim6XfKGsBr7WlVzemWGgH9gCnAN2BPuGlLbHc3JhABgU/RGgAvwClgFKQjSqtJ2a5mqRSWnbgN8yPg+cBe4WAGiT9hRwD7gFbAQeAM+BF8DRMJRZyRXLhcaUtofS5VVFPkm7OZh7BKwDSjIe8M6cVNqW04j/CYN3Zm4yKKjNK+LSFuBIEh5p7wMXpX8my9WJdALz6mEspW0sSDzwCvgmpfVBeOA28BPYn2f4OrAdKNdLseKVYWAD0Af0KW0PAx+lzkt5BDICbCoIQx7NxsB4mk7TLJl1+CDwciaGa+HoPMOhVOp5eep5napxdSzuWe6dKQHjSRkUIfbORMBi0Y+VtqPAHzkzykIcBXMVYIUQwBPgrXdmbxEqWdsDONF76p05DawV3p/MQvwDmJASmJC5lcFl7nhnDiptLxdQsBaqrIhej9T4AuDaNJRpVvLONAGrxF0Au4ETwBLgZkASUYbhA0KPQ8Axqe0EZEsSsuYqJVFJva2XvDMOuArsA3aKh7IQt0t/DHgHLJUavqC0LScgoxprM+m3Cz32SsLkJWa/hEzJ3u/h6zSrP38Nacj/JX8BIkrUCu7gKNEAAAAASUVORK5CYII=</image>
+			<name>service_on.png</name>
+			<resize>1</resize>
+			<show>0</show>
+			<type>IMAGE</type>
+			<width>30</width>
+			<x>0</x>
+			<y>0</y>
 		</widget>
 	</widgets>
 </visu_config>

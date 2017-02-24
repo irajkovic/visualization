@@ -59,7 +59,7 @@ QMap<QString, VisuPropertyMeta> VisuConfigLoader::parseMetaToMap(QXmlStreamReade
         }
         else if (xmlReader.tokenType() == QXmlStreamReader::Characters && !xmlReader.isWhitespace())
         {
-            meta.defaultVal = xmlReader.text().toDouble();
+            meta.defaultVal = xmlReader.text().toString();
             map[name] = meta;
         }
 

@@ -11,9 +11,10 @@ class StaticImage : public VisuWidget
 public:
     explicit StaticImage(
             QWidget *parent,
-            QMap<QString, QString> properties) : VisuWidget(parent, properties)
+            QMap<QString, QString> properties,
+            QMap<QString, VisuPropertyMeta> metaProperties) : VisuWidget(parent, properties, metaProperties)
     {
-        loadProperties(properties);
+        loadProperties(mProperties);
         mTagName = StaticImage::TAG_NAME;
         setVisible(cShow);
     }
@@ -22,7 +23,8 @@ public:
     static const QString KEY_FORMAT;
     static const QString KEY_IMAGE;
 
-    virtual void loadProperties(QMap<QString, QString> properties);
+    virtual void reloadProperties(QMap<QString, QString>& properties);
+    void loadProperties(QMap<QString, QString>& properties);
     void paintEvent(QPaintEvent* event);
     virtual bool refresh(const QString& key);
     QImage getImage();

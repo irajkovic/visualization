@@ -15,16 +15,18 @@ class CtrlButton : public VisuControl
     public:
         explicit CtrlButton(
                 QWidget *parent,
-                QMap<QString, QString> properties) : VisuControl(parent, properties)
+                QMap<QString, QString> properties,
+                QMap<QString, VisuPropertyMeta> metaProperties) : VisuControl(parent, properties, metaProperties)
         {
 
-            loadProperties(properties);
+            loadProperties(mProperties);
             setup(parent);
         }
 
         static const QString TAG_NAME;
 
-        virtual void loadProperties(QMap<QString, QString> properties);
+        virtual void reloadProperties(QMap<QString, QString>& properties);
+        void loadProperties(QMap<QString, QString>& properties);
         virtual bool refresh(const QString& key);
         void setup(QWidget* parent);
 

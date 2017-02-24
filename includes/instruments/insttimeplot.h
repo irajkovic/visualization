@@ -10,29 +10,31 @@ class InstTimePlot : public VisuInstrument
     public:
         explicit InstTimePlot(
                 QWidget *parent,
-                QMap<QString, QString> properties) : VisuInstrument(parent, properties)
+                QMap<QString, QString> properties,
+                QMap<QString, VisuPropertyMeta> metaProperties) : VisuInstrument(parent, properties, metaProperties)
         {
-            loadProperties(properties);
+            loadProperties(mProperties);
             mGraphPainter = nullptr;
         }
         static const QString TAG_NAME;
 
-        virtual void loadProperties(QMap<QString, QString> properties)
+        virtual void reloadProperties(QMap<QString, QString>& properties);
+        void loadProperties(QMap<QString, QString>& properties)
         {
             VisuInstrument::loadProperties(properties);
 
-            GET_PROPERTY(cLineThickness, quint8, properties);
-            GET_PROPERTY(cStaticThickness, quint8, properties);
-            GET_PROPERTY(cMarkerThickness, quint8, properties);
-            GET_PROPERTY(cMajorCnt, quint8, properties);
-            GET_PROPERTY(cMinorCnt, quint8, properties);
-            GET_PROPERTY(cTicksInSecond, quint64, properties);
-            GET_PROPERTY(cTimespan, quint64, properties);
-            GET_PROPERTY(cMarkerDt, quint64, properties);
-            GET_PROPERTY(cDecimals, quint64, properties);
-            GET_PROPERTY(cDivisionFormat, QString, properties);
-            GET_PROPERTY(cMasterTimeFormat, QString, properties);
-            GET_PROPERTY(cColorGraphBackground, QColor, properties);
+            GET_PROPERTY(cLineThickness, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cStaticThickness, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cMarkerThickness, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cMajorCnt, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cMinorCnt, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cTicksInSecond, quint64, properties, mPropertiesMeta);
+            GET_PROPERTY(cTimespan, quint64, properties, mPropertiesMeta);
+            GET_PROPERTY(cMarkerDt, quint64, properties, mPropertiesMeta);
+            GET_PROPERTY(cDecimals, quint64, properties, mPropertiesMeta);
+            GET_PROPERTY(cDivisionFormat, QString, properties, mPropertiesMeta);
+            GET_PROPERTY(cMasterTimeFormat, QString, properties, mPropertiesMeta);
+            GET_PROPERTY(cColorGraphBackground, QColor, properties, mPropertiesMeta);
 
             mTagName = InstTimePlot::TAG_NAME;
         }

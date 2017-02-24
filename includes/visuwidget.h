@@ -14,14 +14,17 @@ class VisuWidget : public QWidget
 public:
     explicit VisuWidget(
             QWidget *parent,
-            QMap<QString, QString> properties) : QWidget(parent)
+            QMap<QString, QString> properties,
+            QMap<QString, VisuPropertyMeta> metaProperties) :   QWidget(parent),
+                                                                mProperties(properties),
+                                                                mPropertiesMeta(metaProperties)
     {
-        loadProperties(properties);
         setObjectName(VisuWidget::OBJECT_NAME);
         mActive = false;
     }
 
-    virtual void loadProperties(QMap<QString, QString> properties);
+    virtual void reloadProperties(QMap<QString, QString>& properties);
+    void loadProperties(QMap<QString, QString>& properties);
     static const QString TAG_NAME;
     static const QString KEY_ID;
     static const QString KEY_WIDTH;
@@ -31,7 +34,7 @@ public:
     static const QString KEY_NAME;
     static const QString KEY_TYPE;
 
-    QMap<QString, QString> getProperties();
+    QMap<QString, QString>& getProperties();
     void setPropertiesMeta(QMap<QString, VisuPropertyMeta> meta);
     QMap<QString, VisuPropertyMeta> getPropertiesMeta();
     QString getName();

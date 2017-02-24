@@ -12,8 +12,7 @@ public:
                                     QString type);
     static VisuWidget* createWidget(QWidget* parent,
                                     QString type,
-                                    QMap<QString, QString> properties,
-                                    QMap<QString, VisuPropertyMeta> metaProperties);
+                                    QMap<QString, QString> properties);
 };
 
 #endif // VISUWIDGETFACTORY_H

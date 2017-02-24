@@ -27,8 +27,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            QString xmlPath = (argc > 1) ? QString(argv[1]) : DEFAULT_CONFIG;
-            VisuApplication *application = new VisuApplication(xmlPath);
+            VisuApplication *application = new VisuApplication(argv[1]);
             application->show();
             application->run();
         }

@@ -10,26 +10,28 @@ class InstXYPlot : public VisuInstrument
 public:
     explicit InstXYPlot(
             QWidget *parent,
-            QMap<QString, QString> properties) : VisuInstrument(parent, properties)
+            QMap<QString, QString> properties,
+            QMap<QString, VisuPropertyMeta> metaProperties) : VisuInstrument(parent, properties, metaProperties)
     {
-        loadProperties(properties);
+        loadProperties(mProperties);
 
         mSignalX = nullptr;
         mSignalY = nullptr;
     }
     static const QString TAG_NAME;
 
-    virtual void loadProperties(QMap<QString, QString> properties)
+    virtual void reloadProperties(QMap<QString, QString>& properties);
+    void loadProperties(QMap<QString, QString>& properties)
     {
         VisuInstrument::loadProperties(properties);
 
-        GET_PROPERTY(cSignalIdY, quint16, properties);
-        GET_PROPERTY(cBallSize, quint16, properties);
-        GET_PROPERTY(cMajorCntX, quint16, properties);
-        GET_PROPERTY(cMajorCntY, quint16, properties);
-        GET_PROPERTY(cMajorLen, quint16, properties);
-        GET_PROPERTY(cLabelX, QString, properties);
-        GET_PROPERTY(cLabelY, QString, properties);
+        GET_PROPERTY(cSignalIdY, quint16, properties, mPropertiesMeta);
+        GET_PROPERTY(cBallSize, quint16, properties, mPropertiesMeta);
+        GET_PROPERTY(cMajorCntX, quint16, properties, mPropertiesMeta);
+        GET_PROPERTY(cMajorCntY, quint16, properties, mPropertiesMeta);
+        GET_PROPERTY(cMajorLen, quint16, properties, mPropertiesMeta);
+        GET_PROPERTY(cLabelX, QString, properties, mPropertiesMeta);
+        GET_PROPERTY(cLabelY, QString, properties, mPropertiesMeta);
 
         mTagName = InstXYPlot::TAG_NAME;
     }

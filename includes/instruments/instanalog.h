@@ -9,36 +9,38 @@ class InstAnalog : public VisuInstrument
     public:
         explicit InstAnalog(
                 QWidget *parent,
-                QMap<QString, QString> properties) : VisuInstrument(parent, properties)
+                QMap<QString, QString> properties,
+                QMap<QString, VisuPropertyMeta> metaProperties) : VisuInstrument(parent, properties, metaProperties)
         {
-            loadProperties(properties);
+            loadProperties(mProperties);
         }
         static const QString TAG_NAME;
 
-        virtual void loadProperties(QMap<QString, QString> properties)
+        virtual void reloadProperties(QMap<QString, QString>& properties);
+        void loadProperties(QMap<QString, QString>& properties)
         {
             VisuInstrument::loadProperties(properties);
 
             // custom properties initializer
-            GET_PROPERTY(cLineThickness, quint8, properties);
-            GET_PROPERTY(cMajorLen, quint8, properties);
-            GET_PROPERTY(cMinorLen, quint8, properties);
-            GET_PROPERTY(cMajorCnt, quint8, properties);
-            GET_PROPERTY(cMinorCnt, quint8, properties);
-            GET_PROPERTY(cArrowWidth, quint8, properties);
-            GET_PROPERTY(cDrawCircle, bool, properties);
-            GET_PROPERTY(cLabelRadius, quint16, properties);
-            GET_PROPERTY(cAngleStart, double, properties);
-            GET_PROPERTY(cAngleEnd, double, properties);
-            GET_PROPERTY(cNameX, quint16, properties);
-            GET_PROPERTY(cNameY, quint16, properties);
-            GET_PROPERTY(cOffsetX, qint16, properties);
-            GET_PROPERTY(cOffsetY, qint16, properties);
-            GET_PROPERTY(cShowLabel, bool, properties);
-            GET_PROPERTY(cDivisionRadius, qint16, properties);
-            GET_PROPERTY(cArrowLen, quint16, properties);
-            GET_PROPERTY(cLabelMultiplier, double, properties);
-            GET_PROPERTY(cRotateLabels, bool, properties);
+            GET_PROPERTY(cLineThickness, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cMajorLen, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cMinorLen, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cMajorCnt, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cMinorCnt, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cArrowWidth, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cDrawCircle, bool, properties, mPropertiesMeta);
+            GET_PROPERTY(cLabelRadius, quint16, properties, mPropertiesMeta);
+            GET_PROPERTY(cAngleStart, double, properties, mPropertiesMeta);
+            GET_PROPERTY(cAngleEnd, double, properties, mPropertiesMeta);
+            GET_PROPERTY(cNameX, quint16, properties, mPropertiesMeta);
+            GET_PROPERTY(cNameY, quint16, properties, mPropertiesMeta);
+            GET_PROPERTY(cOffsetX, qint16, properties, mPropertiesMeta);
+            GET_PROPERTY(cOffsetY, qint16, properties, mPropertiesMeta);
+            GET_PROPERTY(cShowLabel, bool, properties, mPropertiesMeta);
+            GET_PROPERTY(cDivisionRadius, qint16, properties, mPropertiesMeta);
+            GET_PROPERTY(cArrowLen, quint16, properties, mPropertiesMeta);
+            GET_PROPERTY(cLabelMultiplier, double, properties, mPropertiesMeta);
+            GET_PROPERTY(cRotateLabels, bool, properties, mPropertiesMeta);
 
             mTagName = InstAnalog::TAG_NAME;
         }

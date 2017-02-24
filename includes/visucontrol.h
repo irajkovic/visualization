@@ -11,12 +11,15 @@ class VisuControl : public VisuWidget
     Q_OBJECT
 public:
 
-    explicit VisuControl(QWidget* parent, QMap<QString, QString> properties) : VisuWidget(parent, properties)
+    explicit VisuControl(QWidget* parent,
+                         QMap<QString, QString> properties,
+                         QMap<QString, VisuPropertyMeta> metaProperties) : VisuWidget(parent, properties, metaProperties)
     {
         mAddress = QHostAddress(cActionIp);
     }
 
-    void loadProperties(QMap<QString, QString> properties);
+    virtual void reloadProperties(QMap<QString, QString>& properties);
+    void loadProperties(QMap<QString, QString>& properties);
     virtual bool refresh(const QString& key) { (void)key; return false; }
 
 protected:

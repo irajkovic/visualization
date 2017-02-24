@@ -29,12 +29,17 @@ void CtrlButton::setupButton(QWidget* parent)
                      SLOT(sendCommand()));
 }
 
-void CtrlButton::loadProperties(QMap<QString, QString> properties)
+void CtrlButton::reloadProperties(QMap<QString, QString>& properties)
 {
-    VisuWidget::loadProperties(properties);
+    CtrlButton::loadProperties(properties);
+}
 
-    GET_PROPERTY(cActionMessage, QString, properties);
-    GET_PROPERTY(cCss, QString, properties);
+void CtrlButton::loadProperties(QMap<QString, QString>& properties)
+{
+    VisuControl::loadProperties(properties);
+
+    GET_PROPERTY(cActionMessage, QString, properties, mPropertiesMeta);
+    GET_PROPERTY(cCss, QString, properties, mPropertiesMeta);
 }
 
 void CtrlButton::setup(QWidget *parent)

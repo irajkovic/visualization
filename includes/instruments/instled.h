@@ -19,25 +19,27 @@ public:
 
     explicit InstLED(
             QWidget *parent,
-            QMap<QString, QString> properties) : VisuInstrument(parent, properties)
+            QMap<QString, QString> properties,
+            QMap<QString, VisuPropertyMeta> metaProperties) : VisuInstrument(parent, properties, metaProperties)
     {
-        loadProperties(properties);
+        loadProperties(mProperties);
     }
     static const QString TAG_NAME;
 
-    virtual void loadProperties(QMap<QString, QString> properties)
+    virtual void reloadProperties(QMap<QString, QString>& properties);
+    void loadProperties(QMap<QString, QString>& properties)
     {
         VisuInstrument::loadProperties(properties);
 
-        GET_PROPERTY(cRadius, quint8, properties);
-        GET_PROPERTY(cVal1, double, properties);
-        GET_PROPERTY(cVal2, double, properties);
-        GET_PROPERTY(cCondition, quint8, properties);
-        GET_PROPERTY(cColorOn, QColor, properties);
-        GET_PROPERTY(cColorOff, QColor, properties);
-        GET_PROPERTY(cImageOn, int, properties);
-        GET_PROPERTY(cImageOff, int, properties);
-        GET_PROPERTY(cShowSignalName, quint8, properties);
+        GET_PROPERTY(cRadius, quint8, properties, mPropertiesMeta);
+        GET_PROPERTY(cVal1, double, properties, mPropertiesMeta);
+        GET_PROPERTY(cVal2, double, properties, mPropertiesMeta);
+        GET_PROPERTY(cCondition, quint8, properties, mPropertiesMeta);
+        GET_PROPERTY(cColorOn, QColor, properties, mPropertiesMeta);
+        GET_PROPERTY(cColorOff, QColor, properties, mPropertiesMeta);
+        GET_PROPERTY(cImageOn, int, properties, mPropertiesMeta);
+        GET_PROPERTY(cImageOff, int, properties, mPropertiesMeta);
+        GET_PROPERTY(cShowSignalName, quint8, properties, mPropertiesMeta);
 
         mTagName = InstLED::TAG_NAME;
     }

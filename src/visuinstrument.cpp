@@ -4,18 +4,23 @@
 #include <QStyleOption>
 #include "visumisc.h"
 
-void VisuInstrument::loadProperties(QMap<QString, QString> properties)
+void VisuInstrument::reloadProperties(QMap<QString, QString>& properties)
+{
+    VisuInstrument::loadProperties(properties);
+}
+
+void VisuInstrument::loadProperties(QMap<QString, QString>& properties)
 {
     VisuWidget::loadProperties(properties);
 
     ConfigLoadException::setInstrumentLoadContext(properties);
 
-    GET_PROPERTY(cSignalId, quint16, properties);
-    GET_PROPERTY(cColorBackground, QColor, properties);
-    GET_PROPERTY(cColorStatic, QColor, properties);
-    GET_PROPERTY(cColorForeground, QColor, properties);
-    GET_PROPERTY(cFontSize, quint8, properties);
-    GET_PROPERTY(cFontType, QString, properties);
+    GET_PROPERTY(cSignalId, quint16, properties, mPropertiesMeta);
+    GET_PROPERTY(cColorBackground, QColor, properties, mPropertiesMeta);
+    GET_PROPERTY(cColorStatic, QColor, properties, mPropertiesMeta);
+    GET_PROPERTY(cColorForeground, QColor, properties, mPropertiesMeta);
+    GET_PROPERTY(cFontSize, quint8, properties, mPropertiesMeta);
+    GET_PROPERTY(cFontType, QString, properties, mPropertiesMeta);
 
     setup();
 }

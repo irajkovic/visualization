@@ -95,17 +95,19 @@ void VisuWidget::drawActiveBox(QPainter* painter)
     }
 }
 
-void VisuWidget::loadProperties(QMap<QString, QString> properties)
+void VisuWidget::reloadProperties(QMap<QString, QString>& properties)
 {
-    mProperties = properties;
+    VisuWidget::loadProperties(properties);
+}
 
-    // custom properties initializer
-    GET_PROPERTY(cId, quint16, properties);
-    GET_PROPERTY(cName, QString, properties);
-    GET_PROPERTY(cX, quint16, properties);
-    GET_PROPERTY(cY, quint16, properties);
-    GET_PROPERTY(cWidth, quint16, properties);
-    GET_PROPERTY(cHeight, quint16, properties);
+void VisuWidget::loadProperties(QMap<QString, QString>& properties)
+{
+    GET_PROPERTY(cId, quint16, properties, mPropertiesMeta);
+    GET_PROPERTY(cName, QString, properties, mPropertiesMeta);
+    GET_PROPERTY(cX, quint16, properties, mPropertiesMeta);
+    GET_PROPERTY(cY, quint16, properties, mPropertiesMeta);
+    GET_PROPERTY(cWidth, quint16, properties, mPropertiesMeta);
+    GET_PROPERTY(cHeight, quint16, properties, mPropertiesMeta);
 
     setup();
 }
@@ -128,7 +130,7 @@ void VisuWidget::setId(quint16 id)
     mProperties[VisuWidget::KEY_ID] = QString("%1").arg(id);
 }
 
-QMap<QString, QString> VisuWidget::getProperties()
+QMap<QString, QString>& VisuWidget::getProperties()
 {
     return mProperties;
 }

@@ -15,49 +15,49 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
                                             QString type)
 {
     QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(type, VisuWidget::TAG_NAME);
-    QMap<QString, VisuPropertyMeta> metaProperties = VisuConfigLoader::getMetaMapFromFile(type, VisuWidget::TAG_NAME);
-    return VisuWidgetFactory::createWidget(parent, type, properties, metaProperties);
+    return VisuWidgetFactory::createWidget(parent, type, properties);
 }
 
 // TODO :: Check if type can be replaced by properties["type"]
 VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
                                             QString type,
-                                            QMap<QString, QString> properties,
-                                            QMap<QString, VisuPropertyMeta> metaProperties)
+                                            QMap<QString, QString> properties)
 {
+    QMap<QString, VisuPropertyMeta> metaProperties = VisuConfigLoader::getMetaMapFromFile(type, VisuWidget::TAG_NAME);
+
     VisuWidget* widget = nullptr;
 
     if (type == InstAnalog::TAG_NAME)
     {
-        widget = new InstAnalog(parent, properties);
+        widget = new InstAnalog(parent, properties, metaProperties);
     }
     else if (type == InstDigital::TAG_NAME)
     {
-        widget = new InstDigital(parent, properties);
+        widget = new InstDigital(parent, properties, metaProperties);
     }
     else if (type == InstLinear::TAG_NAME)
     {
-        widget = new InstLinear(parent, properties);
+        widget = new InstLinear(parent, properties, metaProperties);
     }
     else if (type == InstTimePlot::TAG_NAME)
     {
-        widget = new InstTimePlot(parent, properties);
+        widget = new InstTimePlot(parent, properties, metaProperties);
     }
     else if (type == InstLED::TAG_NAME)
     {
-        widget = new InstLED(parent, properties);
+        widget = new InstLED(parent, properties, metaProperties);
     }
     else if (type == InstXYPlot::TAG_NAME)
     {
-        widget = new InstXYPlot(parent, properties);
+        widget = new InstXYPlot(parent, properties, metaProperties);
     }
     else if (type == CtrlButton::TAG_NAME)
     {
-        widget = new CtrlButton(parent, properties);
+        widget = new CtrlButton(parent, properties, metaProperties);
     }
     else if (type == StaticImage::TAG_NAME)
     {
-        widget = new StaticImage(parent, properties);
+        widget = new StaticImage(parent, properties, metaProperties);
     }
     else
     {

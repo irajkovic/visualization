@@ -66,12 +66,9 @@ void VisuConfiguration::createSignalFromToken(QXmlStreamReader& xmlReader)
 QPointer<VisuWidget> VisuConfiguration::createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent)
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, VisuWidget::TAG_NAME);
-    QMap<QString, VisuPropertyMeta> metaProperties = VisuConfigLoader::getMetaMapFromFile(properties[VisuWidget::KEY_TYPE],
-                                                                                          VisuWidget::TAG_NAME);
     VisuWidget* widget = VisuWidgetFactory::createWidget(parent,
                                                          properties[VisuWidget::KEY_TYPE],
-                                                         properties,
-                                                         metaProperties);
+                                                         properties);
     addWidget(widget);
     widget->show();
 
@@ -87,17 +84,19 @@ void VisuConfiguration::initializeInstruments()
 
 void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader)
 {
-    setConfigValues(VisuConfigLoader::parseToMap(xmlReader, TAG_NAME));
+    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_NAME);
+    setConfigValues(properties);
 }
 
-void VisuConfiguration::setConfigValues(const QMap<QString, QString>& properties)
+void VisuConfiguration::setConfigValues(QMap<QString, QString>& properties)
 {
     mProperties = properties;
-    GET_PROPERTY(cPort, quint16, properties);
-    GET_PROPERTY(cWidth, quint16, properties);
-    GET_PROPERTY(cHeight, quint16, properties);
-    GET_PROPERTY(cColorBackground, QColor, properties);
-    GET_PROPERTY(cName, QString, properties);
+    QMap<QString, VisuPropertyMeta> emptyMap;
+    GET_PROPERTY(cPort, quint16, properties, emptyMap);
+    GET_PROPERTY(cWidth, quint16, properties, emptyMap);
+    GET_PROPERTY(cHeight, quint16, properties, emptyMap);
+    GET_PROPERTY(cColorBackground, QColor, properties, emptyMap);
+    GET_PROPERTY(cName, QString, properties, emptyMap);
 }
 
 void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)

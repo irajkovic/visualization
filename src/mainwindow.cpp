@@ -338,8 +338,10 @@ void MainWindow::openImageAdder()
                 properties[VisuWidget::KEY_HEIGHT] = QString("%1").arg(tmpImage.height());
                 properties[VisuWidget::KEY_NAME] = QFileInfo(imagePath).fileName();
 
-                StaticImage* image = new StaticImage(mStage, properties);
-                image->setPropertiesMeta(VisuConfigLoader::getMetaMapFromFile(StaticImage::TAG_NAME, VisuWidget::TAG_NAME));
+                QMap<QString, VisuPropertyMeta> metaProperties =
+                        VisuConfigLoader::getMetaMapFromFile(StaticImage::TAG_NAME, VisuWidget::TAG_NAME);
+
+                StaticImage* image = new StaticImage(mStage, properties, metaProperties);
                 setActiveWidget(image);
                 mConfiguration->addWidget(image);
                 mConfigChanged = true;
@@ -507,9 +509,9 @@ void MainWindow::cellUpdated(int row, int col)
     QString key = mPropertiesTable->item(row,0)->text();
     QString value = VisuPropertiesHelper::getValueString(mPropertiesTable, row);
 
-    QMap<QString, QString> properties = mActiveWidget->getProperties();
+    QMap<QString, QString>& properties = mActiveWidget->getProperties();
     properties[key] = value;
-    mActiveWidget->loadProperties(properties);
+    mActiveWidget->reloadProperties(properties);
     if (mActiveWidget->refresh(key))
     {
         setActiveWidget(mActiveWidget);

@@ -3,6 +3,11 @@
 
 const QString InstLED::TAG_NAME = "LED";
 
+void InstLED::reloadProperties(QMap<QString, QString>& properties)
+{
+    InstLED::loadProperties(properties);
+}
+
 void InstLED::renderStatic(QPainter *painter)
 {
     clear(painter);

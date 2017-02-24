@@ -79,3 +79,17 @@ QColor VisuMisc::strToColor(const QString& str)
     }
     return QColor::Invalid;
 }
+
+QImage VisuMisc::strToImage(const QString& str, const QString& format)
+{
+    QByteArray base64Bytes;
+    base64Bytes.append(str);
+
+    QByteArray rawImageData;
+    rawImageData = QByteArray::fromBase64(base64Bytes);
+
+    QImage image;
+    image.loadFromData(rawImageData, format.toStdString().c_str());
+
+    return image;
+}

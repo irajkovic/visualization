@@ -3,6 +3,11 @@
 const QString InstLinear::TAG_NAME = "LINEAR";
 const QString InstLinear::KEY_HORIZONTAL = "horizontal";
 
+void InstLinear::reloadProperties(QMap<QString, QString>& properties)
+{
+    InstLinear::loadProperties(properties);
+}
+
 void InstLinear::renderLabel(QPainter* painter, int sigCur, quint16 ofs)
 {
     QString label = QString("%1").arg((int)sigCur);

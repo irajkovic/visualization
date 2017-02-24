@@ -22,6 +22,7 @@ public:
     static QString saveToFile(QFile &file, QString contents);
     static QPen getDashedPen(QColor color, int thickness);
     static QColor strToColor(const QString& str);
+    static QImage strToImage(const QString& str, const QString &format);
 };
 
 #endif // VISUMISC_H

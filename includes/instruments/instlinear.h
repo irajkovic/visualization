@@ -9,23 +9,25 @@ class InstLinear : public VisuInstrument
     public:
         InstLinear(
                 QWidget *parent,
-                QMap<QString, QString> properties) : VisuInstrument(parent, properties)
+                QMap<QString, QString> properties,
+                QMap<QString, VisuPropertyMeta> metaProperties) : VisuInstrument(parent, properties, metaProperties)
         {
-            loadProperties(properties);
+            loadProperties(mProperties);
         }
         static const QString TAG_NAME;
 
-        virtual void loadProperties(QMap<QString, QString> properties)
+        virtual void reloadProperties(QMap<QString, QString>& properties);
+        void loadProperties(QMap<QString, QString>& properties)
         {
             VisuInstrument::loadProperties(properties);
 
-            GET_PROPERTY(cLineThickness, quint8, properties);
-            GET_PROPERTY(cMajorLen, quint8, properties);
-            GET_PROPERTY(cMinorLen, quint8, properties);
-            GET_PROPERTY(cMajorCnt, quint8, properties);
-            GET_PROPERTY(cMinorCnt, quint8, properties);
-            GET_PROPERTY(cBarThickness, quint16, properties);
-            GET_PROPERTY(cHorizontal, bool, properties);
+            GET_PROPERTY(cLineThickness, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cMajorLen, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cMinorLen, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cMajorCnt, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cMinorCnt, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cBarThickness, quint16, properties, mPropertiesMeta);
+            GET_PROPERTY(cHorizontal, bool, properties, mPropertiesMeta);
 
             mTagName = InstLinear::TAG_NAME;
         }

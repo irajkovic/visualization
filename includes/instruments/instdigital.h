@@ -9,20 +9,22 @@ class InstDigital : public VisuInstrument
     public:
         explicit InstDigital(
                 QWidget *parent,
-                QMap<QString, QString> properties) : VisuInstrument(parent, properties)
+                QMap<QString, QString> properties,
+                QMap<QString, VisuPropertyMeta> metaProperties) : VisuInstrument(parent, properties, metaProperties)
         {
-            loadProperties(properties);
+            loadProperties(mProperties);
         }
         static const QString TAG_NAME;
 
-        virtual void loadProperties(QMap<QString, QString> properties)
+        virtual void reloadProperties(QMap<QString, QString>& properties);
+        void loadProperties(QMap<QString, QString>& properties)
         {
             VisuInstrument::loadProperties(properties);
 
-            GET_PROPERTY(cShowSignalName, bool, properties);
-            GET_PROPERTY(cShowSignalUnit, bool, properties);
-            GET_PROPERTY(cPadding, quint8, properties);
-            GET_PROPERTY(cLeadingDigits, quint8, properties);
+            GET_PROPERTY(cShowSignalName, bool, properties, mPropertiesMeta);
+            GET_PROPERTY(cShowSignalUnit, bool, properties, mPropertiesMeta);
+            GET_PROPERTY(cPadding, quint8, properties, mPropertiesMeta);
+            GET_PROPERTY(cLeadingDigits, quint8, properties, mPropertiesMeta);
 
             mTagName = InstDigital::TAG_NAME;
         }

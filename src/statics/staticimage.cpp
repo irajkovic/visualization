@@ -9,17 +9,28 @@ const QString StaticImage::TAG_NAME = "IMAGE";
 const QString StaticImage::KEY_FORMAT = "format";
 const QString StaticImage::KEY_IMAGE = "image";
 
-void StaticImage::loadProperties(QMap<QString, QString> properties)
+void StaticImage::reloadProperties(QMap<QString, QString>& properties)
+{
+    StaticImage::loadProperties(properties);
+}
+
+void StaticImage::loadProperties(QMap<QString, QString>& properties)
 {
     VisuWidget::loadProperties(properties);
-    GET_PROPERTY(cImage, QImage, properties);
-    GET_PROPERTY(cShow, bool, properties);
-    GET_PROPERTY(cResize, bool, properties);
+    GET_PROPERTY(cImage, QImage, properties, mPropertiesMeta);
+    GET_PROPERTY(cShow, bool, properties, mPropertiesMeta);
+    GET_PROPERTY(cResize, bool, properties, mPropertiesMeta);
 }
 
 void StaticImage::paintEvent(QPaintEvent* event)
 {
     (void)event;    // supress compiler warning about unused parameter
+
+    if (!cShow)
+    {
+        return;
+    }
+
     QPainter painter(this);
 
     if (cResize)

@@ -166,12 +166,12 @@ quint64 VisuSignal::getTimestamp() const
 void VisuSignal::load(QMap<QString, QString> properties)
 {
     mProperties = properties;
-
-    GET_PROPERTY(cId, quint16, properties);
-    GET_PROPERTY(cName, QString, properties);
-    GET_PROPERTY(cUnit, QString, properties);
-    GET_PROPERTY(cFactor, double, properties);
-    GET_PROPERTY(cOffset, double, properties);
-    GET_PROPERTY(cMax, double, properties);
-    GET_PROPERTY(cMin, double, properties);
+    QMap<QString, VisuPropertyMeta> emptyMap;
+    GET_PROPERTY(cId, quint16, properties, emptyMap);
+    GET_PROPERTY(cName, QString, properties, emptyMap);
+    GET_PROPERTY(cUnit, QString, properties, emptyMap);
+    GET_PROPERTY(cFactor, double, properties, emptyMap);
+    GET_PROPERTY(cOffset, double, properties, emptyMap);
+    GET_PROPERTY(cMax, double, properties, emptyMap);
+    GET_PROPERTY(cMin, double, properties, emptyMap);
 }

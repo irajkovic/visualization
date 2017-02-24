@@ -19,24 +19,44 @@ namespace VisuHelper
         }
     }
 
-    template<>
-    double get<double>(QString key, QMap<QString, QString> properties)
+    bool keyMissing(QString key, QMap<QString, QString> properties)
     {
-        checkIfKeyExists(key, properties);
+        if (!properties.contains(key))
+        {
+            qDebug("Missing property: %s", key.toStdString().c_str());
+            return true;
+        }
+        return false;
+    }
+
+    template<>
+    double get<double>(QString key, QMap<QString, QString>& properties, QMap<QString, VisuPropertyMeta> metaProperties)
+    {
+        if (keyMissing(key, properties))
+        {
+            properties[key] = metaProperties[key].defaultVal;
+        }
         return properties[key].toDouble();
     }
 
     template<>
-    QString get<QString>(QString key, QMap<QString, QString> properties)
+    QString get<QString>(QString key, QMap<QString, QString>& properties, QMap<QString, VisuPropertyMeta> metaProperties)
     {
-        checkIfKeyExists(key, properties);
+        if (keyMissing(key, properties))
+        {
+            properties[key] =  metaProperties[key].defaultVal;
+        }
         return properties[key];
     }
 
     template<>
-    QColor get<QColor>(QString key, QMap<QString, QString> properties)
+    QColor get<QColor>(QString key, QMap<QString, QString>& properties, QMap<QString, VisuPropertyMeta> metaProperties)
     {
-        checkIfKeyExists(key, properties);
+        if (keyMissing(key, properties))
+        {
+            properties[key] = metaProperties[key].defaultVal;
+        }
+
         QColor color = VisuMisc::strToColor(properties[key]);
         if (!color.isValid())
         {
@@ -46,26 +66,23 @@ namespace VisuHelper
     }
 
     template<>
-    QImage get<QImage>(QString key, QMap<QString, QString> properties)
+    QImage get<QImage>(QString key, QMap<QString, QString>& properties, QMap<QString, VisuPropertyMeta> metaProperties)
     {
-        checkIfKeyExists(key, properties);
-        checkIfKeyExists(StaticImage::KEY_FORMAT, properties);
+        if (keyMissing(key, properties))
+        {
+            properties[key] = metaProperties[key].defaultVal;
+        }
 
-        QByteArray base64Bytes;
-        base64Bytes.append(properties[key]);
-
-        QByteArray rawImageData;
-        rawImageData = QByteArray::fromBase64(base64Bytes);
-
-        QImage image;
-        image.loadFromData(rawImageData, properties[StaticImage::KEY_FORMAT].toStdString().c_str());
-        return image;
+        return VisuMisc::strToImage(properties[key], properties[StaticImage::KEY_FORMAT]);
     }
 
     template<>
-    bool get<bool>(QString key, QMap<QString, QString> properties)
+    bool get<bool>(QString key, QMap<QString, QString>& properties, QMap<QString, VisuPropertyMeta> metaProperties)
     {
-        checkIfKeyExists(key, properties);
+        if (keyMissing(key, properties))
+        {
+            properties[key] = metaProperties[key].defaultVal;
+        }
         return (properties[key].toInt() != 0);
     }
 }

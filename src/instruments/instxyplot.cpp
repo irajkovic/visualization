@@ -2,6 +2,11 @@
 
 const QString InstXYPlot::TAG_NAME = "XY_PLOT";
 
+void InstXYPlot::reloadProperties(QMap<QString, QString>& properties)
+{
+    InstXYPlot::loadProperties(properties);
+}
+
 void InstXYPlot::renderSingleAxis(QPainter* painter, int sigInd, int divisions, int length)
 {
     VisuSignal* sig = connectedSignals[sigInd];
