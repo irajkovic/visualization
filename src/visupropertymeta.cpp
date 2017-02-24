@@ -27,6 +27,11 @@ QStringList VisuPropertyMeta::getEnumOptions()
     return extra.split(VisuPropertyMeta::DELIMITER);
 }
 
+QString VisuPropertyMeta::stringFromType(VisuPropertyMeta::Type type)
+{
+    return VisuPropertyMeta::TYPES_MAP[type];
+}
+
 VisuPropertyMeta::Type VisuPropertyMeta::typeFromString(QString typeStr)
 {
     VisuPropertyMeta::Type ret = VisuPropertyMeta::DEFAULT;

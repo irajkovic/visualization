@@ -40,6 +40,8 @@ public:
     QString extra;
 
     QStringList getEnumOptions();
+
+    static QString stringFromType(VisuPropertyMeta::Type type);
     static Type typeFromString(QString typeStr);
 
     static const QString DELIMITER;

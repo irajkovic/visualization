@@ -254,16 +254,16 @@ QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
 
     if ( (box = qobject_cast<QComboBox*>(table->cellWidget(row, 1))) != nullptr)
     {
-        if (VisuPropertyMeta::typeFromString(box->property(VisuPropertiesHelper::PROP_TYPE).toString()) == VisuPropertyMeta::FONT)
+        int type = box->property(VisuPropertiesHelper::PROP_TYPE).toInt();
+        switch (type)
         {
+        case VisuPropertyMeta::FONT:
             value = box->currentText();
-        }
-        else if (VisuPropertyMeta::typeFromString(box->property(VisuPropertiesHelper::PROP_TYPE).toString()) == VisuPropertyMeta::ENUM)
-        {
+            break;
+        case VisuPropertyMeta::ENUM:
             value = QString("%1").arg(box->currentIndex());
-        }
-        else
-        {
+            break;
+        default:
             value = QString("%1").arg(box->currentData().toInt());
         }
     }
