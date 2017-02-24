@@ -20,52 +20,53 @@ int VisuPropertiesHelper::doubleToSlider(double value)
 
 void VisuPropertiesHelper::setupTableWidget(
                                 QTableWidget* table,
-                                QWidget* widget,
-                                QWidget* object,
-                                const char* signal,
-                                const char* slot,
+                                std::pair<QWidget*, const char*> widget,
+                                std::pair<QWidget*, const char*> parent,
                                 QString key,
                                 VisuPropertyMeta::Type type,
                                 int row)
 {
-    widget->setProperty(VisuPropertiesHelper::PROP_KEY, key);
-    widget->setProperty(VisuPropertiesHelper::PROP_TYPE, type);
-    widget->setProperty(VisuPropertiesHelper::PROP_ROW, row);
-    table->setCellWidget(row, 1, widget);
+    widget.first->setProperty(VisuPropertiesHelper::PROP_KEY, key);
+    widget.first->setProperty(VisuPropertiesHelper::PROP_TYPE, type);
+    widget.first->setProperty(VisuPropertiesHelper::PROP_ROW, row);
+    table->setCellWidget(row, VisuPropertiesHelper::COLUMN_VALUE, widget.first);
 
-    if (object != nullptr && slot != nullptr)
+    if (widget.first != nullptr &&
+        widget.second != nullptr &&
+        parent.first != nullptr &&
+        parent.second != nullptr)
     {
-        QObject::connect(widget, signal, object, slot);
+        QObject::connect(widget.first, widget.second, parent.first, parent.second);
     }
 }
 
-QComboBox* VisuPropertiesHelper::setupEnumWidget(VisuPropertyMeta meta, QString value)
+std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupEnumWidget(VisuPropertyMeta meta, QString value)
 {
     QComboBox* box = new QComboBox();
     box->insertItems(0, meta.getEnumOptions());
     box->setCurrentIndex(value.toInt());
-    return box;
+    return std::make_pair(box, SIGNAL(currentIndexChanged(int)));
 }
 
-QComboBox* VisuPropertiesHelper::setupFontWidget(VisuPropertyMeta meta, QString value)
+std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupFontWidget(VisuPropertyMeta meta, QString value)
 {
     QComboBox* box = new QComboBox();
     QFontDatabase db;
     box->insertItems(0, db.families());
     box->setCurrentText(value);
-    return box;
+    return std::make_pair(box, SIGNAL(currentIndexChanged(int)));
 }
 
-QComboBox* VisuPropertiesHelper::setupBoolWidget(VisuPropertyMeta meta, QString value)
+std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupBoolWidget(VisuPropertyMeta meta, QString value)
 {
     QComboBox* box = new QComboBox();
     box->addItem("No", QVariant(0));
     box->addItem("Yes", QVariant(1));
     box->setCurrentIndex(value.toInt());
-    return box;
+    return std::make_pair(box, SIGNAL(currentIndexChanged(int)));
 }
 
-QComboBox* VisuPropertiesHelper::setupSignalsWidget(VisuPropertyMeta meta, QString value)
+std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupSignalsWidget(VisuPropertyMeta meta, QString value)
 {
     QComboBox* box = new QComboBox();
     int selected = 0;
@@ -83,10 +84,10 @@ QComboBox* VisuPropertiesHelper::setupSignalsWidget(VisuPropertyMeta meta, QStri
         }
     }
     box->setCurrentIndex(selected);
-    return box;
+    return std::make_pair(box, SIGNAL(currentIndexChanged(int)));
 }
 
-QComboBox* VisuPropertiesHelper::setupImagesWidget(VisuPropertyMeta meta, QString value)
+std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupImagesWidget(VisuPropertyMeta meta, QString value)
 {
     QComboBox* box = new QComboBox();
     box->addItem("Use color", QVariant(-1));
@@ -107,37 +108,38 @@ QComboBox* VisuPropertiesHelper::setupImagesWidget(VisuPropertyMeta meta, QStrin
         }
     }
     box->setCurrentIndex(selected);
-    return box;
+    return std::make_pair(box, SIGNAL(currentIndexChanged(int)));
 }
 
-QPushButton* VisuPropertiesHelper::setupColorWidget(VisuPropertyMeta meta, QString value, QColor color)
+std::pair<QPushButton*, const char*> VisuPropertiesHelper::setupColorWidget(VisuPropertyMeta meta, QString value)
 {
     QPushButton* btn = new QPushButton(value);
+    QColor color = VisuMisc::strToColor(value);
     VisuMisc::setBackgroundColor(btn, color);
     btn->setProperty(VisuPropertiesHelper::PROP_COLOR, color);
-    return btn;
+    return std::make_pair(btn, SIGNAL(clicked()));
 }
 
 
-QSpinBox* VisuPropertiesHelper::setupIntWidget(VisuPropertyMeta meta, QString value)
+std::pair<QSpinBox*, const char*> VisuPropertiesHelper::setupIntWidget(VisuPropertyMeta meta, QString value)
 {
     QSpinBox* spinbox = new QSpinBox();
     spinbox->setMinimum(meta.min);
     spinbox->setMaximum(meta.max);
     spinbox->setValue(value.toInt());
-    return spinbox;
+    return std::make_pair(spinbox, SIGNAL(valueChanged(int)));
 }
 
-QSlider* VisuPropertiesHelper::setupSliderWidget(VisuPropertyMeta meta, QString value)
+std::pair<QSlider*, const char*> VisuPropertiesHelper::setupSliderWidget(VisuPropertyMeta meta, QString value)
 {
     QSlider* slider = new QSlider(Qt::Horizontal);
     slider->setMinimum(VisuPropertiesHelper::doubleToSlider(meta.min));
     slider->setMaximum(VisuPropertiesHelper::doubleToSlider(meta.max));
     slider->setValue(VisuPropertiesHelper::doubleToSlider(value.toDouble()));
-    return slider;
+    return std::make_pair(slider, SIGNAL(valueChanged(int)));
 }
 
-QLineEdit* VisuPropertiesHelper::setupDefaultWidget(VisuPropertyMeta meta, QString value)
+std::pair<QLineEdit*, const char*> VisuPropertiesHelper::setupDefaultWidget(VisuPropertyMeta meta, QString value)
 {
     QLineEdit* edit = new QLineEdit(value);
 
@@ -146,23 +148,59 @@ QLineEdit* VisuPropertiesHelper::setupDefaultWidget(VisuPropertyMeta meta, QStri
         QValidator *validator = new QDoubleValidator(meta.min, meta.max, 3);
         edit->setValidator(validator);
     }
-    return edit;
+    return std::make_pair(edit, SIGNAL(editingFinished()));
 }
 
-void VisuPropertiesHelper::setupReadOnlyWidget(QTableWidget* table, int row, QString value)
+std::pair<QLabel*, const char*> VisuPropertiesHelper::setupReadOnlyWidget(VisuPropertyMeta meta, QString value)
 {
-    QTableWidgetItem* item = new QTableWidgetItem(value);
-    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-    table->setItem(row, 1, item);
+    QLabel* label = new QLabel(value);
+    return std::make_pair(label, nullptr);
 }
 
+std::pair<QWidget*, const char*> VisuPropertiesHelper::controlFactory(VisuPropertyMeta meta, QString value)
+{
+    std::pair<QWidget*, const char*> widget;
 
+    switch(meta.type)
+    {
+    case VisuPropertyMeta::ENUM:
+        widget = VisuPropertiesHelper::setupEnumWidget(meta, value);
+        break;
+    case VisuPropertyMeta::FONT:
+        widget = VisuPropertiesHelper::setupFontWidget(meta, value);
+        break;
+    case VisuPropertyMeta::BOOL:
+        widget = VisuPropertiesHelper::setupBoolWidget(meta, value);
+        break;
+    case VisuPropertyMeta::INSTSIGNAL:
+        widget = VisuPropertiesHelper::setupSignalsWidget(meta, value);
+        break;
+    case VisuPropertyMeta::IMAGE:
+        widget = VisuPropertiesHelper::setupImagesWidget(meta, value);
+        break;
+    case  VisuPropertyMeta::COLOR:
+        widget = VisuPropertiesHelper::setupColorWidget(meta, value);
+        break;
+    case VisuPropertyMeta::READ_ONLY:
+        widget = VisuPropertiesHelper::setupReadOnlyWidget(meta, value);
+        break;
+    case VisuPropertyMeta::INT:
+        widget = VisuPropertiesHelper::setupIntWidget(meta, value);
+        break;
+    case VisuPropertyMeta::SLIDER:
+        widget = VisuPropertiesHelper::setupSliderWidget(meta, value);
+        break;
+    default:
+        widget = VisuPropertiesHelper::setupDefaultWidget(meta, value);
+    }
+
+    return widget;
+}
 
 void VisuPropertiesHelper::updateTable(QTableWidget* table,
                            QMap<QString, QString> properties,
                            QMap<QString, VisuPropertyMeta> metaProperties,
-                           QWidget* object,
-                           const char* slot)
+                           std::pair<QWidget*, const char*> object)
 {
     table->clearContents();
     table->setRowCount(properties.size());
@@ -174,7 +212,7 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
     {
         QString key = i.key();
         QString value = i.value();
-        table->setItem(row, 0, new QTableWidgetItem(key));
+        table->setItem(row, VisuPropertiesHelper::COLUMN_PROPERTY, new QTableWidgetItem(key));
 
         VisuPropertyMeta meta;
         if (metaProperties.contains(key))
@@ -182,58 +220,13 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
             meta = metaProperties[key];
         }
 
-        QWidget* widget = nullptr;
-        const char* widgetSignal = nullptr;
+        std::pair<QWidget*, const char*> widget = VisuPropertiesHelper::controlFactory(meta, value);
 
-        switch(meta.type)
-        {
-        case VisuPropertyMeta::ENUM:
-            widget = VisuPropertiesHelper::setupEnumWidget(meta, value);
-            widgetSignal = SIGNAL(currentIndexChanged(int));
-            break;
-        case VisuPropertyMeta::FONT:
-            widget = VisuPropertiesHelper::setupFontWidget(meta, value);
-            widgetSignal = SIGNAL(currentIndexChanged(int));
-            break;
-        case VisuPropertyMeta::BOOL:
-            widget = VisuPropertiesHelper::setupBoolWidget(meta, value);
-            widgetSignal = SIGNAL(currentIndexChanged(int));
-            break;
-        case VisuPropertyMeta::INSTSIGNAL:
-            widget = VisuPropertiesHelper::setupSignalsWidget(meta, value);
-            widgetSignal = SIGNAL(currentIndexChanged(int));
-            break;
-        case VisuPropertyMeta::IMAGE:
-            widget = VisuPropertiesHelper::setupImagesWidget(meta, value);
-            widgetSignal = SIGNAL(currentIndexChanged(int));
-            break;
-        case  VisuPropertyMeta::COLOR:
-            widget = VisuPropertiesHelper::setupColorWidget(meta, value, VisuHelper::get<QColor>(key, properties));
-            widgetSignal = SIGNAL(clicked());
-            break;
-        case VisuPropertyMeta::READ_ONLY:
-            VisuPropertiesHelper::setupReadOnlyWidget(table, row, value);
-            break;
-        case VisuPropertyMeta::INT:
-            widget = VisuPropertiesHelper::setupIntWidget(meta, value);
-            widgetSignal = SIGNAL(valueChanged(int));
-            break;
-        case VisuPropertyMeta::SLIDER:
-            widget = VisuPropertiesHelper::setupSliderWidget(meta, value);
-            widgetSignal = SIGNAL(valueChanged(int));
-            break;
-        default:
-            widget = VisuPropertiesHelper::setupDefaultWidget(meta, value);
-            widgetSignal = SIGNAL(editingFinished());
-        }
-
-        if (widget != nullptr)
+        if (widget.first != nullptr)
         {
             VisuPropertiesHelper::setupTableWidget(table,
                                                    widget,
                                                    object,
-                                                   widgetSignal,
-                                                   slot,
                                                    key,
                                                    meta.type,
                                                    row);

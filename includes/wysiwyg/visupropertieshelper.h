@@ -13,6 +13,7 @@
 #include <QSharedPointer>
 #include <QSpinBox>
 #include <QSlider>
+#include <QLabel>
 
 class VisuPropertiesHelper
 {
@@ -22,32 +23,33 @@ public:
     static void updateTable(QTableWidget* table,
                             QMap<QString, QString> properties,
                             QMap<QString, VisuPropertyMeta> metaProperties,
-                            QWidget* object = nullptr,
-                            const char* slot = nullptr);
-    static void setupTableWidget(QTableWidget* table, QWidget* widget,
-                                    QWidget* object, const char *signal,
-                                    const char* slot,
-                                    QString key,
-                                    VisuPropertyMeta::Type type,
-                                    int row);
+                            std::pair<QWidget*, const char*> object);
+    static void setupTableWidget(  QTableWidget* table,
+                                   std::pair<QWidget*, const char*> widget,
+                                   std::pair<QWidget*, const char*> parent,
+                                   QString key,
+                                   VisuPropertyMeta::Type type,
+                                   int row);
     static int updateWidgetProperty(QObject* sender, QWidget* parent);
     static QString getValueString(QTableWidget *table, int row);
     static double sliderToDouble(int slider);
     static int doubleToSlider(double value);
 
-    static QComboBox* setupEnumWidget(VisuPropertyMeta meta, QString value);
-    static QComboBox* setupFontWidget(VisuPropertyMeta meta, QString value);
-    static QComboBox* setupBoolWidget(VisuPropertyMeta meta, QString value);
-    static QComboBox* setupSignalsWidget(VisuPropertyMeta meta, QString value);
-    static QComboBox* setupImagesWidget(VisuPropertyMeta meta, QString value);
-    static QPushButton* setupColorWidget(VisuPropertyMeta meta, QString value, QColor color);
-    static QSpinBox* setupIntWidget(VisuPropertyMeta meta, QString value);
-    static QSlider* setupSliderWidget(VisuPropertyMeta meta, QString value);
-    static QLineEdit* setupDefaultWidget(VisuPropertyMeta meta, QString value);
-    static void setupReadOnlyWidget(QTableWidget* table, int row, QString value);
-
+    static std::pair<QComboBox*, const char*> setupEnumWidget(VisuPropertyMeta meta, QString value);
+    static std::pair<QComboBox*, const char*> setupFontWidget(VisuPropertyMeta meta, QString value);
+    static std::pair<QComboBox*, const char*> setupBoolWidget(VisuPropertyMeta meta, QString value);
+    static std::pair<QComboBox*, const char*> setupSignalsWidget(VisuPropertyMeta meta, QString value);
+    static std::pair<QComboBox*, const char*> setupImagesWidget(VisuPropertyMeta meta, QString value);
+    static std::pair<QPushButton*, const char*> setupColorWidget(VisuPropertyMeta meta, QString value);
+    static std::pair<QSpinBox*, const char*> setupIntWidget(VisuPropertyMeta meta, QString value);
+    static std::pair<QSlider*, const char*> setupSliderWidget(VisuPropertyMeta meta, QString value);
+    static std::pair<QLineEdit*, const char*> setupDefaultWidget(VisuPropertyMeta meta, QString value);
+    static std::pair<QLabel*, const char*> setupReadOnlyWidget(VisuPropertyMeta meta, QString value);
+    static std::pair<QWidget*, const char*> controlFactory(VisuPropertyMeta meta, QString value);
 
     static const int SLIDER_FACTOR = 100;
+    static const int COLUMN_PROPERTY = 0;
+    static const int COLUMN_VALUE = 1;
     static const char* PROP_COLOR;
     static const char* PROP_ROW;
     static const char* PROP_KEY;

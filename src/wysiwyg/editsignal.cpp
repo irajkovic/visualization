@@ -26,7 +26,7 @@ void EditSignal::setup(QPointer<VisuSignal> visuSignal)
         mProperties = visuSignal->getProperties();
         mNewSignal = false;
     }
-    VisuPropertiesHelper::updateTable(mTable, mProperties, mMetaProperties, this, SLOT(propertyChange()));
+    VisuPropertiesHelper::updateTable(mTable, mProperties, mMetaProperties, std::make_pair(this, SLOT(propertyChange())));
 
     mTable->setMaximumWidth(300);
     mTable->verticalHeader()->hide();

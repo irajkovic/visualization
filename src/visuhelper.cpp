@@ -2,6 +2,7 @@
 #include "exceptions/configloadexception.h"
 #include "statics/staticimage.h"
 #include <QByteArray>
+#include "visumisc.h"
 
 namespace VisuHelper
 {
@@ -36,17 +37,12 @@ namespace VisuHelper
     QColor get<QColor>(QString key, QMap<QString, QString> properties)
     {
         checkIfKeyExists(key, properties);
-        QStringList parts = properties[key].split(",");
-        if (parts.length() == 4) {
-            return QColor( parts[0].toInt()
-                         , parts[1].toInt()
-                         , parts[2].toInt()
-                         , parts[3].toInt());
-        }
-        else
+        QColor color = VisuMisc::strToColor(properties[key]);
+        if (!color.isValid())
         {
             throw ConfigLoadException("Wrong color format (%1)", properties[key]);
         }
+        return color;
     }
 
     template<>

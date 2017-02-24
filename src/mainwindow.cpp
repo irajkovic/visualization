@@ -582,8 +582,8 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
     VisuPropertiesHelper::updateTable(mPropertiesTable,
                           properties,
                           metaProperties,
-                          this,
-                          SLOT(propertyChange()));
+                          std::make_pair(this, SLOT(propertyChange()))
+                          );
     connect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));
 }
 

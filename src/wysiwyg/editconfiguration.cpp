@@ -17,8 +17,7 @@ void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
     VisuPropertiesHelper::updateTable(mTable,
                           mProperties,
                           VisuConfigLoader::getMetaMapFromFile(VisuConfiguration::TAG_NAME, VisuConfiguration::TAG_NAME),
-                          this,
-                          SLOT(propertyChange()));
+                          std::make_pair(this, SLOT(propertyChange())));
     mTable->setMaximumWidth(300);
     mTable->verticalHeader()->hide();
     mTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);

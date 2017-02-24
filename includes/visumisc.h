@@ -21,6 +21,7 @@ public:
     static QString mapToString(QMap<QString, QString> properties, int tabs = 0);
     static QString saveToFile(QFile &file, QString contents);
     static QPen getDashedPen(QColor color, int thickness);
+    static QColor strToColor(const QString& str);
 };
 
 #endif // VISUMISC_H

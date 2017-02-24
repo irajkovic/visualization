@@ -66,3 +66,16 @@ QPen VisuMisc::getDashedPen(QColor color, int thickness)
     dashed.setWidth(thickness);
     return dashed;
 }
+
+QColor VisuMisc::strToColor(const QString& str)
+{
+    QStringList parts = str.split(",");
+    if (parts.length() == 4)
+    {
+        return QColor( parts[0].toInt()
+                     , parts[1].toInt()
+                     , parts[2].toInt()
+                     , parts[3].toInt());
+    }
+    return QColor::Invalid;
+}
