@@ -11,34 +11,46 @@ public:
     VisuPropertyMeta() :    min(std::numeric_limits<int>::min()),
                             max(std::numeric_limits<int>::max()),
                             defaultVal(0),
-                            type(TYPE_DEFAULT),
+                            type(DEFAULT),
                             extra("") {}
+
+    typedef enum
+    {
+        DEFAULT,
+        ENUM,
+        COLOR,
+        INSTSIGNAL,
+        READ_ONLY,
+        INT,
+        FLOAT,
+        SLIDER,
+        BOOL,
+        FONT,
+        IMAGE,
+        HIDDEN,
+        FIRST = DEFAULT,
+        LAST = HIDDEN
+    } Type;
+    static const char* TYPES_MAP[12];
 
     double min;
     double max;
     double defaultVal;
-    QString type;
+    Type type;
     QString extra;
 
     QStringList getEnumOptions();
+    static Type typeFromString(QString typeStr);
 
     static const QString DELIMITER;
     static const QString KEY_MIN;
     static const QString KEY_MAX;
     static const QString KEY_TYPE;
     static const QString KEY_EXTRA;
-    static const QString TYPE_ENUM;
-    static const QString TYPE_COLOR;
-    static const QString TYPE_SIGNAL;
-    static const QString TYPE_READ_ONLY;
-    static const QString TYPE_INT;
-    static const QString TYPE_FLOAT;
-    static const QString TYPE_SLIDER;
-    static const QString TYPE_BOOL;
-    static const QString TYPE_FONT;
-    static const QString TYPE_DEFAULT;
-    static const QString TYPE_IMAGE;
-    static const QString TYPE_HIDDEN;
+
+
+
+
 };
 
 #endif // VISUPROPERTYMETA_H

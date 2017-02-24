@@ -28,7 +28,7 @@ public:
                                     QWidget* object, const char *signal,
                                     const char* slot,
                                     QString key,
-                                    QString type,
+                                    VisuPropertyMeta::Type type,
                                     int row);
     static int updateWidgetProperty(QObject* sender, QWidget* parent);
     static QString getValueString(QTableWidget *table, int row);
@@ -44,6 +44,7 @@ public:
     static QSpinBox* setupIntWidget(VisuPropertyMeta meta, QString value);
     static QSlider* setupSliderWidget(VisuPropertyMeta meta, QString value);
     static QLineEdit* setupDefaultWidget(VisuPropertyMeta meta, QString value);
+    static void setupReadOnlyWidget(QTableWidget* table, int row, QString value);
 
 
     static const int SLIDER_FACTOR = 100;

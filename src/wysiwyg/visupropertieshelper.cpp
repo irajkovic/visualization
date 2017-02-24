@@ -25,7 +25,7 @@ void VisuPropertiesHelper::setupTableWidget(
                                 const char* signal,
                                 const char* slot,
                                 QString key,
-                                QString type,
+                                VisuPropertyMeta::Type type,
                                 int row)
 {
     widget->setProperty(VisuPropertiesHelper::PROP_KEY, key);
@@ -82,7 +82,7 @@ QComboBox* VisuPropertiesHelper::setupSignalsWidget(VisuPropertyMeta meta, QStri
             }
         }
     }
-
+    box->setCurrentIndex(selected);
     return box;
 }
 
@@ -141,12 +141,19 @@ QLineEdit* VisuPropertiesHelper::setupDefaultWidget(VisuPropertyMeta meta, QStri
 {
     QLineEdit* edit = new QLineEdit(value);
 
-    if (meta.type == VisuPropertyMeta::TYPE_FLOAT)
+    if (meta.type == VisuPropertyMeta::FLOAT)
     {
         QValidator *validator = new QDoubleValidator(meta.min, meta.max, 3);
         edit->setValidator(validator);
     }
     return edit;
+}
+
+void VisuPropertiesHelper::setupReadOnlyWidget(QTableWidget* table, int row, QString value)
+{
+    QTableWidgetItem* item = new QTableWidgetItem(value);
+    item->setFlags(item->flags() ^ Qt::ItemIsEditable);
+    table->setItem(row, 1, item);
 }
 
 
@@ -178,54 +185,44 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
         QWidget* widget = nullptr;
         const char* widgetSignal = nullptr;
 
-        if (meta.type == VisuPropertyMeta::TYPE_ENUM)
+        switch(meta.type)
         {
+        case VisuPropertyMeta::ENUM:
             widget = VisuPropertiesHelper::setupEnumWidget(meta, value);
             widgetSignal = SIGNAL(currentIndexChanged(int));
-        }
-        else if (meta.type == VisuPropertyMeta::TYPE_FONT)
-        {
+            break;
+        case VisuPropertyMeta::FONT:
             widget = VisuPropertiesHelper::setupFontWidget(meta, value);
             widgetSignal = SIGNAL(currentIndexChanged(int));
-        }
-        else if (meta.type == VisuPropertyMeta::TYPE_BOOL)
-        {
+            break;
+        case VisuPropertyMeta::BOOL:
             widget = VisuPropertiesHelper::setupBoolWidget(meta, value);
             widgetSignal = SIGNAL(currentIndexChanged(int));
-        }
-        else if (meta.type == VisuPropertyMeta::TYPE_SIGNAL)
-        {
+            break;
+        case VisuPropertyMeta::INSTSIGNAL:
             widget = VisuPropertiesHelper::setupSignalsWidget(meta, value);
             widgetSignal = SIGNAL(currentIndexChanged(int));
-        }
-        else if (meta.type == VisuPropertyMeta::TYPE_IMAGE)
-        {
+            break;
+        case VisuPropertyMeta::IMAGE:
             widget = VisuPropertiesHelper::setupImagesWidget(meta, value);
             widgetSignal = SIGNAL(currentIndexChanged(int));
-        }
-        else if (meta.type == VisuPropertyMeta::TYPE_COLOR)
-        {
+            break;
+        case  VisuPropertyMeta::COLOR:
             widget = VisuPropertiesHelper::setupColorWidget(meta, value, VisuHelper::get<QColor>(key, properties));
             widgetSignal = SIGNAL(clicked());
-        }
-        else if (meta.type == VisuPropertyMeta::TYPE_READ_ONLY)
-        {
-            QTableWidgetItem* item = new QTableWidgetItem(value);
-            item->setFlags(item->flags() ^ Qt::ItemIsEditable);
-            table->setItem(row, 1, item);
-        }
-        else if (meta.type == VisuPropertyMeta::TYPE_INT)
-        {
+            break;
+        case VisuPropertyMeta::READ_ONLY:
+            VisuPropertiesHelper::setupReadOnlyWidget(table, row, value);
+            break;
+        case VisuPropertyMeta::INT:
             widget = VisuPropertiesHelper::setupIntWidget(meta, value);
             widgetSignal = SIGNAL(valueChanged(int));
-        }
-        else if (meta.type == VisuPropertyMeta::TYPE_SLIDER)
-        {
+            break;
+        case VisuPropertyMeta::SLIDER:
             widget = VisuPropertiesHelper::setupSliderWidget(meta, value);
             widgetSignal = SIGNAL(valueChanged(int));
-        }
-        else
-        {
+            break;
+        default:
             widget = VisuPropertiesHelper::setupDefaultWidget(meta, value);
             widgetSignal = SIGNAL(editingFinished());
         }
@@ -257,11 +254,11 @@ QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
 
     if ( (box = qobject_cast<QComboBox*>(table->cellWidget(row, 1))) != nullptr)
     {
-        if (box->property(VisuPropertiesHelper::PROP_TYPE).toString() == VisuPropertyMeta::TYPE_FONT)
+        if (VisuPropertyMeta::typeFromString(box->property(VisuPropertiesHelper::PROP_TYPE).toString()) == VisuPropertyMeta::FONT)
         {
             value = box->currentText();
         }
-        else if (box->property(VisuPropertiesHelper::PROP_TYPE).toString() == VisuPropertyMeta::TYPE_ENUM)
+        else if (VisuPropertyMeta::typeFromString(box->property(VisuPropertiesHelper::PROP_TYPE).toString()) == VisuPropertyMeta::ENUM)
         {
             value = QString("%1").arg(box->currentIndex());
         }

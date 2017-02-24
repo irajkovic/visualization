@@ -49,7 +49,7 @@ QMap<QString, VisuPropertyMeta> VisuConfigLoader::parseMetaToMap(QXmlStreamReade
                 }
                 else if (attr.name().toString() == VisuPropertyMeta::KEY_TYPE)
                 {
-                    meta.type = attr.value().toString();
+                    meta.type = VisuPropertyMeta::typeFromString(attr.value().toString());
                 }
                 else if (attr.name().toString() == VisuPropertyMeta::KEY_EXTRA)
                 {

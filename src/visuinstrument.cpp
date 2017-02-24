@@ -125,7 +125,7 @@ void VisuInstrument::connectSignals()
     while (itr != mPropertiesMeta.end())
     {
         VisuPropertyMeta meta = itr.value();
-        if (meta.type == VisuPropertyMeta::TYPE_SIGNAL)
+        if (meta.type == VisuPropertyMeta::INSTSIGNAL)
         {
             int signalId = mProperties.value(itr.key()).toInt();
             VisuSignal* sig = signalsList.at(signalId);
@@ -159,7 +159,7 @@ bool VisuInstrument::refresh(const QString& key)
 {
     VisuWidget::refresh(key);
     // Signal assigment changed, update signals map
-    if (mPropertiesMeta[key].type == VisuPropertyMeta::TYPE_SIGNAL)
+    if (mPropertiesMeta[key].type == VisuPropertyMeta::INSTSIGNAL)
     {
         connectSignals();
     }
