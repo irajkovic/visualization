@@ -20,5 +20,7 @@
 	<y type="int" min="0">161</y>
 	<fontSize type="int" min="1">12</fontSize>
 	<fontType type="font">Arial</fontType>
+	<padding type="int" min="0">10</padding>
+	<decimals type="int" min="0">1</decimals>
 </widget>
 

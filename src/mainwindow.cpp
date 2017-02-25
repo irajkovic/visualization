@@ -498,7 +498,7 @@ void MainWindow::refreshEditorGui(QString key)
     mConfigChanged = true;
     if (key == VisuWidget::KEY_NAME)
     {
-        updateMenuWidgetsList();
+        updateMenuWidgetsList();    // widget renamed, update list
     }
 }
 

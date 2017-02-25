@@ -32,12 +32,15 @@ public:
         GET_PROPERTY(cMajorLen, quint16, properties, mPropertiesMeta);
         GET_PROPERTY(cLabelX, QString, properties, mPropertiesMeta);
         GET_PROPERTY(cLabelY, QString, properties, mPropertiesMeta);
+        GET_PROPERTY(cPadding, quint16, properties, mPropertiesMeta);
+        GET_PROPERTY(cDecimals, quint8, properties, mPropertiesMeta);
 
         mTagName = InstXYPlot::TAG_NAME;
     }
 
     static const int SIGNAL_FIRST = 0;
     static const int SIGNAL_SECOND = 1;
+    static const int MARGIN = 2;
 
 private:
     // configuration properties
@@ -48,6 +51,8 @@ private:
     quint16 cMajorLen;
     QString cLabelX;
     QString cLabelY;
+    quint16 cPadding;
+    quint8 cDecimals;
 
     // aux properties
     double mLastValX;

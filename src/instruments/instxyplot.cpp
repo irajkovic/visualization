@@ -13,22 +13,28 @@ void InstXYPlot::renderSingleAxis(QPainter* painter, int sigInd, int divisions, 
 {
     VisuSignal* sig = connectedSignals[sigInd];
 
-    double pos = 0.0;
-    double posDelta = (double)length / divisions;
+    double pos = cPadding;
+    double posDelta = (double)(length - 2*cPadding) / divisions;
     double lbl = sig->getMin();
     double lblDelta = (sig->getMax() - sig->getMin()) / divisions;
 
+    QFontMetrics fm = painter->fontMetrics();
+
     for (int i=0; i<divisions + 1; ++i)
     {
+        QString lblStr = QString::number(lbl, 'f', cDecimals);
+
         if (sigInd == SIGNAL_FIRST)
         {
+            int lblHalfWidth = fm.width(lblStr) / 2;
             painter->drawLine(pos, mCenterY-cMajorLen, pos, mCenterY+cMajorLen);
-            painter->drawText(pos, mCenterY-cMajorLen, QString("%1").arg(lbl));
+            painter->drawText(pos - lblHalfWidth, mCenterY-cMajorLen-MARGIN, lblStr);
         }
         else
         {
+            int lblHalfHeight = fm.height()/3;
             painter->drawLine(mCenterX-cMajorLen, pos, mCenterX+cMajorLen, pos);
-            painter->drawText(mCenterX+cMajorLen, pos, QString("%1").arg(lbl));
+            painter->drawText(mCenterX+cMajorLen+MARGIN, pos + lblHalfHeight, lblStr);
         }
 
         pos += posDelta;
@@ -59,8 +65,8 @@ void InstXYPlot::renderStatic(QPainter *painter)
     mCenterX = cWidth / 2;
     mCenterY = cHeight / 2;
 
-    painter->drawLine(0, mCenterY, cWidth, mCenterY);
-    painter->drawLine(mCenterX, 0, mCenterX, cHeight);
+    painter->drawLine(cPadding, mCenterY, cWidth - cPadding, mCenterY);
+    painter->drawLine(mCenterX, cPadding, mCenterX, cHeight - cPadding);
 
     renderAxis(painter);
 }
