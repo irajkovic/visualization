@@ -9,36 +9,47 @@
 
 namespace VisuHelper
 {
-    QString transformKey(QString key);
+    QString transformKey(const QString& key);
     void checkIfKeyExists(QString key, QMap<QString, QString> properties);
-    bool keyMissing(QString key, QMap<QString, QString> properties);
+    void handleMissingKey(const QString& key,
+                          QMap<QString, QString>& properties,
+                          const QMap<QString, VisuPropertyMeta>& metaProperties);
 
     // handles all integer numeric types
     template <typename T>
-    T get(QString key, QMap<QString, QString>& properties, QMap<QString, VisuPropertyMeta> metaProperties)
+    T get(const QString& key,
+          QMap<QString, QString>& properties,
+          const QMap<QString, VisuPropertyMeta>& metaProperties)
     {
-        if (keyMissing(key, properties))
-        {
-            properties[key] = metaProperties[key].defaultVal;
-        }
+        handleMissingKey(key, properties, metaProperties);
         return (T)properties[key].toLongLong();
     }
 
     // specializations below
     template<>
-    double get<double>(QString key, QMap<QString, QString>& properties, QMap<QString, VisuPropertyMeta> metaProperties);
+    double get<double>(const QString& key,
+                       QMap<QString, QString>& properties,
+                       const QMap<QString, VisuPropertyMeta>& metaProperties);
 
     template<>
-    QString get<QString>(QString key, QMap<QString, QString>& properties, QMap<QString, VisuPropertyMeta> metaProperties);
+    QString get<QString>(const QString& key,
+                         QMap<QString, QString>& properties,
+                         const QMap<QString, VisuPropertyMeta>& metaProperties);
 
     template<>
-    QColor get<QColor>(QString key, QMap<QString, QString>& properties, QMap<QString, VisuPropertyMeta> metaProperties);
+    QColor get<QColor>(const QString& key,
+                       QMap<QString, QString>& properties,
+                       const QMap<QString, VisuPropertyMeta>& metaProperties);
 
     template<>
-    QImage get<QImage>(QString key, QMap<QString, QString>& properties, QMap<QString, VisuPropertyMeta> metaProperties);
+    QImage get<QImage>(const QString& key,
+                       QMap<QString, QString>& properties,
+                       const QMap<QString, VisuPropertyMeta>& metaProperties);
 
     template<>
-    bool get<bool>(QString key, QMap<QString, QString>& properties, QMap<QString, VisuPropertyMeta> metaProperties);
+    bool get<bool>(const QString& key,
+                   QMap<QString, QString>& properties,
+                   const QMap<QString, VisuPropertyMeta>& metaProperties);
 }
 
 
