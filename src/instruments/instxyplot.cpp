@@ -2,9 +2,11 @@
 
 const QString InstXYPlot::TAG_NAME = "XY_PLOT";
 
-void InstXYPlot::reloadProperties(QMap<QString, QString>& properties)
+bool InstXYPlot::updateProperties(const QString& key, const QString& value)
 {
-    InstXYPlot::loadProperties(properties);
+    mProperties[key] = value;
+    InstXYPlot::loadProperties(mProperties);
+    return VisuInstrument::refresh(key);
 }
 
 void InstXYPlot::renderSingleAxis(QPainter* painter, int sigInd, int divisions, int length)

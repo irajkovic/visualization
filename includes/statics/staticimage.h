@@ -23,7 +23,7 @@ public:
     static const QString KEY_FORMAT;
     static const QString KEY_IMAGE;
 
-    virtual void reloadProperties(QMap<QString, QString>& properties);
+    virtual bool updateProperties(const QString &key, const QString &value);
     void loadProperties(QMap<QString, QString>& properties);
     void paintEvent(QPaintEvent* event);
     virtual bool refresh(const QString& key);

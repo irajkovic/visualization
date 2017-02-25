@@ -509,10 +509,7 @@ void MainWindow::cellUpdated(int row, int col)
     QString key = mPropertiesTable->item(row,0)->text();
     QString value = VisuPropertiesHelper::getValueString(mPropertiesTable, row);
 
-    QMap<QString, QString>& properties = mActiveWidget->getProperties();
-    properties[key] = value;
-    mActiveWidget->reloadProperties(properties);
-    if (mActiveWidget->refresh(key))
+    if (mActiveWidget->updateProperties(key, value))
     {
         setActiveWidget(mActiveWidget);
     }

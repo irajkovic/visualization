@@ -29,9 +29,11 @@ void CtrlButton::setupButton(QWidget* parent)
                      SLOT(sendCommand()));
 }
 
-void CtrlButton::reloadProperties(QMap<QString, QString>& properties)
+bool CtrlButton::updateProperties(const QString& key, const QString& value)
 {
-    CtrlButton::loadProperties(properties);
+    mProperties[key] = value;
+    CtrlButton::loadProperties(mProperties);
+    return CtrlButton::refresh(key);
 }
 
 void CtrlButton::loadProperties(QMap<QString, QString>& properties)

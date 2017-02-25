@@ -4,9 +4,11 @@
 #include <QStyleOption>
 #include "visumisc.h"
 
-void VisuInstrument::reloadProperties(QMap<QString, QString>& properties)
+bool VisuInstrument::updateProperties(const QString& key, const QString& value)
 {
-    VisuInstrument::loadProperties(properties);
+    mProperties[key] = value;
+    VisuInstrument::loadProperties(mProperties);
+    return VisuInstrument::refresh(key);
 }
 
 void VisuInstrument::loadProperties(QMap<QString, QString>& properties)

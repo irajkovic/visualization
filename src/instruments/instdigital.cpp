@@ -4,9 +4,11 @@
 
 const QString InstDigital::TAG_NAME = "DIGITAL";
 
-void InstDigital::reloadProperties(QMap<QString, QString>& properties)
+bool InstDigital::updateProperties(const QString& key, const QString& value)
 {
-    InstDigital::loadProperties(properties);
+    mProperties[key] = value;
+    InstDigital::loadProperties(mProperties);
+    return VisuInstrument::refresh(key);
 }
 
 void InstDigital::renderStatic(QPainter* painter)

@@ -7,9 +7,11 @@
 
 const QString InstAnalog::TAG_NAME = "ANALOG";
 
-void InstAnalog::reloadProperties(QMap<QString, QString>& properties)
+bool InstAnalog::updateProperties(const QString& key, const QString& value)
 {
-    InstAnalog::loadProperties(properties);
+    mProperties[key] = value;
+    InstAnalog::loadProperties(mProperties);
+    return VisuInstrument::refresh(key);
 }
 
 void InstAnalog::renderStatic(QPainter* painter)

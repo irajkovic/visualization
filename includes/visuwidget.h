@@ -23,7 +23,7 @@ public:
         mActive = false;
     }
 
-    virtual void reloadProperties(QMap<QString, QString>& properties);
+    virtual bool updateProperties(const QString &key, const QString &value);
     void loadProperties(QMap<QString, QString>& properties);
     static const QString TAG_NAME;
     static const QString KEY_ID;

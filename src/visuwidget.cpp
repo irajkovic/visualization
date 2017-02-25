@@ -95,9 +95,11 @@ void VisuWidget::drawActiveBox(QPainter* painter)
     }
 }
 
-void VisuWidget::reloadProperties(QMap<QString, QString>& properties)
+bool VisuWidget::updateProperties(const QString& key, const QString& value)
 {
-    VisuWidget::loadProperties(properties);
+    mProperties[key] = value;
+    VisuWidget::loadProperties(mProperties);
+    return VisuWidget::refresh(key);
 }
 
 void VisuWidget::loadProperties(QMap<QString, QString>& properties)

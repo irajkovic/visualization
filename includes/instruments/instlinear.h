@@ -16,7 +16,7 @@ class InstLinear : public VisuInstrument
         }
         static const QString TAG_NAME;
 
-        virtual void reloadProperties(QMap<QString, QString>& properties);
+        virtual bool updateProperties(const QString &key, const QString &value);
         void loadProperties(QMap<QString, QString>& properties)
         {
             VisuInstrument::loadProperties(properties);

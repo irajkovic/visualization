@@ -3,9 +3,11 @@
 
 const QString InstTimePlot::TAG_NAME = "TIME_PLOT";
 
-void InstTimePlot::reloadProperties(QMap<QString, QString>& properties)
+bool InstTimePlot::updateProperties(const QString& key, const QString& value)
 {
-    InstTimePlot::loadProperties(properties);
+    mProperties[key] = value;
+    InstTimePlot::loadProperties(mProperties);
+    return VisuInstrument::refresh(key);
 }
 
 int InstTimePlot::getFontHeight()

@@ -9,9 +9,11 @@ const QString StaticImage::TAG_NAME = "IMAGE";
 const QString StaticImage::KEY_FORMAT = "format";
 const QString StaticImage::KEY_IMAGE = "image";
 
-void StaticImage::reloadProperties(QMap<QString, QString>& properties)
+bool StaticImage::updateProperties(const QString& key, const QString& value)
 {
-    StaticImage::loadProperties(properties);
+    mProperties[key] = value;
+    StaticImage::loadProperties(mProperties);
+    return StaticImage::refresh(key);
 }
 
 void StaticImage::loadProperties(QMap<QString, QString>& properties)

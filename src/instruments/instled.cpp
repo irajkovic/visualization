@@ -3,9 +3,11 @@
 
 const QString InstLED::TAG_NAME = "LED";
 
-void InstLED::reloadProperties(QMap<QString, QString>& properties)
+bool InstLED::updateProperties(const QString& key, const QString& value)
 {
-    InstLED::loadProperties(properties);
+    mProperties[key] = value;
+    InstLED::loadProperties(mProperties);
+    return VisuInstrument::refresh(key);
 }
 
 void InstLED::renderStatic(QPainter *painter)

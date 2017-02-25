@@ -1,8 +1,10 @@
 #include "visucontrol.h"
 
-void VisuControl::reloadProperties(QMap<QString, QString>& properties)
+bool VisuControl::updateProperties(const QString &key, const QString &value)
 {
-    VisuControl::loadProperties(properties);
+    mProperties[key] = value;
+    VisuControl::loadProperties(mProperties);
+    return VisuControl::refresh(key);
 }
 
 void VisuControl::loadProperties(QMap<QString, QString> &properties)
