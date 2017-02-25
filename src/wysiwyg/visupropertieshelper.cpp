@@ -213,29 +213,36 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
         QString key = i.key();
         QString value = i.value();
 
-        QTableWidgetItem* label = new QTableWidgetItem(key);
-        label->setFlags(label->flags() & ~Qt::ItemIsEditable);
-        table->setItem(row, VisuPropertiesHelper::COLUMN_PROPERTY, label);
-
         VisuPropertyMeta meta;
         if (metaProperties.contains(key))
         {
             meta = metaProperties[key];
         }
 
-        std::pair<QWidget*, const char*> widget = VisuPropertiesHelper::controlFactory(meta, value);
-
-        if (widget.first != nullptr)
+        if (meta.type != VisuPropertyMeta::HIDDEN)
         {
-            VisuPropertiesHelper::setupTableWidget(table,
-                                                   widget,
-                                                   object,
-                                                   key,
-                                                   meta.type,
-                                                   row);
-        }
+            QTableWidgetItem* label = new QTableWidgetItem(key);
+            label->setFlags(label->flags() & ~Qt::ItemIsEditable);
+            table->setItem(row, VisuPropertiesHelper::COLUMN_PROPERTY, label);
 
-        ++row;
+            std::pair<QWidget*, const char*> widget = VisuPropertiesHelper::controlFactory(meta, value);
+
+            if (widget.first != nullptr)
+            {
+                VisuPropertiesHelper::setupTableWidget(table,
+                                                       widget,
+                                                       object,
+                                                       key,
+                                                       meta.type,
+                                                       row);
+            }
+
+            ++row;
+        }
+        else
+        {
+            table->setRowCount(table->rowCount() - 1);
+        }
     }
 }
 

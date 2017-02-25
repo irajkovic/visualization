@@ -8,7 +8,7 @@
      <format type="read_only">PNG</format>
      <x type="int" min="0">0</x>
      <y type="int" min="0">0</y>
-     <image type="read_only">0</image>
+     <image type="hidden">0</image>
      <show type="bool">1</show>
      <resize type="bool">1</resize>
 </widget>
