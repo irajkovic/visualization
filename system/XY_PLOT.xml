@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<ballSize type="int" min="0">15</ballSize>
+	<ballSize type="int" min="0">10</ballSize>
 	<colorBackground type="color">200,200,200,0</colorBackground>
 	<colorForeground type="color">250,50,50,200</colorForeground>
 	<colorStatic type="color">0,0,0,255</colorStatic>
@@ -10,7 +10,7 @@
 	<labelY>Y osa</labelY>
 	<majorCntX type="int" min="1">5</majorCntX>
 	<majorCntY type="int" min="1">5</majorCntY>
-	<majorLen type="int" min="0">4</majorLen>
+	<majorLen type="int" min="0">1</majorLen>
 	<name>XY plot instrument</name>
 	<signalId type="signal">0</signalId>
 	<signalIdY type="signal">0</signalIdY>
@@ -18,9 +18,9 @@
 	<width type="int" min="0">150</width>
 	<x type="int" min="0">218</x>
 	<y type="int" min="0">161</y>
-	<fontSize type="int" min="1">12</fontSize>
+	<fontSize type="int" min="1">7</fontSize>
 	<fontType type="font">Arial</fontType>
 	<padding type="int" min="0">10</padding>
-	<decimals type="int" min="0">1</decimals>
+	<decimals type="int" min="0">0</decimals>
 </widget>
 
