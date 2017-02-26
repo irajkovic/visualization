@@ -41,7 +41,7 @@ void Stage::dropEvent(QDropEvent *event)
 
 VisuWidget* Stage::cloneWidget(VisuWidget *sourceWidget)
 {    
-    VisuWidget* widget = VisuWidgetFactory::createWidget(this, sourceWidget->getType());
+    VisuWidget* widget = VisuWidgetFactory::createWidget(this, sourceWidget->getProperties());
     mMainWindow->getConfiguration()->addWidget(widget);
     widget->show();
     widget->refresh(VisuWidget::KEY_ID);

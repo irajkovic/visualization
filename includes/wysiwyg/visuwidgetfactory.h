@@ -11,7 +11,6 @@ public:
     static VisuWidget* createWidget(QWidget* parent,
                                     QString type);
     static VisuWidget* createWidget(QWidget* parent,
-                                    QString type,
                                     QMap<QString, QString> properties);
 };
 

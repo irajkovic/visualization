@@ -67,7 +67,6 @@ QPointer<VisuWidget> VisuConfiguration::createWidgetFromToken(QXmlStreamReader& 
 {
     QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, VisuWidget::TAG_NAME);
     VisuWidget* widget = VisuWidgetFactory::createWidget(parent,
-                                                         properties[VisuWidget::KEY_TYPE],
                                                          properties);
     addWidget(widget);
     widget->show();

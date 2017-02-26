@@ -15,14 +15,13 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
                                             QString type)
 {
     QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(type, VisuWidget::TAG_NAME);
-    return VisuWidgetFactory::createWidget(parent, type, properties);
+    return VisuWidgetFactory::createWidget(parent, properties);
 }
 
-// TODO :: Check if type can be replaced by properties["type"]
 VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
-                                            QString type,
                                             QMap<QString, QString> properties)
 {
+    QString type = properties[VisuWidget::KEY_TYPE];
     QMap<QString, VisuPropertyMeta> metaProperties = VisuConfigLoader::getMetaMapFromFile(type, VisuWidget::TAG_NAME);
 
     VisuWidget* widget = nullptr;
