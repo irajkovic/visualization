@@ -78,8 +78,8 @@ void InstAnalog::renderLabel(QPainter* painter)
 
 void InstAnalog::renderOutterCircle(QPainter* painter)
 {
-    int x = cLineThickness;
-    int y = cLineThickness;
+    int x = cWidth / 2 - cDivisionRadius;
+    int y = cHeight / 2 - cDivisionRadius;
     int angleStart = 0;
     int angleSpan = 360 * 16;
 
@@ -97,8 +97,8 @@ void InstAnalog::renderOutterCircle(QPainter* painter)
 
     painter->drawArc( x
                     , y
-                    , cWidth - 2 * cLineThickness
-                    , cHeight - 2 * cLineThickness
+                    , cDivisionRadius * 2
+                    , cDivisionRadius * 2
                     , angleStart
                     , angleSpan);
 }
@@ -178,8 +178,8 @@ void InstAnalog::renderMajorLabel(QPainter* painter)
         double lblPositionOffsetAngle = mDivisionAngle-mDivisionAngleStep-lblHalfAngleWidth;
         double lblAngleDeg = (mDivisionAngle-mDivisionAngleStep) * 360 / 3.14159 / 2 + 180 ;
 
-        quint16 labelX = -cLabelRadius * qSin(lblPositionOffsetAngle) + cWidth / 2;
-        quint16 labelY = cLabelRadius * qCos(lblPositionOffsetAngle) + cHeight / 2;
+        qint16 labelX = -cLabelRadius * qSin(lblPositionOffsetAngle) + cWidth / 2;
+        qint16 labelY = cLabelRadius * qCos(lblPositionOffsetAngle) + cHeight / 2;
 
         painter->translate(labelX + cOffsetX, labelY + cOffsetY);
         painter->rotate(lblAngleDeg);
@@ -190,8 +190,8 @@ void InstAnalog::renderMajorLabel(QPainter* painter)
     else
     {
         quint16 labelHeight = font_metrics.height();
-        quint16 labelX = -cLabelRadius * mAngleSin + (cWidth - labelWidth) / 2;
-        quint16 labelY = cLabelRadius * mAngleCos + (cHeight + labelHeight) / 2;
+        qint16 labelX = -cLabelRadius * mAngleSin + (cWidth - labelWidth) / 2;
+        qint16 labelY = cLabelRadius * mAngleCos + (cHeight + labelHeight) / 2;
         painter->drawText(labelX + cOffsetX, labelY + cOffsetY, label);
     }
 }
