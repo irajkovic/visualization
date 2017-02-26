@@ -32,5 +32,7 @@
 	<arrowLen type="int" min="1">75</arrowLen>
 	<labelMultiplier type="float">1.0</labelMultiplier>
 	<rotateLabels type="bool">0</rotateLabels>
+	<circleOffset type="bool">0</circleOffset>
+	<circleTrim type="bool">0</circleTrim>
 </widget>
 

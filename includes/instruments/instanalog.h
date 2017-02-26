@@ -43,6 +43,8 @@ class InstAnalog : public VisuInstrument
         quint16 cArrowLen;
         double cLabelMultiplier;
         bool cRotateLabels;
+        bool cCircleOffset;
+        bool cCircleTrim;
 
         // aux propertis
         double mAngleSin;

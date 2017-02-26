@@ -38,6 +38,8 @@ void InstAnalog::loadProperties()
     GET_PROPERTY(cArrowLen, quint16, mProperties, mPropertiesMeta);
     GET_PROPERTY(cLabelMultiplier, double, mProperties, mPropertiesMeta);
     GET_PROPERTY(cRotateLabels, bool, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cCircleOffset, bool, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cCircleTrim, bool, mProperties, mPropertiesMeta);
 
     mTagName = InstAnalog::TAG_NAME;
 }
@@ -76,12 +78,29 @@ void InstAnalog::renderLabel(QPainter* painter)
 
 void InstAnalog::renderOutterCircle(QPainter* painter)
 {
-    painter->drawArc( cLineThickness
-                    , cLineThickness
+    int x = cLineThickness;
+    int y = cLineThickness;
+    int angleStart = 0;
+    int angleSpan = 360 * 16;
+
+    if (cCircleOffset)
+    {
+        x += cOffsetX;
+        y += cOffsetY;
+    }
+
+    if (cCircleTrim)
+    {
+        angleStart = -90 * 16 + (cAngleEnd / 3.14159 * 180 * 16);
+        angleSpan = (360 - (cAngleStart + cAngleEnd) / 3.14159 * 180) * 16;
+    }
+
+    painter->drawArc( x
+                    , y
                     , cWidth - 2 * cLineThickness
                     , cHeight - 2 * cLineThickness
-                    , 0
-                    , 360 * 16);
+                    , angleStart
+                    , angleSpan);
 }
 
 void InstAnalog::setupStaticRenderProperties(quint16 totalDivisions)
