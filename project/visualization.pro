@@ -48,7 +48,7 @@ SOURCES += main.cpp\
     visucontrol.cpp \
     visupropertymeta.cpp \
     wysiwyg/visupropertieshelper.cpp \
-    ../src/visuappinfo.cpp
+    visuappinfo.cpp
 
 
 HEADERS  += ../includes/mainwindow.h \

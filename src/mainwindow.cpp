@@ -27,6 +27,7 @@
 #include "wysiwyg/editconfiguration.h"
 #include "wysiwyg/visupropertieshelper.h"
 #include "visuappinfo.h"
+#include <QTextEdit>
 
 const QString MainWindow::INITIAL_EDITOR_CONFIG = "system/default.xml";
 
@@ -151,6 +152,23 @@ void MainWindow::reloadConfiguration()
     loadConfigurationFromFile(configFilePath);
 }
 
+void MainWindow::showConfigurationWarning()
+{
+    QMessageBox* box = new QMessageBox(this);
+    box->setText(tr("Configuration file is outdated or incorrect.\n"
+                    "Configuration may contain glitches, but loading "
+                    "was continued to allow config to be repaired. "
+                    "Manual XML editing may be required to fully correct."));
+    box->setWindowTitle("Error");
+
+    QTextEdit* details = new QTextEdit;
+    details->setText(VisuAppInfo::getConfigIssues().join("\n\n"));
+
+    QGridLayout* layout =  qobject_cast<QGridLayout*>(box->layout());
+    layout->addWidget(details, 1, 1);
+    box->show();
+}
+
 void MainWindow::loadConfigurationFromFile(const QString& configPath)
 {
     mConfiguration = VisuConfiguration::getClean();
@@ -174,13 +192,7 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
 
         if (VisuAppInfo::isConfigWrong())
         {
-            QMessageBox::warning(
-                        this,
-                        "Error",
-                        tr("Configuration file is outdated or incorrect.\n"
-                        "Configuration may contain glitches, but loading "
-                        "was continued to allow config to be repaired. "
-                        "Manual XML editing may be required to fully correct."));
+            showConfigurationWarning();
         }
     }
     catch(ConfigLoadException e)
@@ -412,7 +424,7 @@ void MainWindow::openSignalsEditor()
 
 void MainWindow::openConfiguration()
 {
-    if (confirmLoseChanges())
+    if (!mConfigChanged || (mConfigChanged && confirmLoseChanges()) )
     {
         QString configPath = QFileDialog::getOpenFileName(this,
                                                           tr("Open configuration"),

@@ -104,6 +104,8 @@ bool VisuWidget::updateProperties(const QString& key, const QString& value)
 
 void VisuWidget::loadProperties()
 {
+    ConfigLoadException::setInstrumentLoadContext(mProperties);
+
     GET_PROPERTY(cId, quint16, mProperties, mPropertiesMeta);
     GET_PROPERTY(cName, QString, mProperties, mPropertiesMeta);
     GET_PROPERTY(cX, quint16, mProperties, mPropertiesMeta);

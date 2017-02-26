@@ -71,6 +71,7 @@ private:
     VisuWidget* actionDataToWidget(QAction* action);
     void refreshEditorGui(QString key);
     bool confirmLoseChanges();
+    void showConfigurationWarning();
 
     static const QString INITIAL_EDITOR_CONFIG;
     static const int LAYOUT_TOOLBAR_HEIGHT = 170;

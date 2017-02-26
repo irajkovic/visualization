@@ -18,14 +18,16 @@ namespace VisuPropertyLoader
     {
         if (!properties.contains(key))
         {
-            VisuAppInfo::setConfigWrong(true);
+            ConfigLoadException exception("Missing property: %1", key);
+            VisuAppInfo::setConfigWrong(true, exception.getMessage());
+
             if (VisuAppInfo::isInEditorMode())
             {
                 properties[key] = metaProperties[key].defaultVal;
             }
             else
             {
-                throw ConfigLoadException("Missing property: %1", key);
+                throw exception;
             }
         }
     }

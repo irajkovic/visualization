@@ -15,8 +15,6 @@ void VisuInstrument::loadProperties()
 {
     VisuWidget::loadProperties();
 
-    ConfigLoadException::setInstrumentLoadContext(mProperties);
-
     GET_PROPERTY(cSignalId, quint16, mProperties, mPropertiesMeta);
     GET_PROPERTY(cColorBackground, QColor, mProperties, mPropertiesMeta);
     GET_PROPERTY(cColorStatic, QColor, mProperties, mPropertiesMeta);

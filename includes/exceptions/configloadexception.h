@@ -23,6 +23,11 @@ public:
         }
     }
 
+    QString getMessage()
+    {
+        return message;
+    }
+
     virtual const char* what() const throw()
     {
         return message.toLatin1().data();
@@ -38,8 +43,13 @@ public:
         int id = properties.contains("id") ? properties["id"].toInt() : -1;
         QString name = properties.contains("name") ? properties["name"] : QString("Unknown");
 
-        ConfigLoadException::context = QString("loading %1 instrument (id: %2)")
+        ConfigLoadException::context = QString("loading %1 widget (id: %2)")
                 .arg(name).arg(id);
+    }
+
+    static QString getInstrumentLoadContext()
+    {
+        return ConfigLoadException::context;
     }
 
     ~ConfigLoadException() throw()
