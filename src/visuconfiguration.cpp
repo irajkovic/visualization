@@ -6,7 +6,7 @@
 #include <QSize>
 #include <functional>
 #include "visusignal.h"
-#include "visuhelper.h"
+#include "visupropertyloader.h"
 #include "visuconfigloader.h"
 #include "visumisc.h"
 #include "exceptions/configloadexception.h"

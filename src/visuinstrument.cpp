@@ -135,7 +135,7 @@ void VisuInstrument::connectSignals()
         if (meta.type == VisuPropertyMeta::INSTSIGNAL)
         {
             int signalId = mProperties.value(itr.key()).toInt();
-            VisuSignal* sig = signalsList.at(signalId);
+            VisuSignal* sig = VisuConfiguration::get()->getSignal(signalId);
             if (sig != nullptr)
             {
                 connectedSignals.append(sig);

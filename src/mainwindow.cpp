@@ -16,7 +16,6 @@
 #include <QLabel>
 #include <QObject>
 #include <QColorDialog>
-
 #include <QLineEdit>
 #include <QTableWidgetItem>
 #include <QtGui>
@@ -27,6 +26,7 @@
 #include "visumisc.h"
 #include "wysiwyg/editconfiguration.h"
 #include "wysiwyg/visupropertieshelper.h"
+#include "visuappinfo.h"
 
 const QString MainWindow::INITIAL_EDITOR_CONFIG = "system/default.xml";
 
@@ -156,6 +156,8 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
     mConfiguration = VisuConfiguration::getClean();
     try
     {
+        VisuAppInfo::setConfigWrong(false);
+
         QString xml = VisuConfigLoader::loadXMLFromFile(configPath);
         mConfiguration->fromXML(mStage, QString(xml));
         mConfigChanged = false;
@@ -169,6 +171,17 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
 
         updateMenuSignalList();
         updateMenuWidgetsList();
+
+        if (VisuAppInfo::isConfigWrong())
+        {
+            QMessageBox::warning(
+                        this,
+                        "Error",
+                        tr("Configuration file is outdated or incorrect.\n"
+                        "Configuration may contain glitches, but loading "
+                        "was continued to allow config to be repaired. "
+                        "Manual XML editing may be required to fully correct."));
+        }
     }
     catch(ConfigLoadException e)
     {
@@ -278,7 +291,8 @@ void MainWindow::updateMenuSignalList()
         {
             if (sig != nullptr)
             {
-                QMenu* tmpSig = mSignalsListMenu->addMenu(sig->getName());
+                QString label = QString("%1: %2").arg(sig->getId()).arg(sig->getName());
+                QMenu* tmpSig = mSignalsListMenu->addMenu(label);
 
                 QAction* edit = new QAction(tr("&Edit"), this);
                 edit->setData(QVariant(sig->getId()));

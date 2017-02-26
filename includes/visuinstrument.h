@@ -9,7 +9,7 @@
 #include <QPainter>
 #include <QPointer>
 
-#include "visuhelper.h"
+#include "visupropertyloader.h"
 #include "visusignal.h"
 #include "visuwidget.h"
 

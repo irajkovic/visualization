@@ -1,5 +1,5 @@
 #include "visumisc.h"
-#include "visuhelper.h"
+#include "visupropertyloader.h"
 
 void VisuMisc::setBackgroundColor(QWidget* widget, QColor color)
 {

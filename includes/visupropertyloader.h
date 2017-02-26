@@ -6,9 +6,9 @@
 #include "visupropertymeta.h"
 
 #define GET_PROPERTY(KEY, TYPE, MAP, METAMAP) \
-    KEY = VisuPropertyConverter::get<TYPE>(VisuPropertyConverter::transformKey(#KEY), MAP, METAMAP)
+    KEY = VisuPropertyLoader::get<TYPE>(VisuPropertyLoader::transformKey(#KEY), MAP, METAMAP)
 
-namespace VisuPropertyConverter
+namespace VisuPropertyLoader
 {
     QString transformKey(const QString& key);
     void checkIfKeyExists(QString key, QMap<QString, QString> properties);

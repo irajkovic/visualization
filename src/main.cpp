@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QMessageBox>
-
+#include "visuappinfo.h"
 #include "visuserver.h"
 #include "visuapplication.h"
 #include "exceptions/configloadexception.h"
@@ -23,10 +23,12 @@ int main(int argc, char *argv[])
     {
         if (argc == 1)
         {
+            VisuAppInfo::setInEditorMode(true);
             new MainWindow();
         }
         else
         {
+            VisuAppInfo::setInEditorMode(false);
             VisuApplication *application = new VisuApplication(argv[1]);
             application->show();
             application->run();

@@ -1,22 +1,15 @@
-#include "visuhelper.h"
+#include "visupropertyloader.h"
 #include "exceptions/configloadexception.h"
 #include "statics/staticimage.h"
+#include "visuappinfo.h"
 #include <QByteArray>
 #include "visumisc.h"
 
-namespace VisuPropertyConverter
+namespace VisuPropertyLoader
 {
     QString transformKey(const QString &key)
     {
         return key.mid(1, 1).toLower() + key.mid(2);
-    }
-
-    void checkIfKeyExists(QString key, QMap<QString, QString> properties)
-    {
-        if (!properties.contains(key))
-        {
-            throw ConfigLoadException("Missing property: %1", key);
-        }
     }
 
     void handleMissingKey(const QString &key,
@@ -25,8 +18,15 @@ namespace VisuPropertyConverter
     {
         if (!properties.contains(key))
         {
-            qDebug("Missing property: %s", key.toStdString().c_str());
-            properties[key] = metaProperties[key].defaultVal;
+            VisuAppInfo::setConfigWrong(true);
+            if (VisuAppInfo::isInEditorMode())
+            {
+                properties[key] = metaProperties[key].defaultVal;
+            }
+            else
+            {
+                throw ConfigLoadException("Missing property: %1", key);
+            }
         }
     }
 

@@ -7,7 +7,7 @@
 #include <QPushButton>
 #include <QUdpSocket>
 #include <QHBoxLayout>
-#include "visuhelper.h"
+#include "visupropertyloader.h"
 #include "visucontrol.h"
 
 class CtrlButton : public VisuControl

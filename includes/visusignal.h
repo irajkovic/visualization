@@ -8,7 +8,7 @@
 
 #include "visuinstrument.h"
 #include "visudatagram.h"
-#include "visuhelper.h"
+#include "visupropertyloader.h"
 
 class VisuInstrument;   // forward declare Instrument class
 class VisuSignal : public QObject
