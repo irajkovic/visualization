@@ -69,7 +69,11 @@ void InstXYPlot::renderBall(QPainter* painter)
 {
     setPen(painter, cColorStatic);
     setBrush(painter, cColorForeground);
-    QRect rect(mLastValX * (cWidth-cBallSize), mLastValY * (cHeight-cBallSize), cBallSize, cBallSize);
+
+    int x = mLastValX * (cWidth - 2 * cPadding) + cPadding - cBallSize / 2;
+    int y = mLastValY * (cHeight - 2 * cPadding) + cPadding - cBallSize / 2;
+
+    QRect rect(x, y, cBallSize, cBallSize);
     painter->drawEllipse(rect);
 }
 
