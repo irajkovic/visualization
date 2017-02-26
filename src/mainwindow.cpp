@@ -179,6 +179,7 @@ void MainWindow::loadConfigurationFromFile(const QString& configPath)
         QString xml = VisuConfigLoader::loadXMLFromFile(configPath);
         mConfiguration->fromXML(mStage, QString(xml));
         mConfigChanged = false;
+        resetActiveWidget();
         updateConfig();
 
         // connect widgets
@@ -587,6 +588,13 @@ void MainWindow::markActiveInstrumentMenuItem(QPointer<VisuWidget> oldItem, QPoi
             action->setChecked(true);
         }
     }
+}
+
+void MainWindow::resetActiveWidget()
+{
+    mActiveWidget = nullptr;
+    mPropertiesTable->clearContents();
+    mPropertiesTable->setRowCount(0);
 }
 
 void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)

@@ -24,6 +24,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     void setupToolbarWidgets(QPointer<QWidget> toolbar);
     QPointer<VisuSignal> getSignal();
+    void resetActiveWidget();
     void setActiveWidget(QPointer<VisuWidget> widget);
     void setChanged();
     bool dragOriginIsToolbar(QWidget *widget);
