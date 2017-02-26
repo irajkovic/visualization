@@ -4,7 +4,7 @@
 #include <QByteArray>
 #include "visumisc.h"
 
-namespace VisuHelper
+namespace VisuPropertyConverter
 {
     QString transformKey(const QString &key)
     {

@@ -5,9 +5,10 @@
 #include <QImage>
 #include "visupropertymeta.h"
 
-#define GET_PROPERTY(KEY, TYPE, MAP, METAMAP)  KEY = VisuHelper::get<TYPE>(VisuHelper::transformKey(#KEY), MAP, METAMAP)
+#define GET_PROPERTY(KEY, TYPE, MAP, METAMAP) \
+    KEY = VisuPropertyConverter::get<TYPE>(VisuPropertyConverter::transformKey(#KEY), MAP, METAMAP)
 
-namespace VisuHelper
+namespace VisuPropertyConverter
 {
     QString transformKey(const QString& key);
     void checkIfKeyExists(QString key, QMap<QString, QString> properties);
