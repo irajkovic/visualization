@@ -22,27 +22,12 @@ public:
             QMap<QString, QString> properties,
             QMap<QString, VisuPropertyMeta> metaProperties) : VisuInstrument(parent, properties, metaProperties)
     {
-        loadProperties(mProperties);
+        loadProperties();
     }
     static const QString TAG_NAME;
 
     virtual bool updateProperties(const QString &key, const QString &value);
-    void loadProperties(QMap<QString, QString>& properties)
-    {
-        VisuInstrument::loadProperties(properties);
-
-        GET_PROPERTY(cRadius, quint8, properties, mPropertiesMeta);
-        GET_PROPERTY(cVal1, double, properties, mPropertiesMeta);
-        GET_PROPERTY(cVal2, double, properties, mPropertiesMeta);
-        GET_PROPERTY(cCondition, quint8, properties, mPropertiesMeta);
-        GET_PROPERTY(cColorOn, QColor, properties, mPropertiesMeta);
-        GET_PROPERTY(cColorOff, QColor, properties, mPropertiesMeta);
-        GET_PROPERTY(cImageOn, int, properties, mPropertiesMeta);
-        GET_PROPERTY(cImageOff, int, properties, mPropertiesMeta);
-        GET_PROPERTY(cShowSignalName, quint8, properties, mPropertiesMeta);
-
-        mTagName = InstLED::TAG_NAME;
-    }
+    void loadProperties();
 
 private:
     // configuration properties

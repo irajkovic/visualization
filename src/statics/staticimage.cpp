@@ -12,16 +12,16 @@ const QString StaticImage::KEY_IMAGE = "image";
 bool StaticImage::updateProperties(const QString& key, const QString& value)
 {
     mProperties[key] = value;
-    StaticImage::loadProperties(mProperties);
+    StaticImage::loadProperties();
     return StaticImage::refresh(key);
 }
 
-void StaticImage::loadProperties(QMap<QString, QString>& properties)
+void StaticImage::loadProperties()
 {
-    VisuWidget::loadProperties(properties);
-    GET_PROPERTY(cImage, QImage, properties, mPropertiesMeta);
-    GET_PROPERTY(cShow, bool, properties, mPropertiesMeta);
-    GET_PROPERTY(cResize, bool, properties, mPropertiesMeta);
+    VisuWidget::loadProperties();
+    GET_PROPERTY(cImage, QImage, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cShow, bool, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cResize, bool, mProperties, mPropertiesMeta);
 }
 
 void StaticImage::paintEvent(QPaintEvent* event)

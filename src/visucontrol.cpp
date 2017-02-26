@@ -3,16 +3,16 @@
 bool VisuControl::updateProperties(const QString &key, const QString &value)
 {
     mProperties[key] = value;
-    VisuControl::loadProperties(mProperties);
+    VisuControl::loadProperties();
     return VisuControl::refresh(key);
 }
 
-void VisuControl::loadProperties(QMap<QString, QString> &properties)
+void VisuControl::loadProperties()
 {
-    VisuWidget::loadProperties(properties);
+    VisuWidget::loadProperties();
 
-    GET_PROPERTY(cActionIp, QString, properties, mPropertiesMeta);
-    GET_PROPERTY(cActionPort, quint16, properties, mPropertiesMeta);
+    GET_PROPERTY(cActionIp, QString, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cActionPort, quint16, mProperties, mPropertiesMeta);
 
 }
 

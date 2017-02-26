@@ -12,38 +12,12 @@ class InstAnalog : public VisuInstrument
                 QMap<QString, QString> properties,
                 QMap<QString, VisuPropertyMeta> metaProperties) : VisuInstrument(parent, properties, metaProperties)
         {
-            loadProperties(mProperties);
+            loadProperties();
         }
         static const QString TAG_NAME;
 
         virtual bool updateProperties(const QString &key, const QString &value);
-        void loadProperties(QMap<QString, QString>& properties)
-        {
-            VisuInstrument::loadProperties(properties);
-
-            // custom properties initializer
-            GET_PROPERTY(cLineThickness, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cMajorLen, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cMinorLen, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cMajorCnt, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cMinorCnt, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cArrowWidth, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cDrawCircle, bool, properties, mPropertiesMeta);
-            GET_PROPERTY(cLabelRadius, quint16, properties, mPropertiesMeta);
-            GET_PROPERTY(cAngleStart, double, properties, mPropertiesMeta);
-            GET_PROPERTY(cAngleEnd, double, properties, mPropertiesMeta);
-            GET_PROPERTY(cNameX, quint16, properties, mPropertiesMeta);
-            GET_PROPERTY(cNameY, quint16, properties, mPropertiesMeta);
-            GET_PROPERTY(cOffsetX, qint16, properties, mPropertiesMeta);
-            GET_PROPERTY(cOffsetY, qint16, properties, mPropertiesMeta);
-            GET_PROPERTY(cShowLabel, bool, properties, mPropertiesMeta);
-            GET_PROPERTY(cDivisionRadius, qint16, properties, mPropertiesMeta);
-            GET_PROPERTY(cArrowLen, quint16, properties, mPropertiesMeta);
-            GET_PROPERTY(cLabelMultiplier, double, properties, mPropertiesMeta);
-            GET_PROPERTY(cRotateLabels, bool, properties, mPropertiesMeta);
-
-            mTagName = InstAnalog::TAG_NAME;
-        }
+        void loadProperties();
 
     private:
 

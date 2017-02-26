@@ -13,7 +13,7 @@ public:
             QMap<QString, QString> properties,
             QMap<QString, VisuPropertyMeta> metaProperties) : VisuInstrument(parent, properties, metaProperties)
     {
-        loadProperties(mProperties);
+        loadProperties();
 
         mSignalX = nullptr;
         mSignalY = nullptr;
@@ -21,22 +21,7 @@ public:
     static const QString TAG_NAME;
 
     virtual bool updateProperties(const QString &key, const QString &value);
-    void loadProperties(QMap<QString, QString>& properties)
-    {
-        VisuInstrument::loadProperties(properties);
-
-        GET_PROPERTY(cSignalIdY, quint16, properties, mPropertiesMeta);
-        GET_PROPERTY(cBallSize, quint16, properties, mPropertiesMeta);
-        GET_PROPERTY(cMajorCntX, quint16, properties, mPropertiesMeta);
-        GET_PROPERTY(cMajorCntY, quint16, properties, mPropertiesMeta);
-        GET_PROPERTY(cMajorLen, quint16, properties, mPropertiesMeta);
-        GET_PROPERTY(cLabelX, QString, properties, mPropertiesMeta);
-        GET_PROPERTY(cLabelY, QString, properties, mPropertiesMeta);
-        GET_PROPERTY(cPadding, quint16, properties, mPropertiesMeta);
-        GET_PROPERTY(cDecimals, quint8, properties, mPropertiesMeta);
-
-        mTagName = InstXYPlot::TAG_NAME;
-    }
+    void loadProperties();
 
     static const int SIGNAL_FIRST = 0;
     static const int SIGNAL_SECOND = 1;

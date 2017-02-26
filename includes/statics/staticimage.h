@@ -14,7 +14,7 @@ public:
             QMap<QString, QString> properties,
             QMap<QString, VisuPropertyMeta> metaProperties) : VisuWidget(parent, properties, metaProperties)
     {
-        loadProperties(mProperties);
+        loadProperties();
         mTagName = StaticImage::TAG_NAME;
         setVisible(cShow);
     }
@@ -24,7 +24,7 @@ public:
     static const QString KEY_IMAGE;
 
     virtual bool updateProperties(const QString &key, const QString &value);
-    void loadProperties(QMap<QString, QString>& properties);
+    void loadProperties();
     void paintEvent(QPaintEvent* event);
     virtual bool refresh(const QString& key);
     QImage getImage();

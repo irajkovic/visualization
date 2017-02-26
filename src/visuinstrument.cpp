@@ -7,22 +7,22 @@
 bool VisuInstrument::updateProperties(const QString& key, const QString& value)
 {
     mProperties[key] = value;
-    VisuInstrument::loadProperties(mProperties);
+    VisuInstrument::loadProperties();
     return VisuInstrument::refresh(key);
 }
 
-void VisuInstrument::loadProperties(QMap<QString, QString>& properties)
+void VisuInstrument::loadProperties()
 {
-    VisuWidget::loadProperties(properties);
+    VisuWidget::loadProperties();
 
-    ConfigLoadException::setInstrumentLoadContext(properties);
+    ConfigLoadException::setInstrumentLoadContext(mProperties);
 
-    GET_PROPERTY(cSignalId, quint16, properties, mPropertiesMeta);
-    GET_PROPERTY(cColorBackground, QColor, properties, mPropertiesMeta);
-    GET_PROPERTY(cColorStatic, QColor, properties, mPropertiesMeta);
-    GET_PROPERTY(cColorForeground, QColor, properties, mPropertiesMeta);
-    GET_PROPERTY(cFontSize, quint8, properties, mPropertiesMeta);
-    GET_PROPERTY(cFontType, QString, properties, mPropertiesMeta);
+    GET_PROPERTY(cSignalId, quint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorBackground, QColor, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorStatic, QColor, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorForeground, QColor, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cFontSize, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cFontType, QString, mProperties, mPropertiesMeta);
 
     setup();
 }

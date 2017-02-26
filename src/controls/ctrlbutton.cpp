@@ -32,16 +32,16 @@ void CtrlButton::setupButton(QWidget* parent)
 bool CtrlButton::updateProperties(const QString& key, const QString& value)
 {
     mProperties[key] = value;
-    CtrlButton::loadProperties(mProperties);
+    CtrlButton::loadProperties();
     return CtrlButton::refresh(key);
 }
 
-void CtrlButton::loadProperties(QMap<QString, QString>& properties)
+void CtrlButton::loadProperties()
 {
-    VisuControl::loadProperties(properties);
+    VisuControl::loadProperties();
 
-    GET_PROPERTY(cActionMessage, QString, properties, mPropertiesMeta);
-    GET_PROPERTY(cCss, QString, properties, mPropertiesMeta);
+    GET_PROPERTY(cActionMessage, QString, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cCss, QString, mProperties, mPropertiesMeta);
 }
 
 void CtrlButton::setup(QWidget *parent)

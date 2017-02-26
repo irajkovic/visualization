@@ -98,18 +98,18 @@ void VisuWidget::drawActiveBox(QPainter* painter)
 bool VisuWidget::updateProperties(const QString& key, const QString& value)
 {
     mProperties[key] = value;
-    VisuWidget::loadProperties(mProperties);
+    VisuWidget::loadProperties();
     return VisuWidget::refresh(key);
 }
 
-void VisuWidget::loadProperties(QMap<QString, QString>& properties)
+void VisuWidget::loadProperties()
 {
-    GET_PROPERTY(cId, quint16, properties, mPropertiesMeta);
-    GET_PROPERTY(cName, QString, properties, mPropertiesMeta);
-    GET_PROPERTY(cX, quint16, properties, mPropertiesMeta);
-    GET_PROPERTY(cY, quint16, properties, mPropertiesMeta);
-    GET_PROPERTY(cWidth, quint16, properties, mPropertiesMeta);
-    GET_PROPERTY(cHeight, quint16, properties, mPropertiesMeta);
+    GET_PROPERTY(cId, quint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cName, QString, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cX, quint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cY, quint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cWidth, quint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cHeight, quint16, mProperties, mPropertiesMeta);
 
     setup();
 }

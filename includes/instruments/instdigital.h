@@ -12,22 +12,12 @@ class InstDigital : public VisuInstrument
                 QMap<QString, QString> properties,
                 QMap<QString, VisuPropertyMeta> metaProperties) : VisuInstrument(parent, properties, metaProperties)
         {
-            loadProperties(mProperties);
+            loadProperties();
         }
         static const QString TAG_NAME;
 
         virtual bool updateProperties(const QString &key, const QString &value);
-        void loadProperties(QMap<QString, QString>& properties)
-        {
-            VisuInstrument::loadProperties(properties);
-
-            GET_PROPERTY(cShowSignalName, bool, properties, mPropertiesMeta);
-            GET_PROPERTY(cShowSignalUnit, bool, properties, mPropertiesMeta);
-            GET_PROPERTY(cPadding, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cLeadingDigits, quint8, properties, mPropertiesMeta);
-
-            mTagName = InstDigital::TAG_NAME;
-        }
+        void loadProperties();
 
     private:
         // configuration properties

@@ -10,8 +10,36 @@ const QString InstAnalog::TAG_NAME = "ANALOG";
 bool InstAnalog::updateProperties(const QString& key, const QString& value)
 {
     mProperties[key] = value;
-    InstAnalog::loadProperties(mProperties);
+    InstAnalog::loadProperties();
     return VisuInstrument::refresh(key);
+}
+
+void InstAnalog::loadProperties()
+{
+    VisuInstrument::loadProperties();
+
+    // custom properties initializer
+    GET_PROPERTY(cLineThickness, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorLen, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMinorLen, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorCnt, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMinorCnt, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cArrowWidth, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cDrawCircle, bool, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cLabelRadius, quint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cAngleStart, double, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cAngleEnd, double, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cNameX, quint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cNameY, quint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cOffsetX, qint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cOffsetY, qint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cShowLabel, bool, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cDivisionRadius, qint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cArrowLen, quint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cLabelMultiplier, double, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cRotateLabels, bool, mProperties, mPropertiesMeta);
+
+    mTagName = InstAnalog::TAG_NAME;
 }
 
 void InstAnalog::renderStatic(QPainter* painter)

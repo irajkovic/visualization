@@ -6,8 +6,28 @@ const QString InstTimePlot::TAG_NAME = "TIME_PLOT";
 bool InstTimePlot::updateProperties(const QString& key, const QString& value)
 {
     mProperties[key] = value;
-    InstTimePlot::loadProperties(mProperties);
+    InstTimePlot::loadProperties();
     return VisuInstrument::refresh(key);
+}
+
+void InstTimePlot::loadProperties()
+{
+    VisuInstrument::loadProperties();
+
+    GET_PROPERTY(cLineThickness, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cStaticThickness, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMarkerThickness, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorCnt, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMinorCnt, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cTicksInSecond, quint64, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cTimespan, quint64, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMarkerDt, quint64, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cDecimals, quint64, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cDivisionFormat, QString, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMasterTimeFormat, QString, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorGraphBackground, QColor, mProperties, mPropertiesMeta);
+
+    mTagName = InstTimePlot::TAG_NAME;
 }
 
 int InstTimePlot::getFontHeight()

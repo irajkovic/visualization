@@ -24,7 +24,7 @@ public:
     }
 
     virtual bool updateProperties(const QString &key, const QString &value);
-    void loadProperties(QMap<QString, QString>& properties);
+    void loadProperties();
     static const QString TAG_NAME;
     static const QString KEY_ID;
     static const QString KEY_WIDTH;

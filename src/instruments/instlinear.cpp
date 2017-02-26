@@ -6,8 +6,23 @@ const QString InstLinear::KEY_HORIZONTAL = "horizontal";
 bool InstLinear::updateProperties(const QString& key, const QString& value)
 {
     mProperties[key] = value;
-    InstLinear::loadProperties(mProperties);
+    InstLinear::loadProperties();
     return InstLinear::refresh(key);
+}
+
+void InstLinear::loadProperties()
+{
+    VisuInstrument::loadProperties();
+
+    GET_PROPERTY(cLineThickness, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorLen, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMinorLen, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorCnt, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMinorCnt, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cBarThickness, quint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cHorizontal, bool, mProperties, mPropertiesMeta);
+
+    mTagName = InstLinear::TAG_NAME;
 }
 
 void InstLinear::renderLabel(QPainter* painter, int sigCur, quint16 ofs)

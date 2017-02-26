@@ -13,31 +13,13 @@ class InstTimePlot : public VisuInstrument
                 QMap<QString, QString> properties,
                 QMap<QString, VisuPropertyMeta> metaProperties) : VisuInstrument(parent, properties, metaProperties)
         {
-            loadProperties(mProperties);
+            loadProperties();
             mGraphPainter = nullptr;
         }
         static const QString TAG_NAME;
 
         virtual bool updateProperties(const QString &key, const QString &value);
-        void loadProperties(QMap<QString, QString>& properties)
-        {
-            VisuInstrument::loadProperties(properties);
-
-            GET_PROPERTY(cLineThickness, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cStaticThickness, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cMarkerThickness, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cMajorCnt, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cMinorCnt, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cTicksInSecond, quint64, properties, mPropertiesMeta);
-            GET_PROPERTY(cTimespan, quint64, properties, mPropertiesMeta);
-            GET_PROPERTY(cMarkerDt, quint64, properties, mPropertiesMeta);
-            GET_PROPERTY(cDecimals, quint64, properties, mPropertiesMeta);
-            GET_PROPERTY(cDivisionFormat, QString, properties, mPropertiesMeta);
-            GET_PROPERTY(cMasterTimeFormat, QString, properties, mPropertiesMeta);
-            GET_PROPERTY(cColorGraphBackground, QColor, properties, mPropertiesMeta);
-
-            mTagName = InstTimePlot::TAG_NAME;
-        }
+        void loadProperties();
 
     private:
 

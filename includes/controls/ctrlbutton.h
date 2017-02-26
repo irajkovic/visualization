@@ -19,14 +19,14 @@ class CtrlButton : public VisuControl
                 QMap<QString, VisuPropertyMeta> metaProperties) : VisuControl(parent, properties, metaProperties)
         {
 
-            loadProperties(mProperties);
+            loadProperties();
             setup(parent);
         }
 
         static const QString TAG_NAME;
 
         virtual bool updateProperties(const QString &key, const QString &value);
-        void loadProperties(QMap<QString, QString>& properties);
+        void loadProperties();
         virtual bool refresh(const QString& key);
         void setup(QWidget* parent);
 

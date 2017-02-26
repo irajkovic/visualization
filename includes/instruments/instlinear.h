@@ -12,25 +12,12 @@ class InstLinear : public VisuInstrument
                 QMap<QString, QString> properties,
                 QMap<QString, VisuPropertyMeta> metaProperties) : VisuInstrument(parent, properties, metaProperties)
         {
-            loadProperties(mProperties);
+            loadProperties();
         }
         static const QString TAG_NAME;
 
         virtual bool updateProperties(const QString &key, const QString &value);
-        void loadProperties(QMap<QString, QString>& properties)
-        {
-            VisuInstrument::loadProperties(properties);
-
-            GET_PROPERTY(cLineThickness, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cMajorLen, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cMinorLen, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cMajorCnt, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cMinorCnt, quint8, properties, mPropertiesMeta);
-            GET_PROPERTY(cBarThickness, quint16, properties, mPropertiesMeta);
-            GET_PROPERTY(cHorizontal, bool, properties, mPropertiesMeta);
-
-            mTagName = InstLinear::TAG_NAME;
-        }
+        void loadProperties();
 
     protected:
         virtual void renderStatic(QPainter *painter);   // Renders to pixmap_static

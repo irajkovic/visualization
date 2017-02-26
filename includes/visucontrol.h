@@ -19,7 +19,7 @@ public:
     }
 
     virtual bool updateProperties(const QString &key, const QString &value);
-    void loadProperties(QMap<QString, QString>& properties);
+    void loadProperties();
     virtual bool refresh(const QString& key) { (void)key; return false; }
 
 protected:

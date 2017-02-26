@@ -63,7 +63,7 @@ public:
         : VisuWidget(parent, properties, metaProperties) {}
 
     virtual bool updateProperties(const QString &key, const QString &value);
-    void loadProperties(QMap<QString, QString> &properties);
+    void loadProperties();
     void connectSignals();
     void disconnectSignals();
     void initializeInstrument();
