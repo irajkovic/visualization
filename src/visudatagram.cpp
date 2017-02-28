@@ -11,6 +11,5 @@ bool VisuDatagram::checksumOk()
         sum ^= *ptr;
         ++ptr;
     }
-
     return sum == checksum;
 }

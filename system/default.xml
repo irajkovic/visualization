@@ -6,6 +6,7 @@
        <height>600</height>
        <colorBackground>130,130,130,255</colorBackground>
        <name>Sample configuration</name>
+	   <conectivity>1</conectivity>
    </configuration>
    <signals>
         <signal>

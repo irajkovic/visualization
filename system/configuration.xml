@@ -4,5 +4,6 @@
    <height type="int" min="0">600</height>
    <colorBackground type="color">130,130,130,255</colorBackground>
    <name>Sample configuration</name>
+   <conectivity type="enum" extra="UDP &amp; Serial, UDP only, Serial only">1</conectivity>
 </configuration>
 
