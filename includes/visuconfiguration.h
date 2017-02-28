@@ -33,6 +33,7 @@ class VisuConfiguration : public QObject
         quint16 cHeight;
         QColor cColorBackground;
         QString cName;
+        quint8 cConectivity;
 
         QMap<QString, QString> mProperties;
         VisuConfiguration()
@@ -41,6 +42,7 @@ class VisuConfiguration : public QObject
         }
 
     public:
+
         static VisuConfiguration* get();
         static VisuConfiguration* getClean();
         virtual ~VisuConfiguration();
@@ -58,7 +60,6 @@ class VisuConfiguration : public QObject
         void moveWidgetUp(int id);
         void moveWidgetDown(int id);
 
-        // Specialized methods
         template <typename T>
         QVector<QPointer<T> >  getListOf()
         {
@@ -94,6 +95,7 @@ class VisuConfiguration : public QObject
         QSize getSize() const;
         QColor getBackgroundColor();
         QString getName();
+        quint8 getConectivity();
 
         static const QString TAG_WIDGET;
         static const QString TAG_SIGNAL;

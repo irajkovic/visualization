@@ -1,26 +1,90 @@
 #include "visuserver.h"
 #include <QUdpSocket>
 #include <qendian.h>
+#include "visuappinfo.h"
 
-VisuServer::VisuServer()
+const QByteArray VisuServer::delimiter = QByteArray("\r\n");
+
+void VisuServer::handleSerialError(QSerialPort::SerialPortError serialPortError)
 {
-    QObject::connect(&socket, SIGNAL(readyRead()), this, SLOT(handleDatagram()));
+    //qDebug() << serialPortError;
+    qDebug("Error!");
+}
+
+void VisuServer::handleSerial()
+{
+    serialBuffer.append(serialPort->readAll());
+
+    int pos = serialBuffer.indexOf(delimiter);
+    if (pos > 0)
+    {
+        serialBuffer.remove(0, serialBuffer.lastIndexOf(">") + 1);
+
+        VisuDatagram datagram;
+        QString serialBufferString(serialBuffer);
+        QTextStream serialText(&serialBufferString);
+
+        uint cs;
+        serialText >> datagram.signalId >> datagram.packetNumber >> datagram.rawValue >> datagram.timestamp >> cs;
+        datagram.checksum = (quint8) cs;
+
+        if (datagram.checksumOk())
+        {
+            updateSignal(datagram);
+        }
+        else
+        {
+            qDebug("Bad serial package.");
+        }
+
+        serialBuffer.remove(0, pos + delimiter.size());
+    }
 }
 
 void VisuServer::start()
 {
-    qDebug("Server is running on port %d.", port);
-    socket.bind(QHostAddress::LocalHost, port);
+    if (conectivity != SERIAL_ONLY)
+    {
+        qDebug("Started UDP server on port %d.", port);
+        socket.bind(QHostAddress::LocalHost, port);
+    }
+
+    if (conectivity != UDP_ONLY)
+    {
+        ConfigLoadException::setContext("starting serial port");
+
+        if (VisuAppInfo::argsSize() < 4)
+        {
+            throw ConfigLoadException("Serial port name or baud rate not specified");
+        }
+
+        QString serialPortName = VisuAppInfo::getCLIArg(VisuAppInfo::RunArgs::SERIAL_PORT_NAME);
+        int baudRate = VisuAppInfo::getCLIArg(VisuAppInfo::RunArgs::BAUD_RATE).toInt();
+
+        serialPort->setPortName(serialPortName);
+        if (    serialPort->setBaudRate(baudRate) &&
+                serialPort->setDataBits(QSerialPort::Data8) &&
+                serialPort->setParity(QSerialPort::NoParity) &&
+                serialPort->setStopBits(QSerialPort::OneStop) &&
+                serialPort->setFlowControl(QSerialPort::NoFlowControl) )
+        {
+            qDebug("serial port setup complete");
+        }
+
+        if (!serialPort->open(QIODevice::ReadOnly))
+        {
+            throw ConfigLoadException(QObject::tr("Failed to open port %1, error: %2").arg(serialPortName).arg(serialPort->errorString()));
+        }
+        else
+        {
+            qDebug("Listening on serial port %s at baud rate %d", serialPortName.toStdString().c_str(), baudRate);
+        }
+    }
 }
 
 void VisuServer::stop()
 {
     socket.close();
-}
-
-bool VisuServer::datagramValid(const quint8* buffer, quint64 size)
-{
-    return ((DATAGRAM_SIZE == size) && (VisuDatagram::getChecksum(buffer, size) == 0));
 }
 
 VisuDatagram VisuServer::createDatagramFromBuffer(const quint8* buffer)
@@ -57,13 +121,15 @@ void VisuServer::handleDatagram()
         receivedSize = socket.pendingDatagramSize();
         socket.readDatagram(bufferRawData, DATAGRAM_SIZE, &senderAddress, &senderPort);
 
-        if (datagramValid((const quint8*)bufferRawData, receivedSize)) {
+        VisuDatagram datagram = createDatagramFromBuffer((const quint8*)bufferRawData);
 
-            VisuDatagram datagram = createDatagramFromBuffer((const quint8*)bufferRawData);
+        if (datagram.checksumOk())
+        {
             updateSignal(datagram);
         }
-        else {
-            qDebug("Bad package.");
+        else
+        {
+            qDebug("Bad UDP package.");
         }
     }
 }

@@ -43,3 +43,22 @@ const QStringList& VisuAppInfo::getConfigIssues()
 {
     return getInstance()->configIssues;
 }
+
+int VisuAppInfo::argsSize()
+{
+    return getInstance()->cliArgs.size();
+}
+
+const QString& VisuAppInfo::getCLIArg(RunArgs arg)
+{
+    return getInstance()->cliArgs[(int)arg];
+}
+
+void VisuAppInfo::setCLIArgs(int argc, char* argv[])
+{
+    QStringList& args = getInstance()->cliArgs;
+    for (int i=0 ; i<argc ; ++i)
+    {
+        args.append(QString(argv[i]));
+    }
+}

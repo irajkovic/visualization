@@ -19,6 +19,7 @@ void showMessageBox(QString message)
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    VisuAppInfo::setCLIArgs(argc, argv);
     try
     {
         if (argc == 1)
@@ -29,7 +30,7 @@ int main(int argc, char *argv[])
         else
         {
             VisuAppInfo::setInEditorMode(false);
-            VisuApplication *application = new VisuApplication(argv[1]);
+            VisuApplication *application = new VisuApplication(argv[(int)VisuAppInfo::RunArgs::CONFIG_PATH]);
             application->show();
             application->run();
         }

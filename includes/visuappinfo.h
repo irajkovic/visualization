@@ -8,6 +8,20 @@ class VisuAppInfo
 {
 
 public:
+    enum class EditorArgs
+    {
+        PROGRAM_NAME,
+        EDITOR_FLAG
+    };
+
+    enum class RunArgs
+    {
+        PROGRAM_NAME,
+        CONFIG_PATH,
+        SERIAL_PORT_NAME,
+        BAUD_RATE
+    };
+
     static bool isInEditorMode();
     static void setInEditorMode(bool mode);
 
@@ -15,6 +29,10 @@ public:
     static void setConfigWrong(bool wrong);
     static void setConfigWrong(bool wrong, const QString& issue);
     static const QStringList& getConfigIssues();
+    static const QString& getCLIArg(RunArgs arg);
+    static void setCLIArgs(int argc, char* argv[]);
+    static int argsSize();
+
 
 private:
     static VisuAppInfo* getInstance();
@@ -23,6 +41,7 @@ private:
     bool inEditorMode;
     bool configWrong;
     QStringList configIssues;
+    QStringList cliArgs;
 };
 
 #endif // VISUAPPINFO_H

@@ -96,6 +96,7 @@ void VisuConfiguration::setConfigValues(QMap<QString, QString>& properties)
     GET_PROPERTY(cHeight, quint16, properties, emptyMap);
     GET_PROPERTY(cColorBackground, QColor, properties, emptyMap);
     GET_PROPERTY(cName, QString, properties, emptyMap);
+    GET_PROPERTY(cConectivity, quint8, properties, emptyMap);
 }
 
 void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
@@ -192,6 +193,12 @@ QString VisuConfiguration::getName()
 {
     return cName;
 }
+
+quint8 VisuConfiguration::getConectivity()
+{
+    return cConectivity;
+}
+
 
 QVector<QPointer<VisuWidget> > VisuConfiguration::getWidgets()
 {

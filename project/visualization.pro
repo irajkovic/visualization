@@ -1,10 +1,10 @@
- #-------------------------------------------------
+#-------------------------------------------------
 #
 # Project created by QtCreator 2015-03-13T21:18:19
 #
 #-------------------------------------------------
 
-QT       += core gui network
+QT       += core gui network serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -48,8 +48,8 @@ SOURCES += main.cpp\
     visucontrol.cpp \
     visupropertymeta.cpp \
     wysiwyg/visupropertieshelper.cpp \
-    visuappinfo.cpp
-
+    visuappinfo.cpp \
+    visudatagram.cpp
 
 HEADERS  += ../includes/mainwindow.h \
     ../includes/visuinstrument.h \
