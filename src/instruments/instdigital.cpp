@@ -19,6 +19,7 @@ void InstDigital::loadProperties()
     GET_PROPERTY(cShowSignalUnit, bool, mProperties, mPropertiesMeta);
     GET_PROPERTY(cPadding, quint8, mProperties, mPropertiesMeta);
     GET_PROPERTY(cLeadingDigits, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cDecimalDigits, quint8, mProperties, mPropertiesMeta);
 
     mTagName = InstDigital::TAG_NAME;
 }
@@ -33,9 +34,7 @@ void InstDigital::renderDynamic(QPainter* painter)
     setFont(painter);
     setPen(painter, cColorForeground);
 
-    //QString text = QString("%1").arg(mSignal->getRealValue(), cLeadingDigits, 10, QChar('0'));
-
-    QString text =  QString::number(mSignal->getRealValue()).rightJustified(cLeadingDigits, '0');
+    QString text =  QString::number(mSignal->getRealValue(), 'f', cDecimalDigits).rightJustified(cLeadingDigits, '0');
 
     if (cShowSignalName) {
         text = mSignal->getName() + " = " + text;

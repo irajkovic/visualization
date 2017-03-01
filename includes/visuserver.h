@@ -12,14 +12,39 @@ class VisuServer : public QObject
 {
     Q_OBJECT
 
-    private:
+    public:
 
-        enum Connectivity
+    enum Connectivity
+    {
+        UDP_AND_SERIAL,
+        UDP_ONLY,
+        SERIAL_ONLY
+    };
+
+    VisuServer(VisuConfiguration* configuration) : configuration(configuration)
+    {
+        port = configuration->getPort();
+        conectivity = (enum Connectivity)configuration->getConectivity();
+
+        if (conectivity != SERIAL_ONLY)
         {
-            UDP_AND_SERIAL,
-            UDP_ONLY,
-            SERIAL_ONLY
-        };
+            QObject::connect(&socket, SIGNAL(readyRead()), this, SLOT(handleDatagram()));
+        }
+
+        if (conectivity != UDP_ONLY)
+        {
+            serialPort = new QSerialPort(this);
+            QObject::connect(serialPort, SIGNAL(readyRead()), this, SLOT(handleSerial()));
+            QObject::connect(serialPort,
+                    static_cast<void (QSerialPort::*)(QSerialPort::SerialPortError)>(&QSerialPort::error),
+                    this,
+                    &VisuServer::handleSerialError );
+        }
+    }
+    void start();
+    void stop();
+
+    private:
 
         quint16 port;
         enum Connectivity conectivity;
@@ -42,29 +67,7 @@ class VisuServer : public QObject
         void handleSerial();
         void handleSerialError(QSerialPort::SerialPortError serialPortError);
 
-    public:
-        VisuServer(VisuConfiguration* configuration) : configuration(configuration)
-        {
-            port = configuration->getPort();
-            conectivity = (enum Connectivity)configuration->getConectivity();
 
-            if (conectivity != SERIAL_ONLY)
-            {
-                QObject::connect(&socket, SIGNAL(readyRead()), this, SLOT(handleDatagram()));
-            }
-
-            if (conectivity != UDP_ONLY)
-            {
-                serialPort = new QSerialPort(this);
-                QObject::connect(serialPort, SIGNAL(readyRead()), this, SLOT(handleSerial()));
-                QObject::connect(serialPort,
-                        static_cast<void (QSerialPort::*)(QSerialPort::SerialPortError)>(&QSerialPort::error),
-                        this,
-                        &VisuServer::handleSerialError );
-            }
-        }
-        void start();
-        void stop();
 };
 
 #endif // SERVER_H

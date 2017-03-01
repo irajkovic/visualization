@@ -40,6 +40,7 @@ public:
     static std::pair<QComboBox*, const char*> setupBoolWidget(VisuPropertyMeta meta, QString value);
     static std::pair<QComboBox*, const char*> setupSignalsWidget(VisuPropertyMeta meta, QString value);
     static std::pair<QComboBox*, const char*> setupImagesWidget(VisuPropertyMeta meta, QString value);
+    static std::pair<QComboBox*, const char*> setupSerialWidget(VisuPropertyMeta meta, QString value);
     static std::pair<QPushButton*, const char*> setupColorWidget(VisuPropertyMeta meta, QString value);
     static std::pair<QSpinBox*, const char*> setupIntWidget(VisuPropertyMeta meta, QString value);
     static std::pair<QSlider*, const char*> setupSliderWidget(VisuPropertyMeta meta, QString value);

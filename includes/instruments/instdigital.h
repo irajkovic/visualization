@@ -25,6 +25,7 @@ class InstDigital : public VisuInstrument
         bool cShowSignalUnit;
         quint8 cPadding;
         quint8 cLeadingDigits;
+        quint8 cDecimalDigits;
 
         // aux members
         QFont mFont;

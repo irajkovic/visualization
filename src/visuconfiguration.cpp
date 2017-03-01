@@ -97,6 +97,8 @@ void VisuConfiguration::setConfigValues(QMap<QString, QString>& properties)
     GET_PROPERTY(cColorBackground, QColor, properties, emptyMap);
     GET_PROPERTY(cName, QString, properties, emptyMap);
     GET_PROPERTY(cConectivity, quint8, properties, emptyMap);
+    GET_PROPERTY(cSerialPort, QString, properties, emptyMap);
+    GET_PROPERTY(cBaudRate, quint32, properties, emptyMap);
 }
 
 void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
@@ -167,6 +169,16 @@ QVector<QPointer<VisuSignal> >& VisuConfiguration::getSignals()
 quint16 VisuConfiguration::getPort()
 {
     return cPort;
+}
+
+QString VisuConfiguration::getSerialPort()
+{
+    return cSerialPort;
+}
+
+quint32 VisuConfiguration::getBaudRate()
+{
+    return cBaudRate;
 }
 
 quint16 VisuConfiguration::getWidth()

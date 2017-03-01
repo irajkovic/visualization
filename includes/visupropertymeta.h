@@ -27,11 +27,12 @@ public:
         BOOL,
         FONT,
         IMAGE,
+        SERIAL,
         HIDDEN,
         FIRST = DEFAULT,
         LAST = HIDDEN
     } Type;
-    static const char* TYPES_MAP[12];
+    static const char* TYPES_MAP[];
 
     double min;
     double max;
