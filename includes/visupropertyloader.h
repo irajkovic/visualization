@@ -5,8 +5,8 @@
 #include <QImage>
 #include "visupropertymeta.h"
 
-#define GET_PROPERTY(KEY, TYPE, MAP, METAMAP) \
-    KEY = VisuPropertyLoader::get<TYPE>(VisuPropertyLoader::transformKey(#KEY), MAP, METAMAP)
+#define GET_PROPERTY(KEY, MAP, METAMAP) \
+    VisuPropertyLoader::set(KEY, VisuPropertyLoader::transformKey(#KEY), MAP, METAMAP)
 
 namespace VisuPropertyLoader
 {
@@ -18,37 +18,41 @@ namespace VisuPropertyLoader
 
     // handles all integer numeric types
     template <typename T>
-    T get(const QString& key,
+    void set(  T& property,
+          const QString& key,
           QMap<QString, QString>& properties,
           const QMap<QString, VisuPropertyMeta>& metaProperties)
     {
         handleMissingKey(key, properties, metaProperties);
-        return (T)properties[key].toLongLong();
+        property = (T)properties[key].toLongLong();
     }
 
     // specializations below
-    template<>
-    double get<double>(const QString& key,
+    void set(double& property,
+                       const QString& key,
                        QMap<QString, QString>& properties,
                        const QMap<QString, VisuPropertyMeta>& metaProperties);
 
-    template<>
-    QString get<QString>(const QString& key,
+    void set(QString& property,
+                         const QString& key,
                          QMap<QString, QString>& properties,
                          const QMap<QString, VisuPropertyMeta>& metaProperties);
 
-    template<>
-    QColor get<QColor>(const QString& key,
+
+    void set(QColor& property,
+                       const QString& key,
                        QMap<QString, QString>& properties,
                        const QMap<QString, VisuPropertyMeta>& metaProperties);
 
-    template<>
-    QImage get<QImage>(const QString& key,
+
+    void set(QImage& property,
+                       const QString& key,
                        QMap<QString, QString>& properties,
                        const QMap<QString, VisuPropertyMeta>& metaProperties);
 
-    template<>
-    bool get<bool>(const QString& key,
+
+    void set(bool& property,
+                   const QString& key,
                    QMap<QString, QString>& properties,
                    const QMap<QString, VisuPropertyMeta>& metaProperties);
 }

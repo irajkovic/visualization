@@ -40,8 +40,8 @@ void CtrlButton::loadProperties()
 {
     VisuControl::loadProperties();
 
-    GET_PROPERTY(cActionMessage, QString, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cCss, QString, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cActionMessage, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cCss, mProperties, mPropertiesMeta);
 }
 
 void CtrlButton::setup(QWidget *parent)

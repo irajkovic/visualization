@@ -19,27 +19,27 @@ void InstAnalog::loadProperties()
     VisuInstrument::loadProperties();
 
     // custom properties initializer
-    GET_PROPERTY(cLineThickness, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMajorLen, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMinorLen, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMajorCnt, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMinorCnt, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cArrowWidth, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cDrawCircle, bool, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cLabelRadius, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cAngleStart, double, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cAngleEnd, double, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cNameX, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cNameY, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cOffsetX, qint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cOffsetY, qint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cShowLabel, bool, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cDivisionRadius, qint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cArrowLen, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cLabelMultiplier, double, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cRotateLabels, bool, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cCircleOffset, bool, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cCircleTrim, bool, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cLineThickness, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorLen, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMinorLen, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorCnt, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMinorCnt, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cArrowWidth, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cDrawCircle, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cLabelRadius, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cAngleStart, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cAngleEnd, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cNameX, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cNameY, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cOffsetX, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cOffsetY, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cShowLabel, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cDivisionRadius, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cArrowLen, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cLabelMultiplier, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cRotateLabels, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cCircleOffset, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cCircleTrim, mProperties, mPropertiesMeta);
 
     mTagName = InstAnalog::TAG_NAME;
 }

@@ -106,12 +106,12 @@ void VisuWidget::loadProperties()
 {
     ConfigLoadException::setInstrumentLoadContext(mProperties);
 
-    GET_PROPERTY(cId, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cName, QString, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cX, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cY, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cWidth, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cHeight, quint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cId, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cName, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cX, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cY, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cWidth, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cHeight, mProperties, mPropertiesMeta);
 
     setup();
 }

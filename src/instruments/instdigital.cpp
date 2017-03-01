@@ -15,11 +15,11 @@ void InstDigital::loadProperties()
 {
     VisuInstrument::loadProperties();
 
-    GET_PROPERTY(cShowSignalName, bool, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cShowSignalUnit, bool, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cPadding, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cLeadingDigits, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cDecimalDigits, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cShowSignalName, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cShowSignalUnit, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cPadding, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cLeadingDigits, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cDecimalDigits, mProperties, mPropertiesMeta);
 
     mTagName = InstDigital::TAG_NAME;
 }

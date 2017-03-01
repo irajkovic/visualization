@@ -14,18 +14,18 @@ void InstTimePlot::loadProperties()
 {
     VisuInstrument::loadProperties();
 
-    GET_PROPERTY(cLineThickness, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cStaticThickness, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMarkerThickness, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMajorCnt, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMinorCnt, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cTicksInSecond, quint64, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cTimespan, quint64, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMarkerDt, quint64, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cDecimals, quint64, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cDivisionFormat, QString, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMasterTimeFormat, QString, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cColorGraphBackground, QColor, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cLineThickness, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cStaticThickness, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMarkerThickness, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorCnt, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMinorCnt, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cTicksInSecond, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cTimespan, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMarkerDt, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cDecimals, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cDivisionFormat, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMasterTimeFormat, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorGraphBackground, mProperties, mPropertiesMeta);
 
     mTagName = InstTimePlot::TAG_NAME;
 }
