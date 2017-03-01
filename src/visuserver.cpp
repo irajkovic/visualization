@@ -51,6 +51,8 @@ void VisuServer::start()
 
     if (conectivity != UDP_ONLY)
     {
+        ConfigLoadException::setContext("setting up serial port");
+
         if (VisuAppInfo::argsSize() < 4)
         {
             throw ConfigLoadException("Serial port name or baud rate not specified");
@@ -66,7 +68,7 @@ void VisuServer::start()
                 !serialPort->setStopBits(QSerialPort::OneStop) ||
                 !serialPort->setFlowControl(QSerialPort::NoFlowControl) )
         {
-            throw ConfigLoadException(QObject::tr("serial port setup failed"));
+            throw ConfigLoadException(QObject::tr("Setup of %1 failed"), serialPortName);
         }
 
         if (!serialPort->open(QIODevice::ReadOnly))

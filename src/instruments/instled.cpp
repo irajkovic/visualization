@@ -14,15 +14,15 @@ void InstLED::loadProperties()
 {
     VisuInstrument::loadProperties();
 
-    GET_PROPERTY(cRadius, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cVal1, double, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cVal2, double, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cCondition, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cColorOn, QColor, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cColorOff, QColor, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cImageOn, int, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cImageOff, int, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cShowSignalName, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cRadius, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cVal1, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cVal2, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cCondition, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorOn, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorOff, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cImageOn, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cImageOff, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cShowSignalName, mProperties, mPropertiesMeta);
 
     mTagName = InstLED::TAG_NAME;
 }

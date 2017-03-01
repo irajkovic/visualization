@@ -15,10 +15,11 @@ void InstDigital::loadProperties()
 {
     VisuInstrument::loadProperties();
 
-    GET_PROPERTY(cShowSignalName, bool, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cShowSignalUnit, bool, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cPadding, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cLeadingDigits, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cShowSignalName, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cShowSignalUnit, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cPadding, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cLeadingDigits, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cDecimalDigits, mProperties, mPropertiesMeta);
 
     mTagName = InstDigital::TAG_NAME;
 }
@@ -33,9 +34,7 @@ void InstDigital::renderDynamic(QPainter* painter)
     setFont(painter);
     setPen(painter, cColorForeground);
 
-    //QString text = QString("%1").arg(mSignal->getRealValue(), cLeadingDigits, 10, QChar('0'));
-
-    QString text =  QString::number(mSignal->getRealValue()).rightJustified(cLeadingDigits, '0');
+    QString text =  QString::number(mSignal->getRealValue(), 'f', cDecimalDigits).rightJustified(cLeadingDigits, '0');
 
     if (cShowSignalName) {
         text = mSignal->getName() + " = " + text;

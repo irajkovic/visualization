@@ -400,6 +400,13 @@ void MainWindow::runConfiguration()
     QString me = QCoreApplication::applicationFilePath();
 
     QStringList args = {configFilePath};
+
+    if (mConfiguration->getConectivity() != VisuServer::UDP_ONLY)
+    {
+        args.append(mConfiguration->getSerialPort());
+        args.append(QString("%1").arg(mConfiguration->getBaudRate()));
+    }
+
     QProcess *process = new QProcess(this);
 
     process->start(me, args);

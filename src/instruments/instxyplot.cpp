@@ -13,15 +13,15 @@ void InstXYPlot::loadProperties()
 {
     VisuInstrument::loadProperties();
 
-    GET_PROPERTY(cSignalIdY, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cBallSize, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMajorCntX, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMajorCntY, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMajorLen, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cLabelX, QString, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cLabelY, QString, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cPadding, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cDecimals, quint8, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cSignalIdY, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cBallSize, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorCntX, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorCntY, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorLen, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cLabelX, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cLabelY, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cPadding, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cDecimals, mProperties, mPropertiesMeta);
 
     mTagName = InstXYPlot::TAG_NAME;
 }

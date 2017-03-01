@@ -15,12 +15,12 @@ void VisuInstrument::loadProperties()
 {
     VisuWidget::loadProperties();
 
-    GET_PROPERTY(cSignalId, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cColorBackground, QColor, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cColorStatic, QColor, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cColorForeground, QColor, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cFontSize, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cFontType, QString, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cSignalId, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorBackground, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorStatic, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorForeground, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cFontSize, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cFontType, mProperties, mPropertiesMeta);
 
     setup();
 }

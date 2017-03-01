@@ -2,6 +2,7 @@
 #include "visumisc.h"
 
 #include <QFontDatabase>
+#include <QSerialPortInfo>
 
 const char* VisuPropertiesHelper::PROP_COLOR = "color";
 const char* VisuPropertiesHelper::PROP_ROW = "row";
@@ -111,6 +112,26 @@ std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupImagesWidget(VisuP
     return std::make_pair(box, SIGNAL(currentIndexChanged(int)));
 }
 
+std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupSerialWidget(VisuPropertyMeta meta, QString value)
+{
+    QComboBox* box = new QComboBox();
+
+    const auto portInfos = QSerialPortInfo::availablePorts();
+
+    for (const auto& port : portInfos)
+    {
+        if (port.isValid() && !port.isBusy())
+        {
+            box->addItem(port.portName());
+        }
+    }
+    if (value != "-")
+    {
+        box->setCurrentText(value);
+    }
+    return std::make_pair(box, SIGNAL(currentIndexChanged(int)));
+}
+
 std::pair<QPushButton*, const char*> VisuPropertiesHelper::setupColorWidget(VisuPropertyMeta meta, QString value)
 {
     QPushButton* btn = new QPushButton(value);
@@ -190,6 +211,9 @@ std::pair<QWidget*, const char*> VisuPropertiesHelper::controlFactory(VisuProper
     case VisuPropertyMeta::SLIDER:
         widget = VisuPropertiesHelper::setupSliderWidget(meta, value);
         break;
+    case VisuPropertyMeta::SERIAL:
+        widget = VisuPropertiesHelper::setupSerialWidget(meta, value);
+        break;
     default:
         widget = VisuPropertiesHelper::setupDefaultWidget(meta, value);
     }
@@ -261,6 +285,7 @@ QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
         switch (type)
         {
         case VisuPropertyMeta::FONT:
+        case VisuPropertyMeta::SERIAL:
             value = box->currentText();
             break;
         case VisuPropertyMeta::ENUM:

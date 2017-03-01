@@ -14,13 +14,13 @@ void InstLinear::loadProperties()
 {
     VisuInstrument::loadProperties();
 
-    GET_PROPERTY(cLineThickness, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMajorLen, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMinorLen, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMajorCnt, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMinorCnt, quint8, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cBarThickness, quint16, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cHorizontal, bool, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cLineThickness, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorLen, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMinorLen, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorCnt, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMinorCnt, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cBarThickness, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cHorizontal, mProperties, mPropertiesMeta);
 
     mTagName = InstLinear::TAG_NAME;
 }

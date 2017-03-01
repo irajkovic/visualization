@@ -10,12 +10,13 @@
 	<name>Digital instrument</name>
 	<padding type="int" min="0">10</padding>
 	<showSignalName type="bool">1</showSignalName>
-	<showSignalUnit type="bool">1</showSignalUnit>
+	<showSignalUnit type="bool">0</showSignalUnit>
 	<signalId type="signal">0</signalId>
 	<type type="read_only">DIGITAL</type>
 	<width type="int" min="0">200</width>
 	<x type="int" min="0">0</x>
 	<y type="int" min="0">0</y>
 	<leadingDigits type="int" min="0" max="255">0</leadingDigits>
+	<decimalDigits type="int" min="0" max="255">2</decimalDigits>
 </widget>
 

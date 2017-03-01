@@ -6,7 +6,7 @@ const QString VisuPropertyMeta::KEY_TYPE = "type";
 const QString VisuPropertyMeta::KEY_EXTRA = "extra";
 const QString VisuPropertyMeta::DELIMITER = ",";
 
-const char* VisuPropertyMeta::TYPES_MAP[12] =
+const char* VisuPropertyMeta::TYPES_MAP[] =
 {
     "",
     "enum",
@@ -19,6 +19,7 @@ const char* VisuPropertyMeta::TYPES_MAP[12] =
     "bool",
     "font",
     "image",
+    "serial",
     "hidden"
 };
 

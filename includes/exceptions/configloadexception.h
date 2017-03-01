@@ -15,7 +15,7 @@ public:
 
     ConfigLoadException(QString desc, QString arg = "")
     {
-        message = QString(desc).arg(arg);
+        message = arg == "" ? QString(desc) : QString(desc).arg(arg);
 
         if (!ConfigLoadException::context.isEmpty())
         {

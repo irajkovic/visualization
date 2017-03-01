@@ -167,11 +167,11 @@ void VisuSignal::load(QMap<QString, QString> properties)
 {
     mProperties = properties;
     QMap<QString, VisuPropertyMeta> emptyMap;
-    GET_PROPERTY(cId, quint16, properties, emptyMap);
-    GET_PROPERTY(cName, QString, properties, emptyMap);
-    GET_PROPERTY(cUnit, QString, properties, emptyMap);
-    GET_PROPERTY(cFactor, double, properties, emptyMap);
-    GET_PROPERTY(cOffset, double, properties, emptyMap);
-    GET_PROPERTY(cMax, double, properties, emptyMap);
-    GET_PROPERTY(cMin, double, properties, emptyMap);
+    GET_PROPERTY(cId, properties, emptyMap);
+    GET_PROPERTY(cName, properties, emptyMap);
+    GET_PROPERTY(cUnit, properties, emptyMap);
+    GET_PROPERTY(cFactor, properties, emptyMap);
+    GET_PROPERTY(cOffset, properties, emptyMap);
+    GET_PROPERTY(cMax, properties, emptyMap);
+    GET_PROPERTY(cMin, properties, emptyMap);
 }

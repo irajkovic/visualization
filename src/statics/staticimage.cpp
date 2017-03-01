@@ -19,9 +19,9 @@ bool StaticImage::updateProperties(const QString& key, const QString& value)
 void StaticImage::loadProperties()
 {
     VisuWidget::loadProperties();
-    GET_PROPERTY(cImage, QImage, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cShow, bool, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cResize, bool, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cImage, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cShow, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cResize, mProperties, mPropertiesMeta);
 }
 
 void StaticImage::paintEvent(QPaintEvent* event)

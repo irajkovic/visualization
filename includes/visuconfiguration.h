@@ -34,6 +34,8 @@ class VisuConfiguration : public QObject
         QColor cColorBackground;
         QString cName;
         quint8 cConectivity;
+        QString cSerialPort;
+        quint32 cBaudRate;
 
         QMap<QString, QString> mProperties;
         VisuConfiguration()
@@ -90,6 +92,8 @@ class VisuConfiguration : public QObject
         // Getters
         QMap<QString, QString>& getProperties();
         quint16 getPort();
+        QString getSerialPort();
+        quint32 getBaudRate();
         quint16 getWidth();
         quint16 getHeight();
         QSize getSize() const;

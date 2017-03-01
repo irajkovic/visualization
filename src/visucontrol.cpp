@@ -11,8 +11,8 @@ void VisuControl::loadProperties()
 {
     VisuWidget::loadProperties();
 
-    GET_PROPERTY(cActionIp, QString, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cActionPort, quint16, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cActionIp, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cActionPort, mProperties, mPropertiesMeta);
 
 }
 
