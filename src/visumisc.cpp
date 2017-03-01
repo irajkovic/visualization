@@ -3,10 +3,7 @@
 
 void VisuMisc::setBackgroundColor(QWidget* widget, QColor color)
 {
-    QString stylesheet = QString("background-color: rgb(%1, %2, %3);")
-            .arg(color.red())
-            .arg(color.green())
-            .arg(color.blue());
+    QString stylesheet = QString("background-color: %1;").arg(VisuMisc::colorToStr(color));
     widget->setStyleSheet(stylesheet);
 }
 
@@ -78,6 +75,16 @@ QColor VisuMisc::strToColor(const QString& str)
                      , parts[3].toInt());
     }
     return QColor::Invalid;
+}
+
+QString VisuMisc::colorToStr(const QColor& color)
+{
+    QString colorStr = QString("rgba(%1, %2, %3, %4)")
+            .arg(color.red())
+            .arg(color.green())
+            .arg(color.blue())
+            .arg((double)color.alpha()/255.0);
+    return colorStr;
 }
 
 QImage VisuMisc::strToImage(const QString& str, const QString& format)

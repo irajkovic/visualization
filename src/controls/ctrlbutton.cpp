@@ -1,5 +1,7 @@
 #include "ctrlbutton.h"
 
+#include "visumisc.h"
+
 const QString CtrlButton::TAG_NAME = "BUTTON";
 
 void CtrlButton::sendCommand()
@@ -21,8 +23,11 @@ void CtrlButton::setupButton(QWidget* parent)
     mButton->setMinimumSize(cWidth, cHeight);
 
     mLayout->addWidget(mButton);
-    mButton->setText(cName);
-    mButton->setStyleSheet(cCss);
+
+    refresh("");
+
+
+
     QObject::connect(mButton,
                      SIGNAL(pressed()),
                      this,
@@ -42,6 +47,11 @@ void CtrlButton::loadProperties()
 
     GET_PROPERTY(cActionMessage, mProperties, mPropertiesMeta);
     GET_PROPERTY(cCss, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorBackground, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorForeground, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cBorderRadius, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cFontSize, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cFontType, mProperties, mPropertiesMeta);
 }
 
 void CtrlButton::setup(QWidget *parent)
@@ -54,12 +64,27 @@ void CtrlButton::setup(QWidget *parent)
     show();
 }
 
+QString CtrlButton::generateCss()
+{
+    QString css;
+    css += QString("background-color: %1;").arg(VisuMisc::colorToStr(cColorBackground));
+    css += QString("color: %1;").arg(VisuMisc::colorToStr(cColorForeground));
+    css += QString("border-radius: %1;").arg(cBorderRadius);
+    css += QString("font-family: %1;").arg(cFontType);
+    css += QString("font-size: %1px;").arg(cFontSize);
+    css += cCss;
+    return css;
+}
+
 bool CtrlButton::refresh(const QString& key)
 {
     VisuWidget::refresh(key);
+
+
+
     mButton->setText(cName);
     mButton->setMinimumSize(cWidth, cHeight);
     mButton->setMinimumSize(cWidth, cHeight);
-    mButton->setStyleSheet(cCss);
+    mButton->setStyleSheet(CtrlButton::generateCss());
     return false;
 }

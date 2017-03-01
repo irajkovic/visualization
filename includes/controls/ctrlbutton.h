@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QUdpSocket>
 #include <QHBoxLayout>
+#include <QColor>
 #include "visupropertyloader.h"
 #include "visucontrol.h"
 
@@ -38,8 +39,14 @@ private:
     QString cCss;
     QPushButton* mButton;
     QHBoxLayout* mLayout;
+    QColor cColorBackground;
+    QColor cColorForeground;
+    quint32 cBorderRadius;
+    quint16 cFontSize;
+    QString cFontType;
 
     void setupButton(QWidget* parent);
+    QString generateCss();
 
 private slots:
     void sendCommand();

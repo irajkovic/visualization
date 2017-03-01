@@ -22,6 +22,7 @@ public:
     static QString saveToFile(QFile &file, QString contents);
     static QPen getDashedPen(QColor color, int thickness);
     static QColor strToColor(const QString& str);
+    static QString colorToStr(const QColor& color);
     static QImage strToImage(const QString& str, const QString &format);
 };
 
