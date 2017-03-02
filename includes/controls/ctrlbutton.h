@@ -41,9 +41,11 @@ private:
     QHBoxLayout* mLayout;
     QColor cColorBackground;
     QColor cColorForeground;
+    QColor cColorBorder;
     quint32 cBorderRadius;
     quint16 cFontSize;
     QString cFontType;
+    quint8 cBorderThickness;
 
     void setupButton(QWidget* parent);
     QString generateCss();

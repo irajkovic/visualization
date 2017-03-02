@@ -38,6 +38,7 @@ SOURCES += main.cpp\
     instruments/instled.cpp \
     visupropertyloader.cpp \
     controls/ctrlbutton.cpp \
+    controls/ctrlslider.cpp \
     statics/staticimage.cpp \
     visuconfigloader.cpp \
     wysiwyg/stage.cpp \
@@ -75,6 +76,7 @@ HEADERS  += ../includes/mainwindow.h \
     ../includes/wysiwyg/editconfiguration.h \
     ../includes/visucontrol.h \
     ../includes/controls/ctrlbutton.h \
+    ../includes/controls/ctrlslider.h \
     ../includes/visupropertymeta.h \
     ../includes/wysiwyg/visupropertieshelper.h \
     ../includes/visupropertyloader.h \
