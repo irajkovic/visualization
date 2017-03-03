@@ -3,8 +3,8 @@
 	<colorBackground type="color">0,0,0,0</colorBackground>
 	<colorForeground type="color">0,0,0,250</colorForeground>
 	<colorStatic type="color">0,0,0,255</colorStatic>
-	<fontSize type="int" min="0">18</fontSize>
-	<fontType type="font">Arial</fontType>
+	<fontSize type="int" min="0">14</fontSize>
+	<fontType type="font">Arial Black</fontType>
 	<height type="int" min="0">30</height>
 	<id type="read_only">1</id>
 	<name>Digital instrument</name>

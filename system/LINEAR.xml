@@ -3,8 +3,8 @@
 	<colorBackground type="color">0,0,0,0</colorBackground>
 	<colorForeground type="color">250,50,50,200</colorForeground>
 	<colorStatic type="color">0,0,0,255</colorStatic>
-	<fontSize type="int" min="1">15</fontSize>
-	<fontType type="font">Arial</fontType>
+	<fontSize type="int" min="1">13</fontSize>
+	<fontType type="font">Arial Black</fontType>
 	<height type="int" min="0">50</height>
 	<id type="read_only">3</id>
 	<lineThickness type="int" min="1">2</lineThickness>

@@ -18,8 +18,8 @@
 	<width type="int" min="0">150</width>
 	<x type="int" min="0">218</x>
 	<y type="int" min="0">161</y>
-	<fontSize type="int" min="1">11</fontSize>
-	<fontType type="font">Arial</fontType>
+	<fontSize type="int" min="1">10</fontSize>
+	<fontType type="font">Arial Black</fontType>
 	<padding type="int" min="0">25</padding>
 	<decimals type="int" min="0">0</decimals>
 </widget>

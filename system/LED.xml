@@ -12,8 +12,8 @@
 	<imageOff type="image">-1</imageOff>
 	<colorStatic type="color">0,0,0,255</colorStatic>
 	<condition type="enum" extra="val1&gt; AND &lt;val2,&lt; val1,&lt;= val1,&gt;= val1,&gt; val1">0</condition>
-	<fontSize type="int" min="0">18</fontSize>
-	<fontType type="font">Arial</fontType>
+	<fontSize type="int" min="0">15</fontSize>
+	<fontType type="font">Arial Black</fontType>
 	<id type="read_only">2</id>
 	<name>Led instrument</name>
 	<radius type="int" min="0">20</radius>
