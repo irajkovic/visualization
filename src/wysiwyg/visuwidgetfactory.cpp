@@ -9,6 +9,7 @@
 #include "instanalog.h"
 #include "instxyplot.h"
 #include "ctrlbutton.h"
+#include "ctrlslider.h"
 #include "visuconfigloader.h"
 
 VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
@@ -53,6 +54,10 @@ VisuWidget* VisuWidgetFactory::createWidget(QWidget* parent,
     else if (type == CtrlButton::TAG_NAME)
     {
         widget = new CtrlButton(parent, properties, metaProperties);
+    }
+    else if (type == CtrlSlider::TAG_NAME)
+    {
+        widget = new CtrlSlider(parent, properties, metaProperties);
     }
     else if (type == StaticImage::TAG_NAME)
     {

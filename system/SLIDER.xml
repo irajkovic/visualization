@@ -1,0 +1,22 @@
+<widget>
+    <id type="read_only">1</id>
+    <type type="read_only">SLIDER</type>
+    <width type="int" min="0">100</width>
+    <height type="int" min="0">30</height>
+    <x type="int">0</x>
+    <y type="int">0</y>
+    <name>Slider</name>
+    <actionIp>127.0.0.1</actionIp>
+    <actionPort type="int" min="0">5000</actionPort>
+    <range type="int" min="1" max="999999">1</range>
+    <css>border-style: outset;</css>
+    <colorBackground type="color">200, 200, 200, 200</colorBackground>
+    <colorForeground type="color">255, 255, 255, 255</colorForeground>
+    <colorBorder type="color">0,0,0,255</colorBorder>
+    <borderRadius type="int" min="0">5</borderRadius>
+    <fontType type="font">Arial Black</fontType>
+    <fontSize type="int" min="1">14</fontSize>
+    <borderThickness type="int" min="0">2</borderThickness>
+    <horizontal type="bool">1</horizontal>
+</widget>
+

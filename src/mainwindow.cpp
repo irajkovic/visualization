@@ -8,6 +8,7 @@
 #include "instled.h"
 #include "instxyplot.h"
 #include "ctrlbutton.h"
+#include "ctrlslider.h"
 #include "visuconfigloader.h"
 #include "wysiwyg/visuwidgetfactory.h"
 #include <QXmlStreamReader>
@@ -333,6 +334,7 @@ void MainWindow::setupToolbarWidgets(QPointer<QWidget> toolbar)
     layout->addWidget(VisuWidgetFactory::createWidget(this, InstLED::TAG_NAME));
     layout->addWidget(VisuWidgetFactory::createWidget(this, InstXYPlot::TAG_NAME));
     layout->addWidget(VisuWidgetFactory::createWidget(this, CtrlButton::TAG_NAME));
+    layout->addWidget(VisuWidgetFactory::createWidget(this, CtrlSlider::TAG_NAME));
 
     mConfiguration->initializeInstruments();
 }
