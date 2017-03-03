@@ -16,7 +16,7 @@ void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
     mTable = new QTableWidget();
     VisuPropertiesHelper::updateTable(mTable,
                           mProperties,
-                          VisuConfigLoader::getMetaMapFromFile(VisuConfiguration::TAG_NAME, VisuConfiguration::TAG_NAME),
+                          mConfiguration->getPropertiesMeta(),
                           std::make_pair(this, SLOT(propertyChange())));
     mTable->setMaximumWidth(300);
     mTable->verticalHeader()->hide();
@@ -53,8 +53,7 @@ void EditConfiguration::cellUpdated(int row, int col)
     (void)col;
     QString key = mTable->item(row, 0)->text();
     QString value = VisuPropertiesHelper::getValueString(mTable, row);
-    mProperties[key] = value;
-    mConfiguration->setConfigValues(mProperties);
+    mConfiguration->updateProperties(key, value);
 }
 
 

@@ -11,6 +11,27 @@ void VisuServer::handleSerialError(QSerialPort::SerialPortError serialPortError)
     qDebug("Error!");
 }
 
+void VisuServer::sendSerial(const QByteArray& data)
+{
+    if (serialPort != nullptr)
+    {
+        qint64 bytesWritten = serialPort->write(data);
+
+        if (bytesWritten == -1)
+        {
+            qDebug() << QObject::tr("Failed to write the data to port %1, error: %2")
+                        .arg(serialPort->portName())
+                        .arg(serialPort->errorString());
+        }
+        else if (bytesWritten != data.size())
+        {
+            qDebug() << QObject::tr("Failed to write all the data to port %1, error: %2")
+                        .arg(serialPort->portName())
+                        .arg(serialPort->errorString());
+        }
+    }
+}
+
 void VisuServer::handleSerial()
 {
     serialBuffer.append(serialPort->readAll());
@@ -71,9 +92,11 @@ void VisuServer::start()
             throw ConfigLoadException(QObject::tr("Setup of %1 failed"), serialPortName);
         }
 
-        if (!serialPort->open(QIODevice::ReadOnly))
+        if (!serialPort->open(QIODevice::ReadWrite))
         {
-            throw ConfigLoadException(QObject::tr("Failed to open port %1, error: %2").arg(serialPortName).arg(serialPort->errorString()));
+            throw ConfigLoadException(QObject::tr("Failed to open port %1, error: %2")
+                                      .arg(serialPortName)
+                                      .arg(serialPort->errorString()));
         }
         else
         {

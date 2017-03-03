@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QUdpSocket>
 #include <QSerialPort>
+#include "visuappinfo.h"
 #include "visusignal.h"
 #include "visudatagram.h"
 #include "visuconfiguration.h"
@@ -40,6 +41,8 @@ class VisuServer : public QObject
                     this,
                     &VisuServer::handleSerialError );
         }
+
+        VisuAppInfo::setServer(this);
     }
     void start();
     void stop();
@@ -65,6 +68,7 @@ class VisuServer : public QObject
     public slots:
         void handleDatagram();
         void handleSerial();
+        void sendSerial(const QByteArray& data);
         void handleSerialError(QSerialPort::SerialPortError serialPortError);
 
 

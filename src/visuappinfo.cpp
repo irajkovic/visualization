@@ -9,6 +9,7 @@ VisuAppInfo* VisuAppInfo::getInstance()
         instance = new VisuAppInfo();
         instance->inEditorMode = false;
         instance->configWrong = false;
+        instance->server = nullptr;
     }
     return instance;
 }
@@ -61,4 +62,14 @@ void VisuAppInfo::setCLIArgs(int argc, char* argv[])
     {
         args.append(QString(argv[i]));
     }
+}
+
+void VisuAppInfo::setServer(VisuServer *srv)
+{
+    getInstance()->server = srv;
+}
+
+VisuServer* VisuAppInfo::getServer()
+{
+    return getInstance()->server;
 }

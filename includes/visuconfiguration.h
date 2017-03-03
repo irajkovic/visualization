@@ -5,6 +5,8 @@
 #include "visuinstrument.h"
 #include "ctrlbutton.h"
 #include "statics/staticimage.h"
+#include "visupropertymeta.h"
+#include "visuconfigloader.h"
 #include <QWidget>
 #include <QObject>
 #include <QXmlStreamReader>
@@ -38,9 +40,12 @@ class VisuConfiguration : public QObject
         quint32 cBaudRate;
 
         QMap<QString, QString> mProperties;
+        QMap<QString, VisuPropertyMeta> mPropertiesMeta;
+
         VisuConfiguration()
         {
-            mProperties = QMap<QString, QString>();
+            mPropertiesMeta = VisuConfigLoader::getMetaMapFromFile(VisuConfiguration::TAG_NAME,
+                                                                   VisuConfiguration::TAG_NAME);
         }
 
     public:
@@ -48,10 +53,13 @@ class VisuConfiguration : public QObject
         static VisuConfiguration* get();
         static VisuConfiguration* getClean();
         virtual ~VisuConfiguration();
-        void setConfigValues(QMap<QString, QString>& properties);
+        void setConfigValues();
         void fromXML(QWidget *parent, const QString& xml);
         QString toXML();
         void initializeInstruments();
+        void updateProperties(const QString& key, const QString& value);
+        void setPropertiesMeta(QMap<QString, VisuPropertyMeta> meta);
+        QMap<QString, VisuPropertyMeta> getPropertiesMeta();
 
         // General widget methods
         QPointer<VisuWidget> createWidgetFromToken(QXmlStreamReader& xmlReader, QWidget *parent);
@@ -100,6 +108,7 @@ class VisuConfiguration : public QObject
         QColor getBackgroundColor();
         QString getName();
         quint8 getConectivity();
+
 
         static const QString TAG_WIDGET;
         static const QString TAG_SIGNAL;

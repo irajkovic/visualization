@@ -1,16 +1,28 @@
 #include "ctrlbutton.h"
-
 #include "visumisc.h"
+#include <visuserver.h>
 
 const QString CtrlButton::TAG_NAME = "BUTTON";
 
 void CtrlButton::sendCommand()
 {
-    mSocket.writeDatagram(
-                cActionMessage.toStdString().c_str(),
-                cActionMessage.size(),
-                mAddress,
-                cActionPort);
+    if (VisuConfiguration::get()->getConectivity() != VisuServer::SERIAL_ONLY)
+    {
+        mSocket.writeDatagram(
+                    cActionMessage.toStdString().c_str(),
+                    cActionMessage.size(),
+                    mAddress,
+                    cActionPort);
+    }
+
+    if (VisuConfiguration::get()->getConectivity() != VisuServer::UDP_ONLY)
+    {
+        VisuServer* server = VisuAppInfo::getServer();
+        if (server != nullptr)
+        {
+            server->sendSerial(cActionMessage.toLatin1());
+        }
+    }
 
     emit(widgetActivated(this));
 }
@@ -25,8 +37,6 @@ void CtrlButton::setupButton(QWidget* parent)
     mLayout->addWidget(mButton);
 
     refresh("");
-
-
 
     QObject::connect(mButton,
                      SIGNAL(pressed()),
@@ -79,9 +89,6 @@ QString CtrlButton::generateCss()
 bool CtrlButton::refresh(const QString& key)
 {
     VisuWidget::refresh(key);
-
-
-
     mButton->setText(cName);
     mButton->setMinimumSize(cWidth, cHeight);
     mButton->setMinimumSize(cWidth, cHeight);

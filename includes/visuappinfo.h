@@ -4,6 +4,8 @@
 #include <QString>
 #include <QStringList>
 
+class VisuServer;
+
 class VisuAppInfo
 {
 
@@ -32,6 +34,8 @@ public:
     static const QString& getCLIArg(RunArgs arg);
     static void setCLIArgs(int argc, char* argv[]);
     static int argsSize();
+    static void setServer(VisuServer* srv);
+    static VisuServer* getServer();
 
 
 private:
@@ -42,6 +46,7 @@ private:
     bool configWrong;
     QStringList configIssues;
     QStringList cliArgs;
+    VisuServer* server;
 };
 
 #endif // VISUAPPINFO_H

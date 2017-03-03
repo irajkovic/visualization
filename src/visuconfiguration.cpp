@@ -83,22 +83,43 @@ void VisuConfiguration::initializeInstruments()
 
 void VisuConfiguration::createConfigurationFromToken(QXmlStreamReader& xmlReader)
 {
-    QMap<QString, QString> properties = VisuConfigLoader::parseToMap(xmlReader, TAG_NAME);
-    setConfigValues(properties);
+    mProperties = VisuConfigLoader::parseToMap(xmlReader, TAG_NAME);
+    setConfigValues();
 }
 
-void VisuConfiguration::setConfigValues(QMap<QString, QString>& properties)
+void VisuConfiguration::updateProperties(const QString& key, const QString& value)
 {
-    mProperties = properties;
-    QMap<QString, VisuPropertyMeta> emptyMap;
-    GET_PROPERTY(cPort, properties, emptyMap);
-    GET_PROPERTY(cWidth, properties, emptyMap);
-    GET_PROPERTY(cHeight, properties, emptyMap);
-    GET_PROPERTY(cColorBackground, properties, emptyMap);
-    GET_PROPERTY(cName, properties, emptyMap);
-    GET_PROPERTY(cConectivity, properties, emptyMap);
-    GET_PROPERTY(cSerialPort, properties, emptyMap);
-    GET_PROPERTY(cBaudRate, properties, emptyMap);
+    mProperties[key] = value;
+    setConfigValues();
+}
+
+QMap<QString, QString>& VisuConfiguration::getProperties()
+{
+    return mProperties;
+}
+
+void VisuConfiguration::setPropertiesMeta(QMap<QString, VisuPropertyMeta> meta)
+{
+    mPropertiesMeta = meta;
+}
+
+
+QMap<QString, VisuPropertyMeta> VisuConfiguration::getPropertiesMeta()
+{
+    return mPropertiesMeta;
+}
+
+
+void VisuConfiguration::setConfigValues()
+{
+    GET_PROPERTY(cPort, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cWidth, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cHeight, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cColorBackground, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cName, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cConectivity, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cSerialPort, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cBaudRate, mProperties, mPropertiesMeta);
 }
 
 void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
@@ -309,11 +330,6 @@ void VisuConfiguration::deleteSignal(int signalId)
 {
     // pointer will be cleared automaticaly by QPointer
     delete (signalsList[signalId]);
-}
-
-QMap<QString, QString>& VisuConfiguration::getProperties()
-{
-    return mProperties;
 }
 
 template <typename T>
