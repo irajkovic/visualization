@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<colorBackground type="color">130,130,130,255</colorBackground>
-	<colorForeground type="color">0,0,0,255</colorForeground>
-	<colorGraphBackground type="color">255,255,255,255</colorGraphBackground>
-	<colorStatic type="color">0,0,0,255</colorStatic>
-	<decimals type="int" min="0" max="9">0</decimals>
-	<divisionFormat>mm:ss</divisionFormat>
-	<fontSize type="int" min="0">11</fontSize>
-	<fontType type="font">Arial Black</fontType>
-	<height type="int" min="0">150</height>
-	<id type="read_only">4</id>
-	<lineThickness type="int" min="0">2</lineThickness>
-	<majorCnt type="int" min="1">4</majorCnt>
-	<markerDt type="int" min="0">500</markerDt>
-	<markerThickness type="int" min="0">1</markerThickness>
-	<masterTimeFormat>hh:mm:ss</masterTimeFormat>
-	<minorCnt type="int" min="1">2</minorCnt>
-	<name>Time plot instrument</name>
-	<signalId type="signal">0</signalId>
-	<staticThickness type="int" min="0">1</staticThickness>
-	<ticksInSecond type="int" min="0">100</ticksInSecond>
-	<timespan type="int" min="0">3000</timespan>
-	<type type="read_only">TIME_PLOT</type>
-	<width type="int" min="0">300</width>
-	<x type="int" min="0">0</x>
-	<y type="int" min="0">0</y>
+    <id type="read_only" label="Widget ID">4</id>
+	<type type="read_only" label="Type">TIME_PLOT</type>
+	<name label="Name">Time plot instrument</name>
+	<signalId type="signal" label="Signal">0</signalId>
+
+	<x type="int" min="0" label="X">0</x>
+	<y type="int" min="0" label="Y">0</y>
+	<width type="int" min="0" label="Width">300</width>
+	<height type="int" min="0" label="Height">150</height>
+	
+	<ticksInSecond type="int" min="0" label="Ticks per second">100</ticksInSecond>
+	<timespan type="int" min="0" label="Timespan (ticks)">3000</timespan>
+				
+	<colorBackground type="color" label="Background color">130,130,130,255</colorBackground>
+	<colorForeground type="color" label="Graphed line color">0,0,0,255</colorForeground>
+	<colorGraphBackground type="color" label="Graphing area color">255,255,255,255</colorGraphBackground>
+	<colorStatic type="color" label="Markings color">0,0,0,255</colorStatic>
+
+	<lineThickness type="int" min="0" label="Graphed line thickness">2</lineThickness>
+	<staticThickness type="int" min="0" label="Markings thickness">1</staticThickness>
+	<markerThickness type="int" min="0" label="Marker thickness">1</markerThickness>
+	
+	<markerDt type="int" min="0" label="Marker interval">500</markerDt>
+	<divisionFormat label="Marker time format">mm:ss</divisionFormat>
+	<masterTimeFormat label="Master time format">hh:mm:ss</masterTimeFormat>
+
+	<majorCnt type="int" min="1" label="Major divisions">4</majorCnt>
+	<decimals type="int" min="0" max="9" label="Major decimals">0</decimals>
+	<minorCnt type="int" min="1" label="Minor divisions">2</minorCnt>
+				
+	<fontSize type="int" min="0" label="Font size">11</fontSize>
+	<fontType type="font" label="Font type">Arial Black</fontType>
+
 </widget>
 

@@ -7,6 +7,8 @@ void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowTitle(tr("Configuration parameters"));
 
+    resize(mWidth, mHeight);
+
     mConfiguration = configuration;
 
     QLayout* vlayout = new QVBoxLayout();
@@ -18,7 +20,7 @@ void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
                           mProperties,
                           mConfiguration->getPropertiesMeta(),
                           std::make_pair(this, SLOT(propertyChange())));
-    mTable->setMaximumWidth(300);
+    mTable->setMaximumWidth(400);
     mTable->verticalHeader()->hide();
     mTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     vlayout->addWidget(mTable);

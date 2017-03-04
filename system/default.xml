@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <visu_config>
-   <configuration>
-       <port>3334</port>
-       <width>800</width>
-       <height>600</height>
-       <colorBackground>130,130,130,255</colorBackground>
-       <name>Sample configuration</name>
-	   <conectivity>1</conectivity>
-	   <serialPort>-</serialPort>
-	   <baudRate>9600</baudRate>
+    <configuration>
+        <name>Sample configuration</name>
+        <width>800</width>
+        <height>600</height>
+        <conectivity>1</conectivity>        
+        <port>3334</port>
+        <serialPort>-</serialPort>
+        <colorBackground>130,130,130,255</colorBackground>        
+        <baudRate>9600</baudRate>
    </configuration>
    <signals>
         <signal>

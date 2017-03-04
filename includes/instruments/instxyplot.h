@@ -34,8 +34,6 @@ private:
     quint16 cMajorCntX;
     quint16 cMajorCntY;
     quint16 cMajorLen;
-    QString cLabelX;
-    QString cLabelY;
     quint16 cPadding;
     quint8 cDecimals;
 

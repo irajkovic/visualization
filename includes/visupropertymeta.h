@@ -39,6 +39,7 @@ public:
     QString defaultVal;
     Type type;
     QString extra;
+    QString label;
 
     QStringList getEnumOptions();
 
@@ -50,10 +51,7 @@ public:
     static const QString KEY_MAX;
     static const QString KEY_TYPE;
     static const QString KEY_EXTRA;
-
-
-
-
+    static const QString KEY_LABEL;
 };
 
 #endif // VISUPROPERTYMETA_H

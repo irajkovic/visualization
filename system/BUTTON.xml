@@ -1,21 +1,27 @@
 <widget>
-    <id type="read_only">1</id>
-    <type type="read_only">BUTTON</type>
-    <width type="int" min="0">100</width>
-    <height type="int" min="0">30</height>
-    <x type="int">0</x>
-    <y type="int">0</y>
-    <name>Button</name>
-    <actionIp>127.0.0.1</actionIp>
-    <actionPort type="int" min="0">5000</actionPort>
-    <actionMessage>switch</actionMessage>
-    <css>border-style: outset;</css>
-	<colorBackground type="color">200, 200, 200, 200</colorBackground>
-	<colorForeground type="color">255, 255, 255, 255</colorForeground>
-	<colorBorder type="color">0,0,0,255</colorBorder>
-	<borderRadius type="int" min="0">5</borderRadius>
-	<fontType type="font">Arial Black</fontType>
-	<fontSize type="int" min="1">14</fontSize>
-	<borderThickness type="int" min="0">2</borderThickness>
+    <id type="read_only" label="Widget ID">1</id>
+    <type type="read_only" label="Type">BUTTON</type>
+    <name label="Name">Button</name>
+
+    <x type="int" label="X">0</x>
+    <y type="int" label="Y">0</y>    
+    <width type="int" min="0" label="Width">100</width>
+    <height type="int" min="0" label="Height">30</height>
+
+    <actionIp label="Destination IP">127.0.0.1</actionIp>
+    <actionPort type="int" min="0" label="Destination port">5000</actionPort>
+    <actionMessage label="Message">switch</actionMessage>
+   
+	<colorBackground type="color" label="Background color">200, 200, 200, 200</colorBackground>
+	<colorForeground type="color" label="Text color">255, 255, 255, 255</colorForeground>
+	<colorBorder type="color" label="Border color">0,0,0,255</colorBorder>
+	
+	<borderRadius type="int" min="0" label="Border radius">5</borderRadius>
+	<borderThickness type="int" min="0" label="Border thickness">2</borderThickness>
+		
+	<fontType type="font" label="Font type">Arial Black</fontType>
+	<fontSize type="int" min="1" label="Font size">14</fontSize>
+	
+    <css label="Suplementary CSS">border-style: outset;</css>
 </widget>
 

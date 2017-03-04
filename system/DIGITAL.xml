@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<colorBackground type="color">0,0,0,0</colorBackground>
-	<colorForeground type="color">0,0,0,250</colorForeground>
-	<colorStatic type="color">0,0,0,255</colorStatic>
-	<fontSize type="int" min="0">14</fontSize>
-	<fontType type="font">Arial Black</fontType>
-	<height type="int" min="0">30</height>
-	<id type="read_only">1</id>
-	<name>Digital instrument</name>
-	<padding type="int" min="0">10</padding>
-	<showSignalName type="bool">1</showSignalName>
-	<showSignalUnit type="bool">0</showSignalUnit>
-	<signalId type="signal">0</signalId>
-	<type type="read_only">DIGITAL</type>
-	<width type="int" min="0">200</width>
-	<x type="int" min="0">0</x>
-	<y type="int" min="0">0</y>
-	<leadingDigits type="int" min="0" max="255">0</leadingDigits>
-	<decimalDigits type="int" min="0" max="255">2</decimalDigits>
+	<id type="read_only" label="Widget ID">1</id>
+	<type type="read_only" label="Type">DIGITAL</type>
+	<name label="Name">Digital instrument</name>
+	<signalId type="signal" label="Signal">0</signalId>
+	
+	<x type="int" min="0" label="X">0</x>
+	<y type="int" min="0" label="Y">0</y>
+	<width type="int" min="0" label="Width">200</width>
+	<height type="int" min="0" label="Height">30</height>
+				
+	<colorBackground type="color" label="Background color">0,0,0,0</colorBackground>
+	<colorForeground type="color" label="Text color">0,0,0,250</colorForeground>
+	<colorStatic type="hidden">0,0,0,0</colorStatic>
+	
+	<fontSize type="int" min="0" label="Font size">14</fontSize>
+	<fontType type="font" label="Font type">Arial Black</fontType>
+
+	<padding type="int" min="0" label="Padding">10</padding>
+	<showSignalName type="bool" label="Show signal name">1</showSignalName>
+	<showSignalUnit type="bool" label="Show signal unit">0</showSignalUnit>
+
+	<leadingDigits type="int" min="0" max="255" label="Total digits">0</leadingDigits>
+	<decimalDigits type="int" min="0" max="255" label="Decimal digits">2</decimalDigits>
 </widget>
 

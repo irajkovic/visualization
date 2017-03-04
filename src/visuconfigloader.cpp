@@ -2,8 +2,11 @@
 #include <QFile>
 #include "exceptions/configloadexception.h"
 #include <QXmlStreamAttribute>
+#include "visuappinfo.h"
 
 const QString VisuConfigLoader::PATH = "system/";
+const QString VisuConfigLoader::ORDER = "_order";
+const QString VisuConfigLoader::ORDER_DELIMITER = ",";
 
 QByteArray VisuConfigLoader::loadXMLFromFile(QString path)
 {
@@ -55,6 +58,10 @@ QMap<QString, VisuPropertyMeta> VisuConfigLoader::parseMetaToMap(QXmlStreamReade
                 {
                     meta.extra = attr.value().toString();
                 }
+                else if (attr.name().toString() == VisuPropertyMeta::KEY_LABEL)
+                {
+                    meta.label = attr.value().toString();
+                }
             }
         }
         else if (xmlReader.tokenType() == QXmlStreamReader::Characters && !xmlReader.isWhitespace())
@@ -76,6 +83,12 @@ QMap<QString, QString> VisuConfigLoader::parseToMap(QXmlStreamReader& xmlReader,
     QString name;
     QString value;
 
+    bool trackInsertionOrder = VisuAppInfo::isInEditorMode();
+    if (trackInsertionOrder)
+    {
+        map[ORDER] = "";
+    }
+
     while ( xmlReader.tokenType() != QXmlStreamReader::EndElement || xmlReader.name() != element)
     {
 
@@ -92,6 +105,11 @@ QMap<QString, QString> VisuConfigLoader::parseToMap(QXmlStreamReader& xmlReader,
         {
             value = xmlReader.text().toString();
             map[name] = value;
+
+            if (trackInsertionOrder)
+            {
+                map[ORDER].append(QString("%1%2").arg(name).arg(ORDER_DELIMITER));
+            }
         }
 
         xmlReader.readNext();

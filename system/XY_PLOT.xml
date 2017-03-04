@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<ballSize type="int" min="0">10</ballSize>
-	<colorBackground type="color">200,200,200,0</colorBackground>
-	<colorForeground type="color">250,50,50,120</colorForeground>
-	<colorStatic type="color">0,0,0,255</colorStatic>
-	<height type="int" min="0">150</height>
-	<id type="read_only">5</id>
-	<labelX>X osa</labelX>
-	<labelY>Y osa</labelY>
-	<majorCntX type="int" min="1">4</majorCntX>
-	<majorCntY type="int" min="1">4</majorCntY>
-	<majorLen type="int" min="0">53</majorLen>
-	<name>XY plot instrument</name>
-	<signalId type="signal">0</signalId>
-	<signalIdY type="signal">0</signalIdY>
-	<type type="read_only">XY_PLOT</type>
-	<width type="int" min="0">150</width>
-	<x type="int" min="0">218</x>
-	<y type="int" min="0">161</y>
-	<fontSize type="int" min="1">10</fontSize>
-	<fontType type="font">Arial Black</fontType>
-	<padding type="int" min="0">25</padding>
-	<decimals type="int" min="0">0</decimals>
+	<id type="read_only" label="Widget ID">5</id>
+	<type type="read_only" label="Type">XY_PLOT</type>
+	<name label="Name">XY plot instrument</name>
+    <signalId type="signal" label="Horizontal signal">0</signalId>
+	<signalIdY type="signal" label="Vertical signal">0</signalIdY>
+	
+	<x type="int" min="0" label="X">218</x>
+	<y type="int" min="0" label="Y">161</y>
+	<width type="int" min="0" label="Width">150</width>
+	<height type="int" min="0" label="Height">150</height>
+			
+	<ballSize type="int" min="0" label="Indicator size">10</ballSize>
+	
+	<colorBackground type="color" label="Background color">200,200,200,0</colorBackground>
+	<colorForeground type="color" label="Indicator color">250,50,50,120</colorForeground>
+	<colorStatic type="color" label="Markings color">0,0,0,255</colorStatic>
+	
+	<padding type="int" min="0" label="Padding">25</padding>
+	<decimals type="int" min="0" label="Division decimals">0</decimals>
+	<majorCntX type="int" min="1" label="Horizontal divisions">4</majorCntX>
+	<majorCntY type="int" min="1" label="Vertical divisions">4</majorCntY>
+	<majorLen type="int" min="0" label="Divisions length">53</majorLen>
+
+	<fontSize type="int" min="1" label="Font size">10</fontSize>
+	<fontType type="font" label="Font type">Arial Black</fontType>
+	
 </widget>
 

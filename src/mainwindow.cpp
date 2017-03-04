@@ -540,9 +540,8 @@ void MainWindow::refreshEditorGui(QString key)
 
 void MainWindow::cellUpdated(int row, int col)
 {
-    (void)col;
-
-    QString key = mPropertiesTable->item(row,0)->text();
+    QString key = mPropertiesTable->cellWidget(row, col)
+            ->property(VisuPropertiesHelper::PROP_KEY).toString();
     QString value = VisuPropertiesHelper::getValueString(mPropertiesTable, row);
 
     if (mActiveWidget->updateProperties(key, value))

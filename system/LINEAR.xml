@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<colorBackground type="color">0,0,0,0</colorBackground>
-	<colorForeground type="color">250,50,50,200</colorForeground>
-	<colorStatic type="color">0,0,0,255</colorStatic>
-	<fontSize type="int" min="1">13</fontSize>
-	<fontType type="font">Arial Black</fontType>
-	<height type="int" min="0">50</height>
-	<id type="read_only">3</id>
-	<lineThickness type="int" min="1">2</lineThickness>
-	<majorCnt type="int" min="1">5</majorCnt>
-	<majorLen type="int" min="0">7</majorLen>
-	<minorCnt type="int" min="1">2</minorCnt>
-	<minorLen type="int" min="0">3</minorLen>
-	<name>Linear instrument</name>
-	<signalId type="signal">0</signalId>
-	<type type="read_only">LINEAR</type>
-	<barThickness type="int" min="1">10</barThickness>
-	<width type="int" min="0">200</width>
-	<x type="int" min="0">0</x>
-	<y type="int" min="0">0</y>
-	<horizontal type="bool">1</horizontal>
+	<id type="read_only" label="Widget ID">3</id>
+	<type type="read_only" label="Type">LINEAR</type>
+	<name label="Name">Linear instrument</name>
+	<signalId type="signal" label="Signal">0</signalId>
+
+	<x type="int" min="0" label="X">0</x>
+	<y type="int" min="0" label="Y">0</y>
+	<width type="int" min="0" label="Width">200</width>
+	<height type="int" min="0" label="Height">50</height>
+	
+	<horizontal type="bool" label="Horizontal layout">1</horizontal>
+	
+	<majorCnt type="int" min="1" label="Major divisions">5</majorCnt>
+	<minorCnt type="int" min="1" label="Minor divisions">2</minorCnt>	
+	<majorLen type="int" min="0" label="Major length">7</majorLen>
+	<minorLen type="int" min="0" label="Minor length">3</minorLen>
+	
+	<barThickness type="int" min="1" label="Bar thickness">10</barThickness>
+	<lineThickness type="int" min="1" label="Markings thickness">2</lineThickness>
+				
+	<colorBackground type="color" label="Background color">0,0,0,0</colorBackground>
+	<colorForeground type="color" label="Bar color">250,50,50,200</colorForeground>
+	<colorStatic type="color" label="Markings color">0,0,0,255</colorStatic>
+	
+	<fontSize type="int" min="1" label="Font size">13</fontSize>
+	<fontType type="font" label="Font type">Arial Black</fontType>
+
 </widget>

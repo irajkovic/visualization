@@ -1,11 +1,12 @@
 <configuration>
-   <port type="int" min="1024">3334</port>
-   <width type="int" min="0">800</width>
-   <height type="int" min="0">600</height>
-   <colorBackground type="color">130,130,130,255</colorBackground>
-   <name>Sample configuration</name>
-   <conectivity type="enum" extra="UDP &amp; Serial,UDP only,Serial only">1</conectivity>
-   <serialPort type="serial">0</serialPort>
-   <baudRate type="int" min="0">9600</baudRate>
+   <name label="Name">Sample configuration</name>
+   <width type="int" min="0" label="Width">800</width>
+   <height type="int" min="0" label="Height">600</height>
+   <conectivity type="enum" extra="UDP &amp; Serial,UDP only,Serial only" label="Connection options">1</conectivity>   
+   <port type="int" min="1024" label="UDP port">3334</port>
+   <serialPort type="serial" label="Serial port">0</serialPort>
+   <baudRate type="int" min="0" label="Serial baud rate">9600</baudRate>   
+   <colorBackground type="color" label="Background color">130,130,130,255</colorBackground>
 </configuration>
+
 

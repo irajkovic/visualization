@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <signal>        
-   <id type="read_only">0</id>
-   <name type="string">Sample signal</name>
-   <unit type="string">Units</unit>
-   <factor type="float" min="0">1.0</factor>
-   <offset type="float">0.0</offset>
-   <min type="float">0</min>
-   <max type="float">200</max>
+   <id type="read_only" label="Signal ID">0</id>
+   <name type="string" label="Name">Sample signal</name>
+   <unit type="string" label="Units">Units</unit>
+   <min type="float" label="Minimum value">0</min>
+   <max type="float" label="Maximum value">200</max>
+   <factor type="float" min="0" label="Factor">1.0</factor>
+   <offset type="float" label="Offset">0.0</offset>
 </signal>
 

@@ -19,6 +19,7 @@ void InstAnalog::loadProperties()
     VisuInstrument::loadProperties();
 
     // custom properties initializer
+    GET_PROPERTY(cColorCircle, mProperties, mPropertiesMeta);
     GET_PROPERTY(cLineThickness, mProperties, mPropertiesMeta);
     GET_PROPERTY(cMajorLen, mProperties, mPropertiesMeta);
     GET_PROPERTY(cMinorLen, mProperties, mPropertiesMeta);
@@ -47,28 +48,21 @@ void InstAnalog::loadProperties()
 void InstAnalog::renderStatic(QPainter* painter)
 {
     clear(painter);
-    setPen(painter, cColorStatic);
+    setPen(painter, cColorStatic, cLineThickness);
     setFont(painter);
     setupProperties();
+
+    if (cDrawCircle)
+    {
+        renderOutterCircle(painter);
+    }
+
+    renderCircularFeatures(painter);
 
     if (cShowLabel)
     {
         renderLabel(painter);
     }
-
-    if (cDrawCircle) {
-
-        renderOutterCircle(painter);
-    }
-    renderCircularFeatures(painter);
-}
-
-void InstAnalog::setPen(QPainter* painter, QColor color)
-{
-    QPen pen;
-    pen.setWidth(cLineThickness);
-    pen.setColor(color);
-    painter->setPen(pen);
 }
 
 void InstAnalog::renderLabel(QPainter* painter)
@@ -94,6 +88,16 @@ void InstAnalog::renderOutterCircle(QPainter* painter)
         angleStart = -90 * 16 + (cAngleEnd / 3.14159 * 180 * 16);
         angleSpan = (360 - (cAngleStart + cAngleEnd) / 3.14159 * 180) * 16;
     }
+
+    setPen(painter, cColorCircle);
+    setBrush(painter, cColorCircle);
+
+    painter->drawEllipse(  x
+                         , y
+                         , cDivisionRadius * 2
+                         , cDivisionRadius * 2);
+
+    setPen(painter, cColorStatic, cLineThickness);
 
     painter->drawArc( x
                     , y
@@ -129,6 +133,7 @@ void InstAnalog::updateMajorValue()
 
 void InstAnalog::renderCircularFeatures(QPainter* painter)
 {
+    setPen(painter, cColorStatic, cLineThickness);
     quint16 totalDivisions = cMajorCnt * cMinorCnt;
     setupStaticRenderProperties(totalDivisions);
 

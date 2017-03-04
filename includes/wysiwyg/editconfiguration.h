@@ -35,6 +35,9 @@ private slots:
     void cellUpdated(int row, int col);
 
 private:
+    static const int mWidth = 400;
+    static const int mHeight = 400;
+
     QPointer<VisuConfiguration> mConfiguration;
     QMap<QString, QString> mProperties;
     QPointer<QTableWidget> mTable;

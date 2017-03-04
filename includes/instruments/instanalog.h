@@ -24,6 +24,7 @@ class InstAnalog : public VisuInstrument
         static constexpr double PI = 3.141592653589793238463;
 
         // configuration properties
+        QColor cColorCircle;
         quint8 cLineThickness;  // Thickness of geometric primitives drawn
         quint8 cMajorLen;       // Length, in pixels, of major division marks
         quint8 cMinorLen;       // Length, in pixels, of minor division marks
@@ -71,7 +72,6 @@ class InstAnalog : public VisuInstrument
         void renderMajorLabel(QPainter* painter);
         double getMajorDivisionStep();
         void updateDivisionAngles();
-        void setPen(QPainter* painter, QColor color);
         void renderCircularFeatures(QPainter* painter);
         void renderLabel(QPainter* painter);
         void setupStaticRenderProperties(quint16 totalDivisions);

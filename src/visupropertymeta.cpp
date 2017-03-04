@@ -4,6 +4,7 @@ const QString VisuPropertyMeta::KEY_MIN = "min";
 const QString VisuPropertyMeta::KEY_MAX = "max";
 const QString VisuPropertyMeta::KEY_TYPE = "type";
 const QString VisuPropertyMeta::KEY_EXTRA = "extra";
+const QString VisuPropertyMeta::KEY_LABEL = "label";
 const QString VisuPropertyMeta::DELIMITER = ",";
 
 const char* VisuPropertyMeta::TYPES_MAP[] =

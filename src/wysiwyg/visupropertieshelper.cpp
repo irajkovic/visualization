@@ -232,10 +232,13 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
     table->setHorizontalHeaderLabels(QStringList{"Property", "Value"});
 
     int row = 0;
-    for (auto i = properties.begin(); i != properties.end(); ++i)
+
+    QStringList orderedKeys = properties[VisuConfigLoader::ORDER].split(VisuConfigLoader::ORDER_DELIMITER);
+
+    for (auto i = orderedKeys.begin(); i != orderedKeys.end(); ++i)
     {
-        QString key = i.key();
-        QString value = i.value();
+        QString key = *i;
+        QString value = properties[key];
 
         VisuPropertyMeta meta;
         if (metaProperties.contains(key))
@@ -245,7 +248,8 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
 
         if (meta.type != VisuPropertyMeta::HIDDEN)
         {
-            QTableWidgetItem* label = new QTableWidgetItem(key);
+            QString labelText = meta.label.isEmpty() ? key : meta.label;
+            QTableWidgetItem* label = new QTableWidgetItem(labelText);
             label->setFlags(label->flags() & ~Qt::ItemIsEditable);
             table->setItem(row, VisuPropertiesHelper::COLUMN_PROPERTY, label);
 

@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-	<x type="int" min="0">0</x>
-	<y type="int" min="0">0</y>
-	<width type="int" min="0">150</width>	
-	<height type="int" min="0">30</height>	
-	<colorBackground type="color">0,0,0,0</colorBackground>
-	<colorForeground type="color">0,0,0,250</colorForeground>
-	<colorOff type="color">100,100,100,250</colorOff>
-	<colorOn type="color">200,255,30,255</colorOn>
-	<imageOn type="image">-1</imageOn>
-	<imageOff type="image">-1</imageOff>
-	<colorStatic type="color">0,0,0,255</colorStatic>
-	<condition type="enum" extra="val1&gt; AND &lt;val2,&lt; val1,&lt;= val1,&gt;= val1,&gt; val1">0</condition>
-	<fontSize type="int" min="0">15</fontSize>
-	<fontType type="font">Arial Black</fontType>
-	<id type="read_only">2</id>
-	<name>Led instrument</name>
-	<radius type="int" min="0">20</radius>
-	<showSignalName type="bool">1</showSignalName>
-	<signalId type="signal">0</signalId>
-	<type type="read_only">LED</type>
+	<id type="read_only" label="Widget ID">2</id>
+	<type type="read_only" label="Type">LED</type>
+	<name label="Name">Led instrument</name>	
+	<signalId type="signal" label="Signal">0</signalId>
+	
+	<x type="int" min="0" label="X">0</x>
+	<y type="int" min="0" label="Y">0</y>
+	<width type="int" min="0" label="Width">150</width>	
+	<height type="int" min="0" label="Height">30</height>	
+	
+	<colorBackground type="color" label="Background color">0,0,0,0</colorBackground>
+	<colorForeground type="hidden">0,0,0,250</colorForeground>
+	<colorStatic type="color" label="Text color">0,0,0,255</colorStatic>
+
+	<colorOn type="color" label="On color">200,255,30,255</colorOn>	
+	<colorOff type="color" label="Off color">100,100,100,250</colorOff>
+	
+	<imageOn type="image" label="On image">-1</imageOn>
+	<imageOff type="image" label="Off image">-1</imageOff>
+	
+	<condition type="enum" extra="val1&gt; AND &lt;val2,&lt; val1,&lt;= val1,&gt;= val1,&gt; val1" label="Condition">0</condition>
 	<val1 type="int">-10.0</val1>
 	<val2 type="int">6.0</val2>
+	
+	<fontSize type="int" min="0" label="Font size">15</fontSize>
+	<fontType type="font" label="Font type">Arial Black</fontType>
+    <showSignalName type="bool" label="Show signal name">1</showSignalName>
+
+	<radius type="int" min="0" label="LED size">20</radius>
+	
 </widget>
 

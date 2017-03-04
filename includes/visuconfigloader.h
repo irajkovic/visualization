@@ -18,7 +18,8 @@ public:
     static QMap<QString, VisuPropertyMeta> getMetaMapFromFile(QString type, QString tag);
 
     static const QString PATH;
-
+    static const QString ORDER;
+    static const QString ORDER_DELIMITER;
 };
 
 #endif // VISUCONFIGLOADER_H

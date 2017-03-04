@@ -18,8 +18,6 @@ void InstXYPlot::loadProperties()
     GET_PROPERTY(cMajorCntX, mProperties, mPropertiesMeta);
     GET_PROPERTY(cMajorCntY, mProperties, mPropertiesMeta);
     GET_PROPERTY(cMajorLen, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cLabelX, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cLabelY, mProperties, mPropertiesMeta);
     GET_PROPERTY(cPadding, mProperties, mPropertiesMeta);
     GET_PROPERTY(cDecimals, mProperties, mPropertiesMeta);
 
