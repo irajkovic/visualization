@@ -20,7 +20,7 @@ void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
                           mProperties,
                           mConfiguration->getPropertiesMeta(),
                           std::make_pair(this, SLOT(propertyChange())));
-    mTable->setMaximumWidth(400);
+    mTable->setMaximumWidth(mWidth);
     mTable->verticalHeader()->hide();
     mTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     vlayout->addWidget(mTable);

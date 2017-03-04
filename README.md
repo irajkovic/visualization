@@ -4,24 +4,33 @@
 
 <img src="https://raw.githubusercontent.com/wiki/irajkovic/visualization/images/cpu_monitor.png" alt="Example of CPU monitor configuration">
 
-Application implements UDP server which reads incomming data and displays it
-via set of virtual instruments. Any signal source that can deliver UDP package 
-of given structure to Visualization server can easily be integrated and it's 
-data visualized. Application can also send UDP packets to enable device control.
+Application is created as a general purpose control panel. It can communicate
+with sensors and control units via UDP and serial protocols. 
+Idea behind application is generic control panel creation software flexible
+enough for any purpose (smart home, system monitoring, etc). 
 
-Idea is to help DIY builders and provide them with a generic application to build 
-control panels for various purposes (smart home, systems monitoring, etc). 
+Incoming data is shown via several types of virtual instrument widgets, while 
+command widgets are used to send out commands. Image widgets are supported as
+well, to provid deep integration into domain of use. Each widget is highly 
+customizable, providing different attributes to fine tune it's appearance and 
+function.
+
+Any number of widgets can be arranged on the predefined area, forming layout of
+a control panel. This layout can be stored into XML file which contains a 
+description off all widget properties, as well as signals that are monitored.
+Application will be runtime configured based on this XML file. This means that
+there are no hardcoded values and entire look&feel of the control panel, as well
+as it's functionality comes from user created XML file. Such XML file is called
+configuration. 
+
+One major part of application is built in WYSIWYG configuration editor. This 
+allows easy and efficient creation and modification of configurations.
+
+Any signal source that can send or receive UDP or serial package of given 
+structure can be easily integrated. 
 
 Application is developed with C++ and Qt, with intent of being highly portable
 to various devices and form factors.
-
-Incomming data is shown via virtual instruments. These are GUI widgets  that
-are dynamically configured during runtime. Various instrument properties
-(color, size, placement, etc) are read from configuration xml file. 
-UDP port of server, window resolution and title are also configurable.
-Configuration file path should be given as first command line argument when 
-starting the application. If no argument is given, default "config.xml" will be 
-loaded.
 
 ## Wiki page
 
@@ -30,10 +39,4 @@ https://github.com/irajkovic/visualization/wiki
 
 ## Author
 Developed by Ivan Rajkovic (iivanrajkovic@gmail.com)
-
-
-
-
-
-
 
