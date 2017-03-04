@@ -20,6 +20,7 @@ void InstAnalog::loadProperties()
 
     // custom properties initializer
     GET_PROPERTY(cColorCircle, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cCircleRadius, mProperties, mPropertiesMeta);
     GET_PROPERTY(cLineThickness, mProperties, mPropertiesMeta);
     GET_PROPERTY(cMajorLen, mProperties, mPropertiesMeta);
     GET_PROPERTY(cMinorLen, mProperties, mPropertiesMeta);
@@ -72,8 +73,8 @@ void InstAnalog::renderLabel(QPainter* painter)
 
 void InstAnalog::renderOutterCircle(QPainter* painter)
 {
-    int x = cWidth / 2 - cDivisionRadius;
-    int y = cHeight / 2 - cDivisionRadius;
+    int x = cWidth / 2 - cCircleRadius;
+    int y = cHeight / 2 - cCircleRadius;
     int angleStart = 0;
     int angleSpan = 360 * 16;
 
@@ -94,15 +95,15 @@ void InstAnalog::renderOutterCircle(QPainter* painter)
 
     painter->drawEllipse(  x
                          , y
-                         , cDivisionRadius * 2
-                         , cDivisionRadius * 2);
+                         , cCircleRadius * 2
+                         , cCircleRadius * 2);
 
     setPen(painter, cColorStatic, cLineThickness);
 
     painter->drawArc( x
                     , y
-                    , cDivisionRadius * 2
-                    , cDivisionRadius * 2
+                    , cCircleRadius * 2
+                    , cCircleRadius * 2
                     , angleStart
                     , angleSpan);
 }

@@ -22,6 +22,7 @@
 	
 	<offsetX type="int" label="X offset">0</offsetX>
 	<offsetY type="int" label="Y offset">0</offsetY>
+	<circleRadius type="int" min="0" label="Circle Radius">68</circleRadius>
 	<circleOffset type="bool" label="Offset circle">0</circleOffset>
 	<drawCircle type="bool" label="Draw circle">1</drawCircle>
 	<circleTrim type="bool" label="Trim circle">1</circleTrim>

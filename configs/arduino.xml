@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <visu_config>
 	<configuration>
+		<baudRate>9600</baudRate>
 		<colorBackground>127,127,127,255</colorBackground>
+		<conectivity>1</conectivity>
 		<height>550</height>
 		<name>CPU monitor</name>
 		<port>3334</port>
+		<serialPort>0</serialPort>
 		<width>1000</width>
 	</configuration>
 	<signals>
@@ -200,19 +203,23 @@
 			<show>1</show>
 			<type>IMAGE</type>
 			<width>947</width>
-			<x>50</x>
-			<y>0</y>
+			<x>0</x>
+			<y>5</y>
 		</widget>
 		<widget>
 			<angleEnd>1.9</angleEnd>
 			<angleStart>1.9</angleStart>
 			<arrowLen>65</arrowLen>
 			<arrowWidth>5</arrowWidth>
-			<colorBackground>30,30,30,255</colorBackground>
+			<circleOffset>0</circleOffset>
+			<circleRadius>68</circleRadius>
+			<circleTrim>1</circleTrim>
+			<colorBackground>126,126,126,0</colorBackground>
+			<colorCircle>255,255,255,0</colorCircle>
 			<colorForeground>255,255,255,100</colorForeground>
-			<colorStatic>255,255,255,100</colorStatic>
+			<colorStatic>255,255,255,255</colorStatic>
 			<divisionRadius>70</divisionRadius>
-			<drawCircle>0</drawCircle>
+			<drawCircle>1</drawCircle>
 			<fontSize>12</fontSize>
 			<fontType>Arial</fontType>
 			<height>150</height>
@@ -225,8 +232,8 @@
 			<minorCnt>2</minorCnt>
 			<minorLen>5</minorLen>
 			<name>Analog 0 voltmeter</name>
-			<nameX>60</nameX>
-			<nameY>100</nameY>
+			<nameX>65</nameX>
+			<nameY>60</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>0</offsetY>
 			<rotateLabels>0</rotateLabels>
@@ -242,11 +249,15 @@
 			<angleStart>1.9</angleStart>
 			<arrowLen>65</arrowLen>
 			<arrowWidth>5</arrowWidth>
-			<colorBackground>30,30,30,255</colorBackground>
+			<circleOffset>0</circleOffset>
+			<circleRadius>68</circleRadius>
+			<circleTrim>1</circleTrim>
+			<colorBackground>30,30,30,0</colorBackground>
+			<colorCircle>255,255,255,0</colorCircle>
 			<colorForeground>255,255,255,100</colorForeground>
-			<colorStatic>255,255,255,100</colorStatic>
+			<colorStatic>255,255,255,255</colorStatic>
 			<divisionRadius>70</divisionRadius>
-			<drawCircle>0</drawCircle>
+			<drawCircle>1</drawCircle>
 			<fontSize>12</fontSize>
 			<fontType>Arial</fontType>
 			<height>150</height>
@@ -259,8 +270,8 @@
 			<minorCnt>2</minorCnt>
 			<minorLen>5</minorLen>
 			<name>Analog 1 voltmeter</name>
-			<nameX>60</nameX>
-			<nameY>100</nameY>
+			<nameX>65</nameX>
+			<nameY>60</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>0</offsetY>
 			<rotateLabels>0</rotateLabels>
@@ -276,11 +287,15 @@
 			<angleStart>1.9</angleStart>
 			<arrowLen>65</arrowLen>
 			<arrowWidth>5</arrowWidth>
-			<colorBackground>30,30,30,255</colorBackground>
+			<circleOffset>0</circleOffset>
+			<circleRadius>68</circleRadius>
+			<circleTrim>1</circleTrim>
+			<colorBackground>30,30,30,0</colorBackground>
+			<colorCircle>255,255,255,0</colorCircle>
 			<colorForeground>255,255,255,100</colorForeground>
-			<colorStatic>255,255,255,100</colorStatic>
+			<colorStatic>255,255,255,255</colorStatic>
 			<divisionRadius>70</divisionRadius>
-			<drawCircle>0</drawCircle>
+			<drawCircle>1</drawCircle>
 			<fontSize>12</fontSize>
 			<fontType>Arial</fontType>
 			<height>150</height>
@@ -293,8 +308,8 @@
 			<minorCnt>2</minorCnt>
 			<minorLen>5</minorLen>
 			<name>Analog 2 voltmeter</name>
-			<nameX>60</nameX>
-			<nameY>100</nameY>
+			<nameX>65</nameX>
+			<nameY>60</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>0</offsetY>
 			<rotateLabels>0</rotateLabels>
@@ -310,11 +325,15 @@
 			<angleStart>1.9</angleStart>
 			<arrowLen>65</arrowLen>
 			<arrowWidth>5</arrowWidth>
-			<colorBackground>30,30,30,255</colorBackground>
+			<circleOffset>0</circleOffset>
+			<circleRadius>68</circleRadius>
+			<circleTrim>1</circleTrim>
+			<colorBackground>30,30,30,0</colorBackground>
+			<colorCircle>255,255,255,0</colorCircle>
 			<colorForeground>255,255,255,100</colorForeground>
-			<colorStatic>255,255,255,100</colorStatic>
+			<colorStatic>255,255,255,255</colorStatic>
 			<divisionRadius>70</divisionRadius>
-			<drawCircle>0</drawCircle>
+			<drawCircle>1</drawCircle>
 			<fontSize>12</fontSize>
 			<fontType>Arial</fontType>
 			<height>150</height>
@@ -327,8 +346,8 @@
 			<minorCnt>2</minorCnt>
 			<minorLen>5</minorLen>
 			<name>Analog 3 voltmeter</name>
-			<nameX>60</nameX>
-			<nameY>100</nameY>
+			<nameX>65</nameX>
+			<nameY>60</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>0</offsetY>
 			<rotateLabels>0</rotateLabels>
@@ -344,11 +363,15 @@
 			<angleStart>1.9</angleStart>
 			<arrowLen>65</arrowLen>
 			<arrowWidth>5</arrowWidth>
-			<colorBackground>30,30,30,255</colorBackground>
+			<circleOffset>0</circleOffset>
+			<circleRadius>68</circleRadius>
+			<circleTrim>1</circleTrim>
+			<colorBackground>30,30,30,0</colorBackground>
+			<colorCircle>255,255,255,0</colorCircle>
 			<colorForeground>255,255,255,100</colorForeground>
-			<colorStatic>255,255,255,100</colorStatic>
+			<colorStatic>255,255,255,255</colorStatic>
 			<divisionRadius>70</divisionRadius>
-			<drawCircle>0</drawCircle>
+			<drawCircle>1</drawCircle>
 			<fontSize>12</fontSize>
 			<fontType>Arial</fontType>
 			<height>150</height>
@@ -361,8 +384,8 @@
 			<minorCnt>2</minorCnt>
 			<minorLen>5</minorLen>
 			<name>Analog 4 voltmeter</name>
-			<nameX>60</nameX>
-			<nameY>100</nameY>
+			<nameX>65</nameX>
+			<nameY>60</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>0</offsetY>
 			<rotateLabels>0</rotateLabels>
@@ -378,11 +401,15 @@
 			<angleStart>1.9</angleStart>
 			<arrowLen>65</arrowLen>
 			<arrowWidth>5</arrowWidth>
-			<colorBackground>30,30,30,255</colorBackground>
+			<circleOffset>0</circleOffset>
+			<circleRadius>68</circleRadius>
+			<circleTrim>1</circleTrim>
+			<colorBackground>30,30,30,0</colorBackground>
+			<colorCircle>255,255,255,0</colorCircle>
 			<colorForeground>255,255,255,100</colorForeground>
-			<colorStatic>255,255,255,100</colorStatic>
+			<colorStatic>255,255,255,255</colorStatic>
 			<divisionRadius>70</divisionRadius>
-			<drawCircle>0</drawCircle>
+			<drawCircle>1</drawCircle>
 			<fontSize>12</fontSize>
 			<fontType>Arial</fontType>
 			<height>150</height>
@@ -395,8 +422,8 @@
 			<minorCnt>2</minorCnt>
 			<minorLen>5</minorLen>
 			<name>Analog 5 voltmeter</name>
-			<nameX>60</nameX>
-			<nameY>100</nameY>
+			<nameX>65</nameX>
+			<nameY>60</nameY>
 			<offsetX>0</offsetX>
 			<offsetY>0</offsetY>
 			<rotateLabels>0</rotateLabels>
@@ -418,6 +445,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>7</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -425,8 +454,8 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
-			<x>300</x>
+			<width>15</width>
+			<x>279</x>
 			<y>20</y>
 		</widget>
 		<widget>
@@ -440,6 +469,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>8</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -447,8 +478,8 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
-			<x>317</x>
+			<width>15</width>
+			<x>296</x>
 			<y>20</y>
 		</widget>
 		<widget>
@@ -462,6 +493,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>9</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -469,8 +502,8 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
-			<x>334</x>
+			<width>15</width>
+			<x>315</x>
 			<y>20</y>
 		</widget>
 		<widget>
@@ -484,6 +517,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>10</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -491,8 +526,8 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
-			<x>351</x>
+			<width>15</width>
+			<x>336</x>
 			<y>20</y>
 		</widget>
 		<widget>
@@ -506,6 +541,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>11</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -513,8 +550,8 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
-			<x>368</x>
+			<width>15</width>
+			<x>355</x>
 			<y>20</y>
 		</widget>
 		<widget>
@@ -528,6 +565,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>12</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -535,8 +574,8 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
-			<x>387</x>
+			<width>15</width>
+			<x>375</x>
 			<y>20</y>
 		</widget>
 		<widget>
@@ -550,6 +589,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>13</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -557,8 +598,8 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
-			<x>415</x>
+			<width>15</width>
+			<x>405</x>
 			<y>20</y>
 		</widget>
 		<widget>
@@ -572,6 +613,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>14</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -579,8 +622,8 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
-			<x>433</x>
+			<width>15</width>
+			<x>424</x>
 			<y>20</y>
 		</widget>
 		<widget>
@@ -594,6 +637,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>15</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -601,8 +646,8 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
-			<x>450</x>
+			<width>15</width>
+			<x>445</x>
 			<y>20</y>
 		</widget>
 		<widget>
@@ -616,6 +661,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>16</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -623,8 +670,8 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
-			<x>468</x>
+			<width>15</width>
+			<x>467</x>
 			<y>20</y>
 		</widget>
 		<widget>
@@ -638,6 +685,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>17</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -645,7 +694,7 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
+			<width>15</width>
 			<x>486</x>
 			<y>20</y>
 		</widget>
@@ -660,6 +709,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>18</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -667,7 +718,7 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
+			<width>15</width>
 			<x>504</x>
 			<y>20</y>
 		</widget>
@@ -682,6 +733,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>19</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -689,8 +742,8 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
-			<x>522</x>
+			<width>15</width>
+			<x>523</x>
 			<y>20</y>
 		</widget>
 		<widget>
@@ -704,6 +757,8 @@
 			<fontType>Arial</fontType>
 			<height>30</height>
 			<id>20</id>
+			<imageOff>-1</imageOff>
+			<imageOn>-1</imageOn>
 			<name>Led</name>
 			<radius>10</radius>
 			<showSignalName>0</showSignalName>
@@ -711,191 +766,442 @@
 			<type>LED</type>
 			<val1>-10.0</val1>
 			<val2>6.0</val2>
-			<width>100</width>
-			<x>540</x>
+			<width>15</width>
+			<x>542</x>
 			<y>20</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>21</id>
 			<name>D0</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>700</x>
+			<width>40</width>
+			<x>610</x>
 			<y>10</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>22</id>
 			<name>D1</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>740</x>
+			<width>40</width>
+			<x>660</x>
 			<y>10</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>23</id>
 			<name>D2</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>780</x>
+			<width>40</width>
+			<x>710</x>
 			<y>10</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>24</id>
 			<name>D3</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>820</x>
+			<width>40</width>
+			<x>760</x>
 			<y>10</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>25</id>
 			<name>D4</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>700</x>
-			<y>50</y>
+			<width>40</width>
+			<x>810</x>
+			<y>10</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>26</id>
 			<name>D5</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>740</x>
-			<y>50</y>
+			<width>40</width>
+			<x>860</x>
+			<y>10</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>27</id>
 			<name>D6</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>780</x>
-			<y>50</y>
+			<width>40</width>
+			<x>910</x>
+			<y>10</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>28</id>
 			<name>D7</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>820</x>
+			<width>40</width>
+			<x>610</x>
 			<y>50</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>29</id>
 			<name>D8</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>700</x>
-			<y>90</y>
+			<width>40</width>
+			<x>660</x>
+			<y>50</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>30</id>
 			<name>D9</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>740</x>
-			<y>90</y>
+			<width>40</width>
+			<x>710</x>
+			<y>50</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>31</id>
 			<name>D10</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>780</x>
-			<y>90</y>
+			<width>40</width>
+			<x>760</x>
+			<y>50</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>32</id>
 			<name>D11</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>820</x>
-			<y>90</y>
+			<width>40</width>
+			<x>810</x>
+			<y>50</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>33</id>
 			<name>D12</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>780</x>
-			<y>130</y>
+			<width>40</width>
+			<x>860</x>
+			<y>50</y>
 		</widget>
 		<widget>
 			<actionIp>127.0.0.1</actionIp>
 			<actionMessage>switch</actionMessage>
 			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>200, 200, 200, 200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
 			<css>color: white;  border: 1px solid black; border-radius: 5px; border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
 			<height>30</height>
 			<id>34</id>
 			<name>D13</name>
 			<type>BUTTON</type>
-			<width>30</width>
-			<x>820</x>
-			<y>130</y>
+			<width>40</width>
+			<x>910</x>
+			<y>50</y>
+		</widget>
+		<widget>
+			<actionIp>127.0.0.1</actionIp>
+			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>94,94,94,255</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
+			<css>border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
+			<height>30</height>
+			<horizontal>1</horizontal>
+			<id>35</id>
+			<name>Slider</name>
+			<range>255</range>
+			<type>SLIDER</type>
+			<width>150</width>
+			<x>10</x>
+			<y>515</y>
+		</widget>
+		<widget>
+			<actionIp>127.0.0.1</actionIp>
+			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>94,94,94,255</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
+			<css>border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
+			<height>30</height>
+			<horizontal>1</horizontal>
+			<id>36</id>
+			<name>Slider</name>
+			<range>255</range>
+			<type>SLIDER</type>
+			<width>150</width>
+			<x>170</x>
+			<y>515</y>
+		</widget>
+		<widget>
+			<actionIp>127.0.0.1</actionIp>
+			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>86,86,86,200</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
+			<css>border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
+			<height>30</height>
+			<horizontal>1</horizontal>
+			<id>37</id>
+			<name>Slider</name>
+			<range>255</range>
+			<type>SLIDER</type>
+			<width>150</width>
+			<x>330</x>
+			<y>515</y>
+		</widget>
+		<widget>
+			<actionIp>127.0.0.1</actionIp>
+			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>94,94,94,255</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
+			<css>border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
+			<height>30</height>
+			<horizontal>1</horizontal>
+			<id>38</id>
+			<name>Slider</name>
+			<range>255</range>
+			<type>SLIDER</type>
+			<width>150</width>
+			<x>490</x>
+			<y>515</y>
+		</widget>
+		<widget>
+			<actionIp>127.0.0.1</actionIp>
+			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>94,94,94,255</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
+			<css>border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
+			<height>30</height>
+			<horizontal>1</horizontal>
+			<id>39</id>
+			<name>Slider</name>
+			<range>255</range>
+			<type>SLIDER</type>
+			<width>150</width>
+			<x>650</x>
+			<y>515</y>
+		</widget>
+		<widget>
+			<actionIp>127.0.0.1</actionIp>
+			<actionPort>5000</actionPort>
+			<borderRadius>5</borderRadius>
+			<borderThickness>2</borderThickness>
+			<colorBackground>94,94,94,255</colorBackground>
+			<colorBorder>0,0,0,255</colorBorder>
+			<colorForeground>255, 255, 255, 255</colorForeground>
+			<css>border-style: outset;</css>
+			<fontSize>14</fontSize>
+			<fontType>Arial Black</fontType>
+			<height>30</height>
+			<horizontal>1</horizontal>
+			<id>40</id>
+			<name>Slider</name>
+			<range>255</range>
+			<type>SLIDER</type>
+			<width>150</width>
+			<x>810</x>
+			<y>515</y>
+		</widget>
+		<widget>
+			<colorBackground>219,219,221,255</colorBackground>
+			<colorForeground>0,0,0,255</colorForeground>
+			<colorGraphBackground>255,255,255,255</colorGraphBackground>
+			<colorStatic>0,0,0,255</colorStatic>
+			<decimals>0</decimals>
+			<divisionFormat>mm:ss</divisionFormat>
+			<fontSize>11</fontSize>
+			<fontType>Arial Black</fontType>
+			<height>260</height>
+			<id>41</id>
+			<lineThickness>2</lineThickness>
+			<majorCnt>4</majorCnt>
+			<markerDt>500</markerDt>
+			<markerThickness>1</markerThickness>
+			<masterTimeFormat>hh:mm:ss</masterTimeFormat>
+			<minorCnt>2</minorCnt>
+			<name>Time plot instrument</name>
+			<signalId>0</signalId>
+			<staticThickness>1</staticThickness>
+			<ticksInSecond>100</ticksInSecond>
+			<timespan>3000</timespan>
+			<type>TIME_PLOT</type>
+			<width>370</width>
+			<x>604</x>
+			<y>102</y>
 		</widget>
 	</widgets>
 </visu_config>

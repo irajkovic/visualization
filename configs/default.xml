@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <visu_config>
 	<configuration>
+		<baudRate>9600</baudRate>
 		<colorBackground>255,255,255,0</colorBackground>
+		<conectivity>1</conectivity>
 		<height>380</height>
 		<name>Sample configuration</name>
 		<port>3334</port>
+		<serialPort>0</serialPort>
 		<width>552</width>
 	</configuration>
 	<signals>
@@ -112,17 +115,19 @@
 			<val1>100</val1>
 			<val2>6.0</val2>
 			<width>30</width>
-			<x>87</x>
-			<y>70</y>
+			<x>110</x>
+			<y>150</y>
 		</widget>
 		<widget>
 			<angleEnd>2.1</angleEnd>
 			<angleStart>0</angleStart>
 			<arrowLen>75</arrowLen>
 			<arrowWidth>5</arrowWidth>
-			<centerX>96</centerX>
-			<centerY>96</centerY>
+			<circleOffset>0</circleOffset>
+			<circleRadius>93</circleRadius>
+			<circleTrim>0</circleTrim>
 			<colorBackground>1,0,30,0</colorBackground>
+			<colorCircle>255,255,255,0</colorCircle>
 			<colorForeground>250,50,50,100</colorForeground>
 			<colorStatic>0,0,0,255</colorStatic>
 			<divisionRadius>96</divisionRadius>
@@ -156,9 +161,11 @@
 			<angleStart>0</angleStart>
 			<arrowLen>75</arrowLen>
 			<arrowWidth>5</arrowWidth>
-			<centerX>96</centerX>
-			<centerY>96</centerY>
+			<circleOffset>0</circleOffset>
+			<circleRadius>93</circleRadius>
+			<circleTrim>0</circleTrim>
 			<colorBackground>30,30,30,0</colorBackground>
+			<colorCircle>255,255,255,0</colorCircle>
 			<colorForeground>250,50,50,100</colorForeground>
 			<colorStatic>0,0,0,255</colorStatic>
 			<divisionRadius>95</divisionRadius>
@@ -192,9 +199,11 @@
 			<angleStart>2.38</angleStart>
 			<arrowLen>50</arrowLen>
 			<arrowWidth>4</arrowWidth>
-			<centerX>48</centerX>
-			<centerY>48</centerY>
+			<circleOffset>0</circleOffset>
+			<circleRadius>44</circleRadius>
+			<circleTrim>0</circleTrim>
 			<colorBackground>30,30,30,0</colorBackground>
+			<colorCircle>255,255,255,0</colorCircle>
 			<colorForeground>250,50,50,100</colorForeground>
 			<colorStatic>0,0,0,255</colorStatic>
 			<divisionRadius>59</divisionRadius>
@@ -226,11 +235,13 @@
 		<widget>
 			<angleEnd>-3.14</angleEnd>
 			<angleStart>3.14</angleStart>
-			<arrowLen>24</arrowLen>
+			<arrowLen>23</arrowLen>
 			<arrowWidth>4</arrowWidth>
-			<centerX>48</centerX>
-			<centerY>48</centerY>
+			<circleOffset>0</circleOffset>
+			<circleRadius>68</circleRadius>
+			<circleTrim>1</circleTrim>
 			<colorBackground>255,255,255,0</colorBackground>
+			<colorCircle>255,255,255,0</colorCircle>
 			<colorForeground>255,0,0,100</colorForeground>
 			<colorStatic>0,0,0,255</colorStatic>
 			<divisionRadius>80</divisionRadius>
@@ -240,13 +251,13 @@
 			<height>95</height>
 			<id>4</id>
 			<labelMultiplier>1.0</labelMultiplier>
-			<labelRadius>37</labelRadius>
+			<labelRadius>32</labelRadius>
 			<lineThickness>2</lineThickness>
 			<majorCnt>4</majorCnt>
-			<majorLen>10</majorLen>
+			<majorLen>0</majorLen>
 			<minorCnt>1</minorCnt>
-			<minorLen>5</minorLen>
-			<name>Analog instrument</name>
+			<minorLen>0</minorLen>
+			<name>Hour instrument</name>
 			<nameX>30</nameX>
 			<nameY>130</nameY>
 			<offsetX>0</offsetX>
@@ -264,9 +275,11 @@
 			<angleStart>2.36</angleStart>
 			<arrowLen>50</arrowLen>
 			<arrowWidth>4</arrowWidth>
-			<centerX>48</centerX>
-			<centerY>48</centerY>
+			<circleOffset>0</circleOffset>
+			<circleRadius>45</circleRadius>
+			<circleTrim>0</circleTrim>
 			<colorBackground>30,30,30,0</colorBackground>
+			<colorCircle>255,255,255,0</colorCircle>
 			<colorForeground>250,50,50,100</colorForeground>
 			<colorStatic>0,0,0,255</colorStatic>
 			<divisionRadius>59</divisionRadius>
@@ -300,11 +313,15 @@
 			<angleStart>3.14</angleStart>
 			<arrowLen>27</arrowLen>
 			<arrowWidth>2</arrowWidth>
+			<circleOffset>0</circleOffset>
+			<circleRadius>44</circleRadius>
+			<circleTrim>0</circleTrim>
 			<colorBackground>30,30,30,0</colorBackground>
+			<colorCircle>255,255,255,0</colorCircle>
 			<colorForeground>250,50,50,100</colorForeground>
 			<colorStatic>0,0,0,255</colorStatic>
 			<divisionRadius>45</divisionRadius>
-			<drawCircle>0</drawCircle>
+			<drawCircle>1</drawCircle>
 			<fontSize>3</fontSize>
 			<fontType>Arial</fontType>
 			<height>95</height>
@@ -312,11 +329,11 @@
 			<labelMultiplier>1.0</labelMultiplier>
 			<labelRadius>40</labelRadius>
 			<lineThickness>1</lineThickness>
-			<majorCnt>6</majorCnt>
-			<majorLen>10</majorLen>
+			<majorCnt>12</majorCnt>
+			<majorLen>5</majorLen>
 			<minorCnt>1</minorCnt>
-			<minorLen>5</minorLen>
-			<name>Analog instrument</name>
+			<minorLen>0</minorLen>
+			<name>Minutes instrument</name>
 			<nameX>30</nameX>
 			<nameY>130</nameY>
 			<offsetX>0</offsetX>
@@ -333,6 +350,7 @@
 			<colorBackground>0,0,0,0</colorBackground>
 			<colorForeground>0,0,0,250</colorForeground>
 			<colorStatic>0,0,0,255</colorStatic>
+			<decimalDigits>2</decimalDigits>
 			<fontSize>9</fontSize>
 			<fontType>DSEG7 Classic</fontType>
 			<height>21</height>
@@ -352,6 +370,7 @@
 			<colorBackground>0,0,0,0</colorBackground>
 			<colorForeground>0,0,0,250</colorForeground>
 			<colorStatic>0,0,0,255</colorStatic>
+			<decimalDigits>2</decimalDigits>
 			<fontSize>9</fontSize>
 			<fontType>DSEG7 Classic</fontType>
 			<height>21</height>

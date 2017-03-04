@@ -40,7 +40,8 @@ class InstAnalog : public VisuInstrument
         qint16 cOffsetX;        // X offset of instrument center
         qint16 cOffsetY;        // Y offset of instrument center
         bool cShowLabel;
-        qint16 cDivisionRadius;
+        quint16 cDivisionRadius;
+        quint16 cCircleRadius;
         quint16 cArrowLen;
         double cLabelMultiplier;
         bool cRotateLabels;
