@@ -52,6 +52,7 @@ void StaticImage::paintEvent(QPaintEvent* event)
 bool StaticImage::refresh(const QString& key)
 {
     VisuWidget::refresh(key);
+    update();
     setVisible(cShow);
     return false;
 }

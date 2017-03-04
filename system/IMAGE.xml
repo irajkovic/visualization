@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <widget>
-     <id type="read_only">0</id>
-     <type type="read_only">IMAGE</type>
-     <width type="int" min="0">150</width> 	
-     <height type="int" min="0">150</height>
-     <name>Image</name>
-     <format type="read_only">PNG</format>
-     <x type="int" min="0">0</x>
-     <y type="int" min="0">0</y>
+     <id type="read_only" label="Widget ID">0</id>
+     <type type="read_only" label="Type">IMAGE</type>
+     <name label="Name">Image</name>
+          
+     <x type="int" min="0" label="X">0</x>
+     <y type="int" min="0" label="Y">0</y>
+     <width type="int" min="0" label="Width">150</width> 	
+     <height type="int" min="0" label="Height">150</height>
+
+     <show type="bool" label="Show image">1</show>
+     <resize type="bool" label="Allow resize">1</resize>
+
+     <format type="read_only" label="Format">PNG</format>
      <image type="hidden">0</image>
-     <show type="bool">1</show>
-     <resize type="bool">1</resize>
 </widget>
 
 
