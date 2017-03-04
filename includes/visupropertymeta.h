@@ -40,6 +40,7 @@ public:
     Type type;
     QString extra;
     QString label;
+    int order;
 
     QStringList getEnumOptions();
 

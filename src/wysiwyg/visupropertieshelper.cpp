@@ -233,17 +233,21 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
 
     int row = 0;
 
-    QStringList orderedKeys = properties[VisuConfigLoader::ORDER].split(VisuConfigLoader::ORDER_DELIMITER);
-
-    for (auto i = orderedKeys.begin(); i != orderedKeys.end(); ++i)
+    for (auto i = properties.begin(); i != properties.end(); ++i)
     {
-        QString key = *i;
-        QString value = properties[key];
+        QString key = i.key();
+        QString value = i.value();
 
         VisuPropertyMeta meta;
         if (metaProperties.contains(key))
         {
             meta = metaProperties[key];
+            row = meta.order;
+        }
+        else
+        {
+            qDebug() << "Missing meta for key " << key;
+            continue;
         }
 
         if (meta.type != VisuPropertyMeta::HIDDEN)

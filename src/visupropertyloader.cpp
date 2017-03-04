@@ -18,7 +18,7 @@ namespace VisuPropertyLoader
     {
         if (!properties.contains(key))
         {
-            ConfigLoadException exception("Missing property: %1", key);
+            ConfigLoadException exception(QObject::tr("Missing property: %1 (%2)").arg(metaProperties[key].label).arg(key));
             VisuAppInfo::setConfigWrong(true, exception.getMessage());
 
             if (VisuAppInfo::isInEditorMode())
