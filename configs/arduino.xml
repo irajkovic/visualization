@@ -1064,6 +1064,7 @@
 			<height>30</height>
 			<horizontal>1</horizontal>
 			<id>35</id>
+			<message>A0=</message>
 			<name>Slider</name>
 			<range>255</range>
 			<type>SLIDER</type>
@@ -1085,6 +1086,7 @@
 			<height>30</height>
 			<horizontal>1</horizontal>
 			<id>36</id>
+			<message>As=</message>
 			<name>Slider</name>
 			<range>255</range>
 			<type>SLIDER</type>
@@ -1106,6 +1108,7 @@
 			<height>30</height>
 			<horizontal>1</horizontal>
 			<id>37</id>
+			<message>A2s=</message>
 			<name>Slider</name>
 			<range>255</range>
 			<type>SLIDER</type>
@@ -1127,6 +1130,7 @@
 			<height>30</height>
 			<horizontal>1</horizontal>
 			<id>38</id>
+			<message>A3=</message>
 			<name>Slider</name>
 			<range>255</range>
 			<type>SLIDER</type>
@@ -1148,6 +1152,7 @@
 			<height>30</height>
 			<horizontal>1</horizontal>
 			<id>39</id>
+			<message>A4=</message>
 			<name>Slider</name>
 			<range>255</range>
 			<type>SLIDER</type>
@@ -1169,6 +1174,7 @@
 			<height>30</height>
 			<horizontal>1</horizontal>
 			<id>40</id>
+			<message>A5=</message>
 			<name>Slider</name>
 			<range>255</range>
 			<type>SLIDER</type>

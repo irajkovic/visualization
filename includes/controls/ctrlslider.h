@@ -32,6 +32,7 @@ public:
 
     bool cHorizontal;
     quint32 cRange;
+    QString cMessage;
 
     // styling
     QColor cColorBackground;

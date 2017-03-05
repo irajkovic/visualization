@@ -6,7 +6,7 @@ const QString CtrlSlider::KEY_HORIZONTAL = "horizontal";
 
 void CtrlSlider::sendCommand(int value)
 {
-    QString message = QString("%1").arg(value);
+    QString message = QString("%1%2").arg(cMessage).arg(value);
     mSocket.writeDatagram(
                 message.toStdString().c_str(),
                 message.size(),
@@ -43,6 +43,7 @@ void CtrlSlider::loadProperties()
     VisuControl::loadProperties();
 
     GET_PROPERTY(cRange, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMessage, mProperties, mPropertiesMeta);
     GET_PROPERTY(cCss, mProperties, mPropertiesMeta);
     GET_PROPERTY(cColorBackground, mProperties, mPropertiesMeta);
     GET_PROPERTY(cColorForeground, mProperties, mPropertiesMeta);

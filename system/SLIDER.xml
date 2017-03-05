@@ -12,6 +12,8 @@
         
     <actionIp label="Destination IP">127.0.0.1</actionIp>
     <actionPort type="int" min="0" label="Destination port">5000</actionPort>
+    
+    <message label="Prepend message">slider=</message>
     <range type="int" min="1" max="999999" label="Slide range">1</range>
     
     <colorBackground type="color" label="Background color">200, 200, 200, 200</colorBackground>
