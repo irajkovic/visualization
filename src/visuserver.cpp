@@ -2,75 +2,134 @@
 #include <QUdpSocket>
 #include <qendian.h>
 #include "visuappinfo.h"
+#include <QRegularExpressionMatch>
+#include <QDateTime>
 
-const QByteArray VisuServer::delimiter = QByteArray("\r\n");
+const QByteArray VisuServer::DELIMITER = QByteArray("\n");
 
 void VisuServer::handleSerialError(QSerialPort::SerialPortError serialPortError)
 {
-    //qDebug() << serialPortError;
     qDebug("Error!");
+}
+
+VisuServer::VisuServer()
+{
+    mConfiguration = VisuConfiguration::get();
+    mConectivity = (enum Connectivity)mConfiguration->getConectivity();
+    if (mConfiguration->isSerialBindToSignal())
+    {
+        mSerialRegex = QRegularExpression(mConfiguration->getSerialRegex());
+    }
+
+    if (mConectivity != SERIAL_ONLY)
+    {
+        mPort = mConfiguration->getPort();
+        QObject::connect(&socket, SIGNAL(readyRead()), this, SLOT(handleDatagram()));
+    }
+
+    if (mConectivity != UDP_ONLY)
+    {
+        mSerialPort = new QSerialPort(this);
+        QObject::connect(mSerialPort, SIGNAL(readyRead()), this, SLOT(handleSerial()));
+        QObject::connect(mSerialPort,
+                static_cast<void (QSerialPort::*)(QSerialPort::SerialPortError)>(&QSerialPort::error),
+                this,
+                &VisuServer::handleSerialError );
+    }
+
+    VisuAppInfo::setServer(this);
 }
 
 void VisuServer::sendSerial(const QByteArray& data)
 {
-    if (serialPort != nullptr)
+    if (mSerialPort != nullptr)
     {
-        qint64 bytesWritten = serialPort->write(data);
+        qint64 bytesWritten = mSerialPort->write(data);
 
         if (bytesWritten == -1)
         {
             qDebug() << QObject::tr("Failed to write the data to port %1, error: %2")
-                        .arg(serialPort->portName())
-                        .arg(serialPort->errorString());
+                        .arg(mSerialPort->portName())
+                        .arg(mSerialPort->errorString());
         }
         else if (bytesWritten != data.size())
         {
             qDebug() << QObject::tr("Failed to write all the data to port %1, error: %2")
-                        .arg(serialPort->portName())
-                        .arg(serialPort->errorString());
+                        .arg(mSerialPort->portName())
+                        .arg(mSerialPort->errorString());
         }
+    }
+}
+
+void VisuServer::parseVisuSerial()
+{
+    mSerialBuffer.remove(0, mSerialBuffer.lastIndexOf(">") + 1);
+
+    VisuDatagram datagram;
+    QString serialBufferString(mSerialBuffer);
+    QTextStream serialText(&serialBufferString);
+
+    uint cs;
+    serialText >> datagram.signalId >> datagram.packetNumber >> datagram.rawValue >> datagram.timestamp >> cs;
+    datagram.checksum = (quint8) cs;
+
+    if (datagram.checksumOk())
+    {
+        updateSignal(datagram);
+    }
+    else
+    {
+        qDebug("Bad serial package.");
+    }
+}
+
+void VisuServer::parseRegexSerial()
+{
+    QString serialBufferString(mSerialBuffer);
+    QRegularExpressionMatch match = mSerialRegex.match(serialBufferString);
+    if (match.hasMatch())
+    {
+        QString value = match.captured();
+
+        VisuDatagram datagram;
+        datagram.signalId = mConfiguration->getSerialSignalId();
+        datagram.rawValue = value.toDouble() * mConfiguration->getSerialFactor();
+        datagram.timestamp = QDateTime::currentDateTime().toMSecsSinceEpoch();
+        updateSignal(datagram);
+
+        qDebug() << datagram.signalId << " " << datagram.rawValue << " " << datagram.timestamp;
     }
 }
 
 void VisuServer::handleSerial()
 {
-    serialBuffer.append(serialPort->readAll());
+    mSerialBuffer.append(mSerialPort->readAll());
 
-    int pos = serialBuffer.indexOf(delimiter);
+    int pos = mSerialBuffer.indexOf(DELIMITER);
     if (pos > 0)
     {
-        serialBuffer.remove(0, serialBuffer.lastIndexOf(">") + 1);
-
-        VisuDatagram datagram;
-        QString serialBufferString(serialBuffer);
-        QTextStream serialText(&serialBufferString);
-
-        uint cs;
-        serialText >> datagram.signalId >> datagram.packetNumber >> datagram.rawValue >> datagram.timestamp >> cs;
-        datagram.checksum = (quint8) cs;
-
-        if (datagram.checksumOk())
+        if (mConfiguration->isSerialBindToSignal() && mSerialRegex.isValid())
         {
-            updateSignal(datagram);
+            parseRegexSerial();
         }
         else
         {
-            qDebug("Bad serial package.");
+            parseVisuSerial();
         }
 
-        serialBuffer.remove(0, pos + delimiter.size());
+        mSerialBuffer.remove(0, pos + DELIMITER.size());
     }
 }
 
 void VisuServer::start()
 {
-    if (conectivity != SERIAL_ONLY)
+    if (mConectivity != SERIAL_ONLY)
     {
-        qDebug("Started UDP server on port %d.", port);
-        socket.bind(QHostAddress::LocalHost, port);
+        qDebug("Started UDP server on port %d.", mPort);
+        socket.bind(QHostAddress::LocalHost, mPort);
     }
 
-    if (conectivity != UDP_ONLY)
+    if (mConectivity != UDP_ONLY)
     {
         ConfigLoadException::setContext("setting up serial port");
 
@@ -82,21 +141,21 @@ void VisuServer::start()
         QString serialPortName = VisuAppInfo::getCLIArg(VisuAppInfo::RunArgs::SERIAL_PORT_NAME);
         int baudRate = VisuAppInfo::getCLIArg(VisuAppInfo::RunArgs::BAUD_RATE).toInt();
 
-        serialPort->setPortName(serialPortName);
-        if (    !serialPort->setBaudRate(baudRate) ||
-                !serialPort->setDataBits(QSerialPort::Data8) ||
-                !serialPort->setParity(QSerialPort::NoParity) ||
-                !serialPort->setStopBits(QSerialPort::OneStop) ||
-                !serialPort->setFlowControl(QSerialPort::NoFlowControl) )
+        mSerialPort->setPortName(serialPortName);
+        if (    !mSerialPort->setBaudRate(baudRate) ||
+                !mSerialPort->setDataBits(QSerialPort::Data8) ||
+                !mSerialPort->setParity(QSerialPort::NoParity) ||
+                !mSerialPort->setStopBits(QSerialPort::OneStop) ||
+                !mSerialPort->setFlowControl(QSerialPort::NoFlowControl) )
         {
             throw ConfigLoadException(QObject::tr("Setup of %1 failed"), serialPortName);
         }
 
-        if (!serialPort->open(QIODevice::ReadWrite))
+        if (!mSerialPort->open(QIODevice::ReadWrite))
         {
             throw ConfigLoadException(QObject::tr("Failed to open port %1, error: %2")
                                       .arg(serialPortName)
-                                      .arg(serialPort->errorString()));
+                                      .arg(mSerialPort->errorString()));
         }
         else
         {
@@ -159,7 +218,7 @@ void VisuServer::handleDatagram()
 
 void VisuServer::updateSignal(const VisuDatagram& datagram)
 {
-    VisuSignal* signal = configuration->getSignal(datagram.signalId);
+    VisuSignal* signal = mConfiguration->getSignal(datagram.signalId);
     if (signal != nullptr) {
         signal->datagramUpdate(datagram);
     }

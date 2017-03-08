@@ -12,8 +12,8 @@
 class VisuApplication : public QWidget
 {
     private:
-        VisuConfiguration* configuration;
-        VisuServer *server;
+        VisuConfiguration* mConfiguration;
+        VisuServer *mServer;
         void setupWindow();
         void loadConfiguration(QString path);
 

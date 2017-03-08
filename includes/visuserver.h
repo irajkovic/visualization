@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QUdpSocket>
 #include <QSerialPort>
+#include <QRegularExpression>
 #include "visuappinfo.h"
 #include "visusignal.h"
 #include "visudatagram.h"
@@ -22,52 +23,35 @@ class VisuServer : public QObject
         SERIAL_ONLY
     };
 
-    VisuServer(VisuConfiguration* configuration) : configuration(configuration)
-    {
-        port = configuration->getPort();
-        conectivity = (enum Connectivity)configuration->getConectivity();
-
-        if (conectivity != SERIAL_ONLY)
-        {
-            QObject::connect(&socket, SIGNAL(readyRead()), this, SLOT(handleDatagram()));
-        }
-
-        if (conectivity != UDP_ONLY)
-        {
-            serialPort = new QSerialPort(this);
-            QObject::connect(serialPort, SIGNAL(readyRead()), this, SLOT(handleSerial()));
-            QObject::connect(serialPort,
-                    static_cast<void (QSerialPort::*)(QSerialPort::SerialPortError)>(&QSerialPort::error),
-                    this,
-                    &VisuServer::handleSerialError );
-        }
-
-        VisuAppInfo::setServer(this);
-    }
+    VisuServer();
     void start();
     void stop();
 
     private:
 
-        quint16 port;
-        enum Connectivity conectivity;
+        quint16 mPort;
+        enum Connectivity mConectivity;
 
         static const quint8 DATAGRAM_SIZE = 21;
 
         QUdpSocket socket;
-        VisuConfiguration *configuration;
+        VisuConfiguration *mConfiguration;
 
-        QSerialPort* serialPort;
+        QSerialPort* mSerialPort;
 
         void updateSignal(const VisuDatagram& datagram);
         VisuDatagram createDatagramFromBuffer(const quint8* buffer);
 
-        QByteArray serialBuffer;
-        static const QByteArray delimiter;
+        QByteArray mSerialBuffer;
+        QRegularExpression mSerialRegex;
+
+        static const QByteArray DELIMITER;
 
     public slots:
         void handleDatagram();
         void handleSerial();
+        void parseVisuSerial();
+        void parseRegexSerial();
         void sendSerial(const QByteArray& data);
         void handleSerialError(QSerialPort::SerialPortError serialPortError);
 

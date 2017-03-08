@@ -9,6 +9,10 @@
         <serialPort>-</serialPort>
         <colorBackground>130,130,130,255</colorBackground>        
         <baudRate>9600</baudRate>
+		<serialBindToSignal>0</serialBindToSignal>
+	    <serialRegex>[0-9]+\.*[0-9]*</serialRegex>
+	    <serialSignalId>0</serialSignalId>
+		<serialFactor>1.0</serialFactor>
    </configuration>
    <signals>
         <signal>

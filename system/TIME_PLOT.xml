@@ -22,7 +22,7 @@
 	<staticThickness type="int" min="0" label="Markings thickness">1</staticThickness>
 	<markerThickness type="int" min="0" label="Marker thickness">1</markerThickness>
 	
-	<markerDt type="int" min="0" label="Marker interval">500</markerDt>
+	<markerDt type="int" min="1" label="Marker interval">500</markerDt>
 	<divisionFormat label="Marker time format">mm:ss</divisionFormat>
 	<masterTimeFormat label="Master time format">hh:mm:ss</masterTimeFormat>
 

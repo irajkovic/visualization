@@ -7,6 +7,10 @@
    <serialPort type="serial" label="Serial port">0</serialPort>
    <baudRate type="int" min="0" label="Serial baud rate">9600</baudRate>   
    <colorBackground type="color" label="Background color">130,130,130,255</colorBackground>
+   <serialBindToSignal type="bool" label="Serial bind">0</serialBindToSignal>
+   <serialRegex label="Serial regex">[0-9]+\.*[0-9]*</serialRegex>
+   <serialSignalId type="signal" label="Serial signal">0</serialSignalId>
+   <serialFactor type="float" min="0" label="Serial factor">1.0</serialFactor>
 </configuration>
 
 

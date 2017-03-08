@@ -109,7 +109,6 @@ QMap<QString, VisuPropertyMeta> VisuConfiguration::getPropertiesMeta()
     return mPropertiesMeta;
 }
 
-
 void VisuConfiguration::setConfigValues()
 {
     GET_PROPERTY(cPort, mProperties, mPropertiesMeta);
@@ -120,6 +119,10 @@ void VisuConfiguration::setConfigValues()
     GET_PROPERTY(cConectivity, mProperties, mPropertiesMeta);
     GET_PROPERTY(cSerialPort, mProperties, mPropertiesMeta);
     GET_PROPERTY(cBaudRate, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cSerialBindToSignal, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cSerialRegex, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cSerialSignalId, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cSerialFactor, mProperties, mPropertiesMeta);
 }
 
 void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
@@ -232,6 +235,25 @@ quint8 VisuConfiguration::getConectivity()
     return cConectivity;
 }
 
+bool VisuConfiguration::isSerialBindToSignal()
+{
+    return cSerialBindToSignal;
+}
+
+QString VisuConfiguration::getSerialRegex()
+{
+    return cSerialRegex;
+}
+
+int VisuConfiguration::getSerialSignalId()
+{
+    return cSerialSignalId;
+}
+
+int VisuConfiguration::getSerialFactor()
+{
+    return cSerialFactor;
+}
 
 QVector<QPointer<VisuWidget> > VisuConfiguration::getWidgets()
 {

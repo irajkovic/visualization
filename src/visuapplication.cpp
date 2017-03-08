@@ -7,26 +7,26 @@
 
 VisuApplication::VisuApplication(QString path)
 {
-    configuration = VisuConfiguration::get();
+    mConfiguration = VisuConfiguration::get();
     loadConfiguration(path);
     setupWindow();
-    server = new VisuServer(configuration);
+    mServer = new VisuServer();
 }
 
 void VisuApplication::loadConfiguration(QString path)
 {
     QByteArray xml = VisuConfigLoader::loadXMLFromFile(path);
-    configuration->fromXML(this, QString(xml));
+    mConfiguration->fromXML(this, QString(xml));
 }
 
 void VisuApplication::setupWindow()
 {
-    setGeometry(100, 100, configuration->getWidth(), configuration->getHeight());
-    setWindowTitle(configuration->getName());
-    VisuMisc::setBackgroundColor(this, configuration->getBackgroundColor());
+    setGeometry(100, 100, mConfiguration->getWidth(), mConfiguration->getHeight());
+    setWindowTitle(mConfiguration->getName());
+    VisuMisc::setBackgroundColor(this, mConfiguration->getBackgroundColor());
 }
 
 void VisuApplication::run()
 {
-    server->start();
+    mServer->start();
 }
