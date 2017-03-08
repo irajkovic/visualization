@@ -13,22 +13,23 @@ void EditSignal::setup(QPointer<VisuSignal> visuSignal)
     mSignal = visuSignal;
     mTable = new QTableWidget() ;
 
-    mMetaProperties = VisuConfigLoader::getMetaMapFromFile(VisuSignal::TAG_NAME, VisuSignal::TAG_NAME);
-
-    if (visuSignal == nullptr)
+    if (mSignal == nullptr)
     {
-        mProperties = VisuConfigLoader::getMapFromFile(VisuSignal::TAG_NAME, VisuSignal::TAG_NAME);
-        mSignal = new VisuSignal(mProperties);
+        QMap<QString, QString> properties = VisuConfigLoader::getMapFromFile(   VisuSignal::TAG_NAME,
+                                                                                VisuSignal::TAG_NAME);
+        mSignal = new VisuSignal(properties);
         mNewSignal = true;
     }
     else
     {
-        mProperties = visuSignal->getProperties();
         mNewSignal = false;
     }
-    VisuPropertiesHelper::updateTable(mTable, mProperties, mMetaProperties, std::make_pair(this, SLOT(propertyChange())));
+    VisuPropertiesHelper::updateTable(mTable,
+                                      mSignal->getProperties(),
+                                      mSignal->getPropertiesMeta(),
+                                      std::make_pair(this, SLOT(propertyChange())));
 
-    mTable->setMaximumWidth(300);
+    mTable->setMaximumWidth(mWidth);
     mTable->verticalHeader()->hide();
     mTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -62,10 +63,9 @@ void EditSignal::addSignal()
 void EditSignal::cellUpdated(int row, int col)
 {
     (void)col;
-    QString key = mTable->item(row, 0)->text();
+    QString key = VisuPropertiesHelper::getKeyString(mTable, row);
     QString value = VisuPropertiesHelper::getValueString(mTable, row);
-    mProperties[key] = value;
-    mSignal->load(mProperties);
+    mSignal->updateProperty(key, value);
 }
 
 void EditSignal::propertyChange()

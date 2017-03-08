@@ -222,8 +222,8 @@ std::pair<QWidget*, const char*> VisuPropertiesHelper::controlFactory(VisuProper
 }
 
 void VisuPropertiesHelper::updateTable(QTableWidget* table,
-                           QMap<QString, QString> properties,
-                           QMap<QString, VisuPropertyMeta> metaProperties,
+                           const QMap<QString, QString>& properties,
+                           const QMap<QString, VisuPropertyMeta>& metaProperties,
                            std::pair<QWidget*, const char*> object)
 {
     table->clearContents();
@@ -276,6 +276,12 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
             table->setRowCount(table->rowCount() - 1);
         }
     }
+}
+
+QString VisuPropertiesHelper::getKeyString(QTableWidget* table, int row)
+{
+    return table->cellWidget(row, VisuPropertiesHelper::COLUMN_VALUE)
+            ->property(VisuPropertiesHelper::PROP_KEY).toString();
 }
 
 QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)

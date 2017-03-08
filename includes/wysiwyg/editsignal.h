@@ -35,11 +35,11 @@ public slots:
     void propertyChange();
 
 private:
-    QMap<QString, QString> mProperties;
-    QMap<QString, VisuPropertyMeta> mMetaProperties;
     QPointer<QTableWidget> mTable;
     bool mNewSignal;
     QPointer<VisuSignal> mSignal;
+
+    static const int mWidth = 400;
 
     void setup(QPointer<VisuSignal> visuSignal);
 };

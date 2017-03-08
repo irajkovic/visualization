@@ -21,8 +21,8 @@ public:
     VisuPropertiesHelper();
 
     static void updateTable(QTableWidget* table,
-                            QMap<QString, QString> properties,
-                            QMap<QString, VisuPropertyMeta> metaProperties,
+                            const QMap<QString, QString>& properties,
+                            const QMap<QString, VisuPropertyMeta>& metaProperties,
                             std::pair<QWidget*, const char*> object);
     static void setupTableWidget(  QTableWidget* table,
                                    std::pair<QWidget*, const char*> widget,
@@ -32,6 +32,7 @@ public:
                                    int row);
     static int updateWidgetProperty(QObject* sender, QWidget* parent);
     static QString getValueString(QTableWidget *table, int row);
+    static QString getKeyString(QTableWidget* table, int row);
     static double sliderToDouble(int slider);
     static int doubleToSlider(double value);
 

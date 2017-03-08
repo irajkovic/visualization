@@ -2,7 +2,15 @@
 
 const QString VisuSignal::TAG_NAME = "signal";
 
-QMap<QString, QString>& VisuSignal::getProperties()
+VisuSignal::VisuSignal(const QMap<QString, QString>& properties)
+{
+    mProperties = properties;
+    mPropertiesMeta = VisuConfigLoader::getMetaMapFromFile( VisuSignal::TAG_NAME,
+                                                            VisuSignal::TAG_NAME);
+    load();
+}
+
+const QMap<QString, QString>& VisuSignal::getProperties()
 {
     return mProperties;
 }
@@ -163,15 +171,31 @@ quint64 VisuSignal::getTimestamp() const
     return mTimestamp;
 }
 
-void VisuSignal::load(QMap<QString, QString> properties)
+const QMap<QString, VisuPropertyMeta>& VisuSignal::getPropertiesMeta()
 {
-    mProperties = properties;
-    QMap<QString, VisuPropertyMeta> emptyMap;
-    GET_PROPERTY(cId, properties, emptyMap);
-    GET_PROPERTY(cName, properties, emptyMap);
-    GET_PROPERTY(cUnit, properties, emptyMap);
-    GET_PROPERTY(cFactor, properties, emptyMap);
-    GET_PROPERTY(cOffset, properties, emptyMap);
-    GET_PROPERTY(cMax, properties, emptyMap);
-    GET_PROPERTY(cMin, properties, emptyMap);
+    return mPropertiesMeta;
+}
+
+
+void VisuSignal::setPropertiesMeta(const QMap<QString, VisuPropertyMeta>& meta)
+{
+    mPropertiesMeta = meta;
+}
+
+
+void VisuSignal::updateProperty(QString key, QString value)
+{
+    mProperties[key] = value;
+    load();
+}
+
+void VisuSignal::load()
+{
+    GET_PROPERTY(cId, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cName, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cUnit, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cFactor, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cOffset, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMax, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMin, mProperties, mPropertiesMeta);
 }

@@ -9,6 +9,8 @@
 #include "visuinstrument.h"
 #include "visudatagram.h"
 #include "visupropertyloader.h"
+#include "visupropertymeta.h"
+#include "visuconfigloader.h"
 
 class VisuInstrument;   // forward declare Instrument class
 class VisuSignal : public QObject
@@ -29,6 +31,7 @@ private:
     quint64 mTimestamp;                      // Last update timestamp
     quint64 mRawValue;                      // Last value
     QMap<QString, QString> mProperties;
+    QMap<QString, VisuPropertyMeta> mPropertiesMeta;
 
     // methods
     void notifyInstruments();
@@ -40,13 +43,12 @@ signals:
 public:
     static const QString TAG_NAME;
 
-    VisuSignal(QMap<QString, QString> properties)
-    {
-        load(properties);
-    }
-
-    QMap<QString, QString>& getProperties();
-    void load(QMap<QString, QString> properties);
+    VisuSignal(const QMap<QString, QString>& properties);
+    const QMap<QString, QString>& getProperties();
+    const QMap<QString, VisuPropertyMeta>& getPropertiesMeta();
+    void setPropertiesMeta(const QMap<QString, VisuPropertyMeta>& meta);
+    void load();
+    void updateProperty(QString key, QString value);
     void initializeInstruments();
     void datagramUpdate(const VisuDatagram& datagram);
     void set_raw_ralue(quint64 value);
