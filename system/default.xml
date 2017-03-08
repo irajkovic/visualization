@@ -13,6 +13,7 @@
 	    <serialRegex>[0-9]+\.*[0-9]*</serialRegex>
 	    <serialSignalId>0</serialSignalId>
 		<serialFactor>1.0</serialFactor>
+		<serialOffset>0.0</serialOffset>
    </configuration>
    <signals>
         <signal>

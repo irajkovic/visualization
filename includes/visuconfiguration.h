@@ -42,6 +42,7 @@ class VisuConfiguration : public QObject
         QString cSerialRegex;
         int cSerialSignalId;
         double cSerialFactor;
+        double cSerialOffset;
 
         QMap<QString, QString> mProperties;
         QMap<QString, VisuPropertyMeta> mPropertiesMeta;
@@ -115,7 +116,8 @@ class VisuConfiguration : public QObject
         bool isSerialBindToSignal();
         QString getSerialRegex();
         int getSerialSignalId();
-        int getSerialFactor();
+        double getSerialFactor();
+        double getSerialOffset();
 
         static const QString TAG_WIDGET;
         static const QString TAG_SIGNAL;

@@ -93,11 +93,9 @@ void VisuServer::parseRegexSerial()
 
         VisuDatagram datagram;
         datagram.signalId = mConfiguration->getSerialSignalId();
-        datagram.rawValue = value.toDouble() * mConfiguration->getSerialFactor();
+        datagram.rawValue = value.toDouble() * mConfiguration->getSerialFactor() + mConfiguration->getSerialOffset();
         datagram.timestamp = QDateTime::currentDateTime().toMSecsSinceEpoch();
         updateSignal(datagram);
-
-        qDebug() << datagram.signalId << " " << datagram.rawValue << " " << datagram.timestamp;
     }
 }
 
