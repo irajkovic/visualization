@@ -40,9 +40,6 @@ class VisuConfiguration : public QObject
         quint32 cBaudRate;
         bool cSerialBindToSignal;
         QString cSerialRegex;
-        int cSerialSignalId;
-        double cSerialFactor;
-        double cSerialOffset;
 
         QMap<QString, QString> mProperties;
         QMap<QString, VisuPropertyMeta> mPropertiesMeta;
@@ -115,9 +112,6 @@ class VisuConfiguration : public QObject
         quint8 getConectivity();
         bool isSerialBindToSignal();
         QString getSerialRegex();
-        int getSerialSignalId();
-        double getSerialFactor();
-        double getSerialOffset();
 
         static const QString TAG_WIDGET;
         static const QString TAG_SIGNAL;

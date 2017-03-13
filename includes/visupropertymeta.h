@@ -28,6 +28,7 @@ public:
         FONT,
         IMAGE,
         SERIAL,
+        SERIAL_PLACEHOLDER,
         HIDDEN,
         FIRST = DEFAULT,
         LAST = HIDDEN

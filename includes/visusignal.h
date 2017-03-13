@@ -27,9 +27,11 @@ private:
     double  cOffset;                         // Signal offset used in real value calculation
     double  cMax;                            // Maximum signal value
     double  cMin;                            // Minimum signal value
+    int     cSerialPlaceholder;              // Index of recevied serial string
+    bool    cSerialTransform;                // Apply factor and offset to serial data
 
     quint64 mTimestamp;                      // Last update timestamp
-    quint64 mRawValue;                      // Last value
+    quint64 mRawValue;                       // Last value
     QMap<QString, QString> mProperties;
     QMap<QString, VisuPropertyMeta> mPropertiesMeta;
 
@@ -55,6 +57,8 @@ public:
     quint64 getRawValue() const;
     void set_timestamp(quint64 mTimestamp);
     quint64 getTimestamp() const;
+    int getSerialPlaceholder() const;
+    bool getSerialTransform() const;
     quint16 getId() const;
     void setId(quint16 id);
     double getFactor() const;

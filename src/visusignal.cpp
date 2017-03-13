@@ -171,6 +171,16 @@ quint64 VisuSignal::getTimestamp() const
     return mTimestamp;
 }
 
+int VisuSignal::getSerialPlaceholder() const
+{
+    return cSerialPlaceholder;
+}
+
+bool VisuSignal::getSerialTransform() const
+{
+    return cSerialTransform;
+}
+
 const QMap<QString, VisuPropertyMeta>& VisuSignal::getPropertiesMeta()
 {
     return mPropertiesMeta;
@@ -198,4 +208,6 @@ void VisuSignal::load()
     GET_PROPERTY(cOffset, mProperties, mPropertiesMeta);
     GET_PROPERTY(cMax, mProperties, mPropertiesMeta);
     GET_PROPERTY(cMin, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cSerialPlaceholder, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cSerialTransform, mProperties, mPropertiesMeta);
 }

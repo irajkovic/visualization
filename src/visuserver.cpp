@@ -89,13 +89,30 @@ void VisuServer::parseRegexSerial()
     QRegularExpressionMatch match = mSerialRegex.match(serialBufferString);
     if (match.hasMatch())
     {
-        QString value = match.captured();
+        QStringList values = match.capturedTexts();
 
-        VisuDatagram datagram;
-        datagram.signalId = mConfiguration->getSerialSignalId();
-        datagram.rawValue = value.toDouble() * mConfiguration->getSerialFactor() + mConfiguration->getSerialOffset();
-        datagram.timestamp = QDateTime::currentDateTime().toMSecsSinceEpoch();
-        updateSignal(datagram);
+        QVector<QPointer<VisuSignal>> signalsList = mConfiguration->getSignals();
+        for (VisuSignal* signal : signalsList)
+        {
+            int valueIndex = signal->getSerialPlaceholder();
+            if (valueIndex > 0)
+            {
+                VisuDatagram datagram;
+                datagram.signalId = signal->getId();
+
+                QString value = values[valueIndex];
+                if (signal->getSerialTransform())
+                {
+                    datagram.rawValue = value.toInt();
+                }
+                else
+                {
+                    datagram.rawValue = (int)((value.toDouble() - signal->getOffset()) / signal->getFactor());
+                }
+                datagram.timestamp = QDateTime::currentDateTime().toMSecsSinceEpoch();
+                updateSignal(datagram);
+            }
+        }
     }
 }
 

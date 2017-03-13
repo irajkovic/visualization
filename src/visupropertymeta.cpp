@@ -21,6 +21,7 @@ const char* VisuPropertyMeta::TYPES_MAP[] =
     "font",
     "image",
     "serial",
+    "serial_placeholder",
     "hidden"
 };
 

@@ -121,9 +121,6 @@ void VisuConfiguration::setConfigValues()
     GET_PROPERTY(cBaudRate, mProperties, mPropertiesMeta);
     GET_PROPERTY(cSerialBindToSignal, mProperties, mPropertiesMeta);
     GET_PROPERTY(cSerialRegex, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cSerialSignalId, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cSerialFactor, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cSerialOffset, mProperties, mPropertiesMeta);
 }
 
 void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
@@ -244,21 +241,6 @@ bool VisuConfiguration::isSerialBindToSignal()
 QString VisuConfiguration::getSerialRegex()
 {
     return cSerialRegex;
-}
-
-int VisuConfiguration::getSerialSignalId()
-{
-    return cSerialSignalId;
-}
-
-double VisuConfiguration::getSerialFactor()
-{
-    return cSerialFactor;
-}
-
-double VisuConfiguration::getSerialOffset()
-{
-    return cSerialOffset;
 }
 
 QVector<QPointer<VisuWidget> > VisuConfiguration::getWidgets()

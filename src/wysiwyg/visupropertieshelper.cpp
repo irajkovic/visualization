@@ -132,6 +132,26 @@ std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupSerialWidget(VisuP
     return std::make_pair(box, SIGNAL(currentIndexChanged(int)));
 }
 
+std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupSignalPlaceholderWidget(VisuPropertyMeta meta, QString value)
+{
+    QComboBox* box = new QComboBox();
+
+    QRegularExpression expression = QRegularExpression(VisuConfiguration::get()->getSerialRegex());
+    int captures = expression.captureCount();
+
+    box->addItem(QObject::tr("Disabled"));
+
+    for (int i = 0 ; i < captures ; ++i)
+    {
+        QString label = QObject::tr("Expression #%1").arg(i);
+        box->addItem(label);
+    }
+
+    box->setCurrentIndex(value.toInt());
+
+    return std::make_pair(box, SIGNAL(currentIndexChanged(int)));
+}
+
 std::pair<QPushButton*, const char*> VisuPropertiesHelper::setupColorWidget(VisuPropertyMeta meta, QString value)
 {
     QPushButton* btn = new QPushButton(value);
@@ -213,6 +233,9 @@ std::pair<QWidget*, const char*> VisuPropertiesHelper::controlFactory(VisuProper
         break;
     case VisuPropertyMeta::SERIAL:
         widget = VisuPropertiesHelper::setupSerialWidget(meta, value);
+        break;
+    case VisuPropertyMeta::SERIAL_PLACEHOLDER:
+        widget = VisuPropertiesHelper::setupSignalPlaceholderWidget(meta, value);
         break;
     default:
         widget = VisuPropertiesHelper::setupDefaultWidget(meta, value);
@@ -303,6 +326,7 @@ QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
             value = box->currentText();
             break;
         case VisuPropertyMeta::ENUM:
+        case VisuPropertyMeta::SERIAL_PLACEHOLDER:
             value = QString("%1").arg(box->currentIndex());
             break;
         default:
