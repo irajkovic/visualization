@@ -10,30 +10,25 @@
     <width type="int" min="0" label="Width">150</width>
     <height type="int" min="0" label="Height">150</height>
     
-    <showLabel type="bool" label="Show label">1</showLabel>
-	<nameX type="int" label="Label X">20</nameX>
-	<nameY type="int" label="Label Y">130</nameY>
+    <angleStart type="slider" min="-3.14159" max="3.14159" label="Start angle">1.0</angleStart>
+	<angleEnd type="slider" min="-3.14159" max="3.14159" label="End angle">1.0</angleEnd>
 	
 	<colorBackground type="color" label="Background color">30,30,30,0</colorBackground>
 	<colorCircle type="color" label="Circle color">255,255,255,0</colorCircle>
 	<colorForeground type="color" label="Pointer color">250,50,50,100</colorForeground>
 	<colorStatic type="color" label="Static color">0,0,0,255</colorStatic>
 	
-	
 	<offsetX type="int" label="X offset">0</offsetX>
 	<offsetY type="int" label="Y offset">0</offsetY>
-	<circleRadius type="int" min="0" label="Circle Radius">68</circleRadius>
-	<circleOffset type="bool" label="Offset circle">0</circleOffset>
 	<drawCircle type="bool" label="Draw circle">1</drawCircle>
-	<circleTrim type="bool" label="Trim circle">1</circleTrim>
+	<circleOffset type="bool" label="Offset circle" depends="drawCircle==1">0</circleOffset>
+	<circleTrim type="bool" label="Trim circle" depends="drawCircle==1">1</circleTrim>
+	<circleRadius type="int" min="0" label="Circle Radius" depends="drawCircle==1">68</circleRadius>
 	<divisionRadius type="int" min="1" label="Division radius">70</divisionRadius>
 	<labelRadius type="int" min="0" label="Label radius">35</labelRadius>
 	<rotateLabels type="bool" label="Rotate labels">0</rotateLabels>
 	<labelMultiplier type="float" label="Label multiplier">1.0</labelMultiplier>
 	    
-    <angleStart type="slider" min="-3.14159" max="3.14159" label="Start angle">1.0</angleStart>
-	<angleEnd type="slider" min="-3.14159" max="3.14159" label="End angle">1.0</angleEnd>
-	
 	<arrowLen type="int" min="1" label="Arrow length">68</arrowLen>
 	<arrowWidth type="int" min="1" max="100" label="Arrow width">5</arrowWidth>
 	
@@ -45,6 +40,10 @@
 	<minorCnt type="int" min="1" max="999" label="Minor divisions">4</minorCnt>
 	<majorLen type="int" min="0" label="Major lenght">10</majorLen>
 	<minorLen type="int" min="0" label="Minor length">5</minorLen>
+	
+    <showLabel type="bool" label="Show label">1</showLabel>
+	<nameX type="int" label="Label X" depends="showLabel==1">20</nameX>
+	<nameY type="int" label="Label Y" depends="showLabel==1">130</nameY>
 	
 </widget>
 

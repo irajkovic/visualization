@@ -30,6 +30,7 @@ void VisuPropertiesHelper::setupTableWidget(
     widget.first->setProperty(VisuPropertiesHelper::PROP_KEY, key);
     widget.first->setProperty(VisuPropertiesHelper::PROP_TYPE, type);
     widget.first->setProperty(VisuPropertiesHelper::PROP_ROW, row);
+
     table->setCellWidget(row, VisuPropertiesHelper::COLUMN_VALUE, widget.first);
 
     if (widget.first != nullptr &&
@@ -284,12 +285,15 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
 
             if (widget.first != nullptr)
             {
+
                 VisuPropertiesHelper::setupTableWidget(table,
                                                        widget,
                                                        object,
                                                        key,
                                                        meta.type,
                                                        row);
+
+                widget.first->setEnabled(meta.isEnabled(properties));
             }
 
             ++row;
@@ -299,6 +303,8 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
             table->setRowCount(table->rowCount() - 1);
         }
     }
+
+    updateWidgetsState(table, properties, metaProperties);
 }
 
 QString VisuPropertiesHelper::getKeyString(QTableWidget* table, int row)
@@ -353,7 +359,20 @@ QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
     {
         value = table->item(row,1)->text();
     }
+
     return value;
+}
+
+void VisuPropertiesHelper::updateWidgetsState(QTableWidget* table,
+                                              const QMap<QString, QString>& properties,
+                                              const QMap<QString, VisuPropertyMeta>& propertiesMeta)
+{
+    for (int i = 0 ; i < table->rowCount() ; ++i)
+    {
+        QString key = VisuPropertiesHelper::getKeyString(table, i);
+        bool enabled = propertiesMeta.value(key).isEnabled(properties);
+        table->cellWidget(i, VisuPropertiesHelper::COLUMN_VALUE)->setEnabled(enabled);
+    }
 }
 
 int VisuPropertiesHelper::updateWidgetProperty(QObject* sender, QWidget* parent)

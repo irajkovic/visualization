@@ -40,6 +40,9 @@ class VisuConfiguration : public QObject
         quint32 cBaudRate;
         bool cSerialBindToSignal;
         QString cSerialRegex;
+        QString cSerialStart;
+        QString cPullMessage;
+        quint32 cPullFrequency;
 
         QMap<QString, QString> mProperties;
         QMap<QString, VisuPropertyMeta> mPropertiesMeta;

@@ -66,6 +66,9 @@ void EditSignal::cellUpdated(int row, int col)
     QString key = VisuPropertiesHelper::getKeyString(mTable, row);
     QString value = VisuPropertiesHelper::getValueString(mTable, row);
     mSignal->updateProperty(key, value);
+    VisuPropertiesHelper::updateWidgetsState(mTable,
+                                             mSignal->getProperties(),
+                                             mSignal->getPropertiesMeta());
 }
 
 void EditSignal::propertyChange()

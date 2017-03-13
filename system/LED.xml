@@ -22,7 +22,7 @@
 	
 	<condition type="enum" extra="val1&gt; AND &lt;val2,&lt; val1,&lt;= val1,&gt;= val1,&gt; val1" label="Condition">0</condition>
 	<val1 type="int">-10.0</val1>
-	<val2 type="int">6.0</val2>
+	<val2 type="int" depends="condition==0">6.0</val2>
 	
 	<fontSize type="int" min="0" label="Font size">15</fontSize>
 	<fontType type="font" label="Font type">Arial Black</fontType>

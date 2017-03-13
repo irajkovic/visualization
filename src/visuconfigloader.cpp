@@ -42,25 +42,30 @@ QMap<QString, VisuPropertyMeta> VisuConfigLoader::parseMetaToMap(QXmlStreamReade
 
             for (const QXmlStreamAttribute& attr : xmlReader.attributes())
             {
-                if (attr.name().toString() == VisuPropertyMeta::KEY_MIN)
+                QString metaKey = attr.name().toString();
+                if (metaKey == VisuPropertyMeta::KEY_MIN)
                 {
                     meta.min = attr.value().toDouble();
                 }
-                else if (attr.name().toString() == VisuPropertyMeta::KEY_MAX)
+                else if (metaKey == VisuPropertyMeta::KEY_MAX)
                 {
                     meta.max = attr.value().toDouble();
                 }
-                else if (attr.name().toString() == VisuPropertyMeta::KEY_TYPE)
+                else if (metaKey == VisuPropertyMeta::KEY_TYPE)
                 {
                     meta.type = VisuPropertyMeta::typeFromString(attr.value().toString());
                 }
-                else if (attr.name().toString() == VisuPropertyMeta::KEY_EXTRA)
+                else if (metaKey == VisuPropertyMeta::KEY_EXTRA)
                 {
                     meta.extra = attr.value().toString();
                 }
-                else if (attr.name().toString() == VisuPropertyMeta::KEY_LABEL)
+                else if (metaKey == VisuPropertyMeta::KEY_LABEL)
                 {
                     meta.label = attr.value().toString();
+                }
+                else if (metaKey == VisuPropertyMeta::KEY_DEPENDS)
+                {
+                    meta.depends = attr.value().toString();
                 }
             }
         }

@@ -31,6 +31,9 @@ public:
                                    VisuPropertyMeta::Type type,
                                    int row);
     static int updateWidgetProperty(QObject* sender, QWidget* parent);
+    static void updateWidgetsState(QTableWidget* table,
+                                   const QMap<QString, QString>& properties,
+                                   const QMap<QString, VisuPropertyMeta>& propertiesMeta);
     static QString getValueString(QTableWidget *table, int row);
     static QString getKeyString(QTableWidget* table, int row);
     static double sliderToDouble(int slider);

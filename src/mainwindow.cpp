@@ -548,6 +548,10 @@ void MainWindow::cellUpdated(int row, int col)
         setActiveWidget(mActiveWidget);
     }
     refreshEditorGui(key);
+
+    VisuPropertiesHelper::updateWidgetsState(mPropertiesTable,
+                                             mActiveWidget->getProperties(),
+                                             mActiveWidget->getPropertiesMeta());
 }
 
 VisuWidget* MainWindow::actionDataToWidget(QAction* action)
@@ -615,7 +619,7 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
     mActiveWidget = widget;
     mActiveWidget->setActive(true);
 
-    QMap<QString, QString> properties = widget->getProperties();
+    QMap<QString, QString> properties = mActiveWidget->getProperties();
     QMap<QString, VisuPropertyMeta> metaProperties = mActiveWidget->getPropertiesMeta();
 
     disconnect(mPropertiesTable, SIGNAL(cellChanged(int,int)), this, SLOT(cellUpdated(int,int)));

@@ -39,7 +39,6 @@ private:
     static const int mHeight = 400;
 
     QPointer<VisuConfiguration> mConfiguration;
-    QMap<QString, QString> mProperties;
     QPointer<QTableWidget> mTable;
 
     void setup(QPointer<VisuConfiguration> configuration);

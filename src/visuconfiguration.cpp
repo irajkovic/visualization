@@ -121,6 +121,11 @@ void VisuConfiguration::setConfigValues()
     GET_PROPERTY(cBaudRate, mProperties, mPropertiesMeta);
     GET_PROPERTY(cSerialBindToSignal, mProperties, mPropertiesMeta);
     GET_PROPERTY(cSerialRegex, mProperties, mPropertiesMeta);
+    /*
+    GET_PROPERTY(cSerialStart, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cPullMessage, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cPullFrequency, mProperties, mPropertiesMeta);
+    */
 }
 
 void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)

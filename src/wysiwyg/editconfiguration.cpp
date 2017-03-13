@@ -13,11 +13,10 @@ void EditConfiguration::setup(QPointer<VisuConfiguration> configuration)
 
     QLayout* vlayout = new QVBoxLayout();
     setLayout(vlayout);
-    mProperties = mConfiguration->getProperties();
 
     mTable = new QTableWidget();
     VisuPropertiesHelper::updateTable(mTable,
-                          mProperties,
+                          mConfiguration->getProperties(),
                           mConfiguration->getPropertiesMeta(),
                           std::make_pair(this, SLOT(propertyChange())));
     mTable->setMaximumWidth(mWidth);
@@ -56,8 +55,10 @@ void EditConfiguration::cellUpdated(int row, int col)
     QString key = VisuPropertiesHelper::getKeyString(mTable, row);
     QString value = VisuPropertiesHelper::getValueString(mTable, row);
     mConfiguration->updateProperties(key, value);
+    VisuPropertiesHelper::updateWidgetsState(mTable,
+                                             mConfiguration->getProperties(),
+                                             mConfiguration->getPropertiesMeta());
 }
-
 
 void EditConfiguration::propertyChange()
 {

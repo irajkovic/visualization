@@ -2,13 +2,15 @@
    <name label="Name">Sample configuration</name>
    <width type="int" min="0" label="Width">800</width>
    <height type="int" min="0" label="Height">600</height>
-   <conectivity type="enum" extra="UDP &amp; Serial,UDP only,Serial only" label="Connection options">1</conectivity>   
-   <port type="int" min="1024" label="UDP port">3334</port>
-   <serialPort type="serial" label="Serial port">0</serialPort>
-   <baudRate type="int" min="0" label="Serial baud rate">9600</baudRate>   
    <colorBackground type="color" label="Background color">130,130,130,255</colorBackground>
-   <serialBindToSignal type="bool" label="Custom serial parser">0</serialBindToSignal>
-   <serialRegex label="Serial regex">[0-9]+\.*[0-9]*</serialRegex>
+   <conectivity type="enum" extra="UDP &amp; Serial,UDP only,Serial only" label="Connection options">1</conectivity>   
+   <port type="int" min="1024" label="UDP port" depends="conectivity!=2">3334</port>
+   <serialPort type="serial" label="Serial port" depends="conectivity!=1">0</serialPort>
+   <baudRate type="int" min="0" label="Serial baud rate" depends="conectivity!=1">9600</baudRate>   
+   <serialBindToSignal  type="bool" 
+                        label="Custom serial parser" 
+                        depends="conectivity!=1">0</serialBindToSignal>
+   <serialRegex label="Serial regex" depends="serialBindToSignal==1">[0-9]+\.*[0-9]*</serialRegex>
 </configuration>
 
 

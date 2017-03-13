@@ -8,6 +8,6 @@
    <factor type="float" min="0" label="Factor">1.0</factor>
    <offset type="float" label="Offset">0.0</offset>
    <serialPlaceholder type="serial_placeholder" label="Serial Regex placeholder">0</serialPlaceholder>
-   <serialTransform type="bool" label="Apply factor and offset to serial">0</serialTransform>
+   <serialTransform type="bool" label="Apply factor and offset to serial" depends="serialPlaceholder>0">0</serialTransform>
 </signal>
 
