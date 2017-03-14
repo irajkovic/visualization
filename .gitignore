@@ -1,4 +1,5 @@
-project/visualization.pro.user
+project/*
+!project/visualization.pro
 *.pyc
-
+*.o
 
