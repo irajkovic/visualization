@@ -124,8 +124,6 @@ void VisuInstrument::connectSignals()
 {
     disconnectSignals();
 
-    const QVector<QPointer<VisuSignal>>& signalsList = VisuConfiguration::get()->getSignals();
-
     auto itr = mPropertiesMeta.begin();
     while (itr != mPropertiesMeta.end())
     {

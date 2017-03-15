@@ -52,6 +52,7 @@ std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupEnumWidget(VisuPro
 
 std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupFontWidget(VisuPropertyMeta meta, QString value)
 {
+    (void) meta; // Currently unused parameter
     QComboBox* box = new QComboBox();
     QFontDatabase db;
     box->insertItems(0, db.families());
@@ -61,6 +62,7 @@ std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupFontWidget(VisuPro
 
 std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupBoolWidget(VisuPropertyMeta meta, QString value)
 {
+    (void) meta; // Currently unused parameter
     QComboBox* box = new QComboBox();
     box->addItem("No", QVariant(0));
     box->addItem("Yes", QVariant(1));
@@ -70,6 +72,7 @@ std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupBoolWidget(VisuPro
 
 std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupSignalsWidget(VisuPropertyMeta meta, QString value)
 {
+    (void) meta; // Currently unused parameter
     QComboBox* box = new QComboBox();
     int selected = 0;
     int intValue = value.toInt();
@@ -91,6 +94,7 @@ std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupSignalsWidget(Visu
 
 std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupImagesWidget(VisuPropertyMeta meta, QString value)
 {
+    (void) meta; // Currently unused parameter
     QComboBox* box = new QComboBox();
     box->addItem("Use color", QVariant(-1));
 
@@ -115,6 +119,7 @@ std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupImagesWidget(VisuP
 
 std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupSerialWidget(VisuPropertyMeta meta, QString value)
 {
+    (void) meta; // Currently unused parameter
     QComboBox* box = new QComboBox();
 
     const auto portInfos = QSerialPortInfo::availablePorts();
@@ -135,6 +140,7 @@ std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupSerialWidget(VisuP
 
 std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupSignalPlaceholderWidget(VisuPropertyMeta meta, QString value)
 {
+    (void) meta; // Currently unused parameter
     QComboBox* box = new QComboBox();
 
     QRegularExpression expression = QRegularExpression(VisuConfiguration::get()->getSerialRegex());
@@ -155,6 +161,7 @@ std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupSignalPlaceholderW
 
 std::pair<QPushButton*, const char*> VisuPropertiesHelper::setupColorWidget(VisuPropertyMeta meta, QString value)
 {
+    (void) meta; // Currently unused parameter
     QPushButton* btn = new QPushButton(value);
     QColor color = VisuMisc::strToColor(value);
     VisuMisc::setBackgroundColor(btn, color);
@@ -195,6 +202,7 @@ std::pair<QLineEdit*, const char*> VisuPropertiesHelper::setupDefaultWidget(Visu
 
 std::pair<QLabel*, const char*> VisuPropertiesHelper::setupReadOnlyWidget(VisuPropertyMeta meta, QString value)
 {
+    (void) meta; // Currently unused parameter
     QLabel* label = new QLabel(value);
     return std::make_pair(label, nullptr);
 }

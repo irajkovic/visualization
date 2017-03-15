@@ -9,6 +9,7 @@ const QByteArray VisuServer::DELIMITER = QByteArray("\n");
 
 void VisuServer::handleSerialError(QSerialPort::SerialPortError serialPortError)
 {
+    (void) serialPortError; // Currently unused parameter
     qDebug("Error!");
 }
 

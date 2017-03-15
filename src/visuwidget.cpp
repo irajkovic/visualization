@@ -75,6 +75,7 @@ void VisuWidget::mouseMoveEvent(QMouseEvent *event)
 
 void VisuWidget::paintEvent(QPaintEvent *event)
 {
+    (void) event; // Currently unused parameter
     QPainter painter(this);
     QStyleOption option;
     option.initFrom(this);

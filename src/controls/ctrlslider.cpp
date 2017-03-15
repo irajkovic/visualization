@@ -18,6 +18,7 @@ void CtrlSlider::sendCommand(int value)
 
 void CtrlSlider::setupSlider(QWidget* parent)
 {
+    (void) parent; // Currently unused parameter
     setGeometry(QRect(cX, cY, cWidth, cHeight));
     mSlider = new QSlider(cHorizontal ? Qt::Horizontal : Qt::Vertical);
     mLayout->addWidget(mSlider);

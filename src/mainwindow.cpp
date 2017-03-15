@@ -540,6 +540,7 @@ void MainWindow::refreshEditorGui(QString key)
 
 void MainWindow::cellUpdated(int row, int col)
 {
+    (void) col; // Currently unused parameter
     QString key = VisuPropertiesHelper::getKeyString(mPropertiesTable, row);
     QString value = VisuPropertiesHelper::getValueString(mPropertiesTable, row);
 
@@ -633,6 +634,7 @@ void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
 
 void MainWindow::propertyChange(int parameter)
 {
+    (void) parameter; // Currently unused parameter
     int row = VisuPropertiesHelper::updateWidgetProperty(sender(), this);
     cellUpdated(row, 1);
 }
