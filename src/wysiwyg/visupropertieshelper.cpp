@@ -59,13 +59,11 @@ std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupFontWidget(VisuPro
     return std::make_pair(box, SIGNAL(currentIndexChanged(int)));
 }
 
-std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupBoolWidget(VisuPropertyMeta meta, QString value)
+std::pair<QCheckBox*, const char*> VisuPropertiesHelper::setupBoolWidget(VisuPropertyMeta meta, QString value)
 {
-    QComboBox* box = new QComboBox();
-    box->addItem("No", QVariant(0));
-    box->addItem("Yes", QVariant(1));
-    box->setCurrentIndex(value.toInt());
-    return std::make_pair(box, SIGNAL(currentIndexChanged(int)));
+    QCheckBox* checkbox = new QCheckBox();
+    checkbox->setChecked(value.toInt() == 1);
+    return std::make_pair(checkbox, SIGNAL(stateChanged(int)));
 }
 
 std::pair<QComboBox*, const char*> VisuPropertiesHelper::setupSignalsWidget(VisuPropertyMeta meta, QString value)
@@ -321,6 +319,7 @@ QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
     QPushButton* button;
     QSpinBox* spinbox;
     QSlider* slider;
+    QCheckBox* checkbox;
 
     if ( (box = qobject_cast<QComboBox*>(table->cellWidget(row, 1))) != nullptr)
     {
@@ -342,6 +341,10 @@ QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
     else if ( (spinbox = qobject_cast<QSpinBox*>(table->cellWidget(row, 1))) != nullptr)
     {
         value = QString("%1").arg(spinbox->value());
+    }
+    else if ( (checkbox = qobject_cast<QCheckBox*>(table->cellWidget(row, 1))) != nullptr)
+    {
+        value = QString("%1").arg(checkbox->isChecked());
     }
     else if ( (edit = qobject_cast<QLineEdit*>(table->cellWidget(row, 1))) != nullptr )
     {

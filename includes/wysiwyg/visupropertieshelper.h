@@ -14,6 +14,7 @@
 #include <QSpinBox>
 #include <QSlider>
 #include <QLabel>
+#include <QCheckBox>
 
 class VisuPropertiesHelper
 {
@@ -41,7 +42,7 @@ public:
 
     static std::pair<QComboBox*, const char*> setupEnumWidget(VisuPropertyMeta meta, QString value);
     static std::pair<QComboBox*, const char*> setupFontWidget(VisuPropertyMeta meta, QString value);
-    static std::pair<QComboBox*, const char*> setupBoolWidget(VisuPropertyMeta meta, QString value);
+    static std::pair<QCheckBox*, const char*> setupBoolWidget(VisuPropertyMeta meta, QString value);
     static std::pair<QComboBox*, const char*> setupSignalsWidget(VisuPropertyMeta meta, QString value);
     static std::pair<QComboBox*, const char*> setupImagesWidget(VisuPropertyMeta meta, QString value);
     static std::pair<QComboBox*, const char*> setupSerialWidget(VisuPropertyMeta meta, QString value);
