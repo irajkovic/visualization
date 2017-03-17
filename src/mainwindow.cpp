@@ -499,6 +499,7 @@ void MainWindow::keyPressEvent( QKeyEvent *event )
             mConfiguration->deleteWidget(mActiveWidget);
             mPropertiesTable->clearContents();
             mActiveWidget = nullptr;
+            updateMenuWidgetsList();
         }
     }
 }
