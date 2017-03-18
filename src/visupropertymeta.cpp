@@ -6,6 +6,7 @@ const QString VisuPropertyMeta::KEY_TYPE = "type";
 const QString VisuPropertyMeta::KEY_EXTRA = "extra";
 const QString VisuPropertyMeta::KEY_LABEL = "label";
 const QString VisuPropertyMeta::KEY_DEPENDS = "depends";
+const QString VisuPropertyMeta::KEY_DEPSCRIPTION = "description";
 const QString VisuPropertyMeta::DELIMITER = ",";
 #include <QtCore>
 const char* VisuPropertyMeta::TYPES_MAP[] =

@@ -8,9 +8,32 @@
    <serialPort type="serial" label="Serial port" depends="conectivity!=1">0</serialPort>
    <baudRate type="int" min="0" label="Serial baud rate" depends="conectivity!=1">9600</baudRate>   
    <serialBindToSignal  type="bool" 
-                        label="Custom serial parser" 
+                        label="Custom serial" 
+                        description="Use regular expression to parse serial communication"
                         depends="conectivity!=1">0</serialBindToSignal>
    <serialRegex label="Serial regex" depends="serialBindToSignal==1">[0-9]+\.*[0-9]*</serialRegex>
+   
+   <serialStartEnable type="bool"
+                      label="Enable start"
+                      description="Send initialization message via serial"
+                      depends="serialBindToSignal==1">0</serialStartEnable>
+   <serialStart type="string"
+                label="Start message" 
+                description="Initial message contents"
+                depends="serialStartEnable==1">-</serialStart>
+                
+   <pullMessageEnable   type="bool"
+                        label="Enable pull"
+                        description="Send periodical pull messages via serial"
+                        depends="serialBindToSignal==1">0</pullMessageEnable>
+   <pullMessage label="Pull message" 
+                description="Periodic message contents"
+                depends="pullMessageEnable==1">-</pullMessage>
+   <pullPeriod type="int" 
+                  min="1"
+                  label="Pull period (ms)"
+                  description="Period of pull messages in miliseconds."
+                  depends="pullMessageEnable==1">1000</pullPeriod>
 </configuration>
 
 

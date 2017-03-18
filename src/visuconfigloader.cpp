@@ -67,6 +67,10 @@ QMap<QString, VisuPropertyMeta> VisuConfigLoader::parseMetaToMap(QXmlStreamReade
                 {
                     meta.depends = attr.value().toString();
                 }
+                else if (metaKey == VisuPropertyMeta::KEY_DEPSCRIPTION)
+                {
+                    meta.description = attr.value().toString();
+                }
             }
         }
         else if (xmlReader.tokenType() == QXmlStreamReader::Characters && !xmlReader.isWhitespace())

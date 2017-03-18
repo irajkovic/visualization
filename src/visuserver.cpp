@@ -9,7 +9,7 @@ const QByteArray VisuServer::DELIMITER = QByteArray("\n");
 
 void VisuServer::handleSerialError(QSerialPort::SerialPortError serialPortError)
 {
-    qDebug("Error!");
+    qDebug() << "Serial error: " << serialPortError;
 }
 
 VisuServer::VisuServer()
@@ -175,6 +175,17 @@ void VisuServer::start()
         else
         {
             qDebug("Listening on serial port %s at baud rate %d", serialPortName.toStdString().c_str(), baudRate);
+
+            if (mConfiguration->isSerialStartEnabled())
+            {
+                sendSerial(mConfiguration->getSerialStartString().toLocal8Bit());
+            }
+
+            if (mConfiguration->isSerialPullEnabled())
+            {
+                mTimer.setInterval(mConfiguration->getSerialPullPeriod());
+                mTimer.start();
+            }
         }
     }
 }
@@ -237,4 +248,9 @@ void VisuServer::updateSignal(const VisuDatagram& datagram)
     if (signal != nullptr) {
         signal->datagramUpdate(datagram);
     }
+}
+
+void VisuServer::pullSerial()
+{
+    sendSerial(mConfiguration->getSerialPullString().toLocal8Bit());
 }

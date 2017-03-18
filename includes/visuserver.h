@@ -5,6 +5,7 @@
 #include <QUdpSocket>
 #include <QSerialPort>
 #include <QRegularExpression>
+#include <QTimer>
 #include "visuappinfo.h"
 #include "visusignal.h"
 #include "visudatagram.h"
@@ -36,6 +37,7 @@ class VisuServer : public QObject
 
         QUdpSocket socket;
         VisuConfiguration *mConfiguration;
+        QTimer mTimer;
 
         QSerialPort* mSerialPort;
 
@@ -46,6 +48,9 @@ class VisuServer : public QObject
         QRegularExpression mSerialRegex;
 
         static const QByteArray DELIMITER;
+
+    private slots:
+        void pullSerial();
 
     public slots:
         void handleDatagram();

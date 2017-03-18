@@ -44,6 +44,7 @@ public:
     QString label;
     int order;
     QString depends;
+    QString description;
 
     QStringList getEnumOptions();
     bool isEnabled(const QMap<QString, QString>& properties) const;
@@ -58,6 +59,7 @@ public:
     static const QString KEY_EXTRA;
     static const QString KEY_LABEL;
     static const QString KEY_DEPENDS;
+    static const QString KEY_DEPSCRIPTION;
 };
 
 #endif // VISUPROPERTYMETA_H

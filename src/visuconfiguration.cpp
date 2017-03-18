@@ -121,11 +121,11 @@ void VisuConfiguration::setConfigValues()
     GET_PROPERTY(cBaudRate, mProperties, mPropertiesMeta);
     GET_PROPERTY(cSerialBindToSignal, mProperties, mPropertiesMeta);
     GET_PROPERTY(cSerialRegex, mProperties, mPropertiesMeta);
-    /*
+    GET_PROPERTY(cSerialStartEnable, mProperties, mPropertiesMeta);
     GET_PROPERTY(cSerialStart, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cPullMessageEnable, mProperties, mPropertiesMeta);
     GET_PROPERTY(cPullMessage, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cPullFrequency, mProperties, mPropertiesMeta);
-    */
+    GET_PROPERTY(cPullPeriod, mProperties, mPropertiesMeta);
 }
 
 void VisuConfiguration::fromXML(QWidget *parent, const QString& xmlString)
@@ -246,6 +246,31 @@ bool VisuConfiguration::isSerialBindToSignal()
 QString VisuConfiguration::getSerialRegex()
 {
     return cSerialRegex;
+}
+
+bool VisuConfiguration::isSerialStartEnabled()
+{
+    return cSerialStartEnable;
+}
+
+QString VisuConfiguration::getSerialStartString()
+{
+    return cSerialStart;
+}
+
+bool VisuConfiguration::isSerialPullEnabled()
+{
+    return cPullMessageEnable;
+}
+
+QString VisuConfiguration::getSerialPullString()
+{
+    return cPullMessage;
+}
+
+quint32 VisuConfiguration::getSerialPullPeriod()
+{
+    return cPullPeriod;
 }
 
 QVector<QPointer<VisuWidget> > VisuConfiguration::getWidgets()

@@ -11,6 +11,11 @@
         <baudRate>9600</baudRate>
 		<serialBindToSignal>0</serialBindToSignal>
 	    <serialRegex>[0-9]+\.*[0-9]*</serialRegex>
+	    <serialStartEnable>0</serialStartEnable>
+        <serialStart>-</serialStart>
+        <pullMessageEnable>0</pullMessageEnable>
+        <pullMessage>-</pullMessage>
+        <pullPeriod>1000</pullPeriod>
    </configuration>
    <signals>
         <signal>

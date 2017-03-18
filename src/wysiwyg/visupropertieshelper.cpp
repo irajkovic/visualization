@@ -248,12 +248,13 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
                            const QMap<QString, VisuPropertyMeta>& metaProperties,
                            std::pair<QWidget*, const char*> object)
 {
+    int cnt = 0;
+    int maxCnt = properties.size();
+
     table->clearContents();
-    table->setRowCount(properties.size());
+    table->setRowCount(maxCnt);
     table->setColumnCount(2);
     table->setHorizontalHeaderLabels(QStringList{"Property", "Value"});
-
-    int row = 0;
 
     for (auto i = properties.begin(); i != properties.end(); ++i)
     {
@@ -264,7 +265,6 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
         if (metaProperties.contains(key))
         {
             meta = metaProperties[key];
-            row = meta.order;
         }
         else
         {
@@ -277,7 +277,9 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
             QString labelText = meta.label.isEmpty() ? key : meta.label;
             QTableWidgetItem* label = new QTableWidgetItem(labelText);
             label->setFlags(label->flags() & ~Qt::ItemIsEditable);
-            table->setItem(row, VisuPropertiesHelper::COLUMN_PROPERTY, label);
+            label->setToolTip(meta.description);
+
+            table->setItem(meta.order, VisuPropertiesHelper::COLUMN_PROPERTY, label);
 
             std::pair<QWidget*, const char*> widget = VisuPropertiesHelper::controlFactory(meta, value);
 
@@ -289,12 +291,11 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
                                                        object,
                                                        key,
                                                        meta.type,
-                                                       row);
+                                                       meta.order);
 
                 widget.first->setEnabled(meta.isEnabled(properties));
+                ++cnt;
             }
-
-            ++row;
         }
         else
         {
@@ -302,13 +303,25 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
         }
     }
 
+    if (cnt < maxCnt)
+    {
+        table->setRowCount(cnt);
+    }
+
     updateWidgetsState(table, properties, metaProperties);
 }
 
 QString VisuPropertiesHelper::getKeyString(QTableWidget* table, int row)
 {
-    return table->cellWidget(row, VisuPropertiesHelper::COLUMN_VALUE)
-            ->property(VisuPropertiesHelper::PROP_KEY).toString();
+    QWidget* w = table->cellWidget(row, VisuPropertiesHelper::COLUMN_VALUE);
+    QString ret;
+
+    if (w != nullptr)
+    {
+        ret = w->property(VisuPropertiesHelper::PROP_KEY).toString();
+    }
+
+    return ret;
 }
 
 QString VisuPropertiesHelper::getValueString(QTableWidget* table, int row)
@@ -373,8 +386,12 @@ void VisuPropertiesHelper::updateWidgetsState(QTableWidget* table,
     for (int i = 0 ; i < table->rowCount() ; ++i)
     {
         QString key = VisuPropertiesHelper::getKeyString(table, i);
-        bool enabled = propertiesMeta.value(key).isEnabled(properties);
-        table->cellWidget(i, VisuPropertiesHelper::COLUMN_VALUE)->setEnabled(enabled);
+        if (propertiesMeta.contains(key))
+        {
+            bool enabled = propertiesMeta.value(key).isEnabled(properties);
+            QWidget* w = table->cellWidget(i, VisuPropertiesHelper::COLUMN_VALUE);
+            w->setEnabled(enabled);
+        }
     }
 }
 
