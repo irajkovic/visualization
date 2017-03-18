@@ -153,8 +153,8 @@ void VisuServer::start()
             throw ConfigLoadException("Serial port name or baud rate not specified");
         }
 
-        QString serialPortName = VisuAppInfo::getCLIArg(VisuAppInfo::RunArgs::SERIAL_PORT_NAME);
-        int baudRate = VisuAppInfo::getCLIArg(VisuAppInfo::RunArgs::BAUD_RATE).toInt();
+        QString serialPortName = VisuAppInfo::getCLIArg(VisuAppInfo::CLI_Args::SERIAL_PORT_NAME);
+        int baudRate = VisuAppInfo::getCLIArg(VisuAppInfo::CLI_Args::BAUD_RATE).toInt();
 
         mSerialPort->setPortName(serialPortName);
         if (    !mSerialPort->setBaudRate(baudRate) ||

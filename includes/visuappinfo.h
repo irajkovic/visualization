@@ -10,13 +10,7 @@ class VisuAppInfo
 {
 
 public:
-    enum class EditorArgs
-    {
-        PROGRAM_NAME,
-        EDITOR_FLAG
-    };
-
-    enum class RunArgs
+    enum class CLI_Args
     {
         PROGRAM_NAME,
         CONFIG_PATH,
@@ -31,7 +25,7 @@ public:
     static void setConfigWrong(bool wrong);
     static void setConfigWrong(bool wrong, const QString& issue);
     static const QStringList& getConfigIssues();
-    static const QString& getCLIArg(RunArgs arg);
+    static const QString& getCLIArg(CLI_Args arg);
     static void setCLIArgs(int argc, char* argv[]);
     static int argsSize();
     static void setServer(VisuServer* srv);

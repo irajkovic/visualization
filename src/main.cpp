@@ -29,8 +29,8 @@ int main(int argc, char *argv[])
         }
         else
         {
-            VisuAppInfo::setInEditorMode(false);
-            VisuApplication *application = new VisuApplication(argv[(int)VisuAppInfo::RunArgs::CONFIG_PATH]);
+            QString configPath = VisuAppInfo::getCLIArg(VisuAppInfo::CLI_Args::CONFIG_PATH);
+            VisuApplication *application = new VisuApplication(configPath);
             application->show();
             application->run();
         }

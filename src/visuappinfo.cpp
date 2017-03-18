@@ -50,7 +50,7 @@ int VisuAppInfo::argsSize()
     return getInstance()->cliArgs.size();
 }
 
-const QString& VisuAppInfo::getCLIArg(RunArgs arg)
+const QString& VisuAppInfo::getCLIArg(CLI_Args arg)
 {
     return getInstance()->cliArgs[(int)arg];
 }
