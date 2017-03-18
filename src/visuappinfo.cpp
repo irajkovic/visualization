@@ -34,9 +34,9 @@ void VisuAppInfo::setConfigWrong(bool wrong)
     getInstance()->configWrong = wrong;
 }
 
-void VisuAppInfo::setConfigWrong(bool wrong, const QString& issue)
+void VisuAppInfo::setConfigWrong(const QString& issue)
 {
-    getInstance()->configWrong = wrong;
+    getInstance()->configWrong = true;
     getInstance()->configIssues.append(issue);
 }
 

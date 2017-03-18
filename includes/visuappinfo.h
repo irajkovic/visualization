@@ -23,7 +23,7 @@ public:
 
     static bool isConfigWrong();
     static void setConfigWrong(bool wrong);
-    static void setConfigWrong(bool wrong, const QString& issue);
+    static void setConfigWrong(const QString& issue);
     static const QStringList& getConfigIssues();
     static const QString& getCLIArg(CLI_Args arg);
     static void setCLIArgs(int argc, char* argv[]);
