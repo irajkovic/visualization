@@ -35,7 +35,7 @@ class VisuServer : public QObject
 
         static const quint8 DATAGRAM_SIZE = 21;
 
-        QUdpSocket socket;
+        QUdpSocket mSocket;
         VisuConfiguration *mConfiguration;
         QTimer mTimer;
 

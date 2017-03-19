@@ -24,7 +24,7 @@ VisuServer::VisuServer()
     if (mConectivity != SERIAL_ONLY)
     {
         mPort = mConfiguration->getPort();
-        QObject::connect(&socket, SIGNAL(readyRead()), this, SLOT(handleDatagram()));
+        QObject::connect(&mSocket, SIGNAL(readyRead()), this, SLOT(handleDatagram()));
     }
 
     if (mConectivity != UDP_ONLY)
@@ -141,7 +141,7 @@ void VisuServer::start()
     if (mConectivity != SERIAL_ONLY)
     {
         qDebug("Started UDP server on port %d.", mPort);
-        socket.bind(QHostAddress::LocalHost, mPort);
+        mSocket.bind(QHostAddress::LocalHost, mPort);
     }
 
     if (mConectivity != UDP_ONLY)
@@ -183,6 +183,7 @@ void VisuServer::start()
 
             if (mConfiguration->isSerialPullEnabled())
             {
+                QObject::connect(&mTimer, SIGNAL(timeout()), this, SLOT(pullSerial()));
                 mTimer.setInterval(mConfiguration->getSerialPullPeriod());
                 mTimer.start();
             }
@@ -192,7 +193,18 @@ void VisuServer::start()
 
 void VisuServer::stop()
 {
-    socket.close();
+    QObject::disconnect(&mSocket, SIGNAL(readyRead()), this, SLOT(handleDatagram()));
+    QObject::disconnect(mSerialPort, SIGNAL(readyRead()), this, SLOT(handleSerial()));
+    QObject::disconnect(mSerialPort,
+            static_cast<void (QSerialPort::*)(QSerialPort::SerialPortError)>(&QSerialPort::error),
+            this,
+            &VisuServer::handleSerialError );
+    QObject::disconnect(&mTimer, SIGNAL(timeout()), this, SLOT(pullSerial()));
+
+    mSocket.close();
+
+    mSerialPort->close();
+    delete mSerialPort;
 }
 
 VisuDatagram VisuServer::createDatagramFromBuffer(const quint8* buffer)
@@ -218,17 +230,14 @@ VisuDatagram VisuServer::createDatagramFromBuffer(const quint8* buffer)
 
 void VisuServer::handleDatagram()
 {
-    quint64 receivedSize;
     QByteArray buffer(DATAGRAM_SIZE, 0);
     char* bufferRawData = (char*)buffer.data();
     QHostAddress senderAddress;
     quint16 senderPort;
 
-    while(socket.hasPendingDatagrams()) {
-
-        receivedSize = socket.pendingDatagramSize();
-        socket.readDatagram(bufferRawData, DATAGRAM_SIZE, &senderAddress, &senderPort);
-
+    while(mSocket.hasPendingDatagrams())
+    {
+        mSocket.readDatagram(bufferRawData, DATAGRAM_SIZE, &senderAddress, &senderPort);
         VisuDatagram datagram = createDatagramFromBuffer((const quint8*)bufferRawData);
 
         if (datagram.checksumOk())
