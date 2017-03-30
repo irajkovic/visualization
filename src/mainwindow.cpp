@@ -492,15 +492,21 @@ void MainWindow::saveConfiguration()
 
 void MainWindow::keyPressEvent( QKeyEvent *event )
 {
+    if (event->matches(QKeySequence::Delete))
+    {
+        deleteActiveWidget();
+    }
+}
+
+void MainWindow::deleteActiveWidget()
+{
     if (mActiveWidget != nullptr)
     {
-        if (event->matches(QKeySequence::Delete))
-        {
-            mConfiguration->deleteWidget(mActiveWidget);
-            mPropertiesTable->clearContents();
-            mActiveWidget = nullptr;
-            updateMenuWidgetsList();
-        }
+        mConfiguration->deleteWidget(mActiveWidget);
+        mPropertiesTable->clearContents();
+        mPropertiesTable->setEnabled(false);
+        mActiveWidget = nullptr;
+        updateMenuWidgetsList();
     }
 }
 

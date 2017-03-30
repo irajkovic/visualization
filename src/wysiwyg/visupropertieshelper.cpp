@@ -251,6 +251,7 @@ void VisuPropertiesHelper::updateTable(QTableWidget* table,
     int cnt = 0;
     int maxCnt = properties.size();
 
+    table->setEnabled(true);
     table->clearContents();
     table->setRowCount(maxCnt);
     table->setColumnCount(2);

@@ -73,6 +73,7 @@ private:
     void refreshEditorGui(QString key);
     bool confirmLoseChanges();
     void showConfigurationWarning();
+    void deleteActiveWidget();
 
     static const QString INITIAL_EDITOR_CONFIG;
     static const int LAYOUT_TOOLBAR_HEIGHT = 170;
