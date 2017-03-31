@@ -76,7 +76,7 @@ void InstAnalog::renderOutterCircle(QPainter* painter)
     int x = cWidth / 2 - cCircleRadius;
     int y = cHeight / 2 - cCircleRadius;
     int angleStart = 0;
-    int angleSpan = 360 * 16;
+    int angleSpan = 360 * STEPS_IN_DEGREE;
 
     if (cCircleOffset)
     {
@@ -86,8 +86,8 @@ void InstAnalog::renderOutterCircle(QPainter* painter)
 
     if (cCircleTrim)
     {
-        angleStart = -90 * 16 + (cAngleEnd / 3.14159 * 180 * 16);
-        angleSpan = (360 - (cAngleStart + cAngleEnd) / 3.14159 * 180) * 16;
+        angleStart = -90 * STEPS_IN_DEGREE + (cAngleEnd / PI * 180 * STEPS_IN_DEGREE);
+        angleSpan = (360 - (cAngleStart + cAngleEnd) / PI * 180) * STEPS_IN_DEGREE;
     }
 
     setPen(painter, cColorCircle);
@@ -180,9 +180,9 @@ void InstAnalog::renderMajorLabel(QPainter* painter)
 
     if (cRotateLabels)
     {
-        double lblHalfAngleWidth = qAsin((double)labelWidth/cLabelRadius/2);
-        double lblPositionOffsetAngle = mDivisionAngle-mDivisionAngleStep-lblHalfAngleWidth;
-        double lblAngleDeg = (mDivisionAngle-mDivisionAngleStep) * 360 / 3.14159 / 2 + 180 ;
+        double lblHalfAngleWidth = qAsin((double)labelWidth / cLabelRadius / 2);
+        double lblPositionOffsetAngle = mDivisionAngle - mDivisionAngleStep - lblHalfAngleWidth;
+        double lblAngleDeg = (mDivisionAngle-mDivisionAngleStep) * 360 / PI / 2 + 180 ;
 
         qint16 labelX = -cLabelRadius * qSin(lblPositionOffsetAngle) + cWidth / 2;
         qint16 labelY = cLabelRadius * qCos(lblPositionOffsetAngle) + cHeight / 2;
@@ -241,7 +241,6 @@ void InstAnalog::setupProperties()
 {
     mCenterX = cWidth / 2;
     mCenterY = cHeight / 2;
-    //mArrowLen = mCenterX - cLineThickness;
 }
 
 void InstAnalog::renderDynamic(QPainter* painter)

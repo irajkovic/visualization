@@ -22,6 +22,7 @@ class InstAnalog : public VisuInstrument
     private:
 
         static constexpr double PI = 3.141592653589793238463;
+        static constexpr double STEPS_IN_DEGREE = 16;
 
         // configuration properties
         QColor cColorCircle;
