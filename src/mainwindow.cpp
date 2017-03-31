@@ -503,9 +503,7 @@ void MainWindow::deleteActiveWidget()
     if (mActiveWidget != nullptr)
     {
         mConfiguration->deleteWidget(mActiveWidget);
-        mPropertiesTable->clearContents();
-        mPropertiesTable->setEnabled(false);
-        mActiveWidget = nullptr;
+        resetActiveWidget();
         updateMenuWidgetsList();
     }
 }
@@ -612,7 +610,7 @@ void MainWindow::resetActiveWidget()
 {
     mActiveWidget = nullptr;
     mPropertiesTable->clearContents();
-    mPropertiesTable->setRowCount(0);
+    mPropertiesTable->setEnabled(false);
 }
 
 void MainWindow::setActiveWidget(QPointer<VisuWidget> widget)
