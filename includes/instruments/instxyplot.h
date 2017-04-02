@@ -33,7 +33,8 @@ private:
     quint16 cBallSize;
     quint16 cMajorCntX;
     quint16 cMajorCntY;
-    quint16 cMajorLen;
+    quint16 cMajorLenX;
+    quint16 cMajorLenY;
     quint16 cPadding;
     quint8  cDecimals;
     bool    cReverseX;

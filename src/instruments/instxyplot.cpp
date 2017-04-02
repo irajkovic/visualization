@@ -17,7 +17,8 @@ void InstXYPlot::loadProperties()
     GET_PROPERTY(cBallSize, mProperties, mPropertiesMeta);
     GET_PROPERTY(cMajorCntX, mProperties, mPropertiesMeta);
     GET_PROPERTY(cMajorCntY, mProperties, mPropertiesMeta);
-    GET_PROPERTY(cMajorLen, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorLenX, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cMajorLenY, mProperties, mPropertiesMeta);
     GET_PROPERTY(cPadding, mProperties, mPropertiesMeta);
     GET_PROPERTY(cDecimals, mProperties, mPropertiesMeta);
     GET_PROPERTY(cReverseX, mProperties, mPropertiesMeta);
@@ -55,14 +56,14 @@ void InstXYPlot::renderSingleAxis(QPainter* painter, int sigInd, int divisions, 
         if (sigInd == SIGNAL_FIRST)
         {
             int lblHalfWidth = fm.width(lblStr) / 2;
-            painter->drawLine(pos, mCenterY-cMajorLen, pos, mCenterY+cMajorLen);
-            painter->drawText(pos - lblHalfWidth, mCenterY-cMajorLen-MARGIN, lblStr);
+            painter->drawLine(pos, mCenterY-cMajorLenY, pos, mCenterY+cMajorLenY);
+            painter->drawText(pos - lblHalfWidth, mCenterY-cMajorLenY-MARGIN, lblStr);
         }
         else
         {
             int lblHalfHeight = fm.height()/3;
-            painter->drawLine(mCenterX-cMajorLen, pos, mCenterX+cMajorLen, pos);
-            painter->drawText(mCenterX+cMajorLen+MARGIN, pos + lblHalfHeight, lblStr);
+            painter->drawLine(mCenterX-cMajorLenX, pos, mCenterX+cMajorLenX, pos);
+            painter->drawText(mCenterX+cMajorLenX+MARGIN, pos + lblHalfHeight, lblStr);
         }
 
         pos += posDelta;

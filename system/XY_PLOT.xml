@@ -19,12 +19,12 @@
 	
 	<padding type="int" min="0" label="Padding">25</padding>
 	<decimals type="int" min="0" label="Division decimals">0</decimals>
+	<reverseX type="bool" label="Reverse horizontal">0</reverseX>	
 	<majorCntX type="int" min="1" label="Horizontal divisions">4</majorCntX>
+	<majorLenX type="int" min="0" label="Horizonal length">53</majorLenX>
+	<reverseY type="bool" label="Reverse vertical">0</reverseY>		
 	<majorCntY type="int" min="1" label="Vertical divisions">4</majorCntY>
-	<majorLen type="int" min="0" label="Divisions length">53</majorLen>
-
-	<reverseX type="bool" label="Reverse horizontal">0</reverseX>
-	<reverseY type="bool" label="Reverse vertical">0</reverseY>	
+	<majorLenY type="int" min="0" label="Vertical length">53</majorLenY>
 
 	<fontSize type="int" min="1" label="Font size">10</fontSize>
 	<fontType type="font" label="Font type">Arial Black</fontType>
