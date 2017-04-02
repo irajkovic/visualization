@@ -23,6 +23,9 @@
 	<majorCntY type="int" min="1" label="Vertical divisions">4</majorCntY>
 	<majorLen type="int" min="0" label="Divisions length">53</majorLen>
 
+	<reverseX type="bool" label="Reverse horizontal">0</reverseX>
+	<reverseY type="bool" label="Reverse vertical">0</reverseY>	
+
 	<fontSize type="int" min="1" label="Font size">10</fontSize>
 	<fontType type="font" label="Font type">Arial Black</fontType>
 	

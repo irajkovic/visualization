@@ -35,7 +35,9 @@ private:
     quint16 cMajorCntY;
     quint16 cMajorLen;
     quint16 cPadding;
-    quint8 cDecimals;
+    quint8  cDecimals;
+    bool    cReverseX;
+    bool    cReverseY;
 
     // aux properties
     double mLastValX;

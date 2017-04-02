@@ -20,6 +20,8 @@ void InstXYPlot::loadProperties()
     GET_PROPERTY(cMajorLen, mProperties, mPropertiesMeta);
     GET_PROPERTY(cPadding, mProperties, mPropertiesMeta);
     GET_PROPERTY(cDecimals, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cReverseX, mProperties, mPropertiesMeta);
+    GET_PROPERTY(cReverseY, mProperties, mPropertiesMeta);
 
     mTagName = InstXYPlot::TAG_NAME;
 }
@@ -34,6 +36,17 @@ void InstXYPlot::renderSingleAxis(QPainter* painter, int sigInd, int divisions, 
     double lblDelta = (sig->getMax() - sig->getMin()) / divisions;
 
     QFontMetrics fm = painter->fontMetrics();
+
+    if (cReverseX && sigInd == SIGNAL_FIRST)
+    {
+        pos = cWidth - cPadding;
+        posDelta = -posDelta;
+    }
+    else if (cReverseY && sigInd == SIGNAL_SECOND)
+    {
+        pos = cHeight - cPadding;
+        posDelta = -posDelta;
+    }
 
     for (int i=0; i<divisions + 1; ++i)
     {
@@ -70,6 +83,16 @@ void InstXYPlot::renderBall(QPainter* painter)
 
     int x = mLastValX * (cWidth - 2 * cPadding) + cPadding - cBallSize / 2;
     int y = mLastValY * (cHeight - 2 * cPadding) + cPadding - cBallSize / 2;
+
+    if (cReverseX)
+    {
+        x = cWidth - cBallSize - x;
+    }
+
+    if (cReverseY)
+    {
+        y = cHeight - cBallSize - y;
+    }
 
     QRect rect(x, y, cBallSize, cBallSize);
     painter->drawEllipse(rect);
