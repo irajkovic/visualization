@@ -6,7 +6,10 @@
 #include "visupropertymeta.h"
 
 #define GET_PROPERTY(KEY, MAP, METAMAP) \
-    VisuPropertyLoader::set(KEY, VisuPropertyLoader::transformKey(#KEY), MAP, METAMAP)
+    VisuPropertyLoader::set( KEY, \
+                             VisuPropertyLoader::transformKey(#KEY),\
+                             MAP, \
+                             METAMAP)
 
 namespace VisuPropertyLoader
 {
@@ -28,33 +31,33 @@ namespace VisuPropertyLoader
     }
 
     // specializations below
-    void set(double& property,
-                       const QString& key,
-                       QMap<QString, QString>& properties,
-                       const QMap<QString, VisuPropertyMeta>& metaProperties);
+    void set( double& property,
+              const QString& key,
+              QMap<QString, QString>& properties,
+              const QMap<QString, VisuPropertyMeta>& metaProperties);
 
-    void set(QString& property,
-                         const QString& key,
-                         QMap<QString, QString>& properties,
-                         const QMap<QString, VisuPropertyMeta>& metaProperties);
-
-
-    void set(QColor& property,
-                       const QString& key,
-                       QMap<QString, QString>& properties,
-                       const QMap<QString, VisuPropertyMeta>& metaProperties);
+    void set( QString& property,
+              const QString& key,
+              QMap<QString, QString>& properties,
+              const QMap<QString, VisuPropertyMeta>& metaProperties);
 
 
-    void set(QImage& property,
-                       const QString& key,
-                       QMap<QString, QString>& properties,
-                       const QMap<QString, VisuPropertyMeta>& metaProperties);
+    void set( QColor& property,
+              const QString& key,
+              QMap<QString, QString>& properties,
+              const QMap<QString, VisuPropertyMeta>& metaProperties);
 
 
-    void set(bool& property,
-                   const QString& key,
-                   QMap<QString, QString>& properties,
-                   const QMap<QString, VisuPropertyMeta>& metaProperties);
+    void set( QImage& property,
+              const QString& key,
+              QMap<QString, QString>& properties,
+              const QMap<QString, VisuPropertyMeta>& metaProperties);
+
+
+    void set( bool& property,
+              const QString& key,
+              QMap<QString, QString>& properties,
+              const QMap<QString, VisuPropertyMeta>& metaProperties);
 }
 
 

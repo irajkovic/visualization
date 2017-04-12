@@ -52,10 +52,10 @@ namespace VisuPropertyLoader
     }
 
 
-    void set(QColor& property,
-                       const QString& key,
-                       QMap<QString, QString>& properties,
-                       const QMap<QString, VisuPropertyMeta>& metaProperties)
+    void set( QColor& property,
+              const QString& key,
+              QMap<QString, QString>& properties,
+              const QMap<QString, VisuPropertyMeta>& metaProperties)
     {
         handleMissingKey(key, properties, metaProperties);
 
@@ -69,9 +69,9 @@ namespace VisuPropertyLoader
 
 
     void set(QImage& property,
-                       const QString& key,
-                       QMap<QString, QString>& properties,
-                       const QMap<QString, VisuPropertyMeta>& metaProperties)
+             const QString& key,
+             QMap<QString, QString>& properties,
+             const QMap<QString, VisuPropertyMeta>& metaProperties)
     {
         handleMissingKey(key, properties, metaProperties);
         property = VisuMisc::strToImage(properties[key], properties[StaticImage::KEY_FORMAT]);

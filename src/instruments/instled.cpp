@@ -51,11 +51,11 @@ void InstLED::renderDynamic(QPainter *painter)
 
     switch(cCondition)
     {
-        case BETWEEN:       conditionOn = (value > cVal1) && (value < cVal2); break;
-        case LESS_THAN:     conditionOn = value < cVal1; break;
-        case LESS_EQUAL:    conditionOn = value <= cVal1; break;
-        case MORE_EQUAL:    conditionOn = value >= cVal1; break;
-        case MORE_THAN:     conditionOn = value > cVal1; break;
+        case LedCondition::BETWEEN:       conditionOn = (value > cVal1) && (value < cVal2); break;
+        case LedCondition::LESS_THAN:     conditionOn = value < cVal1; break;
+        case LedCondition::LESS_EQUAL:    conditionOn = value <= cVal1; break;
+        case LedCondition::MORE_EQUAL:    conditionOn = value >= cVal1; break;
+        case LedCondition::MORE_THAN:     conditionOn = value > cVal1; break;
     }
 
     int imageId = conditionOn ? cImageOn : cImageOff;

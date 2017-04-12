@@ -8,7 +8,7 @@ class InstLED : public VisuInstrument
     Q_OBJECT
 public:
 
-    enum CONDITION
+    enum class LedCondition
     {
         BETWEEN     = 0,
         LESS_THAN   = 1,
@@ -31,16 +31,16 @@ public:
 
 private:
     // configuration properties
-    quint8 cRadius;
-    double cVal1;
-    double cVal2;
-    quint8 cCondition;
-    QColor cColorOn;
-    QColor cColorOff;
-    int cImageOn;
-    int cImageOff;
-    quint8 cShowSignalName;
-    quint16 cCenterH;
+    quint8          cRadius;
+    double          cVal1;
+    double          cVal2;
+    LedCondition    cCondition;
+    QColor          cColorOn;
+    QColor          cColorOff;
+    int             cImageOn;
+    int             cImageOff;
+    quint8          cShowSignalName;
+    quint16         cCenterH;
 
     // aux properties
     double mLastValX;
