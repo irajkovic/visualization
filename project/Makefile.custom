@@ -1,0 +1,114 @@
+########################
+# System stuff
+########################
+
+CC = g++
+MOC = moc
+CFLAGS = -Wall -fPIC
+
+
+########################
+# Auto init 
+########################
+
+PRJ_DIR=$(shell pwd)/../
+
+
+########################
+# Qt Paths
+########################
+
+QT_LIB = -L/usr/X11R6/lib64 \
+-lQt5Widgets \
+-lQt5Gui \
+-lQt5Network \
+-lQt5SerialPort \
+-lQt5Core \
+-lGL \
+-lpthread
+
+QT_INC = /usr/include/x86_64-linux-gnu/qt5/
+QT_MODULES = QtCore QtGui QtWidgets QtNetwork QtSerialPort
+QT_HEADER_PATHS = $(addprefix -I$(QT_INC), $(QT_MODULES)) -I$(QT_INC)
+
+########################
+# Project paths
+########################
+
+PRJ_SRC = $(PRJ_DIR)src/
+PRJ_INC = $(PRJ_DIR)includes/
+TARGET = visualization
+TARGET_DIR = $(PRJ_DIR)build_custom/
+
+
+########################
+# Source files detection 
+########################
+
+# List of all source files, relative to the project root
+CPP_SOURCES = $(subst $(PRJ_SRC),,$(shell find $(PRJ_SRC) -name *.cpp))
+
+# List of all header files, relative to the project root
+CPP_HEADERS = $(subst $(PRJ_INC),,$(shell find $(PRJ_INC) -name *.h))
+
+# List of folders containing sources 
+CPP_SOURCE_DIRS = $(sort $(dir $(shell find $(PRJ_SRC) -name *.cpp)))
+CPP_HEADER_DIRS = $(sort $(dir $(shell find $(PRJ_INC) -name *.h)))
+VPATH = $(CPP_SOURCE_DIRS) $(CPP_HEADER_DIRS) $(TARGET_DIR)
+
+# Prepare compiler flags for include folders 
+CPP_HEADER_FLAGS = $(addprefix -I, $(CPP_HEADER_DIRS))
+
+# MOC files are made from C++ class definitions containing Q_OBJECT macro
+MOC_SOURCES = $(CPP_HEADERS:h=moc.cc)					
+
+# All tmp objects go to build directory
+OBJECTS = $(notdir $(CPP_SOURCES:.cpp=.o) $(MOC_SOURCES:.cc=.o))
+OBJECT_PATHS = $(addprefix $(TARGET_DIR), $(OBJECTS))
+
+
+#########################
+# Actual build rules
+#########################
+
+all: $(TARGET)
+	@echo $(TARGET) build success.
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(OBJECT_PATHS) $(LIBS) $(QT_LIB) -o $(TARGET_DIR)$@
+
+%.o: %.cpp
+	@echo Building $@
+	@$(CC) $(CPP_HEADER_FLAGS) $(QT_HEADER_PATHS) $(CFLAGS) -c $< -o $(TARGET_DIR)$@ 
+
+%.moc.o: %.moc.cc
+	@echo Compiling MOC file $@
+	@$(CC) $(CPP_HEADER_FLAGS) $(QT_HEADER_PATHS) $(CFLAGS) -c $(TARGET_DIR)$< -o $(TARGET_DIR)$@ 
+
+%.moc.cc: %.h
+	@echo Generating MOC file $@
+	@$(MOC) $^ > $(TARGET_DIR)$@ 2> /dev/null
+
+init:
+	@echo Creating build folder $(TARGET_DIR)
+	@mkdir -p $(TARGET_DIR)
+
+clean:	
+	@rm $(TARGET_DIR)/*
+	@echo Directory clean
+
+.PHONY: init clean
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,3 @@
+[submodule "build"]
+	path = build
+	url = ssh://git@gitlab/ap3-software/build-system.git
