@@ -5,7 +5,6 @@ import math
 from time import sleep
 
 import sys
-import psutil
 
 server = Server("127.0.0.1", 3334)
 sender = Sender(server)	
